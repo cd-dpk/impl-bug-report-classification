@@ -5,6 +5,7 @@ import csv
 file = 'ambari'
 stemmer = PorterStemmer()
 words = []
+
 with open("data/proc/" + file + ".csv", newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     counter = 0
