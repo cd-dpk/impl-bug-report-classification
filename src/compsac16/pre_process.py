@@ -21,8 +21,6 @@ def pre_proc_text(t):
             processed_text = processed_text+' '+stringcase.lowercase(w)
     return processed_text
 
-
-
 def pre_proc_text_with_count(t):
     stopWords = set(stopwords.words('english'))
     stemmer = PorterStemmer()
@@ -49,10 +47,6 @@ def getAllWords(file):
                 if term not in word_list:
                     word_list.append(term)
         return word_list
-
-
-
-
 
 def proc_sum_desc(file):
     with open(file, newline='') as csvfile:
@@ -117,3 +111,5 @@ def process():
     sys.stdout= open('compsac_16_proc.csv','w')
     proc_sum_desc(file)
     sys.stdout.close()
+
+process()
