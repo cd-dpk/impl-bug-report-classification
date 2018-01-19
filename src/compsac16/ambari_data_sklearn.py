@@ -71,7 +71,7 @@ def load_chou_data(file):
 def process():
     file = 'compsac16/ambari_data.csv'
     a = load_chou_data(file)
-
+    
 
 process()
 
