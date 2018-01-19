@@ -57,12 +57,13 @@ def load_chou_data(file):
             data_arr_row = np.empty([len(chou_data[feature_names])],dtype=int)
             features = chou_data[feature_names]
             for x in features:
-                data_arr_row[f_counter] = row[f_counter]
+                if row[x] not in (None, ''):
+                    print(int(row[x],base=10))
                 f_counter += 1
 
-            data_arr[rw_counter]= data_arr_row
-            target_arr[rw_counter] = row['Surprising']
-            rw_counter += 1
+            #data_arr[rw_counter]= data_arr_row
+            #target_arr[rw_counter] = row['Surprising']
+            #rw_counter += 1
 
         chou_data[data] = data_arr
         chou_data[target] = target_arr

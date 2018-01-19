@@ -53,16 +53,16 @@ def proc_sum_desc_vec(file):
                         index = counter
                         break
                 if index != -1:
-                    rw += ','+str(terms[index][1])
+                    rw += str(terms[index][1])+","
                 else:
-                    rw += ',0'
-            output += rw+','
+                    rw += '0,'
+            output += rw+''
             output += row['Surprising'] in (None, '') and '' or row['Surprising']
             print(output)
 
 def main_process():
-    file = 'compsac_16_proc.csv'
-    sys.stdout= open('chou_data.csv','w')
+    file = 'ambari_proc.csv'
+    sys.stdout= open('ambari_data.csv','w')
     proc_sum_desc_vec(file)
     sys.stdout.close()
 

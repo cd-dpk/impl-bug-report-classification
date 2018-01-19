@@ -68,8 +68,8 @@ def proc_sum_desc_vec(file):
             print(output)
 
 def main_process():
-    file = 'compsac_16_proc.csv'
-    sys.stdout= open('compsac_16_vec.csv','w')
+    file = 'ambari_proc.csv'
+    sys.stdout= open('ambari_vec.csv','w')
     proc_sum_desc_vec(file)
     sys.stdout.close()
 
