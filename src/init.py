@@ -1,14 +1,15 @@
 import numpy as np
+from sklearn.naive_bayes import  MultinomialNB
 
-a = np.empty(10)
-print(a)
-x = 0
-for i in range(10):
-    print(i)
-    print(i)
-    print('Hello')
-    print(i)
-    a[x] = i
-    x +=1
 
-print(a)
+data=np.array([np.array(['a',1,1],dtype=object),['a',0,1]])
+target = np.array([0,1])
+print(data)
+
+estimator = MultinomialNB()
+estimator.fit(data,target)
+
+pre=estimator.predict(data)
+print(pre)
+from sklearn.datasets import load_diabetes
+#print(load_diabetes())
