@@ -2,26 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88f14af2-aa8c-485b-aa1a-5836ed906e99" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/compsac16/experiment.py" />
-      <change beforePath="$PROJECT_DIR$/.idea/implementation.iml" afterPath="$PROJECT_DIR$/.idea/implementation.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/compsac16/result.csv" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/ambari.csv" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/ambari_data.csv" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/ambari_data_sklearn.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/ambari_proc.csv" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/chou_data.csv" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/chou_data_sklearn.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/compsac_16.csv" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/compsac_16.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/compsac_16_perf.txt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/compsac_16_proc.csv" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/compsac_16_security.txt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/compsac_16_vec.csv" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/data.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/compsac16/imbalance_learn.py" afterPath="$PROJECT_DIR$/src/compsac16/imbalance_learn.py" />
+      <change beforePath="$PROJECT_DIR$/src/compsac16/experiment.py" afterPath="$PROJECT_DIR$/src/compsac16/experiment.py" />
+      <change beforePath="$PROJECT_DIR$/src/data/camel.csv" afterPath="$PROJECT_DIR$/src/data/camel.csv" />
+      <change beforePath="$PROJECT_DIR$/src/data/derby.csv" afterPath="$PROJECT_DIR$/src/data/derby.csv" />
       <change beforePath="$PROJECT_DIR$/src/init.py" afterPath="$PROJECT_DIR$/src/init.py" />
-      <change beforePath="$PROJECT_DIR$/src/iris.txt" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,34 +23,32 @@
     <SUITE FILE_PATH="coverage/implementation$data.coverage" NAME="data Coverage Results" MODIFIED="1516320661639" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/compsac16" />
     <SUITE FILE_PATH="coverage/implementation$vec_rep.coverage" NAME="vec_rep Coverage Results" MODIFIED="1516319501209" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/compsac16" />
     <SUITE FILE_PATH="coverage/implementation$test.coverage" NAME="test Coverage Results" MODIFIED="1516149319666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/implementation$experiment.coverage" NAME="experiment Coverage Results" MODIFIED="1516311904660" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/compsac16" />
+    <SUITE FILE_PATH="coverage/implementation$experiment.coverage" NAME="experiment Coverage Results" MODIFIED="1516392724019" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/compsac16" />
     <SUITE FILE_PATH="coverage/implementation$imbalance_learn.coverage" NAME="imbalance_learn Coverage Results" MODIFIED="1516334544235" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/compsac16" />
     <SUITE FILE_PATH="coverage/implementation$vec_rep__1_.coverage" NAME="vec_rep (1) Coverage Results" MODIFIED="1516218529105" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/compsac16" />
     <SUITE FILE_PATH="coverage/implementation$security.coverage" NAME="security Coverage Results" MODIFIED="1516140297985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/implementation$words.coverage" NAME="words Coverage Results" MODIFIED="1516042116575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/preprocess" />
     <SUITE FILE_PATH="coverage/implementation$ambari_data_sklearn.coverage" NAME="ambari_data_sklearn Coverage Results" MODIFIED="1516329454549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/implementation$pre_process.coverage" NAME="pre_process Coverage Results" MODIFIED="1516155466689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/preprocess" />
-    <SUITE FILE_PATH="coverage/implementation$init.coverage" NAME="init Coverage Results" MODIFIED="1516311898437" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/implementation$init.coverage" NAME="init Coverage Results" MODIFIED="1516382833535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="init.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/init.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#33#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="72">
+              <caret line="4" column="5" lean-forward="false" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="experiment.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="experiment.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/compsac16/experiment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="211" column="0" lean-forward="true" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
+            <state relative-caret-position="215">
+              <caret line="197" column="11" lean-forward="true" selection-start-line="197" selection-start-column="11" selection-end-line="197" selection-end-column="11" />
               <folding>
                 <element signature="e#12#30#0" expanded="true" />
               </folding>
@@ -72,11 +56,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="result.csv" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/compsac16/result.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="54">
+              <caret line="3" column="19" lean-forward="false" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="imbalance_learn.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/compsac16/imbalance_learn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-990">
-              <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+            <state relative-caret-position="36">
+              <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -107,6 +101,22 @@
       <find>target_names</find>
       <find />
       <find>file)</find>
+      <find>not</find>
+      <find>v</find>
+      <find>t</find>
+      <find>b</find>
+      <find>d</find>
+      <find>a</find>
+      <find>pre</find>
+      <find>predict</find>
+      <find>Surprising</find>
+      <find>Surpris</find>
+      <find>Performance</find>
+      <find>,1</find>
+      <find>,</find>
+      <find>''</find>
+      <find>,0</find>
+      <find>process</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -154,7 +164,11 @@
         <option value="$PROJECT_DIR$/src/compsac16/imbalance_learn.py" />
         <option value="$PROJECT_DIR$/src/compsac16/pre_process.py" />
         <option value="$PROJECT_DIR$/src/init.py" />
+        <option value="$PROJECT_DIR$/src/compsac16/result.txt" />
+        <option value="$PROJECT_DIR$/src/data/derby.csv" />
+        <option value="$PROJECT_DIR$/src/compsac16/result_sur.csv" />
         <option value="$PROJECT_DIR$/src/compsac16/experiment.py" />
+        <option value="$PROJECT_DIR$/src/compsac16/result.csv" />
       </list>
     </option>
   </component>
@@ -204,6 +218,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -216,24 +231,11 @@
               <item name="implementation" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="implementation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="implementation" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="compsac16" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="implementation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="implementation" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -395,18 +397,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-567" y="139" width="1303" height="744" extended-state="6" />
+    <frame x="63" y="-4" width="1303" height="772" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32732734" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32732734" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32882884" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24788949" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32695374" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -416,6 +417,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32695374" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -430,13 +432,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/punctuation.py" />
-    <entry file="file://$PROJECT_DIR$/src/hello.txt" />
-    <entry file="file://$PROJECT_DIR$/src/data/proc/camel.csv" />
-    <entry file="file://$PROJECT_DIR$/src/data/main/camel.csv" />
-    <entry file="file://$PROJECT_DIR$/src/data/main/ambari.csv" />
-    <entry file="file://$PROJECT_DIR$/src/preprocess/stemming.py" />
-    <entry file="file://$PROJECT_DIR$/src/data/main/derby.csv" />
     <entry file="file://$PROJECT_DIR$/src/data/proc/derby.csv" />
     <entry file="file://$PROJECT_DIR$/src/preprocess/stopwordremoval.py" />
     <entry file="file://$PROJECT_DIR$/src/preprocess/freq.py" />
@@ -454,20 +449,8 @@
     <entry file="file://$PROJECT_DIR$/src/weka_data_sum.py" />
     <entry file="file://$PROJECT_DIR$/src/data/compsac_16.csv" />
     <entry file="file://$PROJECT_DIR$/src/summar_vec.py" />
-    <entry file="file://$PROJECT_DIR$/src/compsac16/compsac_16_security.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1944">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/compsac16/compsac_16_perf.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="0" column="657" lean-forward="false" selection-start-line="0" selection-start-column="643" selection-end-line="0" selection-end-column="657" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/compsac16/compsac_16_security.txt" />
+    <entry file="file://$PROJECT_DIR$/src/compsac16/compsac_16_perf.txt" />
     <entry file="file://$PROJECT_DIR$/src/security.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="37">
@@ -475,86 +458,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/compsac16/compsac_16.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="35" lean-forward="false" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/compsac16/compsac_16.csv" />
     <entry file="file://$PROJECT_DIR$/src/preprocess/vec_rep.py" />
     <entry file="file://$PROJECT_DIR$/src/preprocess/pre_process.py" />
-    <entry file="file://$PROJECT_DIR$/src/compsac16/compsac_16_proc.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/compsac16/compsac_16_proc.csv" />
     <entry file="file://$PROJECT_DIR$/src/sample.csv" />
     <entry file="file://$PROJECT_DIR$/src/compsac16/im-learn.py" />
     <entry file="file://$PROJECT_DIR$/src/iris.txt" />
-    <entry file="file://$PROJECT_DIR$/src/compsac16/compsac_16_vec.csv">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="-305">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/compsac16/chou_data.csv">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/compsac16/compsac_16_vec.csv" />
+    <entry file="file://$PROJECT_DIR$/src/compsac16/chou_data.csv" />
     <entry file="file://$PROJECT_DIR$/src/test.csv" />
-    <entry file="file://$PROJECT_DIR$/src/compsac16/compsac_16.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1530">
-          <caret line="106" column="11" lean-forward="false" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/compsac16/chou_data_sklearn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="46" column="43" lean-forward="false" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/compsac16/compsac_16.py" />
+    <entry file="file://$PROJECT_DIR$/src/compsac16/chou_data_sklearn.py" />
     <entry file="file://$PROJECT_DIR$/src/compsac16/ambari.csv" />
     <entry file="file://$PROJECT_DIR$/src/compsac16/ambari_data.csv" />
     <entry file="file://$PROJECT_DIR$/src/test_python.py" />
-    <entry file="file://$PROJECT_DIR$/src/compsac16/ambari_data_sklearn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1188">
-          <caret line="68" column="20" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/compsac16/data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="972">
-          <caret line="58" column="26" lean-forward="false" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/compsac16/ambari_data_sklearn.py" />
+    <entry file="file://$PROJECT_DIR$/src/compsac16/data.py" />
     <entry file="file://$PROJECT_DIR$/src/compsac16/pre_process.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -562,21 +486,50 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
           <caret line="54" column="29" lean-forward="true" selection-start-line="54" selection-start-column="29" selection-end-line="54" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/compsac16/ambari_proc.csv">
+    <entry file="file://$PROJECT_DIR$/src/compsac16/imbalance_learn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="490" column="4" lean-forward="false" selection-start-line="490" selection-start-column="0" selection-end-line="490" selection-end-column="4" />
+        <state relative-caret-position="36">
+          <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/compsac16/ambari_vec.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="0" column="1512" lean-forward="false" selection-start-line="0" selection-start-column="1512" selection-end-line="0" selection-end-column="1512" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PycharmProjects/HelloWorld/venv/lib/python3.4/site-packages/sklearn/naive_bayes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="3" lean-forward="true" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/init.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="5" lean-forward="false" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/derby.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="1" column="122" lean-forward="false" selection-start-line="1" selection-start-column="122" selection-end-line="1" selection-end-column="122" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/compsac16/derby_proc.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -584,31 +537,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/init.py">
+    <entry file="file://$PROJECT_DIR$/src/compsac16/derby_vec.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#33#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="89208">
+          <caret line="49" column="4758" lean-forward="false" selection-start-line="49" selection-start-column="4758" selection-end-line="49" selection-end-column="4758" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/compsac16/imbalance_learn.py">
+    <entry file="file://$PROJECT_DIR$/src/compsac16/ambari_proc.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-990">
-          <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+        <state relative-caret-position="119">
+          <caret line="25" column="189" lean-forward="false" selection-start-line="25" selection-start-column="186" selection-end-line="25" selection-end-column="189" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/compsac16/camel_vec.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="228" column="221" lean-forward="false" selection-start-line="228" selection-start-column="219" selection-end-line="228" selection-end-column="221" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/compsac16/camel_proc.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="45" column="501" lean-forward="false" selection-start-line="45" selection-start-column="499" selection-end-line="45" selection-end-column="501" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/compsac16/experiment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="211" column="0" lean-forward="true" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
+        <state relative-caret-position="215">
+          <caret line="197" column="11" lean-forward="true" selection-start-line="197" selection-start-column="11" selection-end-line="197" selection-end-column="11" />
           <folding>
             <element signature="e#12#30#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/compsac16/result.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="19" lean-forward="false" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
