@@ -188,7 +188,100 @@ def load_data(file):
 
     return chou_data
 
+def under_sampling(X,y):
+        from imblearn.under_sampling import RandomUnderSampler
+        rus = RandomUnderSampler()
+        X_s, y_s = rus.fit_sample(X, y)
+        return (X_s,y_s)
 
+def over_sampling(X,y):
+        from imblearn.over_sampling import RandomOverSampler
+        ros = RandomOverSampler()
+        X_s,y_s = ros.fit_sample(X,y)
+        return (X_s,y_s)
+def smote(X,y):
+        from imblearn.over_sampling import SMOTE
+        sm = SMOTE()
+        X_s,y_s = sm.fit_sample(X,y)
+        return (X_s,y_s)
+
+def confusion_matrix(y_test,y_predict):
+    t_p = 0.0
+    t_n = 0.0
+    f_p = 0.0
+    f_n = 0.0
+    for i in range(len(y_predict)):
+        if y_test[i] == 1:
+            if y_predict[i] == 1:
+                t_p += 1.0
+            else:
+                f_n += 1
+        if y_test[i] == 0:
+            if y_predict[i] == 1:
+                f_p += 1
+            else:
+                t_n += 1
+
+    return {'t_p':t_p,'f_p':f_p,'t_n':t_n,'f_n':f_n}
+
+def major_class(y):
+    plus = 0
+    minus = 0
+    for x in y:
+        if x == 1:
+            plus +=1
+        if x == 0:
+            minus +=1
+
+    if plus >= minus:
+        return 1
+    else:
+        return 0
+
+def ensemble_confusion_matrix(y_test,y1_predict,y2_predict,y3_predict):
+    t_p = 0.0
+    t_n = 0.0
+    f_p = 0.0
+    f_n = 0.0
+    y_predict = np.empty(len(y_test),dtype=int)
+
+    for i in range(len(y_test)):
+        y_predict[i] = major_class(np.array([y1_predict[i],y2_predict[i],y3_predict[i]],dtype=int))
+
+    for i in range(len(y_test)):
+        if y_test[i] == 1:
+            if y_predict[i] == 1:
+                t_p += 1.0
+            else:
+                f_n += 1
+        if y_test[i] == 0:
+            if y_predict[i] == 1:
+                f_p += 1
+            else:
+                t_n += 1
+
+    return {'t_p':t_p,'f_p':f_p,'t_n':t_n,'f_n':f_n}
+
+
+def calc_pre_rec(result_dic:dict):
+    t_p = result_dic['t_p']
+    t_n = result_dic['t_n']
+    f_p = result_dic['f_p']
+    f_n = result_dic['f_n']
+
+    if (t_p+f_p) != 0 and (t_p+f_n) != 0:
+        pre = t_p/(t_p+f_p)
+        rec = t_p/(t_p+f_n)
+        return (pre,rec)
+    else:
+        return (0.0,0.0)
+
+
+
+'''
+    Experiment Starts
+
+'''
 
 
 def doExperiment():
@@ -196,7 +289,7 @@ def doExperiment():
     camel = 'camel'
     derby = 'derby'
     wicket = 'wicket'
-    file = wicket
+    file = ambari
     #pre_process(file)
     #exit()
     #vec_process(file)
@@ -204,20 +297,18 @@ def doExperiment():
     print(load_data(file))
     print(Counter(chou_data[target]))
     #exit()
-    from imblearn.under_sampling import RandomUnderSampler
-    from imblearn.over_sampling import RandomOverSampler
-    from imblearn.over_sampling import SMOTE
     from sklearn.naive_bayes import MultinomialNB
-    from sklearn.metrics import precision_recall_fscore_support
+    from sklearn.neighbors import KNeighborsClassifier
+    from sklearn import svm
+
     X = chou_data[data]
     y = chou_data[target]
 
     X_folds = np.array_split(X, 10)
     y_folds = np.array_split(y, 10)
 
-    precision_arr = np.empty([3,10],dtype=float)
-    recall_arr = np.empty([3,10],dtype=float)
-    '''fm_arr = np.empty([3,10],dtype=float)'''
+    pre = np.empty(3,dtype=float)
+    rec = np.empty(3,dtype=float)
 
     for k in range(10):
         # We use 'list' to copy, in order to 'pop' later on
@@ -228,100 +319,71 @@ def doExperiment():
         y_test = y_train.pop(k)
         y_train = np.concatenate(y_train)
 
-        estimator = MultinomialNB();
+        h1 = MultinomialNB()
+        h2 = KNeighborsClassifier(5,'distance')
+        h3 = svm.SVC()
 
-        ## Under Sampling ##
-        rus = RandomUnderSampler()
-        X_rus, y_rus = rus.fit_sample(X_train, y_train)
-        estimator.fit(X_rus,y_rus)
-        y_predict = estimator.predict(X_test)
-        t_p = 0.0
-        t_n = 0.0
-        f_p = 0.0
-        f_n = 0.0
-        for i in range(len(y_predict)):
-            if y_test[i] == 1:
-               if y_predict[i] == 1:
-                   t_p += 1.0
-               else:
-                   f_n += 1
-            if y_test[i] == 0:
-                if y_predict[i] == 1:
-                    f_p +=1
-                else:
-                    t_n +=1
+        ## under_sampling ##
+        X_s,y_s = under_sampling(X_train,y_train)
+        h1.fit(X_s,y_s)
+        y1_predict = h1.predict(X_test)
+        h2.fit(X_s,y_s)
+        y2_predict = h2.predict(X_test)
+        h3.fit(X_s,y_s)
+        y3_predict = h3.predict(X_test)
+
+        print(ensemble_confusion_matrix(y_test,y1_predict,y2_predict,y3_predict))
+        temp_pre, temp_rec = calc_pre_rec(ensemble_confusion_matrix(y_test,y1_predict,y2_predict,y3_predict))
+        pre[0] = pre[0]+temp_pre
+        rec[0] = rec[0]+temp_rec
 
 
-        print(t_p,f_p,t_n,f_n)
 
-        precision = (t_p)/(t_p+f_p)
-        recall = (t_p)/(t_p+f_n)
-        '''fm = (1.0/precision)+(1.0/recall)
-        fm = 1.0/fm
-        '''
-        precision_arr[0][k] = precision
-        recall_arr[0][k] = recall
-        '''fm_arr[0][k] = fm'''
+        ## over_sampling ##
+        X_s,y_s = over_sampling(X_train, y_train)
+        h1.fit(X_s, y_s)
+        y1_predict = h1.predict(X_test)
+        h2.fit(X_s, y_s)
+        y2_predict = h2.predict(X_test)
+        h3.fit(X_s, y_s)
+        y3_predict = h3.predict(X_test)
 
-        ## Over Sampling ##
-        '''ros = RandomOverSampler()
-        X_ros, y_ros = ros.fit_sample(X_train, y_train)
-        estimator.fit(X_ros, y_ros)
-        y_predict = estimator.predict(X_test)
-        t_p = 0.0
-        t_n = 0.0
-        f_p = 0.0
-        f_n = 0.0
-        for i in range(len(y_predict)):
-            if y_test[i] == 1:
-                if y_predict[i] == 1:
-                    t_p += 1.0
-                else:
-                    f_n += 1
-            if y_test[i] == 0:
-                if y_predict[i] == 1:
-                    f_p += 1
-                else:
-                    t_n += 1
+        print(ensemble_confusion_matrix(y_test,y1_predict,y2_predict,y3_predict))
+        temp_pre, temp_rec = calc_pre_rec(ensemble_confusion_matrix(y_test, y1_predict, y2_predict, y3_predict))
 
-        precision = (t_p) / (t_p + f_p)
-        recall = (t_p) / (t_p + f_n)
-        precision_arr[1][k] = precision
-        recall_arr[1][k] = recall
-        '''
-        ## SMOTE ##
-        sm = SMOTE()
-        X_sm, y_sm = sm.fit_sample(X_train, y_train)
-        estimator.fit(X_sm, y_sm)
-        y_predict = estimator.predict(X_test)
-        t_p = 0.0
-        t_n = 0.0
-        f_p = 0.0
-        f_n = 0.0
-        for i in range(len(y_predict)):
-            if y_test[i] == 1:
-                if y_predict[i] == 1:
-                    t_p += 1.0
-                else:
-                    f_n += 1
-            if y_test[i] == 0:
-                if y_predict[i] == 1:
-                    f_p += 1
-                else:
-                    t_n += 1
-
-        precision = (t_p) / (t_p + f_p)
-        recall = (t_p) / (t_p + f_n)
-        '''fm = (1.0 / precision) + (1.0 / recall)
-        fm = 1.0 / fm'''
-        precision_arr[2][k] = precision
-        recall_arr[2][k] = recall
-        '''fm_arr[2][k] = fm'''
+        pre[1] = pre[1]+temp_pre
+        rec[1] = rec[1]+temp_rec
 
 
-    print(round(np.array(precision_arr[0]).mean(),4), round(np.array(precision_arr[1]).mean(),4),round(np.array(precision_arr[2]).mean(),4))
-    print(round(np.array(recall_arr[0]).mean(),4), round(np.array(recall_arr[1]).mean(),4),round(np.array(recall_arr[2]).mean(),4))
-    '''print(round(np.array(fm_arr[0]).mean(),4), round(np.array(fm_arr[1]).mean(),4),round(np.array(fm_arr[2]).mean(),4))'''
+
+        ## smote ##
+        X_s, y_s = smote(X_train, y_train)
+        h1.fit(X_s, y_s)
+        y1_predict = h1.predict(X_test)
+        h2.fit(X_s, y_s)
+        y2_predict = h2.predict(X_test)
+        h3.fit(X_s, y_s)
+        y3_predict = h3.predict(X_test)
+
+        print(ensemble_confusion_matrix(y_test,y1_predict,y2_predict,y3_predict))
+        temp_pre, temp_rec = calc_pre_rec(ensemble_confusion_matrix(y_test, y1_predict, y2_predict, y3_predict))
+        pre[2] = pre[2]+temp_pre
+        rec[2] = rec[2]+temp_rec
 
 
+    pre[0] = pre[0]/10.0
+    pre[1] = pre[1]/10.0
+    pre[2] = pre[2]/10.0
+
+    rec[0] = rec[0]/10.0
+    rec[1] = rec[1]/10.0
+    rec[2] = rec[2]/10.0
+
+    print(pre)
+    print(rec)
+
+'''
+    Calling the Experiment Function
+
+'''
 doExperiment()
