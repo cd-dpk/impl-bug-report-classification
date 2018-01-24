@@ -9,10 +9,15 @@ from nltk.stem import PorterStemmer
 from nltk import FreqDist
 from collections import Counter
 
+ambari = 'ambari'
+camel = 'camel'
+derby = 'derby'
+wicket = 'wicket'
+subject =''
 Surprising = 'Surprising'
 Security = 'Security'
 Performance = 'Performance'
-intent = Surprising
+intent = ''
 chou_data = {}
 feature_names = 'feature_names'
 target_names = 'target_names'
@@ -188,36 +193,79 @@ def load_data(file):
 
     return chou_data
 
+def under_sampling(X, y):
+        from imblearn.under_sampling import RandomUnderSampler
+        rus = RandomUnderSampler()
+        X_s, y_s = rus.fit_sample(X, y)
+        return (X_s, y_s)
+
+
+def over_sampling(X, y):
+    from imblearn.over_sampling import RandomOverSampler
+    ros = RandomOverSampler()
+    X_s, y_s = ros.fit_sample(X, y)
+    return (X_s, y_s)
+
+
+def smote(X, y):
+    from imblearn.over_sampling import SMOTE
+    sm = SMOTE()
+    X_s, y_s = sm.fit_sample(X, y)
+    return (X_s, y_s)
+
+def confusion_matrix(y_test,y_predict):
+    t_p = 0.0
+    t_n = 0.0
+    f_p = 0.0
+    f_n = 0.0
+    for i in range(len(y_predict)):
+        if y_test[i] == 1:
+            if y_predict[i] == 1:
+                t_p += 1.0
+            else:
+                f_n += 1
+        if y_test[i] == 0:
+            if y_predict[i] == 1:
+                f_p += 1
+            else:
+                t_n += 1
+
+    return {'t_p':t_p,'f_p':f_p,'t_n':t_n,'f_n':f_n}
+
+def calc_pre_rec(result_dic:dict):
+    t_p = result_dic['t_p']
+    t_n = result_dic['t_n']
+    f_p = result_dic['f_p']
+    f_n = result_dic['f_n']
+
+    if (t_p+f_p) != 0 and (t_p+f_n) != 0:
+        pre = t_p/(t_p+f_p)
+        rec = t_p/(t_p+f_n)
+        return (pre,rec)
+    else:
+        return (0.0,0.0)
 
 
 
-def doExperiment():
-    ambari = 'ambari'
-    camel = 'camel'
-    derby = 'derby'
-    wicket = 'wicket'
-    file = wicket
-    #pre_process(file)
-    #exit()
-    #vec_process(file)
-    #exit()
+def doExperiment(file,step):
+    if step == 0:
+        pre_process(file)
+        exit()
+    if step == 1:
+        vec_process(file)
+        exit()
     print(load_data(file))
     print(Counter(chou_data[target]))
     #exit()
-    from imblearn.under_sampling import RandomUnderSampler
-    from imblearn.over_sampling import RandomOverSampler
-    from imblearn.over_sampling import SMOTE
     from sklearn.naive_bayes import MultinomialNB
-    from sklearn.metrics import precision_recall_fscore_support
     X = chou_data[data]
     y = chou_data[target]
 
     X_folds = np.array_split(X, 10)
     y_folds = np.array_split(y, 10)
 
-    precision_arr = np.empty([3,10],dtype=float)
-    recall_arr = np.empty([3,10],dtype=float)
-    '''fm_arr = np.empty([3,10],dtype=float)'''
+    pre = np.empty(3, dtype=float)
+    rec = np.empty(3, dtype=float)
 
     for k in range(10):
         # We use 'list' to copy, in order to 'pop' later on
@@ -230,98 +278,53 @@ def doExperiment():
 
         estimator = MultinomialNB();
 
-        ## Under Sampling ##
-        rus = RandomUnderSampler()
-        X_rus, y_rus = rus.fit_sample(X_train, y_train)
-        estimator.fit(X_rus,y_rus)
+        ## under_sampling ##
+        X_s, y_s = under_sampling(X_train, y_train)
+        estimator.fit(X_s, y_s)
         y_predict = estimator.predict(X_test)
-        t_p = 0.0
-        t_n = 0.0
-        f_p = 0.0
-        f_n = 0.0
-        for i in range(len(y_predict)):
-            if y_test[i] == 1:
-               if y_predict[i] == 1:
-                   t_p += 1.0
-               else:
-                   f_n += 1
-            if y_test[i] == 0:
-                if y_predict[i] == 1:
-                    f_p +=1
-                else:
-                    t_n +=1
 
+        print(confusion_matrix(y_test, y_predict))
+        temp_pre, temp_rec = calc_pre_rec(confusion_matrix(y_test, y_predict))
+        pre[0] = pre[0] + temp_pre
+        rec[0] = rec[0] + temp_rec
 
-        print(t_p,f_p,t_n,f_n)
-
-        precision = (t_p)/(t_p+f_p)
-        recall = (t_p)/(t_p+f_n)
-        '''fm = (1.0/precision)+(1.0/recall)
-        fm = 1.0/fm
-        '''
-        precision_arr[0][k] = precision
-        recall_arr[0][k] = recall
-        '''fm_arr[0][k] = fm'''
-
-        ## Over Sampling ##
-        '''ros = RandomOverSampler()
-        X_ros, y_ros = ros.fit_sample(X_train, y_train)
-        estimator.fit(X_ros, y_ros)
+        ## over_sampling ##
+        X_s, y_s = over_sampling(X_train, y_train)
+        estimator.fit(X_s, y_s)
         y_predict = estimator.predict(X_test)
-        t_p = 0.0
-        t_n = 0.0
-        f_p = 0.0
-        f_n = 0.0
-        for i in range(len(y_predict)):
-            if y_test[i] == 1:
-                if y_predict[i] == 1:
-                    t_p += 1.0
-                else:
-                    f_n += 1
-            if y_test[i] == 0:
-                if y_predict[i] == 1:
-                    f_p += 1
-                else:
-                    t_n += 1
+        estimator.fit(X_s, y_s)
 
-        precision = (t_p) / (t_p + f_p)
-        recall = (t_p) / (t_p + f_n)
-        precision_arr[1][k] = precision
-        recall_arr[1][k] = recall
-        '''
-        ## SMOTE ##
-        sm = SMOTE()
-        X_sm, y_sm = sm.fit_sample(X_train, y_train)
-        estimator.fit(X_sm, y_sm)
+        print(confusion_matrix(y_test,y_predict))
+        temp_pre, temp_rec = calc_pre_rec(confusion_matrix(y_test, y_predict))
+
+        pre[1] = pre[1] + temp_pre
+        rec[1] = rec[1] + temp_rec
+
+        ## smote ##
+        X_s, y_s = smote(X_train, y_train)
+        estimator.fit(X_s, y_s)
         y_predict = estimator.predict(X_test)
-        t_p = 0.0
-        t_n = 0.0
-        f_p = 0.0
-        f_n = 0.0
-        for i in range(len(y_predict)):
-            if y_test[i] == 1:
-                if y_predict[i] == 1:
-                    t_p += 1.0
-                else:
-                    f_n += 1
-            if y_test[i] == 0:
-                if y_predict[i] == 1:
-                    f_p += 1
-                else:
-                    t_n += 1
+        print(confusion_matrix(y_test, y_predict))
+        temp_pre, temp_rec = calc_pre_rec(confusion_matrix(y_test, y_predict))
+        pre[2] = pre[2] + temp_pre
+        rec[2] = rec[2] + temp_rec
 
-        precision = (t_p) / (t_p + f_p)
-        recall = (t_p) / (t_p + f_n)
-        '''fm = (1.0 / precision) + (1.0 / recall)
-        fm = 1.0 / fm'''
-        precision_arr[2][k] = precision
-        recall_arr[2][k] = recall
-        '''fm_arr[2][k] = fm'''
+    pre[0] = pre[0] / 10.0
+    pre[1] = pre[1] / 10.0
+    pre[2] = pre[2] / 10.0
 
+    rec[0] = rec[0] / 10.0
+    rec[1] = rec[1] / 10.0
+    rec[2] = rec[2] / 10.0
 
-    print(round(np.array(precision_arr[0]).mean(),4), round(np.array(precision_arr[1]).mean(),4),round(np.array(precision_arr[2]).mean(),4))
-    print(round(np.array(recall_arr[0]).mean(),4), round(np.array(recall_arr[1]).mean(),4),round(np.array(recall_arr[2]).mean(),4))
-    '''print(round(np.array(fm_arr[0]).mean(),4), round(np.array(fm_arr[1]).mean(),4),round(np.array(fm_arr[2]).mean(),4))'''
+    print(pre)
+    print(rec)
+'''
+    Experiment Ends here
 
+'''
 
-doExperiment()
+subject= wicket
+intent= Surprising
+step= 2
+doExperiment(subject, step)

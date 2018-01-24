@@ -260,7 +260,7 @@ def ensemble_confusion_matrix(y_test,y1_predict,y2_predict,y3_predict):
             else:
                 t_n += 1
 
-    return {'t_p':t_p,'f_p':f_p,'t_n':t_n,'f_n':f_n}
+    return {'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}
 
 
 def calc_pre_rec(result_dic:dict):
