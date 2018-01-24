@@ -13,6 +13,7 @@ ambari = 'ambari'
 camel = 'camel'
 derby = 'derby'
 wicket = 'wicket'
+all = 'all'
 subject =''
 Surprising = 'Surprising'
 Security = 'Security'
@@ -114,16 +115,15 @@ def pre_proc_text(t):
 def proc_sum_desc(file_name):
     with open('../data/'+file_name+'.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
-        print('issue_id,summary,description,summary_proc,description_proc,'+intent)
+        print('summary,description,summary_proc,description_proc,'+intent)
         for row in reader:
-            if row['type'] == 'Bug':
-                output = str(row['issue_id'] in (None, '') and '' or row['issue_id']) + ','
-                output += row['summary'] in (None,'') and '' or row['summary']+','
-                output += row['summary'] in (None,'') and '' or pre_proc_text(row['summary'])+','
-                output += row['description'] in (None,'') and '' or row['description']+','
-                output += row['description'] in (None, '') and '' or pre_proc_text(row['description'])+','
-                output += row[intent] in (None, '') and '0' or row[intent]
-                print(output)
+            output = ''
+            output += row['summary'] in (None,'') and '' or row['summary']+','
+            output += row['summary'] in (None,'') and '' or pre_proc_text(row['summary'])+','
+            output += row['description'] in (None,'') and '' or row['description']+','
+            output += row['description'] in (None, '') and '' or pre_proc_text(row['description'])+','
+            output += row[intent] in (None, '') and '0' or row[intent]
+            print(output)
     return
 
 def pre_process(file_name):
@@ -264,9 +264,15 @@ def doExperiment(file,step):
     X_folds = np.array_split(X, 10)
     y_folds = np.array_split(y, 10)
 
-    pre = np.empty(10, dtype=float)
-    rec = np.empty(10, dtype=float)
+    pre = np.empty(3, dtype=float)
+    rec = np.empty(3, dtype=float)
 
+    pre[0] = 0.0
+    pre[1] = 0.0
+    pre[2] = 0.0
+    rec[0] = 0.0
+    rec[1] = 0.0
+    rec[2] = 0.0
     for k in range(10):
         # We use 'list' to copy, in order to 'pop' later on
         X_train = list(X_folds)
@@ -279,7 +285,7 @@ def doExperiment(file,step):
         estimator = MultinomialNB();
 
         ## under_sampling ##
-        '''X_s, y_s = under_sampling(X_train, y_train)
+        X_s, y_s = under_sampling(X_train, y_train)
         estimator.fit(X_s, y_s)
         y_predict = estimator.predict(X_test)
 
@@ -298,7 +304,7 @@ def doExperiment(file,step):
         temp_pre, temp_rec = calc_pre_rec(confusion_matrix(y_test, y_predict))
 
         pre[1] = pre[1] + temp_pre
-        rec[1] = rec[1] + temp_rec'''
+        rec[1] = rec[1] + temp_rec
 
         ## smote ##
         X_s, y_s = smote(X_train, y_train)
@@ -306,15 +312,23 @@ def doExperiment(file,step):
         y_predict = estimator.predict(X_test)
         print(confusion_matrix(y_test, y_predict))
         temp_pre, temp_rec = calc_pre_rec(confusion_matrix(y_test, y_predict))
-        pre[k] = temp_pre
-        rec[k] = temp_rec
+        pre[2] = pre[2] + temp_pre
+        rec[2] = rec[2] + temp_rec
 
-    print(pre.mean())
-    print(rec.mean())
+    pre[0] = pre[0] / 10.0
+    pre[1] = pre[1] / 10.0
+    pre[2] = pre[2] / 10.0
 
-''' Experiment Ends here '''
+    rec[0] = rec[0] / 10.0
+    rec[1] = rec[1] / 10.0
+    rec[2] = rec[2] / 10.0
 
-subject= ambari
-intent= Surprising
-step= 2
+    print(pre)
+    print(rec)
+
+'''Experiment Ends here'''
+
+subject=all
+intent=Security
+step=2
 doExperiment(subject, step)

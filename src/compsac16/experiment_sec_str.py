@@ -13,6 +13,7 @@ ambari = 'ambari'
 camel = 'camel'
 derby = 'derby'
 wicket = 'wicket'
+all = 'all'
 subject =''
 Surprising = 'Surprising'
 Security = 'Security'
@@ -39,51 +40,123 @@ def term_count(t):
         proc_t[w.lower()] += 1
     return proc_t
 
+
+
+def get_all_components(file):
+    csvfile = open(file+'_proc.csv', newline='')
+    reader = csv.DictReader(csvfile)
+    component_list = []
+    for row in reader:
+        reporter = row['component'] in (None,'') and 'null' or row['component']
+##        print(reporter)
+        if reporter not in component_list:
+            component_list.append(reporter)
+
+    csvfile.close()
+    return component_list
+
+
+def get_all_reporters(file):
+    csvfile = open(file+'_proc.csv', newline='')
+    reader = csv.DictReader(csvfile)
+    reporter_list = []
+    for row in reader:
+        reporter = row['reporter'] in (None,'') and 'null' or row['reporter']
+##        print(reporter)
+        if reporter not in reporter_list:
+            reporter_list.append(reporter)
+
+    csvfile.close()
+    return reporter_list
+
+
+
 def get_all_terms(file):
-    with open(file+'_proc.csv', newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        word_list =[]
-        for row in reader:
-            text = row['summary_proc'] in (None,'') and '' or row['summary_proc']+" "+row['description_proc'] in (None,'') and '' or row['description_proc']
-            dic = term_count(text)
-            terms = dic.most_common()
-            for term in dic:
-                if term not in word_list:
-                    word_list.append(term)
-        return word_list
+    csvfile = open(file+'_proc.csv', newline='')
+    reader = csv.DictReader(csvfile)
+    word_list =[]
+    for row in reader:
+        text = row['summary_proc'] in (None,'') and '' or row['summary_proc']+" "+row['description_proc'] in (None,'') and '' or row['description_proc']
+        dic = term_count(text)
+        terms = dic.most_common()
+        for term in dic:
+            if term not in word_list:
+                word_list.append(term)
+
+    csvfile.close()
+    return word_list
+
 
 
 def proc_sum_desc_vec(file_name):
+    #print("Hello")
     word_list= get_all_terms(file_name)
     #print(word_list)
-    with open(file_name+'_proc.csv', newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        ## include header
-        header =''
-        for word in word_list:
-            header+=word+','
+    reporter_list = get_all_reporters(file_name)
+    #print(reporter_list)
+    component_list = get_all_components(file_name)
+    #print(component_list)
+    #exit()
 
-        print(header+intent)
-        for row in reader:
-            text = row['summary']+" "+row['description']
-            dic = term_count(text)
-            terms = dic.most_common()
-            output = ''
-            rw=''
-            for word in word_list:
-                counter = 0
-                index = -1
-                for t in terms:
-                    if word in (terms[counter]) :
-                        index = counter
-                        break
-                if index != -1:
-                    rw += str(terms[index][1])+','
-                else:
-                    rw += '0,'
-            output += rw
-            output += row[intent] in (None, '') and '0' or row[intent]
-            print(output)
+
+    ## include reporter
+    reporters = ''
+    for r in reporter_list:
+        reporters += r+','
+
+    ## include component
+
+    components = ''
+    for c in component_list:
+        components += c + ','
+
+    ## include header
+    header =''
+    for word in word_list:
+        header +=word+','
+
+    print(reporters+components+header+intent)
+
+    csvfile = open(file_name+'_proc.csv', newline='')
+    reader = csv.DictReader(csvfile)
+
+    for row in reader:
+        output = ''
+        reporter = row['reporter']
+        for r in reporter_list:
+            if r == reporter:
+                output +='1,'
+            else:
+                output +='0,'
+
+        component = row['component']
+        for c in component_list:
+            if c == component:
+                output +='1,'
+            else:
+                output +='0,'
+
+
+        text = row['summary']+" "+row['description']
+        dic = term_count(text)
+        terms = dic.most_common()
+        rw=''
+        for word in word_list:
+            counter = 0
+            index = -1
+            for t in terms:
+                if word in (terms[counter]) :
+                    index = counter
+                    break
+            if index != -1:
+                rw += str(terms[index][1])+','
+            else:
+                rw += '0,'
+        output += rw
+        output += row[intent] in (None, '') and '0' or row[intent]
+        print(output)
+    csvfile.close()
+    return
 
 def vec_process(file_name):
     sys.stdout= open(file_name+'_vec.csv','w')
@@ -114,16 +187,17 @@ def pre_proc_text(t):
 def proc_sum_desc(file_name):
     with open('../data/'+file_name+'.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
-        print('issue_id,summary,description,summary_proc,description_proc,'+intent)
+        print('issue_id,reporter,component,summary,description,summary_proc,description_proc,'+intent)
         for row in reader:
-            if row['type'] == 'Bug':
-                output = str(row['issue_id'] in (None, '') and '' or row['issue_id']) + ','
-                output += row['summary'] in (None,'') and '' or row['summary']+','
-                output += row['summary'] in (None,'') and '' or pre_proc_text(row['summary'])+','
-                output += row['description'] in (None,'') and '' or row['description']+','
-                output += row['description'] in (None, '') and '' or pre_proc_text(row['description'])+','
-                output += row[intent] in (None, '') and '0' or row[intent]
-                print(output)
+            output = str(row['issue_id'] in (None, '') and '' or row['issue_id']) + ','
+            output += (row['reporter'] in (None,'') and 'null' or row['reporter'])+','
+            output += (row['component'] in (None, '') and 'null' or row['component']) + ','
+            output += row['summary'] in (None,'') and '' or row['summary']+','
+            output += row['summary'] in (None,'') and '' or pre_proc_text(row['summary'])+','
+            output += (row['description'] in (None,'') and '' or row['description'])+','
+            output += (row['description'] in (None, '') and '' or pre_proc_text(row['description']))+','
+            output += row[intent] in (None, '') and '0' or row[intent]
+            print(output)
     return
 
 def pre_process(file_name):
@@ -264,8 +338,18 @@ def doExperiment(file,step):
     X_folds = np.array_split(X, 10)
     y_folds = np.array_split(y, 10)
 
-    pre = np.empty(10, dtype=float)
-    rec = np.empty(10, dtype=float)
+    pre = np.empty(3, dtype=float)
+    rec = np.empty(3, dtype=float)
+    fm = np.empty(3,dtype=float)
+    pre[0] = 0.0
+    pre[1] = 0.0
+    pre[2] = 0.0
+    rec[0] = 0.0
+    rec[1] = 0.0
+    rec[2] = 0.0
+    fm[0] = 0.0
+    fm[1] = 0.0
+    fm[2] = 0.0
 
     for k in range(10):
         # We use 'list' to copy, in order to 'pop' later on
@@ -279,7 +363,7 @@ def doExperiment(file,step):
         estimator = MultinomialNB();
 
         ## under_sampling ##
-        '''X_s, y_s = under_sampling(X_train, y_train)
+        X_s, y_s = under_sampling(X_train, y_train)
         estimator.fit(X_s, y_s)
         y_predict = estimator.predict(X_test)
 
@@ -298,7 +382,7 @@ def doExperiment(file,step):
         temp_pre, temp_rec = calc_pre_rec(confusion_matrix(y_test, y_predict))
 
         pre[1] = pre[1] + temp_pre
-        rec[1] = rec[1] + temp_rec'''
+        rec[1] = rec[1] + temp_rec
 
         ## smote ##
         X_s, y_s = smote(X_train, y_train)
@@ -306,15 +390,28 @@ def doExperiment(file,step):
         y_predict = estimator.predict(X_test)
         print(confusion_matrix(y_test, y_predict))
         temp_pre, temp_rec = calc_pre_rec(confusion_matrix(y_test, y_predict))
-        pre[k] = temp_pre
-        rec[k] = temp_rec
+        pre[2] = pre[2] + temp_pre
+        rec[2] = rec[2] + temp_rec
 
-    print(pre.mean())
-    print(rec.mean())
+    pre[0] = pre[0] / 10.0
+    pre[1] = pre[1] / 10.0
+    pre[2] = pre[2] / 10.0
 
-''' Experiment Ends here '''
+    rec[0] = rec[0] / 10.0
+    rec[1] = rec[1] / 10.0
+    rec[2] = rec[2] / 10.0
 
-subject= ambari
-intent= Surprising
-step= 2
+    fm[0] = 1.0/((1.0/pre[0])+(1.0/rec[0]))
+    fm[1] = 1.0/((1.0/pre[1])+(1.0/rec[1]))
+    fm[2] = 1.0/((1.0/pre[2])+(1.0/rec[2]))
+
+    print(pre)
+    print(rec)
+    print(fm)
+
+'''Experiment Ends here'''
+
+subject=wicket
+intent=Security
+step=2
 doExperiment(subject, step)
