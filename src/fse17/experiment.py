@@ -1,23 +1,8 @@
-## learner
-import math
 import numpy as np
-import csv,re,stringcase
-import sys
-from nltk.tokenize import regexp_tokenize
-from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
-from nltk import FreqDist
+import sys,csv
 from collections import Counter
 
-ambari = 'ambari'
-camel = 'camel'
-derby = 'derby'
-wicket = 'wicket'
-all = 'all'
 subject =''
-Surprising = 'Surprising'
-Security = 'Security'
-Performance = 'Performance'
 intent = ''
 chou_data = {}
 feature_names = 'feature_names'
@@ -27,199 +12,6 @@ data = 'data'
 
 data_arr = np.array([], dtype=str)
 target_arr = np.array([], dtype=str)
-
-additionalStopWords = []
-for x in range(26):
-    additionalStopWords.append(chr(ord('a') + x))
-
-
-def term_count(t):
-    summary = regexp_tokenize(t, pattern='[a-zA-Z]+')
-    proc_t= FreqDist()
-    for w in summary:
-        proc_t[w.lower()] += 1
-    return proc_t
-
-
-
-def get_all_components(file):
-    csvfile = open(file+'_proc.csv', newline='')
-    reader = csv.DictReader(csvfile)
-    component_list = []
-    for row in reader:
-        component_column = row['component'] in (None,'') and 'null' or row['component']
-        candidate_components = regexp_tokenize(component_column, pattern='[a-zA-Z-]+')
-
-        for component in candidate_components:
-            if component not in component_list:
-                component_list.append(component)
-
-    csvfile.close()
-    return component_list
-
-def get_all_reporters(file):
-    csvfile = open(file+'_proc.csv', newline='')
-    reader = csv.DictReader(csvfile)
-    reporter_list = []
-    for row in reader:
-        reporter = row['reporter'] in (None,'') and 'null' or row['reporter']
-##        print(reporter)
-        if reporter not in reporter_list:
-            reporter_list.append(reporter)
-
-    csvfile.close()
-    return reporter_list
-
-
-def get_all_terms(file):
-    csvfile = open(file+'_proc.csv', newline='')
-    reader = csv.DictReader(csvfile)
-    word_list =[]
-    word_df =[]
-    for row in reader:
-        text = row['summary_proc'] in (None,'') and '' or row['summary_proc']+" "+row['description_proc'] in (None,'') and '' or row['description_proc']
-        dic = term_count(text)
-        terms = dic.most_common()
-        for term in dic:
-            if term not in word_list:
-                word_list.append(term)
-                word_df.append(1)
-            else:
-                for x in range (len(word_list)):
-                    if word_list[x] == term:
-                        word_df[x] += 1
-
-    csvfile.close()
-    return (word_list,word_df)
-
-
-
-def proc_sum_desc_vec(file_name):
-    #print("Hello")
-    word_list, word_df = get_all_terms(file_name)
-    for x in range(len(word_df)):
-        word_df[x] = float(word_df[x])
-        word_df[x] = math.log((len(word_df)/word_df[x]),10)
-
-    reporter_list = get_all_reporters(file_name)
-    component_list = get_all_components(file_name)
-    #print(component_list)
-    #exit()
-
-    ## include reporter
-    reporters = ''
-    for r in reporter_list:
-        reporters += r+','
-
-    ## include component
-
-    components = ''
-    for c in component_list:
-        components += c + ','
-
-    ## include header
-    header =''
-    for word in word_list:
-        header +=word+','
-
-#    print(reporters+components+header+intent)
-
-    print(header + intent)
-
-    csvfile = open(file_name+'_proc.csv', newline='')
-    reader = csv.DictReader(csvfile)
-
-    for row in reader:
-        output = ''
-        reporter = row['reporter']
-        for r in reporter_list:
-            if r == reporter:
-                output +='1,'
-            else:
-                output +='0,'
-
-        components = regexp_tokenize(row['component'],pattern='[A-Za-z-]+')
-
-        for component in components:
-            for c in component_list:
-                if c == component:
-                    output +='1,'
-                else:
-                    output +='0,'
-
-        text = row['summary']+" "+row['description']
-        dic = term_count(text)
-        terms = dic.most_common()
-        output=''
-        rw=''
-        for x in range(len(word_list)):
-            counter = 0
-            index = -1
-            for t in terms:
-                if word_list[x] in (terms[counter]) :
-                    index = counter
-                    break
-            if index != -1:
-                weight = terms[index][1]
-                #weight = terms[index][1] * word_df[index]
-                #weight = round(weight,2)
-                rw += str(weight)+','
-            else:
-                rw += '0,'
-        output += rw
-        output += row[intent] in (None, '') and '0' or row[intent]
-        print(output)
-    csvfile.close()
-    return
-
-def vec_process(file_name):
-    sys.stdout= open(file_name+'_vec.csv','w')
-    proc_sum_desc_vec(file_name)
-    sys.stdout.close()
-    return
-
-
-def pre_proc_text(t):
-    stopWords = set(stopwords.words('english'))
-    stemmer = PorterStemmer()
-    t = re.sub('[_]',' ', t)
-    ## camel case and Pascal Case splitted
-    t = re.sub('(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])',' ',t)
-    tokens = regexp_tokenize(t, pattern='[a-zA-Z]+')
-    #print('Tokens:',tokens)
-
-    processed_text = ''
-    for w in tokens:
-        w = stringcase.lowercase(w)
-        if w not in stopWords and w not in additionalStopWords:
-            w = stemmer.stem(w)
-            processed_text = processed_text+' '+ w
-    #print('Processed Text:',processed_text)
-    return processed_text
-
-
-def proc_sum_desc(file_name):
-    with open('../data/'+file_name+'.csv', newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        print('issue_id,reporter,component,summary,description,summary_proc,description_proc,'+intent)
-        for row in reader:
-            output = str(row['issue_id'] in (None, '') and '' or row['issue_id']) + ','
-            output += (row['reporter'] in (None,'') and 'null' or row['reporter'])+','
-            output += (row['component'] in (None, '') and 'null' or row['component']) + ','
-            output += row['summary'] in (None,'') and '' or row['summary']+','
-            output += row['summary'] in (None,'') and '' or pre_proc_text(row['summary'])+','
-            output += (row['description'] in (None,'') and '' or row['description'])+','
-            output += (row['description'] in (None, '') and '' or pre_proc_text(row['description']))+','
-            output += row[intent] in (None, '') and '0' or row[intent]
-            print(output)
-    return
-
-def pre_process(file_name):
-    sys.stdout= open(file_name+'_proc.csv','w')
-    proc_sum_desc(file_name)
-    sys.stdout.close()
-    return
-
 
 def setFeatureNamesAndRows(file_name):
     with open(file_name+'_vec.csv', newline='') as csvfile:
@@ -355,6 +147,7 @@ def confusion_matrix(y_test,y_predict):
                 t_p += 1.0
             else:
                 f_n += 1
+            continue
         if y_test[i] == 0:
             if y_predict[i] == 1:
                 f_p += 1
@@ -378,17 +171,11 @@ def calc_pre_rec(result_dic:dict):
 
 
 
-def doExperiment(file,step):
-    if step == 0:
-        pre_process(file)
-        return
-    if step == 1:
-        vec_process(file)
-        return
+def doExperiment(file):
     print(load_data(file))
     print(Counter(chou_data[target]))
     #exit()
-    from sklearn.naive_bayes import GaussianNB
+    from sklearn.naive_bayes import MultinomialNB
     from sklearn.neighbors import KNeighborsClassifier
     from sklearn import svm
     X = chou_data[data]
@@ -419,7 +206,7 @@ def doExperiment(file,step):
         y_test = y_train.pop(k)
         y_train = np.concatenate(y_train)
 
-        h1 = GaussianNB();
+        h1 = MultinomialNB();
         h2 = KNeighborsClassifier(5,weights='distance')
         h3 = svm.SVC()
         ## under_sampling ##
@@ -430,7 +217,7 @@ def doExperiment(file,step):
 
         '''
         h2.fit(X_s, y_s)
-        #y2_predict = h2.predict(X_test)
+        y2_predict = h2.predict(X_test)
 
         h3.fit(X_s, y_s)
         y3_predict = h3.predict(X_test)
@@ -438,6 +225,12 @@ def doExperiment(file,step):
 
         print(confusion_matrix(y_test, y1_predict))
         temp_pre, temp_rec = calc_pre_rec(confusion_matrix(y_test, y1_predict))
+        print(temp_pre,temp_rec)
+
+        '''
+        print(ensemble_confusion_matrix(y_test, y1_predict,y2_predict,y3_predict))
+        temp_pre, temp_rec = calc_pre_rec(ensemble_confusion_matrix(y_test, y1_predict,y2_predict,y3_predict))
+        '''
         pre[0] = pre[0] + temp_pre
         rec[0] = rec[0] + temp_rec
 
@@ -457,6 +250,11 @@ def doExperiment(file,step):
 
         print(confusion_matrix(y_test, y1_predict))
         temp_pre, temp_rec = calc_pre_rec(confusion_matrix(y_test, y1_predict))
+        print(temp_pre, temp_rec)
+        '''
+        print(ensemble_confusion_matrix(y_test, y1_predict,y2_predict,y3_predict))
+        temp_pre, temp_rec = calc_pre_rec(ensemble_confusion_matrix(y_test, y1_predict,y2_predict,y3_predict))
+        '''
         pre[1] = pre[1] + temp_pre
         rec[1] = rec[1] + temp_rec
 
@@ -477,6 +275,11 @@ def doExperiment(file,step):
 
         print(confusion_matrix(y_test, y1_predict))
         temp_pre, temp_rec = calc_pre_rec(confusion_matrix(y_test, y1_predict))
+        print(temp_pre, temp_rec)
+        '''
+        print(ensemble_confusion_matrix(y_test, y1_predict,y2_predict,y3_predict))
+        temp_pre, temp_rec = calc_pre_rec(ensemble_confusion_matrix(y_test, y1_predict,y2_predict,y3_predict))
+        '''
         pre[2] = pre[2] + temp_pre
         rec[2] = rec[2] + temp_rec
 
@@ -497,9 +300,8 @@ def doExperiment(file,step):
     print(rec)
     print(fm)
 
-'''Experiment Ends here'''
+''' Experiment Ends here '''
 
-subject=derby
-intent=Security
-step = 0
-doExperiment(subject, step)
+subject= sys.argv[1]
+intent= sys.argv[2]
+doExperiment(subject)
