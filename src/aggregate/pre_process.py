@@ -1,4 +1,3 @@
-
 import sys,csv,re,stringcase
 from nltk.tokenize import regexp_tokenize
 from nltk.corpus import stopwords
@@ -113,9 +112,9 @@ def pre_proc_sentence(t):
 
 
 def proc_file(file_name):
-    with open('/media/geet/Files/IITDU/MSSE-03/implementation/src/data/'+file_name+'.csv', newline='') as csvfile:
+    with open('../data/'+file_name+'.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
-        print('issue_id,reporter,component,keywords,summary_proc,description_proc,' + intent)
+        print('issue_id,reporter,component,keywords,summary_proc,description_proc,' + intent+",files")
         for row in reader:
             issue_id = str(row['issue_id'] in (None, '') and '' or row['issue_id'])
             reporter = row['reporter'] in (None,'') and 'null' or row['reporter']
@@ -123,12 +122,11 @@ def proc_file(file_name):
             summary_proc= (row['summary'] in (None,'') and '' or pre_proc_sentence(row['summary']))
             description_proc = (row['description'] in (None, '') and '' or pre_proc_sentence(row['description']))
             label = row[intent] in (None, '') and '0' or row[intent]
-            sec,perf=predict_keywords((row['summary'] in (None,'') and''or'')+" "+(row['description'] in (None, '') and ''or ''))
+            sec,perf=predict_keywords((row['summary'] in (None,'') and''or'')+" "+(row['description'] in (None, '') and '' or ''))
             # sec, perf = predict_keywords((row['summary'] in (None, '') and '' or ''))
-
-            print(issue_id+","+reporter+","+component+","+str(sec)+","+summary_proc+","+description_proc+","+label)
+            files = row['files'] in (None, '') and '' or row['files']
+            print(issue_id+","+reporter+","+component+","+str(sec)+","+summary_proc+","+description_proc+","+label+","+files)
             #print(issue_id+","+reporter+","+component+","+str(perf)+","+summary_proc+","+description_proc+","+label)
-
     return
 
 def pre_process(file_name):
@@ -138,6 +136,6 @@ def pre_process(file_name):
     return
 
 '''Preprocess Ends Here'''
-subject = ambari
-intent= Security
+subject = camel
+intent = Security
 pre_process(subject)
