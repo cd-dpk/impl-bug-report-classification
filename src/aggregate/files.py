@@ -25,7 +25,7 @@ all_files = []
 label_files = []
 
 def label_src_files(file_name):
-    csvfile = open(file_name+'_proc.csv', newline='')
+    csvfile = open(file_name+'_proc.csv', newline='', encoding="utf-8")
     reader = csv.DictReader(csvfile)
     for row in reader:
         file_column = row['files'] in (None, '')and 'No File' or row['files']
@@ -34,7 +34,8 @@ def label_src_files(file_name):
         files = re.split(";",file_column)
         counter = 0
         for file in files:
-            if re.search("^camel-core/",file) and re.search(".java$", file):
+            # if re.search("^camel-core/",file) and re.search(".java$", file):
+            if re.search(".java$",file):
                 all_files.append(file)
                 label_files.append(int(label))
                 if int(label) == 1:
@@ -60,6 +61,6 @@ def label_src_files(file_name):
     return
 
 
-subject = camel
-intent = Security
+subject = derby
+intent = Performance
 label_src_files(subject)

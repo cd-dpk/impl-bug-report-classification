@@ -112,7 +112,7 @@ def pre_proc_sentence(t):
 
 
 def proc_file(file_name):
-    with open('../data/'+file_name+'.csv', newline='') as csvfile:
+    with open('../data/'+file_name+'.csv', newline='', encoding="utf8") as csvfile:
         reader = csv.DictReader(csvfile)
         print('issue_id,reporter,component,keywords,summary_proc,description_proc,' + intent+",files")
         for row in reader:
@@ -122,11 +122,11 @@ def proc_file(file_name):
             summary_proc= (row['summary'] in (None,'') and '' or pre_proc_sentence(row['summary']))
             description_proc = (row['description'] in (None, '') and '' or pre_proc_sentence(row['description']))
             label = row[intent] in (None, '') and '0' or row[intent]
-            sec,perf=predict_keywords((row['summary'] in (None,'') and''or'')+" "+(row['description'] in (None, '') and '' or ''))
+            sec , perf = predict_keywords((row['summary'] in (None,'') and''or'')+" "+(row['description'] in (None, '') and '' or ''))
             # sec, perf = predict_keywords((row['summary'] in (None, '') and '' or ''))
             files = row['files'] in (None, '') and '' or row['files']
-            print(issue_id+","+reporter+","+component+","+str(sec)+","+summary_proc+","+description_proc+","+label+","+files)
-            #print(issue_id+","+reporter+","+component+","+str(perf)+","+summary_proc+","+description_proc+","+label)
+            # print(issue_id+","+reporter+","+component+","+str(sec)+","+summary_proc+","+description_proc+","+label+","+files)
+            print(issue_id+","+reporter+","+component+","+str(perf)+","+summary_proc+","+description_proc+","+label+","+files)
     return
 
 def pre_process(file_name):
@@ -136,6 +136,6 @@ def pre_process(file_name):
     return
 
 '''Preprocess Ends Here'''
-subject = camel
-intent = Security
+subject = derby
+intent = Performance
 pre_process(subject)
