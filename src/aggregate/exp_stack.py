@@ -34,7 +34,6 @@ def setFeatureNamesAndRows(file_name):
         chou_data[target] = target_arr
         return
 
-
 def load_data(file):
     setFeatureNamesAndRows(file)
     # print(chou_data[feature_names])

@@ -11,7 +11,7 @@ Surprising = 'Surprising'
 Security = 'Security'
 Performance = 'Performance'
 
-subject =''
+subject = ''
 intent = ''
 chou_data = {}
 feature_names = 'feature_names'
