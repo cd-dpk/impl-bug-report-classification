@@ -1,0 +1,93 @@
+import numpy as np
+from collections import Counter
+import sys,csv
+class ChouDataHandler:
+    reporter_data = []
+    component_data = []
+    keywords_data = []
+    textual_data = []
+    target_data = []
+
+    def set_feature_names_rows(self,file_name):
+        with open(file_name + '_vec.csv', newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            text_feature_names_arr = np.array(reader.fieldnames)
+            target_column = text_feature_names_arr[len(text_feature_names_arr) - 1]
+            text_feature_names_arr = np.delete(text_feature_names_arr, len(text_feature_names_arr) - 1, axis=0)
+            row_count = len(list(reader))
+            self.chou_data[self.feature_names] = text_feature_names_arr
+            self.data_arr = np.empty([row_count, len(text_feature_names_arr)], dtype=str)
+            self.target_arr = np.empty([row_count], dtype=str)
+            self.chou_data[self.data] = self.data_arr
+            self.chou_data[self.target] = self.target_arr
+        return
+
+    def load_data(self,file):
+        with open(file+'_vec.csv', newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            text_features = []
+            target_column=''
+            counter = 0
+            for f in reader.fieldnames:
+                if counter <= 2 or counter == len(reader.fieldnames)-1:
+                    counter += 1
+                    continue
+                else:
+                    text_features.append(f)
+                    counter += 1
+
+            target_column = reader.fieldnames[len(reader.fieldnames)-1]
+            # print(text_features)
+
+            for row in reader:
+                reporter = row['reporter'] in (None, '') and '' or row['reporter']
+                component = row['component'] in (None, '') and 'null' or row['component']
+                keyword = row['keywords'] in (None, '') and 'null' or row['keywords']
+                self.reporter_data.append(reporter)
+                self.component_data.append(component)
+                self.keywords_data.append(keyword)
+
+                text_data_arr_row = []
+                for x in text_features:
+                    if row[x] not in (None, ''):
+                        text_data_arr_row.append(int(row[x]))
+
+                target = int(row[target_column])
+                self.textual_data.append(text_data_arr_row)
+                self.target_data.append(target)
+
+        self.reporter_data = np.array(self.reporter_data)
+        self.component_data = np.array(self.component_data)
+        self.keywords_data = np.array(self.keywords_data)
+        self.textual_data = np.array(self.textual_data)
+        self.target_data = np.array(self.target_data)
+
+    def reporter_to_numeric_data(self):
+        from sklearn.preprocessing import LabelEncoder
+        le = LabelEncoder()
+        le.fit(self.reporter_data)
+        return le.transform(self.reporter_data)
+
+    def component_to_numeric_data(self):
+        import re
+        component_list = []
+        for comp_c in self.component_data:
+            comps = re.split("; ",comp_c)
+            for x_comp in comps:
+               if x_comp not in component_list:
+                component_list.append(x_comp)
+
+        one_hot_components = []
+        for comp_c in self.component_data:
+            comps = re.split("; ", comp_c)
+            one_hot_component = []
+            for c in component_list:
+                if c in comps:
+                   one_hot_component.append(1)
+                else:
+                    one_hot_component.append(0)
+            one_hot_components.append(one_hot_component)
+
+        return one_hot_components
+
+
