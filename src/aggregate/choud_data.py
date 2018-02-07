@@ -43,9 +43,9 @@ class ChouDataHandler:
                 reporter = row['reporter'] in (None, '') and '' or row['reporter']
                 component = row['component'] in (None, '') and 'null' or row['component']
                 keyword = row['keywords'] in (None, '') and 'null' or row['keywords']
-                self.reporter_data.append(reporter)
-                self.component_data.append(component)
-                self.keywords_data.append(keyword)
+                self.reporter_data.append(np.array([reporter]))
+                self.component_data.append(np.array([component]))
+                self.keywords_data.append(np.array([keyword]))
 
                 text_data_arr_row = []
                 for x in text_features:
@@ -88,6 +88,17 @@ class ChouDataHandler:
                     one_hot_component.append(0)
             one_hot_components.append(one_hot_component)
 
-        return one_hot_components
+        return np.array(one_hot_components)
 
 
+    def get_numeric_data(self):
+        numeric_data = []
+        reporter_data = np.array(self.reporter_to_numeric_data())
+        component_data = np.array(self.component_to_numeric_data())
+
+        for x in range(len(self.reporter_data)):
+            print((reporter_data[0], component_data[0],self.keywords_data[0],self.textual_data[0]))
+            # row = np.concatenate((reporter_data[0], component_data[0],self.keywords_data[0],self.textual_data[0]),axis=0)
+            # numeric_data.append(row)
+
+        return np.array(numeric_data)
