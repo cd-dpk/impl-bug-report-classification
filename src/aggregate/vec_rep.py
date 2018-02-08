@@ -91,10 +91,7 @@ def proc_textual_info(file_name):
                 rw += '0,'
         output += rw
         label = row[intent] in (None, '') and 'No' or row[intent]
-        if label.startswith('1'):
-            output += 'Yes'
-        elif label.startswith('0'):
-            output += 'No'
+        output += label
 
         print(output)
     csvfile.close()
@@ -108,6 +105,6 @@ def vec_process(file_name):
 
 '''Vector Representation Ends here'''
 
-subject=ambari
-intent=Security
+subject= wicket
+intent= Security
 vec_process(subject)

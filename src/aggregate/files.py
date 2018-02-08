@@ -37,7 +37,7 @@ def label_src_files(file_name):
         counter = 0
         for file in files:
             if re.search("^camel-core/", file) and re.search(".java$", file):
-                # if re.search(".java$",file):
+            # if re.search(".java$",file):
                 all_files.append(file)
                 label_files.append(int(label))
                 if int(label) == 1:
@@ -50,7 +50,7 @@ def label_src_files(file_name):
                         n_files_list[file] += 1
                     else:
                         n_files_list[file] = 1
-            print(file, label)
+                # print(file, label)
             counter += 1
         print(counter)
     csvfile.close()
@@ -82,7 +82,6 @@ def label_src_files(file_name):
 
     return
 
-
-subject = ambari
-intent = Performance
+subject = camel
+intent = Security
 label_src_files(subject)

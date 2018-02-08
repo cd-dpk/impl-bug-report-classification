@@ -1,13 +1,6 @@
-class Complex:
-    def __init__(self, realpart, imagpart):
-        self.r = realpart
-        self.i = imagpart
+import numpy as np
 
-    def calculate(self):
-        return self.r, self.i
-
-
-def fun():
-    return "Have Fun"
-
-import pickle
+a = np.array([1,2],dtype=int)
+b = np.array([3,4],dtype=int)
+print(np.concatenate((a,b),axis=0))
+print(np.concatenate((a,b),axis=1))

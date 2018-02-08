@@ -15,10 +15,10 @@ Security = 'Security'
 Performance = 'Performance'
 intent = ''
 
-perf_keywords=["performance","slow","speed","latency","throughput",
+perf_keywords = ["performance","slow","speed","latency","throughput",
       "cpu","disk","memory","usage","resource","calling",
       "times","infinite","loop"]
-sec_keywords=["add","denial","service","XXE","remote","open","redirect","OSVDB","vuln","CVE","XSS","ReDoS",
+sec_keywords = ["add","denial","service","XXE","remote","open","redirect","OSVDB","vuln","CVE","XSS","ReDoS",
           "NVD","malicious","frame","attack","exploit","directory","traversal","RCE","dos","XSRF",
           "clickjack","session","fixation","hijack","advisory","insecure","security","cross",
           "origin","unauthori[z|s]ed","authenticat(e|ion)","brute force","bypass","credential",
@@ -129,6 +129,10 @@ def proc_file(file_name):
                 print(issue_id+","+reporter+","+component+","+str(sec)+","+summary_proc+","+description_proc+","+label+","+files)
             elif intent == Performance:
                 print(issue_id+","+reporter+","+component+","+str(perf)+","+summary_proc+","+description_proc+","+label+","+files)
+            elif intent == Surprising:
+                print(issue_id + "," + reporter + "," + component + "," + str(
+                    perf) + "," + summary_proc + "," + description_proc + "," + label + "," + files)
+
     return
 def pre_process(file_name):
     sys.stdout= open(file_name+'_proc.csv','w',encoding="UTF-8")
@@ -137,6 +141,6 @@ def pre_process(file_name):
     return
 
 '''Preprocess Ends Here'''
-subject = ambari
+subject = wicket
 intent = Security
 pre_process(subject)
