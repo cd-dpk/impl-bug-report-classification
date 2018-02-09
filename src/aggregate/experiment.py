@@ -7,17 +7,11 @@ class Experiment:
     def load_data(self):
         self.chou_data = ChouDataHandler()
         self.chou_data.load_data(self.file)
-        self.X = self.chou_data.textual_data
+        self.X_txt = self.chou_data.textual_data
         self.y = self.chou_data.target_data
-
         self.X_str = self.chou_data.get_numeric_str_data()
-
         return
 
-    def feature_selection(self, best):
-        from sklearn.feature_selection import chi2
-        from sklearn.feature_selection import SelectKBest
-        self.X = SelectKBest(chi2, k=best).fit_transform(self.X, self.y)
 
     def under_sampling(self,X,y):
         from imblearn.under_sampling import RandomUnderSampler

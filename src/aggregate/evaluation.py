@@ -18,9 +18,14 @@ dt = DecisionTreeClassifier()
 supvecmac = svm.SVC()
 knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 
-exp = NormalExperiment('ambari')
-# exp.doExperiment(hypo=mnb)
-exp.do_experiment_structural(h_f=supvecmac,h_s=dt)
+exp_ambari = NormalExperiment('ambari')
+exp_camel = NormalExperiment('camel')
+exp_derby = NormalExperiment('derby')
+exp_wicket = NormalExperiment('wicket')
 
+exp_ambari.do_voting_experiment_txt([supvecmac])
+# exp_camel.do_voting_experiment_txt([supvecmac])
+# exp_derby.do_voting_experiment_txt([supvecmac])
+# exp_wicket.do_voting_experiment_txt([knn,mnb,supvecmac])
 
-
+# exp_ambari.do_stacking_experiment_txt(lr,[knn,mnb,supvecmac])

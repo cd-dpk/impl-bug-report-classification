@@ -9,12 +9,7 @@ camel = 'camel'
 derby = 'derby'
 wicket = 'wicket'
 all = 'all'
-subject =''
-Surprising = 'Surprising'
-Security = 'Security'
-Performance = 'Performance'
-intent = ''
-
+subject = ''
 perf_keywords = ["performance","slow","speed","latency","throughput",
       "cpu","disk","memory","usage","resource","calling",
       "times","infinite","loop"]
@@ -114,24 +109,27 @@ def pre_proc_sentence(t):
 def proc_file(file_name):
     with open('../data/'+file_name+'.csv', newline='', encoding="UTF-8") as csvfile:
         reader = csv.DictReader(csvfile)
-        print('issue_id,reporter,component,keywords,summary_proc,description_proc,' + intent+",files")
+        # print('issue_id,reporter,component,keywords,summary,description,ST,Patch,CE,TC,EN,files,Security')
+        print('issue_id,reporter,component,keywords,summary,description,ST,Patch,CE,TC,EN,files,Performance')
         for row in reader:
             issue_id = str(row['issue_id'] in (None, '') and '' or row['issue_id'])
             reporter = row['reporter'] in (None,'') and 'null' or row['reporter']
             component = row['component'] in (None, '') and 'null' or row['component']
-            summary_proc= (row['summary'] in (None,'') and '' or pre_proc_sentence(row['summary']))
-            description_proc = (row['description'] in (None, '') and '' or pre_proc_sentence(row['description']))
-            label = row[intent] in (None, '') and '0' or row[intent]
+            summary = (row['summary'] in (None,'') and '' or row['summary'])
+            description = (row['description'] in (None, '') and '' or row['description'])
+            security = str((row['Security'] in (None, '') and '0' or row['Security']))
+            performance = str((row['Performance'] in (None, '') and '0' or row['Performance']))
+            st = str((row['ST'] in (None, '') and '0' or row['ST']))
+            patch = str((row['Patch'] in (None, '') and '0' or row['Patch']))
+            ce = str((row['CE'] in (None, '') and '0' or row['CE']))
+            tc = str((row['TC'] in (None, '') and '0' or row['TC']))
+            en = str((row['EN'] in (None, '') and '0' or row['EN']))
             sec, perf = predict_keywords((row['summary'] in (None,'') and''or'')+" "+(row['description'] in (None, '') and '' or ''))
-            # sec, perf = predict_keywords((row['summary'] in (None, '') and '' or ''))
             files = row['files'] in (None, '') and '' or row['files']
-            if intent == Security:
-                print(issue_id+","+reporter+","+component+","+str(sec)+","+summary_proc+","+description_proc+","+label+","+files)
-            elif intent == Performance:
-                print(issue_id+","+reporter+","+component+","+str(perf)+","+summary_proc+","+description_proc+","+label+","+files)
-            elif intent == Surprising:
-                print(issue_id + "," + reporter + "," + component + "," + str(
-                    perf) + "," + summary_proc + "," + description_proc + "," + label + "," + files)
+            # print(issue_id+','+reporter+','+component+','+str(sec)+','+summary+','+description+
+            #       ','+st+','+patch+','+ce+','+tc+','+en+','+files+','+security)
+            print(issue_id + ',' + reporter + ',' + component + ',' + str(perf) + ',' + summary + ',' + description +
+                  ',' + st + ',' + patch + ',' + ce + ',' + tc + ',' + en + ',' + files + ',' + performance)
 
     return
 def pre_process(file_name):
@@ -142,5 +140,4 @@ def pre_process(file_name):
 
 '''Preprocess Ends Here'''
 subject = wicket
-intent = Security
 pre_process(subject)
