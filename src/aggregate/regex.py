@@ -96,8 +96,11 @@ def calc_accuracy(result_dic:dict):
     return (t_p+t_n)/(t_p+t_n+f_p+f_n)
 
 def proc_sum_desc(file_name):
-    y_target=np.empty([4000,2],dtype=int)
-    y_predict = np.empty([4000,2],dtype=int)
+    y_sec_target = []
+    y_perf_target = []
+    y_sec_predict = []
+    y_perf_predict = []
+
 
     with open('/media/geet/Files/IITDU/MSSE-03/implementation/src/data/'+subject+'.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
@@ -107,30 +110,18 @@ def proc_sum_desc(file_name):
             description= (row['description'] in (None,'') and '' or row['description'])
             print(summary)
             print(description)
-            y_target[counter][0] = int(row[Security] in (None, '') and '0' or row[Security])
-            y_target[counter][1] = int(row[Performance] in (None, '') and '0' or row[Performance])
-            print(y_target[counter][0],y_target[counter][1])
-            y_predict[counter][0],y_predict[counter][1] = predict_class(summary+" "+description)
-            counter+=1
+            y_sec_target.append(int(row[Security] in (None, '') and '0' or row[Security]))
+            y_perf_target.append(int(row[Performance] in (None, '') and '0' or row[Performance]))
 
-        print(y_target)
-        print(y_predict)
+            sec_predict, perf_predict = predict_class(summary+" "+description)
+            y_sec_predict.append(sec_predict)
+            y_perf_predict.append(perf_predict)
+            counter += 1
 
-        y_target_1,y_predict_1=np.empty(4000,dtype=int),np.empty(4000,dtype=int)
-        y_target_2,y_predict_2 = np.empty(4000,dtype=int),np.empty(4000,dtype=int)
-        for x in range(len(y_target_1)):
-            y_target_1[x] = y_target[x][0]
-            y_target_2[x] = y_target[x][1]
-
-            y_predict_1[x] = y_predict[x][0]
-            y_predict_2[x] = y_predict[x][1]
-
-    print(confusion_matrix(y_target_1,y_predict_1))
-    print(confusion_matrix(y_target_2,y_predict_2))
-    print(calc_pre_rec(confusion_matrix(y_target_1,y_predict_1)))
-    print(calc_pre_rec(confusion_matrix(y_target_2,y_predict_2)))
-    print(calc_accuracy(confusion_matrix(y_target_1,y_predict_1)))
-    print(calc_accuracy(confusion_matrix(y_target_2,y_predict_2)))
+    print(confusion_matrix(y_sec_predict,y_sec_target))
+    print(confusion_matrix(y_perf_predict,y_perf_target))
+    print(calc_pre_rec(confusion_matrix(y_sec_predict,y_sec_target)))
+    print(calc_pre_rec(confusion_matrix(y_perf_predict,y_perf_target)))
     return
 
 def pre_process(file_name):
@@ -138,5 +129,5 @@ def pre_process(file_name):
     return
 
 '''Preprocess Ends Here'''
-subject=wicket
+subject = ambari
 pre_process(subject)

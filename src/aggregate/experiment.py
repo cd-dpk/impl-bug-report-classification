@@ -1,8 +1,11 @@
 from src.aggregate.chou_data import ChouDataHandler
 import numpy as np
+
+
 class Experiment:
-    def __init__(self, file):
+    def __init__(self, file, intent):
         self.file = file
+        self.intent = intent
 
     def load_data(self):
         self.chou_data = ChouDataHandler()

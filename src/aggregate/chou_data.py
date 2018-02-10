@@ -1,6 +1,8 @@
 import numpy as np
 from collections import Counter
 import sys, csv
+
+
 class ChouDataHandler:
     reporter_data = []
     component_data = []
@@ -128,7 +130,6 @@ class ChouDataHandler:
             for y in range(len(self.description_data[x])):
                 temp_arr.append(self.description_data[x][y])
             numeric_data.append(temp_arr)
-
         return np.array(numeric_data)
 
 

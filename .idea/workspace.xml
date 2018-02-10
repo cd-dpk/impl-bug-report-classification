@@ -2,21 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88f14af2-aa8c-485b-aa1a-5836ed906e99" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/word2vec/a.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/word2vec/embedding_vectorizer.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/aggregate/wordtovec.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/aggregate/NormalExperiment.py" afterPath="$PROJECT_DIR$/src/aggregate/NormalExperiment.py" />
       <change beforePath="$PROJECT_DIR$/src/aggregate/chou_data.py" afterPath="$PROJECT_DIR$/src/aggregate/chou_data.py" />
       <change beforePath="$PROJECT_DIR$/src/aggregate/evaluation.py" afterPath="$PROJECT_DIR$/src/aggregate/evaluation.py" />
       <change beforePath="$PROJECT_DIR$/src/aggregate/experiment.py" afterPath="$PROJECT_DIR$/src/aggregate/experiment.py" />
       <change beforePath="$PROJECT_DIR$/src/aggregate/pre_process.py" afterPath="$PROJECT_DIR$/src/aggregate/pre_process.py" />
+      <change beforePath="$PROJECT_DIR$/src/aggregate/pre_processor.py" afterPath="$PROJECT_DIR$/src/aggregate/pre_processor.py" />
+      <change beforePath="$PROJECT_DIR$/src/aggregate/regex.py" afterPath="$PROJECT_DIR$/src/aggregate/regex.py" />
       <change beforePath="$PROJECT_DIR$/src/aggregate/vec_rep.py" afterPath="$PROJECT_DIR$/src/aggregate/vec_rep.py" />
-      <change beforePath="$PROJECT_DIR$/src/data/ambari.csv" afterPath="$PROJECT_DIR$/src/data/ambari.csv" />
-      <change beforePath="$PROJECT_DIR$/src/data/camel.csv" afterPath="$PROJECT_DIR$/src/data/camel.csv" />
-      <change beforePath="$PROJECT_DIR$/src/data/derby.csv" afterPath="$PROJECT_DIR$/src/data/derby.csv" />
-      <change beforePath="$PROJECT_DIR$/src/data/wicket.csv" afterPath="$PROJECT_DIR$/src/data/wicket.csv" />
       <change beforePath="$PROJECT_DIR$/src/f.txt" afterPath="$PROJECT_DIR$/src/f.txt" />
       <change beforePath="$PROJECT_DIR$/src/init.py" afterPath="$PROJECT_DIR$/src/init.py" />
+      <change beforePath="$PROJECT_DIR$/src/word2vec/a.py" afterPath="$PROJECT_DIR$/src/word2vec/a.py" />
+      <change beforePath="$PROJECT_DIR$/src/word2vec/embedding_vectorizer.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/word2vec/f.txt" afterPath="$PROJECT_DIR$/src/word2vec/f.txt" />
       <change beforePath="$PROJECT_DIR$/src/word2vec/wordtovec.py" afterPath="$PROJECT_DIR$/src/word2vec/wordtovec.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,7 +27,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/implementation$evaluation.coverage" NAME="evaluation Coverage Results" MODIFIED="1518180878889" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
+    <SUITE FILE_PATH="coverage/implementation$evaluation.coverage" NAME="evaluation Coverage Results" MODIFIED="1518264404739" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
     <SUITE FILE_PATH="coverage/implementation$compsac_16.coverage" NAME="compsac_16 Coverage Results" MODIFIED="1516155441945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/implementation$pre_process__1_.coverage" NAME="pre_process (1) Coverage Results" MODIFIED="1516156024942" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/implementation$experiment_sec.coverage" NAME="experiment_sec Coverage Results" MODIFIED="1516819458409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/compsac16" />
@@ -36,19 +36,21 @@
     <SUITE FILE_PATH="coverage/implementation$vec_rep_word2vec.coverage" NAME="vec_rep_word2vec Coverage Results" MODIFIED="1517915043071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
     <SUITE FILE_PATH="coverage/implementation$component.coverage" NAME="component Coverage Results" MODIFIED="1517912983172" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
     <SUITE FILE_PATH="coverage/implementation$experiment_sec_str.coverage" NAME="experiment_sec_str Coverage Results" MODIFIED="1516978252071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/fse17" />
-    <SUITE FILE_PATH="coverage/implementation$wordtovec.coverage" NAME="wordtovec Coverage Results" MODIFIED="1518183255740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/word2vec" />
+    <SUITE FILE_PATH="coverage/implementation$wordtovec.coverage" NAME="wordtovec Coverage Results" MODIFIED="1518283454785" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/word2vec" />
     <SUITE FILE_PATH="coverage/implementation$experiment_NB.coverage" NAME="experiment_NB Coverage Results" MODIFIED="1518078042148" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
-    <SUITE FILE_PATH="coverage/implementation$NormalExperiment.coverage" NAME="NormalExperiment Coverage Results" MODIFIED="1518126252319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
-    <SUITE FILE_PATH="coverage/implementation$a.coverage" NAME="a Coverage Results" MODIFIED="1518183222306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/word2vec" />
+    <SUITE FILE_PATH="coverage/implementation$pre_processor.coverage" NAME="pre_processor Coverage Results" MODIFIED="1518280827970" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
+    <SUITE FILE_PATH="coverage/implementation$NormalExperiment.coverage" NAME="NormalExperiment Coverage Results" MODIFIED="1518204587854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
+    <SUITE FILE_PATH="coverage/implementation$a.coverage" NAME="a Coverage Results" MODIFIED="1518264618593" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/word2vec" />
     <SUITE FILE_PATH="coverage/implementation$ambari_data_sklearn.coverage" NAME="ambari_data_sklearn Coverage Results" MODIFIED="1516329454549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/implementation$files.coverage" NAME="files Coverage Results" MODIFIED="1518017419399" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
-    <SUITE FILE_PATH="coverage/implementation$init.coverage" NAME="init Coverage Results" MODIFIED="1518183061762" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/implementation$regex.coverage" NAME="regex Coverage Results" MODIFIED="1518184372032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
+    <SUITE FILE_PATH="coverage/implementation$init.coverage" NAME="init Coverage Results" MODIFIED="1518290214038" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/implementation$test1.coverage" NAME="test1 Coverage Results" MODIFIED="1517924030025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/implementation$experiment_sec_all.coverage" NAME="experiment_sec_all Coverage Results" MODIFIED="1516814932514" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/compsac16" />
     <SUITE FILE_PATH="coverage/implementation$experiment_fse.coverage" NAME="experiment_fse Coverage Results" MODIFIED="1516808271862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/fse17" />
     <SUITE FILE_PATH="coverage/implementation$chou_data.coverage" NAME="chou_data Coverage Results" MODIFIED="1518119706561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
     <SUITE FILE_PATH="coverage/implementation$chou_data_sklearn.coverage" NAME="chou_data_sklearn Coverage Results" MODIFIED="1516319494071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/implementation$vec_rep.coverage" NAME="vec_rep Coverage Results" MODIFIED="1518182780299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
+    <SUITE FILE_PATH="coverage/implementation$vec_rep.coverage" NAME="vec_rep Coverage Results" MODIFIED="1518210917182" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
     <SUITE FILE_PATH="coverage/implementation$experiment.coverage" NAME="experiment Coverage Results" MODIFIED="1518120093839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
     <SUITE FILE_PATH="coverage/implementation$imbalance_learn.coverage" NAME="imbalance_learn Coverage Results" MODIFIED="1516334544235" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/compsac16" />
     <SUITE FILE_PATH="coverage/implementation$experiment__1_.coverage" NAME="experiment (1) Coverage Results" MODIFIED="1516981068984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/fse17/sum_des_stacking" />
@@ -56,15 +58,105 @@
     <SUITE FILE_PATH="coverage/implementation$vec_rep__1_.coverage" NAME="vec_rep (1) Coverage Results" MODIFIED="1516218529105" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/compsac16" />
     <SUITE FILE_PATH="coverage/implementation$security.coverage" NAME="security Coverage Results" MODIFIED="1516140297985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/implementation$words.coverage" NAME="words Coverage Results" MODIFIED="1516042116575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/preprocess" />
-    <SUITE FILE_PATH="coverage/implementation$pre_process.coverage" NAME="pre_process Coverage Results" MODIFIED="1518172920071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
+    <SUITE FILE_PATH="coverage/implementation$pre_process.coverage" NAME="pre_process Coverage Results" MODIFIED="1518210858615" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/aggregate" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="NormalExperiment.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/aggregate/NormalExperiment.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7704">
+              <caret line="433" column="0" lean-forward="false" selection-start-line="433" selection-start-column="0" selection-end-line="433" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="init.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/init.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="486">
+              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ambari_wv.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/word2vec/ambari_wv.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pre_process.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/aggregate/pre_process.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="32" column="34" lean-forward="true" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pre_processor.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/aggregate/pre_processor.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="21" column="33" lean-forward="true" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="evaluation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/aggregate/evaluation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="20" column="16" lean-forward="false" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#59#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wordtovec.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/word2vec/wordtovec.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="239">
+              <caret line="66" column="47" lean-forward="true" selection-start-line="66" selection-start-column="47" selection-end-line="66" selection-end-column="47" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="a_wv.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/word2vec/a_wv.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="vec_rep.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/aggregate/vec_rep.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="56">
-              <caret line="126" column="19" lean-forward="true" selection-start-line="126" selection-start-column="19" selection-end-line="126" selection-end-column="19" />
+            <state relative-caret-position="72">
+              <caret line="4" column="24" lean-forward="false" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
               <folding>
                 <element signature="e#11#31#0" expanded="true" />
               </folding>
@@ -72,11 +164,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="embedding_vectorizer.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/word2vec/embedding_vectorizer.py">
+      <file leaf-file-name="wordtovec.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/aggregate/wordtovec.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="16" column="25" lean-forward="false" selection-start-line="16" selection-start-column="25" selection-end-line="17" selection-end-column="61" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -93,10 +185,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>,</find>
-      <find>process</find>
-      <find>''</find>
-      <find>dtype</find>
       <find>astype</find>
       <find>componen</find>
       <find>,6</find>
@@ -123,6 +211,10 @@
       <find>,0</find>
       <find>,1</find>
       <find>supvecmac</find>
+      <find>[</find>
+      <find>h</find>
+      <find>'e'</find>
+      <find>'z'</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -131,7 +223,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/fse17/experiment_fse.py" />
         <option value="$PROJECT_DIR$/src/compsac16/experiment_str.py" />
         <option value="$PROJECT_DIR$/src/compsac16/experiment.py" />
         <option value="$PROJECT_DIR$/src/compsac16/experiment_sec_all.py" />
@@ -160,7 +251,6 @@
         <option value="$PROJECT_DIR$/src/test2.py" />
         <option value="$PROJECT_DIR$/src/test1.py" />
         <option value="$PROJECT_DIR$/src/aggregate/exp_stack.py" />
-        <option value="$PROJECT_DIR$/src/aggregate/pre_processor.py" />
         <option value="$PROJECT_DIR$/src/aggregate/files.py" />
         <option value="$PROJECT_DIR$/src/country_data.xml" />
         <option value="$PROJECT_DIR$/src/aggregate/word2vec/wordtovec.py" />
@@ -171,17 +261,19 @@
         <option value="$PROJECT_DIR$/src/aggregate/StackingExperiment.py" />
         <option value="$PROJECT_DIR$/src/data/all.csv" />
         <option value="$PROJECT_DIR$/src/aggregate/vec_rep_gensim.py" />
-        <option value="$PROJECT_DIR$/src/aggregate/experiment.py" />
         <option value="$PROJECT_DIR$/src/data/derby.csv" />
-        <option value="$PROJECT_DIR$/src/aggregate/NormalExperiment.py" />
-        <option value="$PROJECT_DIR$/src/aggregate/pre_process.py" />
         <option value="$PROJECT_DIR$/src/word2vec/embedding_vectorizer.py" />
+        <option value="$PROJECT_DIR$/src/aggregate/regex.py" />
         <option value="$PROJECT_DIR$/src/aggregate/chou_data.py" />
-        <option value="$PROJECT_DIR$/src/aggregate/evaluation.py" />
-        <option value="$PROJECT_DIR$/src/aggregate/vec_rep.py" />
-        <option value="$PROJECT_DIR$/src/init.py" />
         <option value="$PROJECT_DIR$/src/word2vec/a.py" />
+        <option value="$PROJECT_DIR$/src/aggregate/experiment.py" />
+        <option value="$PROJECT_DIR$/src/aggregate/NormalExperiment.py" />
+        <option value="$PROJECT_DIR$/src/aggregate/evaluation.py" />
         <option value="$PROJECT_DIR$/src/word2vec/wordtovec.py" />
+        <option value="$PROJECT_DIR$/src/init.py" />
+        <option value="$PROJECT_DIR$/src/aggregate/pre_processor.py" />
+        <option value="$PROJECT_DIR$/src/aggregate/pre_process.py" />
+        <option value="$PROJECT_DIR$/src/aggregate/vec_rep.py" />
       </list>
     </option>
   </component>
@@ -231,7 +323,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -240,10 +331,28 @@
               <item name="implementation" type="b2602c69:ProjectViewProjectNode" />
               <item name="implementation" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="implementation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="implementation" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="implementation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="implementation" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="aggregate" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="implementation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="implementation" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="word2vec" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -253,17 +362,17 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/src/compsac16" />
-      <recent name="$PROJECT_DIR$/src/data/main" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/aggregate" />
       <recent name="D:\PythonWorld\implementation\src\aggregate" />
       <recent name="D:\PythonWorld\implementation\src" />
       <recent name="$PROJECT_DIR$/src/fse17/sum_des_stacking" />
       <recent name="$PROJECT_DIR$/src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/compsac16" />
+      <recent name="$PROJECT_DIR$/src/data/main" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -278,7 +387,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.wordtovec">
+  <component name="RunManager" selected="Python.init">
     <configuration name="a" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -336,7 +445,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="vec_rep" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="pre_processor" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -349,7 +458,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="implementation" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/aggregate/vec_rep.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/aggregate/pre_processor.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -375,18 +484,18 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.vec_rep" />
-      <item index="1" class="java.lang.String" itemvalue="Python.evaluation" />
-      <item index="2" class="java.lang.String" itemvalue="Python.init" />
-      <item index="3" class="java.lang.String" itemvalue="Python.a" />
+      <item index="0" class="java.lang.String" itemvalue="Python.evaluation" />
+      <item index="1" class="java.lang.String" itemvalue="Python.init" />
+      <item index="2" class="java.lang.String" itemvalue="Python.a" />
+      <item index="3" class="java.lang.String" itemvalue="Python.pre_processor" />
       <item index="4" class="java.lang.String" itemvalue="Python.wordtovec" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.wordtovec" />
-        <item index="1" class="java.lang.String" itemvalue="Python.a" />
-        <item index="2" class="java.lang.String" itemvalue="Python.init" />
-        <item index="3" class="java.lang.String" itemvalue="Python.vec_rep" />
+        <item index="0" class="java.lang.String" itemvalue="Python.init" />
+        <item index="1" class="java.lang.String" itemvalue="Python.wordtovec" />
+        <item index="2" class="java.lang.String" itemvalue="Python.pre_processor" />
+        <item index="3" class="java.lang.String" itemvalue="Python.a" />
         <item index="4" class="java.lang.String" itemvalue="Python.evaluation" />
       </list>
     </recent_temporary>
@@ -408,13 +517,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-567" y="139" width="1303" height="772" extended-state="6" />
+    <frame x="-567" y="139" width="1303" height="744" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32649842" sideWeight="0.50292826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32582584" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32582584" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32732734" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25172678" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -447,18 +556,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="19" />
+      <option name="time" value="22" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/fse17/experiment_fse.py" />
-    <entry file="file://$PROJECT_DIR$/src/fse17/sum_des_stacking/exp.py" />
-    <entry file="file://$PROJECT_DIR$/src/aggregate/freq.py" />
-    <entry file="file://$PROJECT_DIR$/src/rule_based/experiment_sec_rule.py" />
-    <entry file="file://$PROJECT_DIR$/src/fse17/sum_des_stacking/exp_voting.py" />
-    <entry file="file://$PROJECT_DIR$/src/fse17/sum_des_stacking/vec_rep.py" />
-    <entry file="file://$PROJECT_DIR$/src/fse17/sum_des_stacking/exp_stack.py" />
     <entry file="file://$PROJECT_DIR$/src/fse17/sum_des_stacking/pre_process.py" />
     <entry file="file://$PROJECT_DIR$/src/aggregate/exp_voting.py" />
     <entry file="file://$PROJECT_DIR$/src/test2.py" />
@@ -518,7 +620,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
           <caret line="719" column="8" lean-forward="false" selection-start-line="719" selection-start-column="8" selection-end-line="719" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -533,7 +634,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18936">
           <caret line="859" column="525" lean-forward="false" selection-start-line="859" selection-start-column="525" selection-end-line="859" selection-end-column="525" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -541,73 +641,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="0" column="289" lean-forward="false" selection-start-line="0" selection-start-column="289" selection-end-line="0" selection-end-column="289" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/aggregate/camel_vec.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="142" column="409" lean-forward="false" selection-start-line="142" selection-start-column="409" selection-end-line="142" selection-end-column="409" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aggregate/camel_vec.csv" />
     <entry file="file://$PROJECT_DIR$/src/aggregate/StackingExperiment.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="358">
           <caret line="81" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/aggregate/NormalExperiment.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="275" column="0" lean-forward="false" selection-start-line="275" selection-start-column="0" selection-end-line="275" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#47#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aggregate/ambari_proc.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="2" column="326" lean-forward="false" selection-start-line="2" selection-start-column="326" selection-end-line="2" selection-end-column="326" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aggregate/camel_proc.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="1" column="369" lean-forward="false" selection-start-line="1" selection-start-column="369" selection-end-line="1" selection-end-column="369" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aggregate/wicket_proc.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aggregate/pre_processor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aggregate/camel_proc.csv" />
+    <entry file="file://$PROJECT_DIR$/src/aggregate/wicket_proc.csv" />
     <entry file="file://$PROJECT_DIR$/src/aggregate/f.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -615,11 +665,110 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="10" column="6" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aggregate/ambari_vec.csv" />
+    <entry file="file://$USER_HOME$/PycharmProjects/HelloWorld/venv/lib/python3.4/site-packages/gensim/models/word2vec.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="424" column="8" lean-forward="false" selection-start-line="424" selection-start-column="8" selection-end-line="424" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/word2vec/embedding_vectorizer.py" />
+    <entry file="file://$PROJECT_DIR$/src/word2vec/f.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3510">
+          <caret line="195" column="8" lean-forward="false" selection-start-line="195" selection-start-column="8" selection-end-line="195" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aggregate/regex.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/rule_based/experiment_sec_rule.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="17" column="21" lean-forward="false" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aggregate/camel_shaon_774_proc.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aggregate/files.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1350">
+          <caret line="82" column="4" lean-forward="false" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aggregate/freq.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aggregate/chou_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2394">
+          <caret line="135" column="0" lean-forward="false" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/word2vec/a.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="12" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aggregate/experiment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/word2vec/f.txt">
+    <entry file="file://$PROJECT_DIR$/src/aggregate/NormalExperiment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7704">
+          <caret line="433" column="0" lean-forward="false" selection-start-line="433" selection-start-column="0" selection-end-line="433" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aggregate/evaluation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="20" column="16" lean-forward="false" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aggregate/ambari_proc.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/word2vec/a_wv.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -627,106 +776,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/aggregate/pre_process.py">
+    <entry file="file://$PROJECT_DIR$/src/word2vec/ambari_wv.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aggregate/files.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="82" column="4" lean-forward="false" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aggregate/ambari_vec.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1530">
-          <caret line="85" column="2464" lean-forward="false" selection-start-line="85" selection-start-column="2464" selection-end-line="85" selection-end-column="2464" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aggregate/chou_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1078">
-          <caret line="59" column="54" lean-forward="false" selection-start-line="59" selection-start-column="49" selection-end-line="59" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aggregate/experiment.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="8" column="25" lean-forward="false" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aggregate/evaluation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/PycharmProjects/HelloWorld/venv/lib/python3.4/site-packages/gensim/models/word2vec.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="424" column="8" lean-forward="false" selection-start-line="424" selection-start-column="8" selection-end-line="424" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/word2vec/a.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/init.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="19" lean-forward="true" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/word2vec/wordtovec.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="26" column="23" lean-forward="false" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
+        <state relative-caret-position="486">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/word2vec/wordtovec.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="66" column="47" lean-forward="true" selection-start-line="66" selection-start-column="47" selection-end-line="66" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aggregate/pre_processor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="21" column="33" lean-forward="true" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aggregate/pre_process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="32" column="34" lean-forward="true" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/aggregate/vec_rep.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="126" column="19" lean-forward="true" selection-start-line="126" selection-start-column="19" selection-end-line="126" selection-end-column="19" />
+        <state relative-caret-position="72">
+          <caret line="4" column="24" lean-forward="false" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
           <folding>
             <element signature="e#11#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/word2vec/embedding_vectorizer.py">
+    <entry file="file://$PROJECT_DIR$/src/aggregate/wordtovec.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="16" column="25" lean-forward="false" selection-start-line="16" selection-start-column="25" selection-end-line="17" selection-end-column="61" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

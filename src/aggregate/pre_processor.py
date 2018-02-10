@@ -4,27 +4,36 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk import FreqDist
 
-class TextPreprocessor:
 
+class TextPreprocessor:
     stop_words = set(stopwords.words('english'))
     additional_stop_words = []
+    for x in range(26):
+        additional_stop_words.append(chr(ord('a') + x))
 
-    def getProcessedText(self,text):
+    def getProcessedText(self, text):
         stemmer = PorterStemmer()
-        text = re.sub('[_]', ' ', text)
-        ## camel case and Pascal Case splitted
-        text = re.sub('(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])', ' ', text)
-        tokens = regexp_tokenize(text, pattern='[a-zA-Z]+')
-        # print('Tokens:',tokens)
-        processed_text = ''
-        for w in tokens:
-            w = stringcase.lowercase(w)
-            ## when to use percentage of vocabulary
-            ## n = int(len(vocabulary)*0.1)
-            ## If src vocabulary is used,then
-            # if w not in stopWords and w not in additionalStopWords and w not in vocabulary.most_common(n):
-            ## otherwise
-            if w not in self.stop_words and w not in self.additional_stop_words:
-                    w = stemmer.stem(w)
-                    processed_text = processed_text + ' ' + w
+        space_deleted_tokens = re.split('\s',text)
+        processed_text = []
+        for space_token in space_deleted_tokens:
+            # if it is a link remove it
+            if re.fullmatch('(https?|ftp|file)://.*', space_token):
+                continue
+            # other wise continue
+            # space_token = re.sub('[_]', ' ', space_token)
+            print(space_token)
+            ## camel case and Pascal Case splitted
+            case_token = re.sub('(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z_])', ' ', space_token)
+            if case_token != space_token:
+                space_token += ' ' + case_token
+            print(space_token)
+            tokens = regexp_tokenize(space_token, pattern='[a-zA-Z_]+')
+            # print('Tokens:',tokens)
+            for w in tokens:
+                if stringcase.lowercase(w) not in self.stop_words and stringcase.lowercase(w) not  in self.additional_stop_words:
+                    if re.fullmatch("([A-Za-z]([a-z]+))?", w) or re.fullmatch("[a-z]+", w):
+                        processed_text.append(stemmer.stem(w))
+                    else:
+                        processed_text.append(w)
         return processed_text
+
