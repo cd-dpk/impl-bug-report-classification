@@ -1,0 +1,4 @@
+subject,intent,before_exp,feature_selection,experiment_type,acc,pre,rec,t_p,t_n,f_p,f_n
+ambari,Security,sum+desc+tf_idf,chi2[0.01],voting_txt[svm],0.917,0.144,0.379,11,906,65,18
+camel,Security,sum+desc+tf_idf,chi2[0.01],voting_txt[svm],0.944,0.038,0.03125,1,943,25,31
+ambari,Security,sum+desc+tf_idf,chi2[0.01],voting_txt[svm,knn,mnb],0.917,0.10,0.24,7,910,61,22

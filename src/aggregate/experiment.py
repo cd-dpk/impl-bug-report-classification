@@ -8,8 +8,8 @@ class Experiment:
         self.intent = intent
 
     def load_data(self):
-        self.chou_data = ChouDataHandler()
-        self.chou_data.load_data(self.file)
+        self.chou_data = ChouDataHandler(self.file,self.intent)
+        self.chou_data.load_data()
         self.X_txt = self.chou_data.textual_data
         self.y = self.chou_data.target_data
         self.X_str = self.chou_data.get_numeric_str_data()

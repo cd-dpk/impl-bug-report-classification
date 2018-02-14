@@ -41,17 +41,24 @@ class Word2VecRep:
 
     def retrive_sentences_src(self, src_file:str):
         with open('/media/geet/Files/IITDU/MSSE-03/SRC_P/' + src_file + '_term.csv', newline='') as csvfile:
+            self.src_sentences= []
             reader = csv.DictReader(csvfile)
+            counter = 0
+            ambari_prob = [1329]
             for row in reader:
+                # print(counter)
                 line_sentence = []
                 textProcessor = TextPreprocessor()
                 text = (row['proc'] in (None, '') and '' or row['proc'])
+                # print(text)
                 line_sentence = textProcessor.getProcessedText(text)
                 self.src_sentences.append(line_sentence)
+                counter += 1
         return
 
-    def retrive_sentences_bug(self,bug_file:str):
-        with open('../aggregate/' + bug_file + '_proc.csv', newline='') as csvfile:
+    def retrive_sentences_bug(self,bug_file: str):
+        with open('../data/' + bug_file + '.csv', newline='') as csvfile:
+            self.bug_sentences= []
             reader = csv.DictReader(csvfile)
             for row in reader:
                 line_sentence = []
@@ -62,20 +69,26 @@ class Word2VecRep:
         return
 
     def train_word2vec(self, file:str, src: bool, bug: bool):
+        print(file)
         if bug:
             self.retrive_sentences_bug(file)
-            for sentence in self.bug_sentences:
-                print(sentence)
+            print("Bug",len(self.bug_sentences))
+            # for sentence in self.bug_sentences:
+            #     print(sentence)
         if src:
             self.retrive_sentences_src(file)
-            for sentence in self.src_sentences:
-                print(sentence)
+            print("Src", len(self.src_sentences))
+            # for sentence in self.src_sentences:
+            #     print(sentence)
 
         from gensim.models.word2vec import Word2Vec
         sentences = self.bug_sentences + self.src_sentences
         model = Word2Vec(sentences, size=100, window=5, min_count=2, workers=4)
         model.wv.save_word2vec_format(file+'_wv.txt', binary=False)
-        return True;
+        return True
 
+import sys
+# sys.stdout = open('camel'+'log.txt', 'w')
 wv = Word2VecRep()
-wv.train_word2vec('ambari', False, True)
+wv.train_word2vec('camel', True, True)
+# sys.stdout.close()

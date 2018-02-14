@@ -21,15 +21,17 @@ class TextPreprocessor:
                 continue
             # other wise continue
             # space_token = re.sub('[_]', ' ', space_token)
-            print(space_token)
+            # print(space_token)
             ## camel case and Pascal Case splitted
             case_token = re.sub('(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z_])', ' ', space_token)
             if case_token != space_token:
                 space_token += ' ' + case_token
-            print(space_token)
+            # print(space_token)
             tokens = regexp_tokenize(space_token, pattern='[a-zA-Z_]+')
             # print('Tokens:',tokens)
             for w in tokens:
+                if re.fullmatch(".*_$",w):
+                     w = re.sub("_","",w)
                 if stringcase.lowercase(w) not in self.stop_words and stringcase.lowercase(w) not  in self.additional_stop_words:
                     if re.fullmatch("([A-Za-z]([a-z]+))?", w) or re.fullmatch("[a-z]+", w):
                         processed_text.append(stemmer.stem(w))

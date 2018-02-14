@@ -53,7 +53,7 @@ class Preprocessor:
                 break
         return (sec_cl, perf_cl)
 
-    def proc_file(self):
+    def proc_csv_file(self):
         with open('../data/' + self.file + '.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
             print('issue_id,reporter,component,keywords,summary,description,ST,Patch,CE,TC,EN,files,'+self.intent)
@@ -91,9 +91,53 @@ class Preprocessor:
                           tc + ',' + en + ',' + files + ',' + label)
         return
 
+    def proc_xml_file(self):
+        import xml.etree.ElementTree as ET
+        import os
+        # print('issue_id,summary,description,Security'+self.intent)
+        dir = '/media/geet/Files/IITDU/MSSE-03/DocumentSimilarity-master/Apache/'
+        sec_keys = []
+        with open("/media/geet/Files/IITDU/MSSE-03/DocumentSimilarity-master/sec.txt", "r") as myfile:
+            for line in myfile:
+                sec_keys.append(re.sub("\n", "", line))
+
+        print(sec_keys)
+        perf_keys = []
+        with open("/media/geet/Files/IITDU/MSSE-03/DocumentSimilarity-master/perf.txt", "r") as myfile:
+            for line in myfile:
+                perf_keys.append(re.sub("\n", "", line))
+        print(perf_keys)
+
+        files = os.listdir(dir)
+        sentences = []
+        count_sec = 0
+        count_perf = 0
+        for file in files:
+            if re.fullmatch(".*all.xml$",file):
+                2
+            else:
+                continue
+            print(dir + file)
+            tree = ET.parse(dir + file)
+            root = tree.getroot()
+            for bug in root.findall('item'):
+                key = bug.find('key').text
+
+                summary = bug.find('summary').text
+                description = bug.find("description").text
+                # t = TextPreprocessor()
+                # line_sentence = []
+                # for word in re.split(" ", t.getProcessedText(text=sentence)):
+                #     line_sentence.append(word)
+                # sentences.append(line_sentence)
+
+        print(count_sec)
+        print(count_perf)
+        return
+
     def pre_process(self):
-        sys.stdout= open(self.file+'_'+self.intent+'_proc.csv','w',encoding="UTF-8")
-        self.proc_file(self.file)
-        sys.stdout.close()
+        # sys.stdout = open(self.file+'_'+self.intent+'_proc.csv','w',encoding="UTF-8")
+        self.proc_csv_file()
+        # sys.stdout.close()
         return
 

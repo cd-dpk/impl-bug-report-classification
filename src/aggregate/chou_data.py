@@ -4,6 +4,7 @@ import sys, csv
 
 
 class ChouDataHandler:
+
     reporter_data = []
     component_data = []
     keywords_data = []
@@ -11,8 +12,13 @@ class ChouDataHandler:
     description_data = []
     target_data = []
 
-    def set_feature_names_rows(self,file_name):
-        with open(file_name + '_vec.csv', newline='') as csvfile:
+    def __init__(self,file,intent):
+        self.file = file
+        self.intent = intent
+
+
+    def set_feature_names_rows(self):
+        with open(self.file+'_'+self.intent+ '_vec.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             text_feature_names_arr = np.array(reader.fieldnames)
             target_column = text_feature_names_arr[len(text_feature_names_arr) - 1]
@@ -25,11 +31,11 @@ class ChouDataHandler:
             self.chou_data[self.target] = self.target_arr
         return
 
-    def load_data(self,file):
-        with open(file+'_vec.csv', newline='') as csvfile:
+    def load_data(self):
+        with open(self.file+'_'+self.intent+'_vec.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             text_features = []
-            target_column=''
+            target_column= ''
             counter = 0
             for f in reader.fieldnames:
                 if counter <= 7 or counter == len(reader.fieldnames)-1:
@@ -41,17 +47,19 @@ class ChouDataHandler:
 
             target_column = reader.fieldnames[len(reader.fieldnames)-1]
             # print(text_features)
-
+            counter = 0
             for row in reader:
+
                 reporter = row['reporter'] in (None, '') and '' or row['reporter']
                 component = row['component'] in (None, '') and 'null' or row['component']
                 keyword = row['keywords'] in (None, '') and '0' or row['keywords']
-                st = int((row['ST'] in (None, '') and '0' or row['ST']))
-                patch = int((row['Patch'] in (None, '') and '0' or row['Patch']))
-                ce = int((row['CE'] in (None, '') and '0' or row['CE']))
-                tc = int((row['TC'] in (None, '') and '0' or row['TC']))
-                en = int((row['EN'] in (None, '') and '0' or row['EN']))
-
+                st = ((row['ST'] in (None, '') and '0' or row['ST']))
+                patch = ((row['Patch'] in (None, '') and '0' or row['Patch']))
+                ce = ((row['CE'] in (None, '') and '0' or row['CE']))
+                tc = ((row['TC'] in (None, '') and '0' or row['TC']))
+                en = ((row['EN'] in (None, '') and '0' or row['EN']))
+                print(counter,reporter,component,keyword,st,patch,ce,tc,en)
+                exit(404)
                 self.reporter_data.append(reporter)
                 self.component_data.append(component)
                 self.keywords_data.append(int(keyword))
@@ -64,6 +72,7 @@ class ChouDataHandler:
                 target = int(row[target_column])
                 self.textual_data.append(text_data_arr_row)
                 self.target_data.append(target)
+                counter+=1
 
         self.reporter_data = np.array(self.reporter_data)
         self.component_data = np.array(self.component_data)
@@ -131,5 +140,3 @@ class ChouDataHandler:
                 temp_arr.append(self.description_data[x][y])
             numeric_data.append(temp_arr)
         return np.array(numeric_data)
-
-

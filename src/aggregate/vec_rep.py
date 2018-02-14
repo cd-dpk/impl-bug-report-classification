@@ -7,23 +7,23 @@ class VectorRepresenter:
         self.file = file
         self.intent = intent
 
-    def term_count(t):
+    def term_count(self,t):
         summary = regexp_tokenize(t, pattern='[a-zA-Z]+')
         proc_t = FreqDist()
         for w in summary:
-            proc_t[w.lower()] += 1
+            proc_t[w] += 1
         return proc_t.most_common()
 
 
     def get_all_terms(self):
-        csvfile = open(self.file + '_proc.csv', newline='')
+        csvfile = open(self.file +'_' +self.intent+ '_proc.csv', newline='')
         reader = csv.DictReader(csvfile)
         word_list = []
         word_df = []
         t_d = 0
         for row in reader:
-            # text = row['summary'] in (None,'') and '' or row['summary']+" "+row['description'] in (None,'') and '' or row['description']
-            text = row['summary'] in (None, '') and '' or row['summary']
+            text = row['summary'] in (None,'') and '' or row['summary']+" "+row['description'] in (None,'') and '' or row['description']
+            # text = row['summary'] in (None, '') and '' or row['summary']
             terms = self.term_count(text)
             for term in terms:
                 index = -1
@@ -64,7 +64,7 @@ class VectorRepresenter:
         else:
             print(header_str + header_words + 'Security')
 
-        csvfile = open(self.file + '_proc.csv', newline='')
+        csvfile = open(self.file +'_'+self.intent+'_proc.csv', newline='')
         reader = csv.DictReader(csvfile)
 
         for row in reader:
@@ -78,8 +78,8 @@ class VectorRepresenter:
             tc = str((row['TC'] in (None, '') and '0' or row['TC']))
             en = str((row['EN'] in (None, '') and '0' or row['EN']))
             output += st + ',' + patch + ',' + ce + ',' + tc + ',' + en + ','
-            # text = row['summary']+" "+row['description']
-            text = row['summary']
+            text = row['summary']+" "+row['description']
+            # text = row['summary']
             terms = self.term_count(text)
             rw = ''
             for x in range(len(word_list)):
@@ -96,11 +96,16 @@ class VectorRepresenter:
                     import numpy as np
                     words_vectors = KeyedVectors.load_word2vec_format(self.file+'_wv.txt', binary=False)
                     word_vecs = []
+
                     if word_list[x] in words_vectors:
                         for vec in words_vectors[word_list[x]]:
-                            word_vecs.append(vec[x] * weight)
+                            word_vecs.append(vec* weight)
+                    else:
+                        word_vecs = [0.0]
+
                     word_vecs = np.array(word_vecs)
                     weight = np.mean(word_vecs)
+
                     rw += str(round(weight, 5)) + ','
                 else:
                     rw += '0,'
@@ -120,7 +125,7 @@ class VectorRepresenter:
         return
 
     def vec_process(self):
-        sys.stdout = open(self.file + '_vec.csv', 'w')
-        self.proc_bug_reports(self.file)
+        sys.stdout = open(self.file + '_' + self.intent + '_wv_vec.csv', 'w')
+        self.proc_bug_reports()
         sys.stdout.close()
         return

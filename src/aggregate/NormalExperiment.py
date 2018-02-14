@@ -11,15 +11,23 @@ class NormalExperiment(Experiment):
     def do_voting_experiment_txt(self, hypos: list):
         cur_dir = "."
         files = os.listdir(cur_dir)
-        if self.file+'_proc.csv' not in files:
-            print("Sorry!,"+self.file+'_proc.csv file not present')
-            exit(404, 1)
+        if self.file+'_'+self.intent+'_proc.csv' not in files:
+            print("Sorry!,"+self.file+'_'+self.intent+'_proc.csv file not present')
+            exit(404)
 
-        if self.file+'_vec.csv' not in files:
-            print("Sorry!," + self.file + '_proc.csv file not present')
-            exit(404, 2)
+        if self.file+'_'+self.intent+'_vec.csv' not in files:
+            print("Sorry!," + self.file+'_'+self.intent+'_vec.csv file not present')
+            exit(404)
 
         self.load_data()
+        from sklearn.feature_selection import chi2
+        from sklearn.feature_selection import SelectFdr
+        from sklearn.feature_selection import SelectKBest
+        ch2 = SelectFdr(score_func=chi2, alpha=0.01)
+        print(self.X_txt.shape)
+        self.X_txt = ch2.fit_transform(self.X_txt, self.y)
+        print(self.X_txt.shape)
+
         X_folds = np.array_split(self.X_txt, 10)
         y_folds = np.array_split(self.y, 10)
         t_p = 0.0
@@ -27,7 +35,6 @@ class NormalExperiment(Experiment):
         t_n = 0.0
         f_n = 0.0
         len_of_hypos = len(hypos)
-        print(self.X_txt.shape)
         print(Counter(self.y))
         for k in range(10):
             # We use 'list' to copy, in order to 'pop' later on
@@ -37,29 +44,19 @@ class NormalExperiment(Experiment):
             y_train = list(y_folds)
             y_test = y_train.pop(k)
             y_train = np.concatenate(y_train)
-
-            from sklearn.feature_selection import chi2
-            from sklearn.feature_selection import SelectFdr
-            from sklearn.feature_selection import SelectKBest
-            ch2 = SelectFdr(score_func=chi2, alpha=0.01)
-            # ch2 = SelectKBest(score_func=chi2, k=200)
-            X_train = ch2.fit_transform(X_train, y_train)
-            X_test = ch2.transform(X_test)
-            print(X_train.shape)
             X_s, y_s = self.smote(X_train, y_train)
-
-            y_predicts = np.empty([len(y_test),len_of_hypos], dtype=int)
+            y_predicts = np.empty([len(y_test), len_of_hypos], dtype=int)
             column = 0
             for hypo in hypos:
                 hypo.fit(X_s,y_s)
-                # print(hypo.predict_proba(X_test))
+                print(hypo.predict_proba(X_test))
                 y_predict = hypo.predict(X_test)
                 for x in range(len(y_predict)):
                     y_predicts[x][column] = y_predict[x]
 
                 column += 1
 
-            y_predict = np.empty(len(y_test),dtype=int)
+            y_predict = np.empty(len(y_test), dtype=int)
             for r in range(len(y_predict)):
                 zeros = 0
                 ones = 0
@@ -77,6 +74,79 @@ class NormalExperiment(Experiment):
 
                 # if y_predict[r] == 1 or y_test[r] == 1:
                 #     print(y_predicts[r], ones, zeros, y_predict[r], y_test[r])
+
+            # print(self.confusion_matrix(y_test,y_predict))
+            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+            t_p += temp_tp
+            t_n += temp_tn
+            f_p += temp_fp
+            f_n += temp_fn
+
+        print(t_p, t_n, f_p, f_n)
+        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+        return
+
+
+    def do_agg_experiment_txt(self, hypos: list):
+        cur_dir = "."
+        files = os.listdir(cur_dir)
+        if self.file+'_'+self.intent+'_proc.csv' not in files:
+            print("Sorry!,"+self.file+'_'+self.intent+'_proc.csv file not present')
+            exit(404)
+
+        if self.file+'_'+self.intent+'_vec.csv' not in files:
+            print("Sorry!," + self.file+'_'+self.intent+'_vec.csv file not present')
+            exit(404)
+
+        self.load_data()
+        from sklearn.feature_selection import chi2
+        from sklearn.feature_selection import SelectFdr
+        from sklearn.feature_selection import SelectKBest
+        ch2 = SelectFdr(score_func=chi2, alpha=0.01)
+        print(self.X_txt.shape)
+        self.X_txt = ch2.fit_transform(self.X_txt, self.y)
+        print(self.X_txt.shape)
+
+        X_folds = np.array_split(self.X_txt, 10)
+        y_folds = np.array_split(self.y, 10)
+        t_p = 0.0
+        f_p = 0.0
+        t_n = 0.0
+        f_n = 0.0
+        len_of_hypos = len(hypos)
+        print(Counter(self.y))
+        for k in range(10):
+            # We use 'list' to copy, in order to 'pop' later on
+            X_train = list(X_folds)
+            X_test = X_train.pop(k)
+            X_train = np.concatenate(X_train)
+            y_train = list(y_folds)
+            y_test = y_train.pop(k)
+            y_train = np.concatenate(y_train)
+            X_s, y_s = self.smote(X_train, y_train)
+            y_predicts = np.zeros([len(y_test), 2], dtype=float)
+
+            for hypo in hypos:
+                hypo.fit(X_s, y_s)
+                # print(hypo.predict_proba(X_test))
+                y_predict_prob = hypo.predict_proba(X_test)
+                # print(y_predict_prob)
+
+                for x in range(len(X_test)):
+                    # print(y_predict_prob[x][0],y_predict_prob[x][1])
+                    y_predicts[x][0] += y_predict_prob[x][0]
+                    y_predicts[x][1] += y_predict_prob[x][1]
+
+                # print(y_predicts)
+
+            y_predict = np.zeros(len(y_test), dtype=int)
+
+            for r in range(len(y_predict)):
+                if y_predicts[r][1] >= y_predicts[r][0]:
+                    y_predict[r] = 1
+                else:
+                    y_predict[r] = 0
+                print(y_predicts[r][0],y_predicts[r][1], y_predict[r])
 
             # print(self.confusion_matrix(y_test,y_predict))
             temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
@@ -243,91 +313,6 @@ class NormalExperiment(Experiment):
         return
 
 
-    def stacking_springer(self,Hypo,hypos:list):
-        cur_dir = "."
-        files = os.listdir(cur_dir)
-        if self.file+'_proc.csv' not in files:
-            print("Sorry!,"+self.file+'_proc.csv file not present')
-            exit(404, 1)
-
-        if self.file+'_vec.csv' not in files:
-            print("Sorry!," + self.file + '_proc.csv file not present')
-            exit(404, 2)
-        self.load_data()
-        X_folds = np.array_split(self.X_txt, 10)
-        y_folds = np.array_split(self.y, 10)
-        t_p = 0.0
-        f_p = 0.0
-        t_n = 0.0
-        f_n = 0.0
-        len_hypos = len(hypos)
-        for k in range(10):
-            # We use 'list' to copy, in order to 'pop' later on
-            X_train = list(X_folds)
-            X_test = X_train.pop(k)
-            X_train = np.concatenate(X_train)
-            y_train = list(y_folds)
-            y_test = y_train.pop(k)
-            y_train = np.concatenate(y_train)
-
-            from sklearn.feature_selection import chi2
-            from sklearn.feature_selection import SelectKBest
-            ch2 = SelectKBest(chi2, k=200)
-            X_train = ch2.fit_transform(X_train, y_train)
-            X_test = ch2.transform(X_test)
-
-            X_folds_2 = np.array_split(X_train, 10)
-            y_folds_2 = np.array_split(y_train, 10)
-
-            ## number of second train folds l
-            ## generating the test results
-            y_predicts = np.empty([len(X_train), len_hypos], dtype=int)
-            row = 0
-            ########################################################################################
-            for l in range(10):
-                X_train_2 = list(X_folds_2)
-                X_test_2 = X_train_2.pop(l)
-                X_train_2 = np.concatenate(X_train_2)
-                y_train_2 = list(y_folds_2)
-                y_test_2 = y_train_2.pop(l)
-                y_train_2 = np.concatenate(y_train_2)
-                X_s, y_s = self.smote(X_train_2, y_train_2)
-                column = 0
-                for hypo in hypos:
-                    hypo.fit(X_s, y_s)
-                    y_predict = hypo.predict(X_test_2)
-                    for x in range(len(y_predict)):
-                        y_predicts[row + x][column] = y_predict[x]
-                    column += 1
-                row += len(y_test_2)
-            ########################################################################################
-            ## stacking traing with first train data ###
-
-            Hypo.fit(y_predicts, y_train)
-
-            ## predicting first test data with stacking
-            y_predicts = np.empty([len(y_test), len_hypos], dtype=int)
-            column = 0
-            for hypo in hypos:
-                y_predict = hypo.predict(X_test)
-                for x in range(len(y_predict)):
-                    y_predicts[x][column] = y_predict[x]
-                column += 1
-
-            y_predict = Hypo.predict(y_predicts)
-
-            print(self.confusion_matrix(y_test, y_predict))
-            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-            t_p += temp_tp
-            t_n += temp_tn
-            f_p += temp_fp
-            f_n += temp_fn
-
-        print(t_p, t_n, f_p, f_n)
-        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
-
-        return
-
 
     def do_stacking_experiment_txt(self, Hypo, hypos: list):
         cur_dir = "."
@@ -421,6 +406,8 @@ class NormalExperiment(Experiment):
         return
 
 
+
+
     def test(self):
         cur_dir = "."
         files = os.listdir(cur_dir)
@@ -442,3 +429,125 @@ class NormalExperiment(Experiment):
                 print(p, ps[p])
             else:
                 print("")
+
+
+
+
+    def test_fs(self):
+        cur_dir = "."
+        files = os.listdir(cur_dir)
+        if self.file + '_' + self.intent + '_proc.csv' not in files:
+            print("Sorry!," + self.file + '_' + self.intent + '_proc.csv file not present')
+            exit(404)
+
+        if self.file + '_' + self.intent + '_vec.csv' not in files:
+            print("Sorry!," + self.file + '_' + self.intent + '_vec.csv file not present')
+            exit(404)
+
+        self.load_data()
+        from src.aggregate.feature_selection import FeatureSelector
+        print(self.X_txt)
+        print(Counter(self.y))
+        X = FeatureSelector().fit_transform_odd_ratio(self.X_txt,self.y,l=500)
+        print(X)
+
+        return
+
+    def do_experiment_txt_fs(self, hypo):
+        cur_dir = "."
+        files = os.listdir(cur_dir)
+        if self.file+'_'+self.intent+'_proc.csv' not in files:
+            print("Sorry!,"+self.file+'_'+self.intent+'_proc.csv file not present')
+            exit(404)
+
+        if self.file+'_'+self.intent+'_vec.csv' not in files:
+            print("Sorry!," + self.file+'_'+self.intent+'_vec.csv file not present')
+            exit(404)
+
+        self.load_data()
+
+        from src.aggregate.feature_selection import FeatureSelector
+        fs = FeatureSelector()
+        print(self.X_txt.shape)
+        self.X_txt = fs.fit_transform_odd_ratio(self.X_txt, self.y,l=500,l1_ratio=0.45)
+        print(self.X_txt.shape)
+
+        X_folds = np.array_split(self.X_txt, 10)
+        y_folds = np.array_split(self.y, 10)
+        t_p = 0.0
+        f_p = 0.0
+        t_n = 0.0
+        f_n = 0.0
+        print(Counter(self.y))
+        for k in range(10):
+            # We use 'list' to copy, in order to 'pop' later on
+            X_train = list(X_folds)
+            X_test = X_train.pop(k)
+            X_train = np.concatenate(X_train)
+            y_train = list(y_folds)
+            y_test = y_train.pop(k)
+            y_train = np.concatenate(y_train)
+            X_s, y_s = self.smote(X_train, y_train)
+            hypo.fit(X_s,y_s)
+            y_predict = hypo.predict(X_test)
+            # print(self.confusion_matrix(y_test,y_predict))
+            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+            t_p += temp_tp
+            t_n += temp_tn
+            f_p += temp_fp
+            f_n += temp_fn
+
+        print(t_p, t_n, f_p, f_n)
+        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+        return
+
+    def do_experiment_txt(self, hypo):
+        cur_dir = "."
+        files = os.listdir(cur_dir)
+
+        if self.file+'_'+self.intent+'_proc.csv' not in files:
+            print("Sorry!,"+self.file+'_'+self.intent+'_proc.csv file not present')
+            exit(404)
+
+        if self.file+'_'+self.intent+'_vec.csv' not in files:
+            print("Sorry!," + self.file+'_'+self.intent+'_vec.csv file not present')
+            exit(404)
+
+        self.load_data()
+        from sklearn.feature_selection import chi2
+        from sklearn.feature_selection import SelectFdr
+        from sklearn.feature_selection import SelectKBest
+        ch2 = SelectFdr(score_func=chi2, alpha=0.05)
+        print(self.X_txt.shape)
+        self.X_txt = ch2.fit_transform(self.X_txt, self.y)
+        print(self.X_txt.shape)
+        X_folds = np.array_split(self.X_txt, 10)
+        y_folds = np.array_split(self.y, 10)
+        t_p = 0.0
+        f_p = 0.0
+        t_n = 0.0
+        f_n = 0.0
+        print(Counter(self.y))
+
+        for k in range(10):
+            # We use 'list' to copy, in order to 'pop' later on
+            X_train = list(X_folds)
+            X_test = X_train.pop(k)
+            X_train = np.concatenate(X_train)
+            y_train = list(y_folds)
+            y_test = y_train.pop(k)
+            y_train = np.concatenate(y_train)
+            X_s, y_s = self.smote(X_train, y_train)
+            hypo.fit(X_s, y_s)
+            y_predict = hypo.predict(X_test)
+            # print(self.confusion_matrix(y_test,y_predict))
+            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+            t_p += temp_tp
+            t_n += temp_tn
+            f_p += temp_fp
+            f_n += temp_fn
+
+        print(t_p, t_n, f_p, f_n)
+        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+
+        return

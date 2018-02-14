@@ -10,6 +10,14 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn import svm
 from sklearn.neighbors import KNeighborsClassifier
 
+ambari = 'ambari'
+camel = 'camel'
+derby = 'derby'
+wicket = 'wicket'
+Surprising = 'Surprising'
+Security = 'Security'
+Performance = 'Performance'
+
 mnb = MultinomialNB()
 lr = LogisticRegression()
 ada = AdaBoostClassifier()
@@ -18,20 +26,15 @@ dt = DecisionTreeClassifier()
 supvecmac = svm.SVC(probability=True)
 knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 
-pre_ambari = Preprocessor(file='ambari', intent='Security')
+NormalExperiment(camel, Security).do_experiment_txt_fs(supvecmac)
 
-exp_ambari = NormalExperiment('camel_shaon_774')
-exp_ambari.test()
-# exp_camel = NormalExperiment('camel')
-# exp_derby = NormalExperiment('derby')
-# exp_wicket = NormalExperiment('wicket')
-# exp_ambari.do_voting_experiment_txt(hypos=[mnb, ada, rf, knn, supvecmac])
-# exp_ambari.do_voting_experiment_str(hypos=[mnb])
-# exp_ambari.do_stacking_experiment_txt(Hypo=lr, hypos=[mnb,ada, rf, knn, supvecmac])
+# Preprocessor(wicket, Security).pre_process()
+# VectorRepresenter(ambari, Security).vec_process()
+# VectorRepresenter(camel, Security).vec_process()
+# VectorRepresenter(derby, Security).vec_process()
+# VectorRepresenter(derby, Security).vec_process()
+# VectorRepresenter(wicket, Security).vec_process()
 
-# exp_ambari.do_voting_experiment_txt([supvecmac])
-# exp_camel.do_voting_experiment_txt([supvecmac])
-# exp_derby.do_voting_experiment_txt([supvecmac])
-# exp_wicket.do_voting_experiment_txt([knn,mnb,supvecmac])
 
-# exp_ambari.do_stacking_experiment_txt(lr,[knn,mnb,supvecmac])
+# NormalExperiment(ambari, Security).do_experiment_txt(supvecmac)
+# NormalExperiment(ambari,Security).do_experiment_txt(supvecmac)
