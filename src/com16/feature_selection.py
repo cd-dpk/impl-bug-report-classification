@@ -71,7 +71,7 @@ class FeatureSelector:
             B = float(t_Cp[c][1])
             C = float(t_Cp[c][2])
             D = float(t_Cp[c][3])
-            N = len(t_Cp)
+            N = len(data)
             print(A,B,C,D,N)
             term_scores[c] = [c, self.odd_ratio(A,B,C,D,N)]
 

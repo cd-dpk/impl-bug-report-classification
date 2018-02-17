@@ -18,7 +18,7 @@ class ChouDataHandler:
 
 
     def set_feature_names_rows(self):
-        with open(self.file+'_'+self.intent+ '_vec.csv', newline='') as csvfile:
+        with open(self.file+'_vec.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             text_feature_names_arr = np.array(reader.fieldnames)
             target_column = text_feature_names_arr[len(text_feature_names_arr) - 1]
@@ -32,20 +32,23 @@ class ChouDataHandler:
         return
 
     def load_data(self):
-        with open(self.file+'_'+self.intent+'_vec.csv', newline='') as csvfile:
+        with open(self.file+'_vec.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             text_features = []
             target_column= ''
             counter = 0
             for f in reader.fieldnames:
-                if counter <= 7 or counter == len(reader.fieldnames)-1:
+                if counter <= 7 or counter == len(reader.fieldnames)-2:
                     counter += 1
                     continue
                 else:
                     text_features.append(f)
                     counter += 1
 
-            target_column = reader.fieldnames[len(reader.fieldnames)-1]
+            if self.intent == 'Security':
+                self.target_column = reader.fieldnames[len(reader.fieldnames)-2]
+            elif self.intent == 'Performance':
+                self.target_column = reader.fieldnames[len(reader.fieldnames) - 1]
             # print(text_features)
             counter = 0
             for row in reader:
@@ -58,18 +61,17 @@ class ChouDataHandler:
                 ce = ((row['CE'] in (None, '') and '0' or row['CE']))
                 tc = ((row['TC'] in (None, '') and '0' or row['TC']))
                 en = ((row['EN'] in (None, '') and '0' or row['EN']))
-                print(counter,reporter,component,keyword,st,patch,ce,tc,en)
-                exit(404)
+                # print(counter,reporter,component,keyword,st,patch,ce,tc,en)
                 self.reporter_data.append(reporter)
                 self.component_data.append(component)
                 self.keywords_data.append(int(keyword))
-                self.description_data.append(np.array([st, patch, ce, tc, en]))
+                self.description_data.append(np.array([int(st), int(patch), int(ce), int(tc), int(en)]))
                 text_data_arr_row = []
                 for x in text_features:
                     if row[x] not in (None, ''):
                         text_data_arr_row.append(float(row[x]))
-
-                target = int(row[target_column])
+                print(text_data_arr_row, row[self.target_column])
+                target = int(row[self.target_column])
                 self.textual_data.append(text_data_arr_row)
                 self.target_data.append(target)
                 counter+=1

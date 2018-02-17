@@ -13,7 +13,7 @@ class TextPreprocessor:
 
     def getProcessedText(self, text):
         stemmer = PorterStemmer()
-        space_deleted_tokens = re.split('\s',text)
+        space_deleted_tokens = re.split('\s\"\"',text)
         processed_text = []
         for space_token in space_deleted_tokens:
             # if it is a link remove it
@@ -27,6 +27,7 @@ class TextPreprocessor:
             if case_token != space_token:
                 space_token += ' ' + case_token
             # print(space_token)
+            space_token = re.sub("[^A-Za-z0-9_]"," ",space_token)
             tokens = regexp_tokenize(space_token, pattern='[a-zA-Z_]+')
             # print('Tokens:',tokens)
             for w in tokens:
@@ -39,3 +40,9 @@ class TextPreprocessor:
                         processed_text.append(w)
         return processed_text
 
+    def term_count(self,t):
+        summary = regexp_tokenize(t, pattern='[a-zA-Z]+')
+        proc_t = FreqDist()
+        for w in summary:
+            proc_t[w] += 1
+        return proc_t.most_common()

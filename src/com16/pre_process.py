@@ -59,7 +59,7 @@ class Preprocessor:
             print('issue_id,reporter,component,keywords,pre_sum,summary,pre_des,description,des-1,des-2,des-3,des-4,des-5,files,'+self.intent)
             for row in reader:
                 if row['type'] == 'Improvement':
-                    continue
+                    420
                 issue_id = str(row['issue_id'] in (None, '') and '' or row['issue_id'])
                 reporter = row['reporter'] in (None, '') and 'null' or row['reporter']
                 component = row['component'] in (None, '') and 'null' or row['component']
@@ -115,7 +115,6 @@ class Preprocessor:
             for line in myfile:
                 perf_keys.append(re.sub("\n", "", line))
         print(perf_keys)
-
         files = os.listdir(dir)
         sentences = []
         count_sec = 0

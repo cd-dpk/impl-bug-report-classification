@@ -6,6 +6,7 @@ class Experiment:
     def __init__(self, file, intent):
         self.file = file
         self.intent = intent
+        self.sampling_indices = [0,1,2]
 
     def load_data(self):
         self.chou_data = ChouDataHandler(self.file,self.intent)

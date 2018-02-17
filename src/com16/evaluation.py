@@ -10,6 +10,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn import svm
 from sklearn.neighbors import KNeighborsClassifier
 
+camel_shaon = "Camel_Shaon"
 ambari = 'ambari'
 camel = 'camel'
 derby = 'derby'
@@ -27,13 +28,20 @@ supvecmac = svm.SVC(probability=True)
 knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 
 
+# Preprocessor(camel_shaon, Security).pre_process()
+# VectorRepresenter(camel_shaon, Security).vec_process()
+
+# Preprocessor(camel, Surprising).pre_process()
+# VectorRepresenter(camel, Surprising).vec_process()
+
 # Preprocessor(derby, Surprising).pre_process()
 # VectorRepresenter(derby, Surprising).vec_process()
-# VectorRepresenter(camel, Security).vec_process()
-# VectorRepresenter(derby, Security).vec_process()
-# VectorRepresenter(derby, Security).vec_process()
-# VectorRepresenter(wicket, Security).vec_process()
+
+# Preprocessor(wicket, Surprising).pre_process()
+# VectorRepresenter(wicket, Surprising).vec_process()
 
 
-NormalExperiment(camel, Surprising).do_experiment_txt(mnb)
-# NormalExperiment(ambari,Security).do_experiment_txt(supvecmac)
+NormalExperiment(camel_shaon, Security).do_experiment(supvecmac)
+# NormalExperiment(camel,Security).do_experiment_txt(supvecmac)
+# NormalExperiment(derby,Security).do_experiment_txt(supvecmac)
+# NormalExperiment(wicket,Security).do_experiment_txt(supvecmac)

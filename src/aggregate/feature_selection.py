@@ -3,7 +3,6 @@ import math
 
 class FeatureSelector:
 
-
     def __init__(self, sampling_zero=0.05):
         self.sampling_zero = 0.05
         self.pos_fs = []
@@ -17,7 +16,7 @@ class FeatureSelector:
         N = float(N) + 2 * self.sampling_zero
         deter = A * (N - B)
         non_deter = B * (N - A)
-        return (deter / non_deter)
+        return math.log((deter / non_deter), math.e)
 
     def signed_info_gain(self, A: int, B: int, C: int, D: int, N: int):
         A = float(A)
@@ -71,41 +70,41 @@ class FeatureSelector:
             B = float(t_Cp[c][1])
             C = float(t_Cp[c][2])
             D = float(t_Cp[c][3])
-            N = len(t_Cp)
-            print(A,B,C,D,N)
-            term_scores[c] = [c, self.odd_ratio(A,B,C,D,N)]
+            N = len(data)
+            print(A, B, C, D, N)
+            term_scores[c] = [c, self.odd_ratio(A, B, C, D, N)]
 
         # print(term_scores)
-
+        print(term_scores)
         pos_term_scores = []
         neg_term_scores = []
         for x in term_scores:
             pos_term_scores.append([x[0],  x[1]])
-            neg_term_scores.append([x[0],  x[1]])
+            neg_term_scores.append([x[0],  -1 * x[1]])
 
         print(pos_term_scores)
         print(neg_term_scores)
 
         pos_term_scores = sorted(pos_term_scores, key=lambda term: term[1], reverse=True)
-        neg_term_scores = sorted(neg_term_scores, key=lambda term: term[1])
+        neg_term_scores = sorted(neg_term_scores, key=lambda term: term[1], reverse=True)
 
         print(pos_term_scores)
         print(neg_term_scores)
 
         l1 = int(l * l1_ratio)
         for x in range(l1):
-            self.pos_fs.append(pos_term_scores[x][0])
+            if pos_term_scores[x][1] > 0.0:
+                self.pos_fs.append(pos_term_scores[x][0])
 
         l2 = int(l-l1)
         for x in range(l2):
-            self.neg_fs.append(neg_term_scores[x][0])
+            if neg_term_scores[x][1] > 0.0:
+                self.neg_fs.append(neg_term_scores[x][0])
 
         # print(self.pos_fs)
         # print(self.neg_fs)
 
-        data_trf = data[:,self.pos_fs+self.neg_fs]
-        return data_trf
-
+        return data[:,self.pos_fs+self.neg_fs]
 
     def transform_odd_ratio(self,data):
         return data[:,self.pos_fs+self.neg_fs]

@@ -20,12 +20,12 @@ class NormalExperiment(Experiment):
             exit(404)
 
         self.load_data()
-        from sklearn.feature_selection import chi2
-        from sklearn.feature_selection import SelectFdr
-        from sklearn.feature_selection import SelectKBest
-        ch2 = SelectFdr(score_func=chi2, alpha=0.01)
+        # from sklearn.feature_selection import chi2
+        # from sklearn.feature_selection import SelectFdr
+        # from sklearn.feature_selection import SelectKBest
+        # ch2 = SelectFdr(score_func=chi2, alpha=0.01)
         print(self.X_txt.shape)
-        self.X_txt = ch2.fit_transform(self.X_txt, self.y)
+        # self.X_txt = ch2.fit_transform(self.X_txt, self.y)
         print(self.X_txt.shape)
 
         X_folds = np.array_split(self.X_txt, 10)
@@ -408,19 +408,25 @@ class NormalExperiment(Experiment):
 
 
 
-    def test(self):
+    def test_str(self):
+        from src.com16.feature_selection import FeatureSelector
         cur_dir = "."
         files = os.listdir(cur_dir)
-        if self.file+'_proc.csv' not in files:
-            print("Sorry!,"+self.file+'_proc.csv file not present')
-            exit(404, 1)
-
-        if self.file+'_vec.csv' not in files:
-            print("Sorry!," + self.file + '_proc.csv file not present')
-            exit(404, 2)
+        # if self.file+'_proc.csv' not in files:
+        #     print("Sorry!,"+self.file+'_proc.csv file not present')
+        #     exit(404, 1)
+        #
+        # if self.file+'_vec.csv' not in files:
+        #     print("Sorry!," + self.file + '_proc.csv file not present')
+        #     exit(404, 2)
         self.load_data()
+        from sklearn.feature_selection import SelectFdr, SelectKBest
         from sklearn.feature_selection import chi2
+        fs = FeatureSelector()
+        print(self.X_str)
+        print(self.X_str.shape)
         ch2s, ps = chi2(self.X_str, self.y)
+        self.X_str = fs.fit_transform_odd_ratio(self.X_str,self.y,15,)
         print(self.X_str.shape)
         print(ch2s)
         print(ps)
@@ -446,7 +452,7 @@ class NormalExperiment(Experiment):
 
         self.load_data()
         from src.aggregate.feature_selection import FeatureSelector
-        print(self.X_txt)
+        print(self.X_str)
         print(Counter(self.y))
         X = FeatureSelector().fit_transform_odd_ratio(self.X_txt,self.y,l=500)
         print(X)
@@ -501,7 +507,7 @@ class NormalExperiment(Experiment):
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
         return
 
-    def do_experiment_txt(self, hypo):
+    def do_experiment(self, hypo):
         cur_dir = "."
         files = os.listdir(cur_dir)
 
@@ -517,12 +523,34 @@ class NormalExperiment(Experiment):
         from sklearn.feature_selection import chi2
         from sklearn.feature_selection import SelectFdr
         from sklearn.feature_selection import SelectKBest
+        from src.com16.feature_selection import FeatureSelector
+        fs = FeatureSelector()
         ch2 = SelectFdr(score_func=chi2, alpha=0.05)
+
+        # '''
+        ## TEXT
         print(self.X_txt.shape)
-        self.X_txt = ch2.fit_transform(self.X_txt, self.y)
+        # self.X_txt = ch2.fit_transform(self.X_txt, self.y)
+        self.X_txt = fs.fit_transform_odd_ratio(self.X_txt,self.y,500, .5)
         print(self.X_txt.shape)
         X_folds = np.array_split(self.X_txt, 10)
         y_folds = np.array_split(self.y, 10)
+        # TEXT
+        # '''
+
+        '''
+        ## STR
+        print("STR")
+        print(self.X_str)
+        print(self.X_str.shape)
+        # self.X_str = ch2.fit_transform(self.X_str, self.y)
+        self.X_str = fs.fit_transform_odd_ratio(self.X_str,self.y,5, .5)
+        print(self.X_str.shape)
+        X_folds = np.array_split(self.X_str, 10)
+        y_folds = np.array_split(self.y, 10)
+
+        ## STR
+        '''
         t_p = 0.0
         f_p = 0.0
         t_n = 0.0

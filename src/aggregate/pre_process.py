@@ -8,9 +8,9 @@ from src.aggregate.pre_processor import TextPreprocessor
 
 class Preprocessor:
 
-    def __init__(self, file, intent):
+    def __init__(self, file):
         self.file = file
-        self.intent = intent
+
         self.perf_keywords = ["performance", "slow", "speed", "latency", "throughput",
                          "cpu", "disk", "memory", "usage", "resource", "calling",
                          "times", "infinite", "loop"]
@@ -56,7 +56,7 @@ class Preprocessor:
     def proc_csv_file(self):
         with open('../data/' + self.file + '.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
-            print('issue_id,reporter,component,keywords,summary,description,ST,Patch,CE,TC,EN,files,'+self.intent)
+            print('issue_id,reporter,component,keywords,summary,description,ST,Patch,CE,TC,EN,files,target_Security,target_Performance')
             for row in reader:
                 issue_id = str(row['issue_id'] in (None, '') and '' or row['issue_id'])
                 reporter = row['reporter'] in (None, '') and 'null' or row['reporter']
@@ -72,7 +72,8 @@ class Preprocessor:
                 for word in t_p.getProcessedText(description):
                     temp_description += ' ' + word
                 description = temp_description
-                label = str((row[self.intent] in (None, '') and '0' or row[self.intent]))
+                security_label = str((row['Security'] in (None, '') and '0' or row['Security']))
+                perf_label = str((row['Performance'] in (None, '') and '0' or row['Performance']))
                 st = str((row['ST'] in (None, '') and '0' or row['ST']))
                 patch = str((row['Patch'] in (None, '') and '0' or row['Patch']))
                 ce = str((row['CE'] in (None, '') and '0' or row['CE']))
@@ -81,63 +82,79 @@ class Preprocessor:
                 files = row['files'] in (None, '') and '' or row['files']
                 sec, perf = self.predict_keywords(
                     (row['summary'] in (None, '') and '' or '') + " " + (row['description'] in (None, '') and '' or ''))
-                if self.intent == 'Security':
-                    print(issue_id + ',' + reporter + ',' + component + ',' + str(sec) + ',' +
+
+                print(issue_id + ',' + reporter + ',' + component + ',' + str(sec) + ',' +
                           summary+ ',' + description + ',' + st + ',' + patch + ',' + ce + ','
-                          + tc + ',' + en + ',' + files + ',' + label)
-                elif self.intent == 'Performance':
-                    print(issue_id + ',' + reporter + ',' + component + ',' + str(perf) + ',' +
-                          summary + ',' + description + ',' + st + ',' + patch + ',' + ce + ',' +
-                          tc + ',' + en + ',' + files + ',' + label)
+                          + tc + ',' + en + ',' + files + ',' + security_label + "," + perf_label)
+
         return
 
     def proc_xml_file(self):
         import xml.etree.ElementTree as ET
         import os
+        sys.stdout = open(self.file + '_' + self.intent + '_proc.csv', 'w', encoding="UTF-8")
         # print('issue_id,summary,description,Security'+self.intent)
         dir = '/media/geet/Files/IITDU/MSSE-03/DocumentSimilarity-master/Apache/'
-        sec_keys = []
-        with open("/media/geet/Files/IITDU/MSSE-03/DocumentSimilarity-master/sec.txt", "r") as myfile:
-            for line in myfile:
-                sec_keys.append(re.sub("\n", "", line))
-
-        print(sec_keys)
-        perf_keys = []
-        with open("/media/geet/Files/IITDU/MSSE-03/DocumentSimilarity-master/perf.txt", "r") as myfile:
-            for line in myfile:
-                perf_keys.append(re.sub("\n", "", line))
-        print(perf_keys)
-
+        # sec_keys = []
+        # with open("/media/geet/Files/IITDU/MSSE-03/DocumentSimilarity-master/sec.txt", "r") as myfile:
+        #     for line in myfile:
+        #         sec_keys.append(re.sub("\n", "", line))
+        #
+        # print(sec_keys)
+        # perf_keys = []
+        # with open("/media/geet/Files/IITDU/MSSE-03/DocumentSimilarity-master/perf.txt", "r") as myfile:
+        #     for line in myfile:
+        #         perf_keys.append(re.sub("\n", "", line))
+        # print(perf_keys)
+        print('id,key,summary,proc_summary,sec,perf')
         files = os.listdir(dir)
         sentences = []
-        count_sec = 0
-        count_perf = 0
+        seen_ids = []
         for file in files:
-            if re.fullmatch(".*all.xml$",file):
-                2
+            print(file)
+            if re.fullmatch(".*com.xml$",file):
+                420
             else:
                 continue
             print(dir + file)
             tree = ET.parse(dir + file)
             root = tree.getroot()
             for bug in root.findall('item'):
-                key = bug.find('key').text
+                id = bug.find('id').text
+                if id not in seen_ids:
+                    key = bug.find('key').text
+                    summary = bug.find('summary').text
+                    description = bug.find("description").text
+                    sec_flag = bug.find("sec").text
+                    perf_flag = bug.find("perf").text
+                    t_p = TextPreprocessor()
 
-                summary = bug.find('summary').text
-                description = bug.find("description").text
+                    proc_summary = ' '
+                    for word in t_p.getProcessedText(summary):
+                        proc_summary += ' ' + word
+
+                    # proc_description = ' '
+                    # for word in t_p.getProcessedText(description):
+                    #     proc_description += ' ' + word
+
+                    # print(id,key,summary,proc_summary,description,proc_description,sec_flag,perf_flag)
+                    print(id, key, summary, proc_summary, sec_flag, perf_flag)
+                    # print(seen_ids)
+                    seen_ids.append(id)
                 # t = TextPreprocessor()
                 # line_sentence = []
                 # for word in re.split(" ", t.getProcessedText(text=sentence)):
                 #     line_sentence.append(word)
                 # sentences.append(line_sentence)
 
-        print(count_sec)
-        print(count_perf)
+        sys.stdout.close()
         return
 
     def pre_process(self):
-        # sys.stdout = open(self.file+'_'+self.intent+'_proc.csv','w',encoding="UTF-8")
+        sys.stdout = open(self.file+'_proc.csv','w',encoding="UTF-8")
         self.proc_csv_file()
-        # sys.stdout.close()
+        # self.proc_xml_file()
+        sys.stdout.close()
         return
+
 

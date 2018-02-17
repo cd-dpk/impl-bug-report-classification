@@ -3,9 +3,8 @@ import csv,sys, math
 from nltk import FreqDist
 from nltk.tokenize import regexp_tokenize
 class VectorRepresenter:
-    def __init__(self, file, intent):
+    def __init__(self, file):
         self.file = file
-        self.intent = intent
 
     def term_count(self,t):
         summary = regexp_tokenize(t, pattern='[a-zA-Z]+')
@@ -16,7 +15,7 @@ class VectorRepresenter:
 
 
     def get_all_terms(self):
-        csvfile = open(self.file +'_' +self.intent+ '_proc.csv', newline='')
+        csvfile = open(self.file + '_proc.csv', newline='')
         reader = csv.DictReader(csvfile)
         word_list = []
         word_df = []
@@ -57,14 +56,10 @@ class VectorRepresenter:
         header_words = ''
         for x in range(len(word_list)):
             header_words += word_list[x] + ','
-        if self.intent == 'Security':
-            print(header_str + header_words + 'Security')
-        elif self.intent == 'Performance':
-            print(header_str + header_words + 'Performance')
-        else:
-            print(header_str + header_words + 'Security')
 
-        csvfile = open(self.file +'_'+self.intent+'_proc.csv', newline='')
+        print(header_str + header_words + 'target_Security,target_Performance')
+
+        csvfile = open(self.file +'_proc.csv', newline='')
         reader = csv.DictReader(csvfile)
 
         for row in reader:
@@ -92,6 +87,7 @@ class VectorRepresenter:
                 if index != -1:
                     weight = float(terms[index][1])
                     weight *= math.log((float(t_d) / float(word_df[x])), 10)
+                    '''
                     from gensim.models import KeyedVectors
                     import numpy as np
                     words_vectors = KeyedVectors.load_word2vec_format(self.file+'_wv.txt', binary=False)
@@ -105,27 +101,22 @@ class VectorRepresenter:
 
                     word_vecs = np.array(word_vecs)
                     weight = np.mean(word_vecs)
-
+                    '''
                     rw += str(round(weight, 5)) + ','
                 else:
                     rw += '0,'
             output += rw
 
-            if self.intent == 'Security':
-                security = str((row['Security'] in (None, '') and '0' or row['Security']))
-                output += security
-            elif self.intent == 'Performance':
-                performance = str((row['Performance'] in (None, '') and '0' or row['Performance']))
-                output += performance
-            else:
-                security = str((row['Security'] in (None, '') and '0' or row['Security']))
-                output += security
+            security = str((row['target_Security'] in (None, '') and '0' or row['target_Security']))
+            output += security+","
+            performance = str((row['target_Performance'] in (None, '') and '0' or row['target_Performance']))
+            output += performance
             print(output)
         csvfile.close()
         return
 
     def vec_process(self):
-        sys.stdout = open(self.file + '_' + self.intent + '_wv_vec.csv', 'w')
+        sys.stdout = open(self.file+ '_vec.csv', 'w')
         self.proc_bug_reports()
         sys.stdout.close()
         return
