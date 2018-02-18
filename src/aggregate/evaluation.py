@@ -39,4 +39,5 @@ knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 
 
 # NormalExperiment(ambari, Security).do_experiment_txt_sampling_classifier(sampling_index=1,hypo=supvecmac)
-NormalExperiment(ambari,Security).do_experiment_txt_feature_selection(1000,0.5,mnb)
+# NormalExperiment(ambari,Security).do_experiment_txt_feature_selection(1000,0.5,mnb)
+NormalExperiment(camel,Security).do_experiment_tex_src(0, mnb)

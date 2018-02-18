@@ -18,7 +18,7 @@ class SrcProcessor:
 
     def proc_csv_file(self):
         #
-        with open("D:/SRC_P/" + self.file + "_term.csv", newline='') as csvfile:
+        with open("/media/geet/Files/IITDU/MSSE-03/SRC_P/" + self.file + "_term.csv", newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             print('class_id,class_name,class_content')
             for row in reader:

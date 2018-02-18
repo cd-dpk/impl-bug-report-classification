@@ -1,11 +1,11 @@
 from builtins import list
-
+import re
 from sklearn.naive_bayes import MultinomialNB
 
 from src.aggregate.experiment import Experiment
 from collections import Counter
 import numpy as np
-import os
+import os, csv
 
 from src.aggregate.feature_selection import FeatureSelector
 
@@ -398,5 +398,125 @@ class NormalExperiment(Experiment):
         print(t_p, t_n, f_p, f_n)
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
+        return
+
+    def do_experiment_tex_src(self, sampling_index, hypo):
+        self.load_data()
+        print(self.X_txt.shape)
+        print(self.X_txt)
+        print(self.y)
+        X_folds = np.array_split(self.X_txt, 10)
+        y_folds = np.array_split(self.y, 10)
+        t_p = 0.0
+        f_p = 0.0
+        t_n = 0.0
+        f_n = 0.0
+        print(Counter(self.y))
+
+        # load all bug reports
+        bug_reports = []
+        with open(self.file + "_proc.csv", newline='') as bug_csvfile:
+            bug_reader = csv.DictReader(bug_csvfile)
+            for bug_row in bug_reader:
+                summary = str(bug_row['summary'] in (None, '') and '' or bug_row['summary'])
+                description = str(bug_row['description'] in (None, '') and '' or bug_row['description'])
+                files = str(bug_row['files'] in (None, '') and '' or bug_row['files'])
+                target_Security = int(bug_row['target_Security'] in (None, '') and '' or bug_row['target_Security'])
+                target_Performance = int(bug_row['target_Performance'] in (None, '') and '' or bug_row['target_Performance'])
+                bug_report = {'summary': summary, 'description':description, 'files': files, 'target_Security':target_Security, 'target_Performance':target_Performance }
+                bug_reports.append(bug_report)
+
+        # for bug_report in bug_reports:
+        #     print(bug_report)
+
+        X_bug_reports_folds = np.array_split(bug_reports, 10)
+
+        src_files = []
+        with open('/media/geet/Files/IITDU/MSSE-03/implementation/src/bug_localization/'+self.file + "_proc.csv", newline='') as src_csvfile:
+            src_reader = csv.DictReader(src_csvfile)
+            for src_row in src_reader:
+                class_id = int(src_row['class_id'] in (None, '') and '' or src_row['class_id'])
+                class_name = str(src_row['class_name'] in (None, '') and '' or src_row['class_name'])
+                class_label = 0
+                # print(class_obj)
+                if re.search('^/media/geet/Files/IITDU/MSSE-03/SRC/', class_name) and re.search('.java$', class_name):
+                    class_name = re.sub('/media/geet/Files/IITDU/MSSE-03/SRC/', "", class_name)
+
+                class_obj = {'class_id':class_id, 'class_name': class_name, 'class_label':class_label}
+                src_files.append(class_obj)
+
+
+        for k in range(10):
+            # We use 'list' to copy, in order to 'pop' later on
+            X_train = list(X_folds)
+            X_test = X_train.pop(k)
+            X_train = np.concatenate(X_train)
+            y_train = list(y_folds)
+            y_test = y_train.pop(k)
+            y_train = np.concatenate(y_train)
+
+            X_bug_reports_train = list(X_bug_reports_folds)
+            X_bug_reports_test = X_bug_reports_train.pop(k)
+            X_bug_reports_train = np.concatenate(X_bug_reports_train)
+
+            for i in range(len(src_files)):
+                src_files[i][2] = 0
+
+            print(Counter(y_train))
+            for bug_report in X_bug_reports_train:
+                file_column = bug_report['files']
+                files = re.split(";", file_column)
+                if bug_report['target_Security'] == 1:
+                    for file in files:
+                        file = "camel/"+file
+                        if re.search(".java$", file):
+                            for i in range(len(src_files)):
+                                if file == src_files[i]['class_name']:
+                                    src_files[i]['class_label'] = 1
+
+            if sampling_index == 0:
+                X_s, y_s = self.under_sampling(X_train, y_train)
+                hypo.fit(X_s, y_s)
+            elif sampling_index == 1:
+                X_s, y_s = self.over_sampling(X_train, y_train)
+                hypo.fit(X_s, y_s)
+            else:
+                X_s, y_s = self.smote(X_train, y_train)
+                hypo.fit(X_s, y_s)
+
+            y_predict_classifier = hypo.predict(X_test)
+            y_predict_localization = np.zeros(len(X_test),dtype=int)
+
+            from src.bug_localization.BugLocatorlExperiment import BugLocatorExperiment
+            bug_locator = BugLocatorExperiment(self.file, self.intent)
+
+            for i in range(len(X_bug_reports_test)):
+                ranked_src_files = bug_locator.do_experiment_bug_locate(X_bug_reports_test[i])
+                if len(ranked_src_files) == 0: break
+                for src_file in src_files:
+                    if ranked_src_files[0]['class_name'] == src_file['class_name']:
+                        if src_file['class_label'] == 1:
+                            y_predict_localization[i] = 1
+                        else:
+                            y_predict_localization[i] = 0
+
+            y_predict = np.zeros(len(X_test), dtype=int)
+
+            for i in range(len(y_predict)):
+                if y_predict_localization == 0 and y_predict_classifier == 0:
+                    y_predict[i] = 0
+                else:
+                    y_predict[i] = 1
+
+            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+
+            t_p += temp_tp
+            t_n += temp_tn
+            f_p += temp_fp
+            f_n += temp_fn
+
+
+        print(t_p, t_n, f_p, f_n)
+        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
         return
