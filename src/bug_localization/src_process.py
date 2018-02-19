@@ -38,11 +38,16 @@ class SrcProcessor:
 
 
     def pre_process_src(self):
+        # ambari 1363,
+        # derby
         sys.stdout = open(self.file+'_proc.csv','w',encoding="UTF-8")
         self.proc_csv_file()
         # self.proc_xml_file()
         sys.stdout.close()
         return
 
-SrcProcessor('camel').pre_process_src()
+# SrcProcessor('ambari').pre_process_src()
+# SrcProcessor('camel').pre_process_src()
+# SrcProcessor('derby').pre_process_src()
+# SrcProcessor('wicket').pre_process_src()
 

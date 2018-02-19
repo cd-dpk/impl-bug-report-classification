@@ -1,10 +1,9 @@
 import math, csv
 
-from src.aggregate.experiment import Experiment
 from src.aggregate.pre_processor import TextPreprocessor
 
 
-class BugLocatorExperiment(Experiment):
+class BugLocatorExperiment():
 
     def __init__(self, file, intent):
         self.file = file
@@ -14,8 +13,8 @@ class BugLocatorExperiment(Experiment):
                   newline='') as idf_csvfile:
             idf_reader = csv.DictReader(idf_csvfile)
             for idf_row in idf_reader:
-                term = int(idf_row['term'] in (None, '') and '' or idf_row['term'])
-                idf = float(idf_row['term'] in (None, '') and '0' or idf_row['idf'])
+                term = str(idf_row['term'] in (None, '') and '' or idf_row['term'])
+                idf = float(idf_row['idf'] in (None, '') and '0' or idf_row['idf'])
                 term_obj = {term: idf}
                 print(term_obj)
                 self.src_terms.__setitem__(term, idf)
@@ -38,7 +37,7 @@ class BugLocatorExperiment(Experiment):
                 # print("\t",class_id,class_name, clas_content)
 
                 src_components = TextPreprocessor().term_count(clas_content)
-                brs_components = TextPreprocessor().term_count(summary)
+                brs_components = TextPreprocessor().term_count(summary+' '+ description)
 
                 value_src = 0.0
                 value_br = 0.0

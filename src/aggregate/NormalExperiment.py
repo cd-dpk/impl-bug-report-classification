@@ -503,7 +503,7 @@ class NormalExperiment(Experiment):
             y_predict = np.zeros(len(X_test), dtype=int)
 
             for i in range(len(y_predict)):
-                if y_predict_localization == 0 and y_predict_classifier == 0:
+                if y_predict_localization[i] == 0 and y_predict_classifier[i] == 0:
                     y_predict[i] = 0
                 else:
                     y_predict[i] = 1
@@ -514,7 +514,6 @@ class NormalExperiment(Experiment):
             t_n += temp_tn
             f_p += temp_fp
             f_n += temp_fn
-
 
         print(t_p, t_n, f_p, f_n)
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))

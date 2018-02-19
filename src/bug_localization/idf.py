@@ -33,7 +33,7 @@ class DFRepresenter:
 
     def save_idf(self):
         word_list, word_df, t_d = self.get_all_terms()
-        print('term', 'idf')
+        print('term,idf')
         for i in range(len(word_list)):
             idf = float(t_d)/float(word_df[i])
             idf = math.log(idf, math.e)
@@ -46,4 +46,7 @@ class DFRepresenter:
         sys.stdout.close()
         return
 
-DFRepresenter('camel').process_idf()
+# DFRepresenter('camel').process_idf()
+# DFRepresenter('ambari').process_idf()
+# DFRepresenter('derby').process_idf()
+DFRepresenter('wicket').process_idf()
