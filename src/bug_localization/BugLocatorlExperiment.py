@@ -9,7 +9,7 @@ class BugLocatorExperiment():
         self.file = file
         self.intent = intent
         self.src_terms = {}
-        with open("/media/geet/Files/IITDU/MSSE-03/implementation/src/bug_localization/" + self.file + "_idf.csv",
+        with open("../bug_localization/" + self.file + "_idf.csv",
                   newline='') as idf_csvfile:
             idf_reader = csv.DictReader(idf_csvfile)
             for idf_row in idf_reader:
@@ -26,7 +26,7 @@ class BugLocatorExperiment():
         print(summary, label)
 
         src_files = []
-        with open("/media/geet/Files/IITDU/MSSE-03/implementation/src/bug_localization/" + self.file + "_proc.csv",
+        with open("../bug_localization/" + self.file + "_proc.csv",
                 newline='') as src_csvfile:
             src_reader = csv.DictReader(src_csvfile)
             # print('class_id,class_name,class_content')

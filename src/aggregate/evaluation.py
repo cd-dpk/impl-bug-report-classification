@@ -30,16 +30,13 @@ knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 # Preprocessor(wicket).pre_process()
 # Preprocessor(derby, Security).pre_process()
 # Preprocessor(wicket, Security).pre_process()
-
 # VectorRepresenter(camel_shaon, Security).vec_process()
 # VectorRepresenter(wicket).vec_process()
 # VectorRepresenter(derby, Security).vec_process()
 # VectorRepresenter(wicket, Security).vec_process()
 # VectorRepresenter(wicket, Security).vec_process()
-
-
 # NormalExperiment(ambari, Security).do_experiment_txt_sampling_classifier(sampling_index=1,hypo=supvecmac)
 # NormalExperiment(ambari,Security).do_experiment_txt_feature_selection(1000,0.5,mnb)
-NormalExperiment(camel,Security).do_experiment_tex_src(0, mnb)
+NormalExperiment(camel,Security).do_experiment_src()
 # from src.bug_localization.BugLocatorlExperiment import BugLocatorExperiment
 # x = BugLocatorExperiment('camel', 'security')
