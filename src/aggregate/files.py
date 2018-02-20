@@ -31,13 +31,13 @@ def label_src_files(file_name):
     reader = csv.DictReader(csvfile)
     for row in reader:
         file_column = row['files'] in (None, '') and 'No File' or row['files']
-        label = row[intent] in (None, '') and '0' or row[intent]
+        label = row["target_"+intent] in (None, '') and '0' or row["target_"+intent]
         print(file_column, label)
         files = re.split(";", file_column)
         counter = 0
         for file in files:
-            if re.search("^camel-core/", file) and re.search(".java$", file):
-            # if re.search(".java$",file):
+            # if re.search("^camel-core/", file) and re.search(".java$", file):
+            if re.search(".java$",file):
                 all_files.append(file)
                 label_files.append(int(label))
                 if int(label) == 1:
@@ -63,10 +63,10 @@ def label_src_files(file_name):
             print(all_files[x])
     '''
     print("-----------------POSITIVE--------------------")
-    for x in p_files_list.most_common():
+    for x in p_files_list.most_common(50):
         print(x)
     print("-----------------NEGATIVE--------------------")
-    for y in n_files_list.most_common():
+    for y in n_files_list.most_common(50):
         print(y)
 
     p_files_set = frozenset(p_files_list)
@@ -78,7 +78,7 @@ def label_src_files(file_name):
     inter = len(p_files_set.intersection(n_files_set))
     union = len(p_files_set.union(n_files_set))
 
-    print(inter,union,inter/union)
+    print(inter, union, inter/union)
 
     return
 

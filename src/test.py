@@ -1,4 +1,9 @@
-import math
-print(math.log(2))
+dictionary = {'a': 1}
+dictionary.__setitem__('b', 2)
+print(dictionary['b'])
 
-print(math.pow(2,3))
+from nltk import FreqDist
+a = FreqDist()
+a['1'] = 1
+a['2'] = 2
+print(a.most_common())

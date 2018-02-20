@@ -2,17 +2,12 @@
 import csv, sys, math
 from nltk import FreqDist
 from nltk.tokenize import regexp_tokenize
+from src.aggregate.pre_processor import TextPreprocessor
 
 class DFRepresenter:
     def __init__(self, file):
         self.file = file
 
-    def term_count(self, t):
-        summary = regexp_tokenize(t, pattern='[a-zA-Z]+')
-        proc_t = FreqDist()
-        for w in summary:
-            proc_t[w] += 1
-        return proc_t.most_common()
 
     def get_all_terms(self):
         csvfile = open(self.file + '_proc.csv', newline='')
@@ -21,8 +16,8 @@ class DFRepresenter:
         word_df = []
         t_d = 0
         for row in reader:
-            text = row['summary'] in (None, '') and '' or row['summary']
-            terms = self.term_count(text)
+            text = row['class_content'] in (None, '') and '' or row['class_content']
+            terms = TextPreprocessor().term_count(text)
             for term in terms:
                 index = -1
                 for x in range(len(word_list)):
@@ -38,7 +33,7 @@ class DFRepresenter:
 
     def save_idf(self):
         word_list, word_df, t_d = self.get_all_terms()
-        print('term', 'idf')
+        print('term,idf')
         for i in range(len(word_list)):
             idf = float(t_d)/float(word_df[i])
             idf = math.log(idf, math.e)
@@ -51,4 +46,7 @@ class DFRepresenter:
         sys.stdout.close()
         return
 
-DFRepresenter('camel').process_idf()
+# DFRepresenter('camel').process_idf()
+# DFRepresenter('ambari').process_idf()
+# DFRepresenter('derby').process_idf()
+DFRepresenter('wicket').process_idf()

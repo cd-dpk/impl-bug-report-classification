@@ -105,11 +105,7 @@ class FeatureSelector:
         data_trf = data[:,self.pos_fs+self.neg_fs]
         return data_trf
 
-
-
-    def get_feature_terms(self, data, target, l: int, l1_ratio:float):
-        self.pos_fs = []
-        self.neg_fs = []
+    def get_lexicon_terms(self, data, target):
         term_scores = np.zeros(len(data[0]), dtype=list)
         t_Cp = np.zeros([len(data[0]), 4], dtype=int)
         Cp = 1
@@ -141,33 +137,21 @@ class FeatureSelector:
 
         pos_term_scores = []
         neg_term_scores = []
-        for x in term_scores:
-            pos_term_scores.append([x[0],  x[1]])
-            neg_term_scores.append([x[0],  x[1]])
+        neu_term_scores = []
 
-        print(pos_term_scores)
-        print(neg_term_scores)
+        for term_score in term_scores:
+            if term_score[1] > 0.0:
+                pos_term_scores.append([term_score[0], term_score[1]])
+            elif term_score[1] < 0.0:
+                neg_term_scores.append([term_score[0], -1.0*term_score[1]])
+            else:
+                neu_term_scores.append([term_score[0], term_score[1]])
 
-        pos_term_scores = sorted(pos_term_scores, key=lambda term: term[1], reverse=True)
-        neg_term_scores = sorted(neg_term_scores, key=lambda term: term[1])
+        print('Pos', len(pos_term_scores))
+        print('Neg', len(neg_term_scores))
+        print('Neu', len(neu_term_scores))
 
-        print(pos_term_scores)
-        print(neg_term_scores)
-
-        l1 = int(l * l1_ratio)
-        for x in range(l1):
-            if pos_term_scores[x][1] > 1.0:
-                self.pos_fs.append([pos_term_scores[x][0], pos_term_scores[x][1]])
-
-        l2 = int(l-l1)
-        for x in range(l2):
-            if neg_term_scores[x][1] < 1.0:
-                self.neg_fs.append([neg_term_scores[x][0], neg_term_scores[x][1]])
-
-        print('Pos',len(self.pos_fs))
-        print('Neg',len(self.neg_fs))
-
-        return (self.pos_fs, self.neg_fs)
+        return (pos_term_scores, neg_term_scores, neu_term_scores)
 
 
     def get_pos_neg_feature_terms(self, data, target):

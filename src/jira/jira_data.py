@@ -91,7 +91,7 @@ class JiraDataHandler:
                     if row[x] not in (None, ''):
                         text_data_arr_row.append(float(row[x]))
                 target = int(row[self.target_column])
-                print(text_data_arr_row,target)
+                # print(text_data_arr_row,target)
                 self.textual_data.append(text_data_arr_row)
                 self.target_data.append(target)
                 # checkpoint += 1

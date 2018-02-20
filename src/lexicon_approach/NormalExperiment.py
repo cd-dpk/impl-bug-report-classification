@@ -13,27 +13,42 @@ class NormalExperiment(Experiment):
         import csv
         positive_lexicon = []
         negative_lexicon = []
+        neutral_lexicon = []
 
-        csvfile = open('/media/geet/Files/IITDU/MSSE-03/implementation/src/jira/apache_'+self.intent+'_pos_terms.txt',newline='')
+        csvfile = open('../jira/apache_'+self.intent+'_pos_terms.txt',newline='')
         reader = csv.DictReader(csvfile)
         for row in reader:
             if float(row['score']) > 0.0:
                 positive_lexicon.append([row['index'], row['term'], row['score']])
         csvfile.close()
 
-        csvfile = open('/media/geet/Files/IITDU/MSSE-03/implementation/src/jira/apache_' + self.intent + '_neg_terms.txt', newline='')
+        csvfile = open('../jira/apache_' + self.intent + '_neg_terms.txt', newline='')
         reader = csv.DictReader(csvfile)
         counter = 0
         for row in reader:
-            if counter >= 1000:
-                break
+            # if counter >= 1000:
+            #     break
             if float(row['score']) > 0.0:
                 negative_lexicon.append([row['index'], row['term'], row['score']])
                 counter += 1
         csvfile.close()
 
-        print(len(positive_lexicon))
-        print(len(negative_lexicon))
+        csvfile = open(
+            '../jira/apache_' + self.intent + '_neu_terms.txt',
+            newline='')
+        reader = csv.DictReader(csvfile)
+        counter = 0
+        for row in reader:
+            # if counter >= 1000:
+            #     break
+            if float(row['score']) == 0.0:
+                neutral_lexicon.append([row['index'], row['term'], row['score']])
+                counter += 1
+        csvfile.close()
+
+        print((positive_lexicon))
+        print((negative_lexicon))
+        print((neutral_lexicon))
 
 
         # exit(400)
@@ -72,22 +87,22 @@ class NormalExperiment(Experiment):
                 # w_one -> sum of positive lexicons
                 # w_zero -> sum of negative lexicons
 
-                terms = TextPreprocessor().term_count(summary+" "+description)
-                # terms = TextPreprocessor().term_count(summary)
+                # terms = TextPreprocessor().term_count(summary+" "+description)
+                terms = TextPreprocessor().term_count(summary)
                 for term in terms:
                     for lexicon in positive_lexicon:
                         if term[0] == lexicon[1]:
-                            # w_one += float(term[1]) * float(lexicon[2])
+                            w_one += float(term[1]) * float(lexicon[2])
                             # w_one += float(term[1])
-                            w_one += 1
+                            # w_one += 1
                             break
 
                 for term in terms:
                     for lexicon in negative_lexicon:
                         if term[0] == lexicon[1]:
-                            # w_zero += float(term[1]) * float(lexicon[2])
+                            w_zero += float(term[1]) * float(lexicon[2])
                             # w_zero += float(term[1])
-                            w_zero += 1
+                            # w_zero += 1
                             break
 
 

@@ -36,5 +36,6 @@ knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 
 # Preprocessor('ambari').pre_process
 
-NormalExperiment(apache, Security).do_experiment_txt_after_feature_selected(1000,0.5,supvecmac)
+# NormalExperiment(apache, Security).do_experiment_txt_after_feature_selected(1000,0.5,supvecmac)
 # NormalExperiment(apache,Security).do_experiment_txt(mnb)
+NormalExperiment(apache, Performance).do_experiment_generate_lexicon_terms()

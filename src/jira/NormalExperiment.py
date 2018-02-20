@@ -234,6 +234,7 @@ class NormalExperiment(Experiment):
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
         return
 
+
     def do_experiment_txt_sampling_classifier(self, sampling_index=0, hypo=MultinomialNB()):
         self.load_data()
         print(self.X_txt)
@@ -282,44 +283,6 @@ class NormalExperiment(Experiment):
 
         return
 
-    def do_experiment_txt(self, hypo=MultinomialNB()):
-        self.load_data()
-        print(self.X_txt)
-        print(self.y)
-        print(self.X_txt.shape)
-        X_folds = np.array_split(self.X_txt, 10)
-        y_folds = np.array_split(self.y, 10)
-        t_p = 0.0
-        f_p = 0.0
-        t_n = 0.0
-        f_n = 0.0
-        print(Counter(self.y))
-
-        for k in range(10):
-            # We use 'list' to copy, in order to 'pop' later on
-            X_train = list(X_folds)
-            X_test = X_train.pop(k)
-            X_train = np.concatenate(X_train)
-            y_train = list(y_folds)
-            y_test = y_train.pop(k)
-            y_train = np.concatenate(y_train)
-
-            hypo.fit(X_train, y_train)
-            y_predict = hypo.predict(X_test)
-            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-
-            t_p += temp_tp
-            t_n += temp_tn
-            f_p += temp_fp
-            f_n += temp_fn
-
-
-        print(t_p, t_n, f_p, f_n)
-        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
-
-
-        return
-
 
     def do_experiment_featured_terms(self,hypo=MultinomialNB()):
         import csv
@@ -350,7 +313,7 @@ class NormalExperiment(Experiment):
         print(self.X_txt[:, indices])
         return
 
-    def do_experiment_feature_terms(self):
+    def do_experiment_generate_lexicon_terms(self):
         import sys
         self.load_data()
         print(self.X_txt)
@@ -360,16 +323,21 @@ class NormalExperiment(Experiment):
         print(len(self.term_features))
 
         from src.jira.feature_selection import FeatureSelector
-        pos, neg = FeatureSelector().get_pos_neg_feature_terms(self.X_txt,self.y)
+        pos, neg, neu = FeatureSelector().get_lexicon_terms(self.X_txt, self.y)
 
         sys.stdout = open(self.file + '_' + self.intent + '_pos_terms.txt', 'w', encoding="UTF-8")
         for term in pos:
-            print(str(term[0])+","+self.term_features[term[0]]+","+str(term[1]))
+            print(str(term[0]) + "," + self.term_features[term[0]] + "," + str(term[1]))
         sys.stdout.close()
 
         sys.stdout = open(self.file + '_' + self.intent + '_neg_terms.txt', 'w', encoding="UTF-8")
         for term in neg:
-            print(str(term[0])+","+self.term_features[term[0]]+","+str(term[1]))
+            print(str(term[0]) + "," + self.term_features[term[0]] + "," + str(term[1]))
+        sys.stdout.close()
+
+        sys.stdout = open(self.file + '_' + self.intent + '_neu_terms.txt', 'w', encoding="UTF-8")
+        for term in neu:
+            print(str(term[0]) + "," + self.term_features[term[0]] + "," + str(term[1]))
         sys.stdout.close()
 
         return
