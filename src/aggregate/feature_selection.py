@@ -8,6 +8,7 @@ class FeatureSelector:
         self.pos_fs = []
         self.neg_fs = []
 
+    # @log_odd_ratio
     def odd_ratio(self, A: int, B: int, C: int, D: int, N: int):
         A = float(A) + self.sampling_zero
         B = float(B) + self.sampling_zero
@@ -18,6 +19,7 @@ class FeatureSelector:
         non_deter = B * (N - A)
         return math.log((deter / non_deter), math.e)
 
+    # @signed_info_gain
     def signed_info_gain(self, A: int, B: int, C: int, D: int, N: int):
         A = float(A)
         B = float(B)
@@ -44,6 +46,7 @@ class FeatureSelector:
 
             return (A*D-B*C) * ig
 
+    # @fit_odd_ratio
     def fit_transform_odd_ratio(self, data, target, l: int, l1_ratio:float):
         # print(data)
         # print(target)
@@ -71,25 +74,25 @@ class FeatureSelector:
             C = float(t_Cp[c][2])
             D = float(t_Cp[c][3])
             N = len(data)
-            print(A, B, C, D, N)
+            # print(A, B, C, D, N)
             term_scores[c] = [c, self.odd_ratio(A, B, C, D, N)]
 
         # print(term_scores)
-        print(term_scores)
+        # print(term_scores)
         pos_term_scores = []
         neg_term_scores = []
         for x in term_scores:
             pos_term_scores.append([x[0],  x[1]])
-            neg_term_scores.append([x[0],  -1 * x[1]])
+            neg_term_scores.append([x[0], -1 * x[1]])
 
-        print(pos_term_scores)
-        print(neg_term_scores)
+        # print(pos_term_scores)
+        # print(neg_term_scores)
 
         pos_term_scores = sorted(pos_term_scores, key=lambda term: term[1], reverse=True)
         neg_term_scores = sorted(neg_term_scores, key=lambda term: term[1], reverse=True)
 
-        print(pos_term_scores)
-        print(neg_term_scores)
+        # print(pos_term_scores)
+        # print(neg_term_scores)
 
         l1 = int(l * l1_ratio)
         for x in range(l1):
@@ -106,9 +109,11 @@ class FeatureSelector:
 
         return data[:,self.pos_fs+self.neg_fs]
 
+    # @transformed_data
     def transform_odd_ratio(self,data):
         return data[:,self.pos_fs+self.neg_fs]
 
+    # @info_gain
     def fit_transform_info_gain(self, data, target, l: int, l1_ratio:float):
         print(data)
         print(target)
@@ -170,5 +175,6 @@ class FeatureSelector:
         data_trf = data[:,self.pos_fs+self.neg_fs]
         return data_trf
 
+    # transformed_data
     def transform_info_gain(self, data):
         return data[:,self.pos_fs+self.neg_fs]

@@ -6,8 +6,13 @@ from src.aggregate.pre_processor import TextPreprocessor
 from collections import Counter
 import numpy as np
 
+from src.jira.jira_data import JiraDataHandler
+
+
 class NormalExperiment(Experiment):
 
+
+    # @experiment @lexicon
     def do_experiment_lexicon(self):
         # read all the lexicons
         import csv

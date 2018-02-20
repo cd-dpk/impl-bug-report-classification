@@ -5,31 +5,16 @@ import sys, csv
 
 class ChouDataHandler:
 
-    reporter_data = []
-    component_data = []
-    keywords_data = []
-    textual_data = []
-    description_data = []
-    target_data = []
-
-    def __init__(self,file,intent):
+    def __init__(self, file, intent):
         self.file = file
         self.intent = intent
+        self.reporter_data = []
+        self.component_data = []
+        self.lexicon_data = []
+        self.textual_data = []
+        self.description_data = []
+        self.target_data = []
 
-
-    def set_feature_names_rows(self):
-        with open(self.file+'_vec.csv', newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            text_feature_names_arr = np.array(reader.fieldnames)
-            target_column = text_feature_names_arr[len(text_feature_names_arr) - 1]
-            text_feature_names_arr = np.delete(text_feature_names_arr, len(text_feature_names_arr) - 1, axis=0)
-            row_count = len(list(reader))
-            self.chou_data[self.feature_names] = text_feature_names_arr
-            self.data_arr = np.empty([row_count, len(text_feature_names_arr)], dtype=str)
-            self.target_arr = np.empty([row_count], dtype=str)
-            self.chou_data[self.data] = self.data_arr
-            self.chou_data[self.target] = self.target_arr
-        return
 
     def load_data(self):
         with open(self.file+'_vec.csv', newline='') as csvfile:
@@ -38,7 +23,7 @@ class ChouDataHandler:
             target_column= ''
             counter = 0
             for f in reader.fieldnames:
-                if counter <= 7 or counter == len(reader.fieldnames)-2:
+                if counter <= 12 or counter == len(reader.fieldnames)-2:
                     counter += 1
                     continue
                 else:
@@ -52,36 +37,44 @@ class ChouDataHandler:
             # print(text_features)
             counter = 0
             for row in reader:
-
-                reporter = row['reporter'] in (None, '') and '' or row['reporter']
-                component = row['component'] in (None, '') and 'null' or row['component']
-                keyword = row['keywords'] in (None, '') and '0' or row['keywords']
-                st = ((row['ST'] in (None, '') and '0' or row['ST']))
-                patch = ((row['Patch'] in (None, '') and '0' or row['Patch']))
-                ce = ((row['CE'] in (None, '') and '0' or row['CE']))
-                tc = ((row['TC'] in (None, '') and '0' or row['TC']))
-                en = ((row['EN'] in (None, '') and '0' or row['EN']))
+                reporter = row['reporter_col'] in (None, '') and '' or row['reporter_col']
+                component = row['component_col'] in (None, '') and 'null' or row['component_col']
+                pos = float(row[self.intent+'_pos_col'] in (None, '') and '0' or row[self.intent+'_pos_col'])
+                neu = float(row[self.intent+'_neu_col'] in (None, '') and '0' or row[self.intent+'_neu_col'])
+                neg = float(row[self.intent+'_neg_col'] in (None, '') and '0' or row[self.intent+'_neg_col'])
+                # keyword_sec = row['keyword_sec_col'] in (None, '') and '0' or row['keyword_sec_col']
+                # keyword_perf = row['keyword_perf_col'] in (None, '') and '0' or row['keyword_perf_col']
+                # # print(keyword_sec, keyword_perf)
+                st = ((row['ST_col'] in (None, '') and '0' or row['ST_col']))
+                patch = ((row['Patch_col'] in (None, '') and '0' or row['Patch_col']))
+                ce = ((row['CE_col'] in (None, '') and '0' or row['CE_col']))
+                tc = ((row['TC_col'] in (None, '') and '0' or row['TC_col']))
+                en = ((row['EN_col'] in (None, '') and '0' or row['EN_col']))
                 # print(counter,reporter,component,keyword,st,patch,ce,tc,en)
                 self.reporter_data.append(reporter)
                 self.component_data.append(component)
-                self.keywords_data.append(int(keyword))
+                # self.keyword_sec_data.append(int(keyword_sec))
+                # self.keyword_perf_data.append(int(keyword_perf))
                 self.description_data.append(np.array([int(st), int(patch), int(ce), int(tc), int(en)]))
+                self.lexicon_data.append([pos, neu, neg])
                 text_data_arr_row = []
                 for x in text_features:
                     if row[x] not in (None, ''):
                         text_data_arr_row.append(float(row[x]))
-                print(text_data_arr_row, row[self.target_column])
+                # print(text_data_arr_row, row[self.target_column])
                 target = int(row[self.target_column])
                 self.textual_data.append(text_data_arr_row)
                 self.target_data.append(target)
-                counter+=1
+                counter += 1
 
         self.reporter_data = np.array(self.reporter_data)
         self.component_data = np.array(self.component_data)
-        self.keywords_data = np.array(self.keywords_data)
+        # self.keyword_sec_data = np.array(self.keyword_sec_data)
+        # self.keyword_perf_data = np.array(self.keyword_perf_data)
         self.textual_data = np.array(self.textual_data)
         self.description_data = np.array(self.description_data)
         self.target_data = np.array(self.target_data)
+        self.lexicon_data = np.array(self.lexicon_data)
         return
 
     def reporter_to_numeric_data(self):
@@ -137,7 +130,10 @@ class ChouDataHandler:
             temp_arr.append(reporter_data[x])
             for y in range(len(component_data[x])):
                 temp_arr.append(component_data[x][y])
-            temp_arr.append(self.keywords_data[x])
+
+            for y in range(len(self.lexicon_data[x])):
+                temp_arr.append(self.lexicon_data[x][y])
+
             for y in range(len(self.description_data[x])):
                 temp_arr.append(self.description_data[x][y])
             numeric_data.append(temp_arr)

@@ -11,52 +11,89 @@ class Preprocessor:
     def __init__(self, file):
         self.file = file
 
-        self.perf_keywords = ["performance", "slow", "speed", "latency", "throughput",
-                         "cpu", "disk", "memory", "usage", "resource", "calling",
-                         "times", "infinite", "loop"]
-        self.sec_keywords = ["add", "denial", "service", "XXE", "remote", "open", "redirect", "OSVDB", "vuln", "CVE", "XSS",
-                        "ReDoS",
-                        "NVD", "malicious", "frame", "attack", "exploit", "directory", "traversal", "RCE", "dos",
-                        "XSRF",
-                        "clickjack", "session", "fixation", "hijack", "advisory", "insecure", "security", "cross",
-                        "origin", "unauthori[z|s]ed", "authenticat(e|ion)", "brute force", "bypass", "credential",
-                        "DoS", "expos(e|ing)", "hack", "harden", "injection", "lockout", "over flow", "password", "PoC",
-                        "proof", "poison", "privelage", "(in)?secur(e|ity)", "(de)?serializ", "spoof", "traversal"]
+    def load_perf_lexicon_data(self):
+        import csv
+        positive_lexicon = []
+        negative_lexicon = []
+        neutral_lexicon = []
 
-        # which single character is removed
-        self.additionalStopWords = []
-        for x in range(26):
-            self.additionalStopWords.append(chr(ord('a') + x))
-        self.vocabulary = FreqDist()
+        csvfile = open('../jira/apache_Performance_pos_terms.txt', newline='')
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            if float(row['score']) > 0.0:
+                positive_lexicon.append([row['index'], row['term'], row['score']])
+        csvfile.close()
 
-    def predict_keywords(self, t):
-        # t = re.sub('[_]',' ', t)
-        # t = re.sub('(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])',' ',t)
-        tokens = regexp_tokenize(t, pattern='[a-zA-Z]+')
-        sec_cl = 0
-        perf_cl = 0
-        for w in tokens:
-            # print(w)
-            for s in self.sec_keywords:
-                s = "(?i)" + s
-                if re.search(s, w):
-                    sec_cl = 1
-                    break
-            # print(sec_cl)
-            for p in self.perf_keywords:
-                p = "(?i)" + p
-                if re.search(p, w):
-                    perf_cl = 1
-                    break
-            # print(perf_cl)
-            if sec_cl == 1 and perf_cl == 1:
-                break
-        return (sec_cl, perf_cl)
+        csvfile = open('../jira/apache_Performance_neg_terms.txt', newline='')
+        reader = csv.DictReader(csvfile)
+        counter = 0
+        for row in reader:
+            # if counter >= 1000:
+            #     break
+            if float(row['score']) > 0.0:
+                negative_lexicon.append([row['index'], row['term'], row['score']])
+                counter += 1
+        csvfile.close()
+
+        csvfile = open(
+            '../jira/apache_Performance_neu_terms.txt',
+            newline='')
+        reader = csv.DictReader(csvfile)
+        counter = 0
+        for row in reader:
+            # if counter >= 1000:
+            #     break
+            if float(row['score']) == 0.0:
+                neutral_lexicon.append([row['index'], row['term'], row['score']])
+                counter += 1
+        csvfile.close()
+        return (positive_lexicon, neutral_lexicon, negative_lexicon)
+
+    def load_sec_lexicon_data(self):
+        import csv
+        positive_lexicon = []
+        negative_lexicon = []
+        neutral_lexicon = []
+
+        csvfile = open('../jira/apache_Security_pos_terms.txt', newline='')
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            if float(row['score']) > 0.0:
+                positive_lexicon.append([row['index'], row['term'], row['score']])
+        csvfile.close()
+
+        csvfile = open('../jira/apache_Security_neg_terms.txt', newline='')
+        reader = csv.DictReader(csvfile)
+        counter = 0
+        for row in reader:
+            # if counter >= 1000:
+            #     break
+            if float(row['score']) > 0.0:
+                negative_lexicon.append([row['index'], row['term'], row['score']])
+                counter += 1
+        csvfile.close()
+
+        csvfile = open(
+            '../jira/apache_Security_neu_terms.txt',
+            newline='')
+        reader = csv.DictReader(csvfile)
+        counter = 0
+        for row in reader:
+            # if counter >= 1000:
+            #     break
+            if float(row['score']) == 0.0:
+                neutral_lexicon.append([row['index'], row['term'], row['score']])
+                counter += 1
+        csvfile.close()
+        return (positive_lexicon, neutral_lexicon, negative_lexicon)
 
     def proc_csv_file(self):
+        sec_pos_lex, sec_neu_lex, sec_neg_lex = self.load_sec_lexicon_data()
+        perf_pos_lex, perf_neu_lex, perf_neg_lex = self.load_perf_lexicon_data()
+
         with open('../data/' + self.file + '.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
-            print('issue_id,reporter,component,keywords,summary,description,ST,Patch,CE,TC,EN,files,target_Security,target_Performance')
+            print('issue_id,reporter_col,component_col,Security_pos_col,Security_neu_col,Security_neg_col,Performance_pos_col,Performance_neu_col,Performance_neg_col,summary_col,description_col,ST_col,Patch_col,CE_col,TC_col,EN_col,files_col,target_Security,target_Performance')
             for row in reader:
                 issue_id = str(row['issue_id'] in (None, '') and '' or row['issue_id'])
                 reporter = row['reporter'] in (None, '') and 'null' or row['reporter']
@@ -80,11 +117,61 @@ class Preprocessor:
                 tc = str((row['TC'] in (None, '') and '0' or row['TC']))
                 en = str((row['EN'] in (None, '') and '0' or row['EN']))
                 files = row['files'] in (None, '') and '' or row['files']
-                sec, perf = self.predict_keywords(
-                    (row['summary'] in (None, '') and '' or '') + " " + (row['description'] in (None, '') and '' or ''))
 
-                print(issue_id + ',' + reporter + ',' + component + ',' + str(sec) + ',' +
-                          summary+ ',' + description + ',' + st + ',' + patch + ',' + ce + ','
+                terms = TextPreprocessor().term_count(summary+" "+description)
+                sec_pos,sec_neu,sec_neg = (0.0,0.0,0.0)
+                perf_pos, perf_neu, perf_neg = (0.0, 0.0, 0.0)
+                for term in terms:
+                    flag_1 = False
+                    flag_2 = False
+
+                    for lexicon in sec_pos_lex:
+                        if term[0] == lexicon[1]:
+                            sec_pos += term[1]
+                            flag_1 = True
+                            break
+
+                    for lexicon in sec_neu_lex:
+                        if flag_1 == True:
+                            break
+                        if term[0] == lexicon[1]:
+                            sec_neu += term[1]
+                            flag_1 = True
+                            break
+
+                    for lexicon in sec_neg_lex:
+                        if flag_1 == True:
+                            break
+                        if term[0] == lexicon[1]:
+                            sec_neg += term[1]
+                            flag_1 = True
+                            break
+
+
+                    for lexicon in perf_pos_lex:
+                        if term[0] == lexicon[1]:
+                            perf_pos += term[1]
+                            flag_2 = True
+                            break
+
+                    for lexicon in perf_neu_lex:
+                        if flag_2 == True:
+                            break
+                        if term[0] == lexicon[1]:
+                            perf_neu += term[1]
+                            flag_2= True
+                            break
+
+                    for lexicon in perf_neg_lex:
+                        if flag_2 == True:
+                            break
+                        if term[0] == lexicon[1]:
+                            perf_neg += term[1]
+                            flag_2 = True
+                            break
+
+                print(issue_id + ',' + reporter + ',' + component + ',' + str(sec_pos) + "," + str(sec_neu) + ',' + str(sec_neg) + "," +
+                      str(perf_pos) + "," + str(perf_neu) + ',' + str(perf_neg)+","+summary + ',' + description + ',' + st + ',' + patch + ',' + ce + ','
                           + tc + ',' + en + ',' + files + ',' + security_label + "," + perf_label)
 
         return
@@ -151,7 +238,7 @@ class Preprocessor:
         return
 
     def pre_process(self):
-        sys.stdout = open(self.file+'_proc.csv','w',encoding="UTF-8")
+        sys.stdout = open(self.file+'_proc.csv', 'w', encoding="UTF-8")
         self.proc_csv_file()
         # self.proc_xml_file()
         sys.stdout.close()

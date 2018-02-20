@@ -6,16 +6,35 @@ class Experiment:
     def __init__(self, file, intent):
         self.file = file
         self.intent = intent
-        self.sampling_indices = [0,1,2]
+        self.sampling_indices = [0, 1, 2]
 
     def load_data(self):
-        self.chou_data = ChouDataHandler(self.file,self.intent)
-        self.chou_data.load_data()
-        self.X_txt = self.chou_data.textual_data
-        self.y = self.chou_data.target_data
-        self.X_str = self.chou_data.get_numeric_str_data()
-        return
+        chou_data = ChouDataHandler(self.file, self.intent)
+        chou_data.load_data()
+        self.X_txt = chou_data.textual_data
+        self.y = chou_data.target_data
+        self.X_str = chou_data.get_numeric_str_data()
+        component_data = chou_data.component_to_numeric_data()
+        reporter_data = chou_data.reporter_to_numeric_data()
+        self.categorical_data = np.empty([len(self.X_txt), 9+len(component_data[0])], dtype=object)
+        for i in range(len(self.X_txt)):
+            k = 0
+            self.categorical_data[i][k] = str(reporter_data[i])
+            k += 1
 
+            for j in range(len(chou_data.lexicon_data[0])):
+                self.categorical_data[i][k] = chou_data.lexicon_data[i][j]
+                k += 1
+
+            for j in range(len(component_data[0])):
+                self.categorical_data[i][k] = component_data[i][j]
+                k += 1
+
+            for j in range(len(chou_data.description_data[i])):
+                self.categorical_data[i][k] = chou_data.description_data[i][j]
+                k += 1
+
+        return
 
     def under_sampling(self,X,y):
         from imblearn.under_sampling import RandomUnderSampler

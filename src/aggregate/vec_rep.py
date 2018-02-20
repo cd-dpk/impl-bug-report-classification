@@ -21,8 +21,8 @@ class VectorRepresenter:
         word_df = []
         t_d = 0
         for row in reader:
-            text = row['summary'] in (None,'') and '' or row['summary']+" "+row['description'] in (None,'') and '' or row['description']
-            # text = row['summary'] in (None, '') and '' or row['summary']
+            text = row['summary_col'] in (None,'') and '' or row['summary_col']+" "+row['description_col'] in (None,'') and '' or row['description_col']
+            # text = row['summary_col'] in (None, '') and '' or row['summary_col']
             terms = self.term_count(text)
             for term in terms:
                 index = -1
@@ -50,9 +50,9 @@ class VectorRepresenter:
         word_df = re_word_df
         '''
         header_str = ''
-        header_str += 'reporter,'
-        header_str += 'component,'
-        header_str += 'keywords,ST,Patch,CE,TC,EN,'
+        header_str += 'reporter_col,'
+        header_str += 'component_col,'
+        header_str += 'Security_pos_col,Security_neu_col,Security_neg_col,Performance_pos_col,Performance_neu_col,Performance_neg_col,ST_col,Patch_col,CE_col,TC_col,EN_col,'
         header_words = ''
         for x in range(len(word_list)):
             header_words += word_list[x] + ','
@@ -64,16 +64,21 @@ class VectorRepresenter:
 
         for row in reader:
             output = ''
-            output += row['reporter'] + ","
-            output += row['component'] + ","
-            output += row['keywords'] + ","
-            st = str((row['ST'] in (None, '') and '0' or row['ST']))
-            patch = str((row['Patch'] in (None, '') and '0' or row['Patch']))
-            ce = str((row['CE'] in (None, '') and '0' or row['CE']))
-            tc = str((row['TC'] in (None, '') and '0' or row['TC']))
-            en = str((row['EN'] in (None, '') and '0' or row['EN']))
+            output += row['reporter_col'] + ","
+            output += row['component_col'] + ","
+            output += row['Security_pos_col'] + ","
+            output += row['Security_neu_col'] + ","
+            output += row['Security_neg_col'] + ","
+            output += row['Performance_pos_col'] + ","
+            output += row['Performance_neu_col'] + ","
+            output += row['Performance_neg_col'] + ","
+            st = str((row['ST_col'] in (None, '') and '0' or row['ST_col']))
+            patch = str((row['Patch_col'] in (None, '') and '0' or row['Patch_col']))
+            ce = str((row['CE_col'] in (None, '') and '0' or row['CE_col']))
+            tc = str((row['TC_col'] in (None, '') and '0' or row['TC_col']))
+            en = str((row['EN_col'] in (None, '') and '0' or row['EN_col']))
             output += st + ',' + patch + ',' + ce + ',' + tc + ',' + en + ','
-            text = row['summary']+" "+row['description']
+            text = row['summary_col']+" "+row['description_col']
             # text = row['summary']
             terms = self.term_count(text)
             rw = ''
@@ -87,21 +92,6 @@ class VectorRepresenter:
                 if index != -1:
                     weight = float(terms[index][1])
                     weight *= math.log((float(t_d) / float(word_df[x])), 10)
-                    '''
-                    from gensim.models import KeyedVectors
-                    import numpy as np
-                    words_vectors = KeyedVectors.load_word2vec_format(self.file+'_wv.txt', binary=False)
-                    word_vecs = []
-
-                    if word_list[x] in words_vectors:
-                        for vec in words_vectors[word_list[x]]:
-                            word_vecs.append(vec* weight)
-                    else:
-                        word_vecs = [0.0]
-
-                    word_vecs = np.array(word_vecs)
-                    weight = np.mean(word_vecs)
-                    '''
                     rw += str(round(weight, 5)) + ','
                 else:
                     rw += '0,'
