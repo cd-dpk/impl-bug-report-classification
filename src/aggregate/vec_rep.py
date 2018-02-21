@@ -1,11 +1,13 @@
-## learner
 import csv,sys, math
 from nltk import FreqDist
 from nltk.tokenize import regexp_tokenize
+
+
 class VectorRepresenter:
     def __init__(self, file):
         self.file = file
 
+    # Return the frequency distribution of terms in a text
     def term_count(self,t):
         summary = regexp_tokenize(t, pattern='[a-zA-Z]+')
         proc_t = FreqDist()
@@ -13,7 +15,7 @@ class VectorRepresenter:
             proc_t[w] += 1
         return proc_t.most_common()
 
-
+    # all the terms that will be used as feature
     def get_all_terms(self):
         csvfile = open(self.file + '_proc.csv', newline='')
         reader = csv.DictReader(csvfile)
@@ -37,6 +39,8 @@ class VectorRepresenter:
         csvfile.close()
         return (word_list, word_df, t_d)
 
+    # represent each bug report as vector of terms
+    # weight of each term is calculated using tf_idf
     def proc_bug_reports(self):
         word_list, word_df, t_d = self.get_all_terms()
         '''

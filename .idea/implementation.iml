@@ -5,7 +5,7 @@
       <excludeFolder url="file://$MODULE_DIR$/venv2" />
       <excludeFolder url="file://$MODULE_DIR$/venv34" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.5 (implementation)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.4 (HelloWorld)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">

@@ -21,30 +21,27 @@ class FeatureSelector:
 
     # @signed_info_gain
     def signed_info_gain(self, A: int, B: int, C: int, D: int, N: int):
-        A = float(A)
-        B = float(B)
-        C = float(C)
-        D = float(D)
-        N = float(N)
+        A = float(A) + self.sampling_zero
+        B = float(B) + self.sampling_zero
+        C = float(C) + self.sampling_zero
+        D = float(D) + self.sampling_zero
+        N = float(N) + self.sampling_zero
 
-        if A == 0.0 or B == 0.0 or C == 0.0 or D == 0.0:
-            return 0.0
-        else:
-            ig = 0.0
+        ig = 0.0
 
-            ig += A / N
-            ig *= math.log((A * N) / ((A + B) * (A + C)), math.e)
+        ig += A / N
+        ig *= math.log((A * N) / ((A + B) * (A + C)), math.e)
 
-            ig += (C / N)
-            ig += math.log((C * N) / ((C + D) * (A + C)), math.e)
+        ig += (C / N)
+        ig += math.log((C * N) / ((C + D) * (A + C)), math.e)
 
-            ig += B / N
-            ig *= math.log((B * N) / ((A + B) * (B + D)), math.e)
+        ig += B / N
+        ig *= math.log((B * N) / ((A + B) * (B + D)), math.e)
 
-            ig += (D / N)
-            ig *= math.log((D * N) / ((C + D) * (B + D)), math.e)
+        ig += (D / N)
+        ig *= math.log((D * N) / ((C + D) * (B + D)), math.e)
 
-            return (A*D-B*C) * ig
+        return (A * D - B * C) * ig
 
     # @fit_odd_ratio
     def fit_transform_odd_ratio(self, data, target, l: int, l1_ratio:float):
@@ -96,13 +93,12 @@ class FeatureSelector:
 
         l1 = int(l * l1_ratio)
         for x in range(l1):
-            if pos_term_scores[x][1] > 0.0:
-                self.pos_fs.append(pos_term_scores[x][0])
+            self.pos_fs.append(pos_term_scores[x][0])
 
         l2 = int(l-l1)
         for x in range(l2):
-            if neg_term_scores[x][1] > 0.0:
-                self.neg_fs.append(neg_term_scores[x][0])
+            # if neg_term_scores[x][1] > 0.0:
+            self.neg_fs.append(neg_term_scores[x][0])
 
         # print(self.pos_fs)
         # print(self.neg_fs)

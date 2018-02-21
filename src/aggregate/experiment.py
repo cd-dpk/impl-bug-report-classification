@@ -53,7 +53,7 @@ class Experiment:
         rus = RandomUnderSampler()
         return rus.fit_sample(X, y)
 
-    def over_sampling(self,X,y):
+    def over_sampling(self, X, y):
         from imblearn.over_sampling import RandomOverSampler
         ros = RandomOverSampler()
         return ros.fit_sample(X, y)

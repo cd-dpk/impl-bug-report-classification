@@ -1,4 +1,4 @@
-import sys,csv,re,stringcase
+import sys, csv, re, stringcase
 from nltk.tokenize import regexp_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
@@ -11,85 +11,45 @@ class Preprocessor:
     def __init__(self, file):
         self.file = file
 
-    def load_perf_lexicon_data(self):
+    # load the lexicon data
+    def load_lexicon_data(self, intent):
         import csv
-        positive_lexicon = []
-        negative_lexicon = []
-        neutral_lexicon = []
+        positive_lexicon = {}
+        negative_lexicon = {}
+        neutral_lexicon = {}
 
-        csvfile = open('../jira/apache_Performance_pos_terms.txt', newline='')
+        csvfile = open('../jira/apache_'+intent+'_pos_terms.txt', newline='')
         reader = csv.DictReader(csvfile)
         for row in reader:
             if float(row['score']) > 0.0:
-                positive_lexicon.append([row['index'], row['term'], row['score']])
+                positive_lexicon.__setitem__(row['term'], row['score'])
         csvfile.close()
 
-        csvfile = open('../jira/apache_Performance_neg_terms.txt', newline='')
+        csvfile = open('../jira/apache_'+intent+'_neg_terms.txt', newline='')
         reader = csv.DictReader(csvfile)
-        counter = 0
+        # counter = 0
         for row in reader:
             # if counter >= 1000:
             #     break
             if float(row['score']) > 0.0:
-                negative_lexicon.append([row['index'], row['term'], row['score']])
-                counter += 1
+                negative_lexicon.__setitem__(row['term'], row['score'])
+                # counter += 1
         csvfile.close()
 
-        csvfile = open(
-            '../jira/apache_Performance_neu_terms.txt',
-            newline='')
+        csvfile = open('../jira/apache_'+intent+'_neu_terms.txt', newline='')
         reader = csv.DictReader(csvfile)
-        counter = 0
+
         for row in reader:
-            # if counter >= 1000:
-            #     break
             if float(row['score']) == 0.0:
-                neutral_lexicon.append([row['index'], row['term'], row['score']])
-                counter += 1
+                neutral_lexicon.__setitem__(row['term'],row['score'])
+
         csvfile.close()
         return (positive_lexicon, neutral_lexicon, negative_lexicon)
 
-    def load_sec_lexicon_data(self):
-        import csv
-        positive_lexicon = []
-        negative_lexicon = []
-        neutral_lexicon = []
-
-        csvfile = open('../jira/apache_Security_pos_terms.txt', newline='')
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            if float(row['score']) > 0.0:
-                positive_lexicon.append([row['index'], row['term'], row['score']])
-        csvfile.close()
-
-        csvfile = open('../jira/apache_Security_neg_terms.txt', newline='')
-        reader = csv.DictReader(csvfile)
-        counter = 0
-        for row in reader:
-            # if counter >= 1000:
-            #     break
-            if float(row['score']) > 0.0:
-                negative_lexicon.append([row['index'], row['term'], row['score']])
-                counter += 1
-        csvfile.close()
-
-        csvfile = open(
-            '../jira/apache_Security_neu_terms.txt',
-            newline='')
-        reader = csv.DictReader(csvfile)
-        counter = 0
-        for row in reader:
-            # if counter >= 1000:
-            #     break
-            if float(row['score']) == 0.0:
-                neutral_lexicon.append([row['index'], row['term'], row['score']])
-                counter += 1
-        csvfile.close()
-        return (positive_lexicon, neutral_lexicon, negative_lexicon)
-
+    # process csv file
     def proc_csv_file(self):
-        sec_pos_lex, sec_neu_lex, sec_neg_lex = self.load_sec_lexicon_data()
-        perf_pos_lex, perf_neu_lex, perf_neg_lex = self.load_perf_lexicon_data()
+        sec_pos_lex, sec_neu_lex, sec_neg_lex = self.load_lexicon_data('Security')
+        perf_pos_lex, perf_neu_lex, perf_neg_lex = self.load_lexicon_data('Performance')
 
         with open('../data/' + self.file + '.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
@@ -119,54 +79,82 @@ class Preprocessor:
                 files = row['files'] in (None, '') and '' or row['files']
 
                 terms = TextPreprocessor().term_count(summary+" "+description)
-                sec_pos,sec_neu,sec_neg = (0.0,0.0,0.0)
+                sec_pos,sec_neu,sec_neg = (0.0, 0.0, 0.0)
                 perf_pos, perf_neu, perf_neg = (0.0, 0.0, 0.0)
                 for term in terms:
                     flag_1 = False
                     flag_2 = False
 
-                    for lexicon in sec_pos_lex:
-                        if term[0] == lexicon[1]:
-                            sec_pos += term[1]
+                    for lexicon in sec_pos_lex.keys():
+                        if term[0] == lexicon:
+                            # presence
+                            sec_pos += 1
+                            # occurnece
+                            # sec_pos += term[1]
+                            # weight
+                            # sec_pos += float(term[1]) * float(sec_pos_lex[lexicon])
                             flag_1 = True
                             break
 
-                    for lexicon in sec_neu_lex:
+                    for lexicon in sec_neu_lex.keys():
                         if flag_1 == True:
                             break
-                        if term[0] == lexicon[1]:
-                            sec_neu += term[1]
+                        if term[0] == lexicon:
+                            # presence
+                            sec_neu += 1
+                            # occurnece
+                            # sec_neu += term[1]
+                            # weight
+                            # sec_neu += float(term[1]) * float(sec_neu_lex[lexicon])
                             flag_1 = True
                             break
 
-                    for lexicon in sec_neg_lex:
+                    for lexicon in sec_neg_lex.keys():
                         if flag_1 == True:
                             break
-                        if term[0] == lexicon[1]:
-                            sec_neg += term[1]
+                        if term[0] == lexicon:
+                            # presence
+                            sec_neg += 1
+                            # occurnece
+                            # sec_neg += term[1]
+                            # weight
+                            # sec_neg += float(term[1]) * float(sec_neg_lex[lexicon])
                             flag_1 = True
                             break
 
-
-                    for lexicon in perf_pos_lex:
-                        if term[0] == lexicon[1]:
-                            perf_pos += term[1]
+                    for lexicon in perf_pos_lex.keys():
+                        if term[0] == lexicon:
+                            # presence
+                            perf_pos += 1
+                            # occurnece
+                            # perf_pos += term[1]
+                            # weight
+                            # perf_pos += float(term[1]) * float(perf_pos_lex[lexicon])
                             flag_2 = True
                             break
 
-                    for lexicon in perf_neu_lex:
+                    for lexicon in perf_neu_lex.keys():
                         if flag_2 == True:
                             break
-                        if term[0] == lexicon[1]:
-                            perf_neu += term[1]
-                            flag_2= True
+                        if term[0] == lexicon:
+                            # presence
+                            perf_neu += 1
+                            # occurnece
+                            # perf_neu += term[1]
+                            # weight
+                            # perf_neu += float(term[1]) * float(perf_neu_lex[lexicon])
                             break
 
                     for lexicon in perf_neg_lex:
                         if flag_2 == True:
                             break
-                        if term[0] == lexicon[1]:
-                            perf_neg += term[1]
+                        if term[0] == lexicon:
+                            # presence
+                            perf_neg += 1
+                            # occurnece
+                            # perf_neg += term[1]
+                            # weight
+                            # perf_neg += float(term[1]) * float(perf_neg_lex[lexicon])
                             flag_2 = True
                             break
 
@@ -176,6 +164,7 @@ class Preprocessor:
 
         return
 
+    #  process all the xml files of apache jira
     def proc_xml_file(self):
         import xml.etree.ElementTree as ET
         import os

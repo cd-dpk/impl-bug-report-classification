@@ -11,13 +11,9 @@ from src.aggregate.feature_selection import FeatureSelector
 
 class NormalExperiment(Experiment):
 
-
-    # @imbalance @sampling @text
-    def do_experiment_txt_sampling_classifier(self, sampling_index=0, hypo=MultinomialNB()):
+    # @imbalance @sampling @text @single_classifier
+    def do_experiment_txt_sampling_classifier(self, sampling_index:int=0, hypo=MultinomialNB()):
         self.load_data()
-        # print(self.X_txt.shape)
-        # print(self.X_txt)
-        # print(self.y)
         X_folds = np.array_split(self.X_txt, 10)
         y_folds = np.array_split(self.y, 10)
         t_p = 0.0
@@ -53,6 +49,43 @@ class NormalExperiment(Experiment):
             f_p += temp_fp
             f_n += temp_fn
 
+        print(t_p, t_n, f_p, f_n)
+        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+
+        return
+
+    # @text @feature selection
+    def do_experiment_txt_feature_selection(self, l, l1_ratio, hypo):
+        self.load_data()
+        print(self.X_txt.shape)
+        X_folds = np.array_split(self.X_txt, 10)
+        y_folds = np.array_split(self.y, 10)
+        from src.aggregate.feature_selection import FeatureSelector
+        self.X_txt = FeatureSelector().fit_transform_odd_ratio(self.X_txt, self.y, l, l1_ratio)
+        print(self.X_txt.shape)
+        t_p = 0.0
+        f_p = 0.0
+        t_n = 0.0
+        f_n = 0.0
+        print(Counter(self.y))
+
+        for k in range(10):
+            # We use 'list' to copy, in order to 'pop' later on
+            X_train = list(X_folds)
+            X_test = X_train.pop(k)
+            X_train = np.concatenate(X_train)
+            y_train = list(y_folds)
+            y_test = y_train.pop(k)
+            y_train = np.concatenate(y_train)
+            hypo.fit(X_train, y_train)
+            y_predict = hypo.predict(X_test)
+            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+
+            t_p += temp_tp
+            t_n += temp_tn
+            f_p += temp_fp
+            f_n += temp_fn
+
 
         print(t_p, t_n, f_p, f_n)
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
@@ -60,7 +93,7 @@ class NormalExperiment(Experiment):
         return
 
     # @imbalance @sampling @ensemble @probability @text
-    def do_experiment_txt_sampling_ensemble_probability_voting(self, sampling_index:int, hypos:list):
+    def do_experiment_txt_sampling_ensemble_probability_voting(self, sampling_index: int, hypos:list):
         self.load_data()
         print(self.X_txt.shape)
         X_folds = np.array_split(self.X_txt, 10)
@@ -125,7 +158,7 @@ class NormalExperiment(Experiment):
         return
 
     # @imbalance @sampling @ensemble @voting @text
-    def do_experiment_txt_sampling_ensemble_voting(self, sampling_index:int, hypos:list):
+    def do_experiment_txt_sampling_ensemble_voting(self, sampling_index: int, hypos:list):
         self.load_data()
         print(self.X_txt.shape)
         X_folds = np.array_split(self.X_txt, 10)
@@ -193,7 +226,7 @@ class NormalExperiment(Experiment):
         return
 
     # @imbalance @sampling @ensemble @stacking @text
-    def do_experiment_txt_sampling_ensemble_stacking(self, sampling_index:int, Hypo, hypos:list):
+    def do_experiment_txt_sampling_ensemble_stacking(self, sampling_index: int, Hypo, hypos:list):
         self.load_data()
         X_folds = np.array_split(self.X_txt, 10)
         y_folds = np.array_split(self.y, 10)
@@ -272,55 +305,23 @@ class NormalExperiment(Experiment):
                     y_predicts_proba[x][2*column+1] = y_predict_proba[x][1]
                 column += 1
 
-            y_predict = Hypo.predict(y_predicts_proba)
+            y_predict_proba = Hypo.predict_proba(y_predicts_proba)
+            import sys
+            sys.stdout = open('stacking/' + str(l) + '_' + self.file + '_str.csv', 'w')
+            for row in range(len(y_predict_proba)):
+                output = str(y_predict_proba[row][0])+','+ str(y_predict_proba[row][1])
+                print(output)
+            sys.stdout.close()
 
             # print(self.confusion_matrix(y_test, y_predict))
-            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-            t_p += temp_tp
-            t_n += temp_tn
-            f_p += temp_fp
-            f_n += temp_fn
+            # temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+            # t_p += temp_tp
+            # t_n += temp_tn
+            # f_p += temp_fp
+            # f_n += temp_fn
 
         print(t_p, t_n, f_p, f_n)
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
-        return
-
-    # @text @feature selection
-    def do_experiment_txt_feature_selection(self, l, l1_ratio, hypo):
-        self.load_data()
-        print(self.X_txt.shape)
-        X_folds = np.array_split(self.X_txt, 10)
-        y_folds = np.array_split(self.y, 10)
-        from src.aggregate.feature_selection import FeatureSelector
-        self.X_txt = FeatureSelector().fit_transform_odd_ratio(self.X_txt, self.y, l, l1_ratio)
-        print(self.X_txt.shape)
-        t_p = 0.0
-        f_p = 0.0
-        t_n = 0.0
-        f_n = 0.0
-        print(Counter(self.y))
-
-        for k in range(10):
-            # We use 'list' to copy, in order to 'pop' later on
-            X_train = list(X_folds)
-            X_test = X_train.pop(k)
-            X_train = np.concatenate(X_train)
-            y_train = list(y_folds)
-            y_test = y_train.pop(k)
-            y_train = np.concatenate(y_train)
-            hypo.fit(X_train, y_train)
-            y_predict = hypo.predict(X_test)
-            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-
-            t_p += temp_tp
-            t_n += temp_tn
-            f_p += temp_fp
-            f_n += temp_fn
-
-
-        print(t_p, t_n, f_p, f_n)
-        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
-
         return
 
     # @text @str
@@ -842,6 +843,7 @@ class NormalExperiment(Experiment):
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
         return
 
+
     # @text @str @weka
     def do_experiment_first_txt_second_categorical_weka(self, hypo1):
         self.load_data()
@@ -851,7 +853,6 @@ class NormalExperiment(Experiment):
         X_cat_folds = np.array_split(self.categorical_data, 10)
         y_folds = np.array_split(self.y, 10)
         self.X_txt = FeatureSelector().fit_transform_odd_ratio(self.X_txt, self.y, 1000, 0.5)
-        # exit(404)
         for l in range(10):
             # We use 'list' to copy, in order to 'pop' later on
             X_train = list(X_folds)
@@ -886,7 +887,6 @@ class NormalExperiment(Experiment):
                 y_train_2 = list(y_folds_2)
                 y_test_2 = y_train_2.pop(k)
                 y_train_2 = np.concatenate(y_train_2)
-                # X_train_2, y_train_2 = self.smote(X_train_2, y_train_2)
                 hypo1.fit(X_train_2, y_train_2)
                 y_predict_proba = hypo1.predict_proba(X_test_2)
 
@@ -904,7 +904,6 @@ class NormalExperiment(Experiment):
             train_data = np.concatenate((X_cat_train, y_predicts_proba), axis=1)
 
             train_data, y_train = self.over_sampling(train_data, y_train)
-
             y_predict_proba = hypo1.predict_proba(X_test)
             test_data = np.concatenate((X_cat_test, y_predict_proba), axis=1)
             # print(len(train_data), len(test_data))
@@ -915,7 +914,7 @@ class NormalExperiment(Experiment):
             # print(data.shape)
             # print(target.shape)
             import sys
-            sys.stdout = open('/root/Documents/'+str(l)+'_'+self.file+'_str.csv', 'w')
+            sys.stdout = open('weka/'+str(l)+'_'+self.file+'_str.csv', 'w')
             cols = ''
             for i in range(len(self.categorical_data_features)):
                 cols += str(self.categorical_data_features[i]) + ","
@@ -1005,3 +1004,50 @@ class NormalExperiment(Experiment):
 
         return
 
+
+    # @sampling_index @feature_selection
+    def do_experiment_txt_sampling_feature_selection(self, sampling_index, l, l1_ratio, hypo):
+        self.load_data()
+        X_folds = np.array_split(self.X_txt, 10)
+        y_folds = np.array_split(self.y, 10)
+
+        from src.aggregate.feature_selection import FeatureSelector
+        self.X_txt = FeatureSelector().fit_transform_odd_ratio(self.X_txt, self.y, l, l1_ratio)
+
+        t_p = 0.0
+        f_p = 0.0
+        t_n = 0.0
+        f_n = 0.0
+        print(Counter(self.y))
+
+        for k in range(10):
+            # We use 'list' to copy, in order to 'pop' later on
+            X_train = list(X_folds)
+            X_test = X_train.pop(k)
+            X_train = np.concatenate(X_train)
+            y_train = list(y_folds)
+            y_test = y_train.pop(k)
+            y_train = np.concatenate(y_train)
+
+            if sampling_index == 0:
+                X_s, y_s = self.under_sampling(X_train, y_train)
+                hypo.fit(X_s, y_s)
+            elif sampling_index == 1:
+                X_s, y_s = self.over_sampling(X_train, y_train)
+                hypo.fit(X_s, y_s)
+            elif sampling_index == 2:
+                X_s, y_s = self.smote(X_train, y_train)
+                hypo.fit(X_s, y_s)
+
+            y_predict = hypo.predict(X_test)
+            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+
+            t_p += temp_tp
+            t_n += temp_tn
+            f_p += temp_fp
+            f_n += temp_fn
+
+        print(t_p, t_n, f_p, f_n)
+        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+
+        return
