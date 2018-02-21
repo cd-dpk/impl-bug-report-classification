@@ -843,13 +843,14 @@ class NormalExperiment(Experiment):
         return
 
     # @text @str @weka
-    def do_experiment_first_txt_second_str_weka(self, hypo1, hypo2):
+    def do_experiment_first_txt_second_categorical_weka(self, hypo1):
         self.load_data()
         print(self.categorical_data.shape)
         print(self.categorical_data)
         X_folds = np.array_split(self.X_txt, 10)
         X_cat_folds = np.array_split(self.categorical_data, 10)
         y_folds = np.array_split(self.y, 10)
+        self.X_txt = FeatureSelector().fit_transform_odd_ratio(self.X_txt, self.y, 1000, 0.5)
         # exit(404)
         for l in range(10):
             # We use 'list' to copy, in order to 'pop' later on
@@ -885,14 +886,13 @@ class NormalExperiment(Experiment):
                 y_train_2 = list(y_folds_2)
                 y_test_2 = y_train_2.pop(k)
                 y_train_2 = np.concatenate(y_train_2)
-                X_train_2, y_train_2 = self.smote(X_train_2, y_train_2)
-
+                # X_train_2, y_train_2 = self.smote(X_train_2, y_train_2)
                 hypo1.fit(X_train_2, y_train_2)
                 y_predict_proba = hypo1.predict_proba(X_test_2)
 
                 for x in range(len(y_predict_proba)):
-                    y_predicts_proba[row + x][0] = round(y_predict_proba[x][0],2)
-                    y_predicts_proba[row + x][1] = round(y_predict_proba[x][1],2)
+                    y_predicts_proba[row + x][0] = round(y_predict_proba[x][0], 2)
+                    y_predicts_proba[row + x][1] = round(y_predict_proba[x][1], 2)
 
                 row += len(X_test_2)
 
@@ -903,7 +903,7 @@ class NormalExperiment(Experiment):
             # print(y_predicts_proba.shape)
             train_data = np.concatenate((X_cat_train, y_predicts_proba), axis=1)
 
-            train_data, y_train = self.smote(train_data, y_train)
+            train_data, y_train = self.over_sampling(train_data, y_train)
 
             y_predict_proba = hypo1.predict_proba(X_test)
             test_data = np.concatenate((X_cat_test, y_predict_proba), axis=1)
@@ -915,20 +915,18 @@ class NormalExperiment(Experiment):
             # print(data.shape)
             # print(target.shape)
             import sys
-            sys.stdout = open('weka/'+str(l)+'_'+self.file+'_str.csv', 'w')
+            sys.stdout = open('/root/Documents/'+str(l)+'_'+self.file+'_str.csv', 'w')
             cols = ''
-            for i in range(len(weka_data[0])):
-                cols += 'col' + str(i) + ","
-            cols += 'target'
+            for i in range(len(self.categorical_data_features)):
+                cols += str(self.categorical_data_features[i]) + ","
+            cols += 'prob0,prob1,target'
             print(cols)
             for row in range(len(weka_data)):
                 output = ''
                 for col in range(len(weka_data[0])):
-                    if col < (len(weka_data[0])-2):
-                        output +="\'"+ str(weka_data[row][col])+"\',"
-                    else:
-                        output += str(weka_data[row][col])+","
-                output += "\'"+str(target[row])+"\'"
+                    output += str(weka_data[row][col])+","
+
+                output += str(target[row])
                 print(output)
 
             sys.stdout.close()
@@ -953,12 +951,20 @@ class NormalExperiment(Experiment):
 
         return
 
-
     # @categorical @sampling
     def do_experiment_categorical_data(self, sampling_index, hypo):
         self.load_data()
         print(self.categorical_data.shape)
         print(self.categorical_data)
+
+        # for row in range(len(self.categorical_data)):
+        #     output = ''
+        #     for col in range(len(self.categorical_data[row])):
+        #         output += str(self.categorical_data[row][col])+' '
+        #     print(output)
+        #
+        # exit(4444)
+
         X_cat_folds = np.array_split(self.categorical_data, 10)
         y_folds = np.array_split(self.y, 10)
         # exit(404)
@@ -998,3 +1004,4 @@ class NormalExperiment(Experiment):
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
         return
+

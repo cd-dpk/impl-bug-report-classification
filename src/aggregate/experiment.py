@@ -17,6 +17,18 @@ class Experiment:
         component_data = chou_data.component_to_numeric_data()
         reporter_data = chou_data.reporter_to_numeric_data()
         self.categorical_data = np.empty([len(self.X_txt), 9+len(component_data[0])], dtype=object)
+        self.categorical_data_features = []
+        self.categorical_data_features.append('author')
+        self.categorical_data_features.append('pos')
+        self.categorical_data_features.append('neu')
+        self.categorical_data_features.append('neg')
+        for i in range(len(component_data[0])):
+            self.categorical_data_features.append('com'+str(i))
+        self.categorical_data_features.append('ST')
+        self.categorical_data_features.append('Patch')
+        self.categorical_data_features.append('CE')
+        self.categorical_data_features.append('TC')
+        self.categorical_data_features.append('EN')
         for i in range(len(self.X_txt)):
             k = 0
             self.categorical_data[i][k] = str(reporter_data[i])

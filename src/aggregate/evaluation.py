@@ -42,5 +42,6 @@ knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 # NormalExperiment(ambari, Security).do_experiment_txt_sampling_classifier(2, mnb)
 # NormalExperiment(camel, Security).do_experiment_txt_feature_selection(1000, 0.6, mnb)
 # NormalExperiment(camel_shaon, Security).do_experiment_first_txt_second_str_weka(mnb,dt)
-NormalExperiment(camel_shaon,Security).do_experiment_categorical_data(0, mnb)
+NormalExperiment(camel_shaon, Security).do_experiment_first_txt_second_categorical_weka(mnb)
+
 
