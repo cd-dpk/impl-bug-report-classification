@@ -10,7 +10,7 @@ class Word2VecRep:
     def __init__(self):
         self.src_sentences = []
         self.bug_sentences = []
-
+    # make word_2_vec from data
     def model_word2vec_DATA(self):
         dirs = ['/media/geet/Random/DATA/XML_LINUX/', '/media/geet/Random/DATA/XML_ECLIPSE/']
         sentences = []
@@ -40,30 +40,34 @@ class Word2VecRep:
         print("COMPLETE")
 
     def retrive_sentences_src(self, src_file:str):
-        with open('/media/geet/Files/IITDU/MSSE-03/SRC_P/' + src_file + '_term.csv', newline='') as csvfile:
+        with open('../bug_localization/' + src_file + '_proc.csv', newline='') as csvfile:
             self.src_sentences= []
             reader = csv.DictReader(csvfile)
             counter = 0
-            ambari_prob = [1329]
+            # ambari_prob = [1329], derby[1698]
+            prob = [1698]
             for row in reader:
-                # print(counter)
+                if counter in prob:
+                    continue
+                print(counter)
                 line_sentence = []
                 textProcessor = TextPreprocessor()
-                text = (row['proc'] in (None, '') and '' or row['proc'])
+                text = (row['class_content'] in (None, '') and '' or row['class_content'])
                 # print(text)
                 line_sentence = textProcessor.getProcessedText(text)
+                print(line_sentence)
                 self.src_sentences.append(line_sentence)
                 counter += 1
         return
 
-    def retrive_sentences_bug(self,bug_file: str):
-        with open('../data/' + bug_file + '.csv', newline='') as csvfile:
-            self.bug_sentences= []
+    def retrive_sentences_bug(self, bug_file: str):
+        with open('../aggregate/' + bug_file + '_proc.csv', newline='', encoding="UTF-8") as csvfile:
+            self.bug_sentences = []
             reader = csv.DictReader(csvfile)
             for row in reader:
                 line_sentence = []
                 textProcessor = TextPreprocessor()
-                text = (row['summary'] in (None, '') and '' or row['summary']) + ' ' + (row['description'] in (None, '') and '' or row['description'])
+                text = (row['summary_col'] in (None, '') and '' or row['summary_col']) + ' ' + (row['description_col'] in (None, '') and '' or row['description_col'])
                 line_sentence = textProcessor.getProcessedText(text)
                 self.bug_sentences.append(line_sentence)
         return
@@ -72,7 +76,7 @@ class Word2VecRep:
         print(file)
         if bug:
             self.retrive_sentences_bug(file)
-            print("Bug",len(self.bug_sentences))
+            print("Bug", len(self.bug_sentences))
             # for sentence in self.bug_sentences:
             #     print(sentence)
         if src:
@@ -87,8 +91,10 @@ class Word2VecRep:
         model.wv.save_word2vec_format(file+'_wv.txt', binary=False)
         return True
 
-import sys
-# sys.stdout = open('camel'+'log.txt', 'w')
+subject ='derby'
+# import sys
+# sys.stdout = open(subject+'log.txt', 'w')
 wv = Word2VecRep()
-wv.train_word2vec('camel', True, True)
+print(subject)
+wv.train_word2vec(subject, True, True)
 # sys.stdout.close()

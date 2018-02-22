@@ -1,3 +1,2 @@
-a = ['a']
-b = [1]
-print(a+b)
+import nltk
+nltk.download('stopwords')
