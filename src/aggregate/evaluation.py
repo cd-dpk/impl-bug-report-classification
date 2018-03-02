@@ -1,7 +1,7 @@
 from src.aggregate.NormalExperiment import NormalExperiment
 from src.aggregate.pre_process import Preprocessor
 from src.aggregate.vec_rep import VectorRepresenter
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import MultinomialNB, GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.ensemble import RandomForestClassifier
@@ -17,7 +17,7 @@ Surprising = 'Surprising'
 Security = 'Security'
 Performance = 'Performance'
 camel_shaon = 'Camel_Shaon'
-
+gnb = GaussianNB()
 mnb = MultinomialNB()
 lr = LogisticRegression()
 ada = AdaBoostClassifier()
@@ -26,11 +26,18 @@ dt = DecisionTreeClassifier()
 supvecmac = svm.SVC(probability=True)
 knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 
+<<<<<<< HEAD
 Preprocessor(camel_shaon).pre_process()
 VectorRepresenter(camel_shaon).vec_process()
+=======
+# Preprocessor(camel_shaon).pre_process()
+# VectorRepresenter(camel).vec_process(True)
+# VectorRepresenter(camel_shaon).vec_process(True)
+>>>>>>> dca189567c3d7f4e3b35d17596a0a416f3360905
 
 # NormalExperiment(camel_shaon, Security).do_experiment_txt_feature_selection(1500, 0.5, mnb)
 # NormalExperiment(camel, Performance).do_experiment_txt_sampling_classifier(0, mnb)
 # NormalExperiment(derby, Performance).do_experiment_txt_sampling_classifier(0, mnb)
 # NormalExperiment(wicket, Performance).do_experiment_txt_sampling_classifier(0, mnb)
-NormalExperiment(camel_shaon, Performance).do_experiment_first_txt_second_categorical_weka(mnb)
+# print(Security)
+# NormalExperiment(camel_shaon, Security).do_experiment_txt_sampling_ensemble_stacking(0,lr,[mnb,supvecmac,knn,rf,ada])

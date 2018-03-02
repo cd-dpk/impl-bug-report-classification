@@ -8,9 +8,9 @@ class Experiment:
         self.intent = intent
         self.sampling_indices = [0, 1, 2]
 
-    def load_data(self):
+    def load_data(self, word2vec:bool=False):
         chou_data = ChouDataHandler(self.file, self.intent)
-        chou_data.load_data()
+        chou_data.load_data(word2vec)
         self.X_txt = chou_data.textual_data
         self.y = chou_data.target_data
         self.X_str = chou_data.get_numeric_str_data()

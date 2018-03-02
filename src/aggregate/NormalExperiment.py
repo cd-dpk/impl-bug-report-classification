@@ -254,9 +254,8 @@ class NormalExperiment(Experiment):
                 and stores in the y_predicts_prob
 
             '''
-
             y_predicts_proba = np.zeros([len(X_train), 2 * len_hypos], dtype=float)
-            print(y_predicts_proba.shape)
+            # print(y_predicts_proba.shape)
             row = 0
             for k in range(fold):
                 X_train_2 = list(X_folds_2)
@@ -265,7 +264,12 @@ class NormalExperiment(Experiment):
                 y_train_2 = list(y_folds_2)
                 y_test_2 = y_train_2.pop(k)
                 y_train_2 = np.concatenate(y_train_2)
-                X_train_2, y_train_2 = self.smote(X_train_2, y_train_2)
+                if sampling_index== 0:
+                    X_train_2, y_train_2 = self.under_sampling(X_train_2, y_train_2)
+                elif sampling_index == 1:
+                    X_train_2, y_train_2 = self.over_sampling(X_train_2, y_train_2)
+                else:
+                    X_train_2, y_train_2 = self.smote(X_train_2, y_train_2)
 
                 column = 0
                 for hypo in hypos:
@@ -273,8 +277,8 @@ class NormalExperiment(Experiment):
                     y_predict_proba = hypo.predict_proba(X_test_2)
 
                     for x in range(len(y_predict_proba)):
-                        print(row + x, 2*column+0)
-                        print(row + x, 2*column+1)
+                        # print(row + x, 2*column+0)
+                        # print(row + x, 2*column+1)
                         y_predicts_proba[row + x][2*column+0] = y_predict_proba[x][0]
                         y_predicts_proba[row + x][2*column+1] = y_predict_proba[x][1]
 
@@ -282,20 +286,18 @@ class NormalExperiment(Experiment):
 
                 row += len(X_test_2)
 
-
-
             '''
                 Stacking training with first train data probabilities
             '''
-            print(y_predicts_proba)
-            print(y_predicts_proba.shape)
+            # print(y_predicts_proba)
+            # print(y_predicts_proba.shape)
             Hypo.fit(y_predicts_proba, y_train)
 
             '''
                 Predicting first test data with stacking
             '''
 
-            y_predicts_proba = np.empty([len(X_test), 2 * len_hypos], dtype=int)
+            y_predicts_proba = np.empty([len(X_test), 2 * len_hypos], dtype=float)
 
             column = 0
             for hypo in hypos:
@@ -305,23 +307,26 @@ class NormalExperiment(Experiment):
                     y_predicts_proba[x][2*column+1] = y_predict_proba[x][1]
                 column += 1
 
+            # y_predict = Hypo.predict(y_predicts_proba)
+            # print(y_predicts_proba)
             y_predict_proba = Hypo.predict_proba(y_predicts_proba)
             import sys
-            sys.stdout = open('stacking/' + str(l) + '_' + self.file + '_str.csv', 'w')
+            sys.stdout = open('stacking/' +self.intent+ str(l) + "_" + str(sampling_index) + '_' + self.file + '.csv', 'w')
+            print("prob0,prob1,test")
             for row in range(len(y_predict_proba)):
-                output = str(y_predict_proba[row][0])+','+ str(y_predict_proba[row][1])
+                output = str(y_predict_proba[row][0]) + ',' + str(y_predict_proba[row][1])+ "," + str(y_test[row])
                 print(output)
             sys.stdout.close()
 
             # print(self.confusion_matrix(y_test, y_predict))
-            # temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-            # t_p += temp_tp
-            # t_n += temp_tn
-            # f_p += temp_fp
-            # f_n += temp_fn
-
-        print(t_p, t_n, f_p, f_n)
-        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+        #     temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+        #     t_p += temp_tp
+        #     t_n += temp_tn
+        #     f_p += temp_fp
+        #     f_n += temp_fn
+        #
+        # print(t_p, t_n, f_p, f_n)
+        # print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
         return
 
     # @text @str

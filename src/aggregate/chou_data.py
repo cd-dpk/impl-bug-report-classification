@@ -4,7 +4,6 @@ import sys, csv
 
 
 class ChouDataHandler:
-
     def __init__(self, file, intent):
         self.file = file
         self.intent = intent
@@ -16,8 +15,12 @@ class ChouDataHandler:
         self.target_data = []
 
 
-    def load_data(self):
-        with open(self.file+'_vec.csv', newline='') as csvfile:
+    def load_data(self, word2vec: bool):
+        file_name = self.file
+        if word2vec == True:
+            file_name += 'wv'
+
+        with open(file_name+'_vec.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             text_features = []
             target_column= ''

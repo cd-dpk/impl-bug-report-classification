@@ -41,7 +41,7 @@ class VectorRepresenter:
 
     # represent each bug report as vector of terms
     # weight of each term is calculated using tf_idf
-    def proc_bug_reports(self):
+    def proc_bug_reports(self, word2vec: bool):
         word_list, word_df, t_d = self.get_all_terms()
         '''
         re_word_list = []
@@ -96,6 +96,26 @@ class VectorRepresenter:
                 if index != -1:
                     weight = float(terms[index][1])
                     weight *= math.log((float(t_d) / float(word_df[x])), 10)
+                    #  word2vec add
+                    #  '''
+                    if word2vec == True:
+                        from gensim.models import KeyedVectors
+                        import numpy as np
+                        wv_file = self.file
+                        if self.file == 'Camel_Shaon':
+                            wv_file = 'camel'
+                        words_vectors = KeyedVectors.load_word2vec_format(wv_file + '_wv.txt', binary=False)
+                        word_vecs = []
+
+                        if word_list[x] in words_vectors:
+                            for vec in words_vectors[word_list[x]]:
+                                word_vecs.append(vec * weight)
+                        else:
+                            word_vecs = [0.0]
+
+                        word_vecs = np.array(word_vecs)
+                        weight = np.mean(word_vecs)
+                    # '''
                     rw += str(round(weight, 5)) + ','
                 else:
                     rw += '0,'
@@ -109,8 +129,11 @@ class VectorRepresenter:
         csvfile.close()
         return
 
-    def vec_process(self):
-        sys.stdout = open(self.file+ '_vec.csv', 'w')
-        self.proc_bug_reports()
+    def vec_process(self, word2vec: bool= False):
+        if word2vec == True:
+           sys.stdout = open(self.file + 'wv_vec.csv', 'w')
+        else:
+            sys.stdout = open(self.file + '_vec.csv', 'w')
+        self.proc_bug_reports(word2vec)
         sys.stdout.close()
         return
