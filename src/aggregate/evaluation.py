@@ -26,8 +26,8 @@ dt = DecisionTreeClassifier()
 supvecmac = svm.SVC(probability=True)
 knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 
-# Preprocessor(camel_shaon).pre_process()
-# VectorRepresenter(camel_shaon).vec_process()
+Preprocessor(camel_shaon).pre_process()
+VectorRepresenter(camel_shaon).vec_process()
 
 # NormalExperiment(camel_shaon, Security).do_experiment_txt_feature_selection(1500, 0.5, mnb)
 # NormalExperiment(camel, Performance).do_experiment_txt_sampling_classifier(0, mnb)
