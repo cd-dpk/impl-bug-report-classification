@@ -7,7 +7,7 @@ class VectorRepresenter:
     def __init__(self, file):
         self.file = file
 
-    def term_count(self,t):
+    def term_count(self, t):
         summary = regexp_tokenize(t, pattern='[a-zA-Z]+')
         proc_t = FreqDist()
         for w in summary:

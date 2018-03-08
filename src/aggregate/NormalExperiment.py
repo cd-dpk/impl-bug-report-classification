@@ -319,8 +319,8 @@ class NormalExperiment(Experiment):
             sys.stdout.close()
 
             # print(self.confusion_matrix(y_test, y_predict))
-        #     temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-        #     t_p += temp_tp
+            # temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+            # t_p += temp_tp
         #     t_n += temp_tn
         #     f_p += temp_fp
         #     f_n += temp_fn

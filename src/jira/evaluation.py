@@ -21,13 +21,15 @@ rf = RandomForestClassifier()
 dt = DecisionTreeClassifier()
 supvecmac = svm.SVC(probability=True)
 knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
-
-
 # Preprocessor(apache,Security).pre_process()
 # VectorRepresenter(apache).vec_process()
 
-# NormalExperiment(apache,Security).do_experiment_txt_feature_selection(l=2000, l1_ratio=0.5, hypo=mnb)
-# NormalExperiment(apache,Security).do_experiment_txt_sampling_classifier(hypo=mnb)
+# hypos = [mnb, knn, supvecmac, rf, ada]
+# NormalExperiment(apache,Security).do_experiment_txt_sampling_ensemble_voting(sampling_index=2, hypos=hypos)
+# NormalExperiment(apache,Security).do_experiment_txt_sampling_ensemble_stacking(sampling_index=2,Hypo=lr, hypos=[mnb,knn,supvecmac,rf,ada])
+NormalExperiment(apache, Performance).do_experiment_txt_feature_selection(l=2000, selection_method=0, l1_ratio=0.5, hypo=mnb)
+# NormalExperiment(apache, Performance).do_experiment_txt(hypo=mnb)
+# NormalExperiment(apache, Security).do_experiment_txt_sampling_classifier(2, mnb)
 # NormalExperiment(apache,Security).do_experiment_feature_terms()
 # NormalExperiment(apache,Performance).do_experiment_feature_terms()
 
@@ -38,4 +40,4 @@ knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 
 # NormalExperiment(apache, Security).do_experiment_txt_after_feature_selected(1000,0.5,supvecmac)
 # NormalExperiment(apache,Security).do_experiment_txt(mnb)
-NormalExperiment(apache, Performance).do_experiment_generate_lexicon_terms()
+# NormalExperiment(apache, Performance).do_experiment_generate_lexicon_terms()
