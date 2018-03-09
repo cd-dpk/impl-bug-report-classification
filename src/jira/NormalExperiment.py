@@ -1,7 +1,7 @@
 from builtins import list
 from sklearn.naive_bayes import MultinomialNB
 from src.jira.experiment import Experiment
-from src.aggregate.pre_processor import TextPreprocessor
+# from src.aggregate.pre_processor import TextPreprocessor
 from collections import Counter
 import numpy as np
 
@@ -127,6 +127,55 @@ class NormalExperiment(Experiment):
 
         print(t_p, t_n, f_p, f_n)
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+
+        return
+
+
+    def do_experiment_txt_sampling_ensemble_probability(self, sampling_index: int, hypos: list):
+        self.load_data()
+        print(self.X_txt.shape)
+        X_folds = np.array_split(self.X_txt, 10)
+        y_folds = np.array_split(self.y, 10)
+        len_of_hypos = len(hypos)
+        print(Counter(self.y))
+        import sys
+        sys.stdout = open(self.file+'_'+self.intent+'_'+sampling_index+'_prob.csv', 'w')
+
+        for k in range(10):
+            # We use 'list' to copy, in order to 'pop' later on
+            X_train = list(X_folds)
+            X_test = X_train.pop(k)
+            X_train = np.concatenate(X_train)
+            y_train = list(y_folds)
+            y_test = y_train.pop(k)
+            y_train = np.concatenate(y_train)
+
+            if sampling_index == 0:
+                X_train, y_train = self.under_sampling(X_train, y_train)
+            elif sampling_index == 1:
+                X_train, y_train = self.over_sampling(X_train, y_train)
+            else:
+                X_train, y_train = self.smote(X_train, y_train)
+
+            y_predicts = np.empty([len(y_test), 2 * len_of_hypos], dtype=int)
+            column = 0
+            for hypo in hypos:
+                hypo.fit(X_train, y_train)
+                print(hypo.predict_proba(X_test))
+                y_predict_proba = hypo.predict_proba(X_test)
+                for x in range(len(y_test)):
+                    y_predicts[x][2 * column + 0] = y_predict_proba[x][0]
+                    y_predicts[x][2 * column + 1] = y_predict_proba[x][1]
+                column += 1
+
+            for x in range(len(y_predicts)):
+                line = ""
+                for y in range(len_of_hypos):
+                    line += y_predicts[x][y]+","
+                print(line)
+            exit(400)
+
+        sys.stdout.close()
 
         return
 
