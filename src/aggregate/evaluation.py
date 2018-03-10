@@ -28,8 +28,29 @@ knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 
 # Preprocessor(camel_shaon).pre_process()
 # VectorRepresenter(camel_shaon).vec_process()
+# NormalExperiment(camel_shaon, Security).do_experiment_txt(sampling_index=0,feature_selection=0);
+import sys
+# sys.stdout = open('log.txt', 'w')
+# NormalExperiment(camel,Security).do_experiment_txt(sampling_index=-1, feature_selection=0,hypo=mnb)
+# NormalExperiment(camel,Performance).do_experiment_txt(sampling_index=-1, feature_selection=0,hypo=mnb)
 
-NormalExperiment(camel_shaon, Security).do_experiment_txt_sampling_classifier()
+# '''
+sampling = [0, 1, 2]
+feature_selection =[0, 1, 2]
+for x in range(len(sampling)):
+    NormalExperiment(camel, Security).do_experiment_txt(sampling_index=x, feature_selection=-1,hypo=mnb)
+    NormalExperiment(camel, Security).do_experiment_txt(sampling_index=-1, feature_selection=x,hypo=mnb)
+    NormalExperiment(camel, Performance).do_experiment_txt(sampling_index=x, feature_selection=-1,hypo=mnb)
+    NormalExperiment(camel, Performance).do_experiment_txt(sampling_index=-1, feature_selection=x,hypo=mnb)
+    for y in range(len(feature_selection)):
+        NormalExperiment(camel,Security).do_experiment_txt(sampling_index=x, feature_selection=y,hypo=mnb)
+        NormalExperiment(camel,Performance).do_experiment_txt(sampling_index=x, feature_selection=y,hypo=mnb)
+# '''# sys.stdout.close()
+
+
+
+
+# NormalExperiment(camel_shaon, Security).do_experiment_txt_sampling_classifier()
 
 # NormalExperiment(camel_shaon, Security).do_experiment_txt_feature_selection(1500, 0.5, mnb)
 # NormalExperiment(camel, Performance).do_experiment_txt_sampling_classifier(0, mnb)

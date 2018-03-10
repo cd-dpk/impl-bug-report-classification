@@ -1,5 +1,7 @@
 from builtins import list
 import re
+
+from setuptools.command.test import test
 from sklearn.naive_bayes import MultinomialNB
 
 from src.aggregate.experiment import Experiment
@@ -848,7 +850,6 @@ class NormalExperiment(Experiment):
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
         return
 
-
     # @text @str @weka
     def do_experiment_first_txt_second_categorical_weka(self, hypo1):
         self.load_data()
@@ -857,7 +858,6 @@ class NormalExperiment(Experiment):
         X_folds = np.array_split(self.X_txt, 10)
         X_cat_folds = np.array_split(self.categorical_data, 10)
         y_folds = np.array_split(self.y, 10)
-        self.X_txt = FeatureSelector().fit_transform_odd_ratio(self.X_txt, self.y, 1000, 0.5)
         for l in range(10):
             # We use 'list' to copy, in order to 'pop' later on
             X_train = list(X_folds)
@@ -879,10 +879,9 @@ class NormalExperiment(Experiment):
             '''
                 Generating the test results
                 and stores in the y_predicts_prob
-
             '''
 
-            y_predicts_proba = np.zeros([len(X_train), 2 * 1], dtype=float)
+            y_predicts_proba = np.zeros([len(X_train), 2], dtype=float)
             # print(y_predicts_proba.shape)
             row = 0
             for k in range(fold):
@@ -892,6 +891,21 @@ class NormalExperiment(Experiment):
                 y_train_2 = list(y_folds_2)
                 y_test_2 = y_train_2.pop(k)
                 y_train_2 = np.concatenate(y_train_2)
+                '''---------- Sampling Starts ---------------'''
+                X_train_2, y_train_2 = self.over_sampling(X_train_2, y_train_2)
+
+                '''---------- Sampling Ends  ---------------'''
+                '''------Feature Selection Starts-----'''
+                print("BEFORE FS", X_train_2.shape, X_test_2.shape)
+                from sklearn.feature_selection import SelectFdr
+                from sklearn.feature_selection import chi2
+                ch2 = chi2(X_train_2, y_train_2)
+                selector = SelectFdr(ch2, alpha=0.05).fit(X_train, y_train)
+                X_train_2 = selector.transform(X_train)
+                X_test_2 = selector.transform(X_test)
+                print("AFTER FS", X_train_2.shape, X_test_2.shape)
+                '''------ Feature Selection Ends -----'''
+
                 hypo1.fit(X_train_2, y_train_2)
                 y_predict_proba = hypo1.predict_proba(X_test_2)
 
@@ -906,11 +920,24 @@ class NormalExperiment(Experiment):
             '''
 
             # print(y_predicts_proba.shape)
-            train_data = np.concatenate((X_cat_train, y_predicts_proba), axis=1)
-
-            train_data, y_train = self.over_sampling(train_data, y_train)
             y_predict_proba = hypo1.predict_proba(X_test)
+            train_data = np.concatenate((X_cat_train, y_predicts_proba), axis=1)
             test_data = np.concatenate((X_cat_test, y_predict_proba), axis=1)
+
+            '''------------Sampling---------------'''
+            train_data, y_train = self.over_sampling(train_data, y_train)
+            '''-----------Sampling---------------------'''
+
+            '''------Feature Selection Starts-----'''
+            print("BEFORE FS", train_data.shape, test_data.shape)
+            from sklearn.feature_selection import SelectFdr
+            from sklearn.feature_selection import chi2
+            ch2 = chi2(train_data, test_data)
+            selector = SelectFdr(ch2, alpha=0.05).fit(train_data, test)
+            train_data = selector.transform(train_data)
+            test_data = selector.transform(test_data)
+            print("AFTER FS", train_data.shape, test_data.shape)
+            '''------ Feature Selection Ends -----'''
             # print(len(train_data), len(test_data))
 
             weka_data = np.concatenate((train_data, test_data), axis=0)
@@ -918,13 +945,13 @@ class NormalExperiment(Experiment):
             # print(Counter(target))
             # print(data.shape)
             # print(target.shape)
-            import sys
-            sys.stdout = open('weka/'+str(l)+'_'+self.file+'_str.csv', 'w')
+            wekascvfile = open('weka/'+str(l)+'_'+self.file+'_str.csv', 'w')
             cols = ''
             for i in range(len(self.categorical_data_features)):
                 cols += str(self.categorical_data_features[i]) + ","
             cols += 'prob0,prob1,target'
             print(cols)
+            wekascvfile.write(cols+"\n")
             for row in range(len(weka_data)):
                 output = ''
                 for col in range(len(weka_data[0])):
@@ -932,27 +959,8 @@ class NormalExperiment(Experiment):
 
                 output += str(target[row])
                 print(output)
-
-            sys.stdout.close()
-            # print(mod_data.shape)
-
-            # sys.stdout = open('weka/test_' + str(l) + '_' + self.file + '_str.csv', 'w')
-            # cols = ''
-            # for i in range(len(test_data[0])):
-            #     cols += 'col' + str(i) + ","
-            # cols += 'target'
-            # print(cols)
-            # for row in range(len(test_data)):
-            #     output = ''
-            #     for col in range(len(test_data[0])):
-            #         if col < (len(test_data[0]) - 2):
-            #             output += "\'" + str(test_data[row][col]) + "\',"
-            #         else:
-            #             output += str(test_data[row][col]) + ","
-            #     output += "\'" + str(y_test[row]) + "\'"
-            #     print(output)
-            # sys.stdout.close()
-
+                wekascvfile.write(output+"\n")
+            wekascvfile.close()
         return
 
     # @categorical @sampling
@@ -1011,13 +1019,10 @@ class NormalExperiment(Experiment):
 
 
     # @sampling_index @feature_selection
-    def do_experiment_txt_sampling_feature_selection(self, sampling_index, l, l1_ratio, hypo):
+    def do_experiment_txt_sampling_feature_selection(self, sampling_index, hypo):
         self.load_data()
         X_folds = np.array_split(self.X_txt, 10)
         y_folds = np.array_split(self.y, 10)
-
-        from src.aggregate.feature_selection import FeatureSelector
-        self.X_txt = FeatureSelector().fit_transform_odd_ratio(self.X_txt, self.y, l, l1_ratio)
 
         t_p = 0.0
         f_p = 0.0
@@ -1036,14 +1041,11 @@ class NormalExperiment(Experiment):
 
             if sampling_index == 0:
                 X_s, y_s = self.under_sampling(X_train, y_train)
-                hypo.fit(X_s, y_s)
             elif sampling_index == 1:
                 X_s, y_s = self.over_sampling(X_train, y_train)
-                hypo.fit(X_s, y_s)
             elif sampling_index == 2:
                 X_s, y_s = self.smote(X_train, y_train)
-                hypo.fit(X_s, y_s)
-
+            hypo.fit(X_train, X_test)
             y_predict = hypo.predict(X_test)
             temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
 
@@ -1054,5 +1056,134 @@ class NormalExperiment(Experiment):
 
         print(t_p, t_n, f_p, f_n)
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+
+        return
+
+# @text @feature selection
+    def do_experiment_txt_feature_selection(self, l, l1_ratio, hypo):
+        self.load_data()
+        print(self.X_txt.shape)
+        X_folds = np.array_split(self.X_txt, 10)
+        y_folds = np.array_split(self.y, 10)
+        from src.aggregate.feature_selection import FeatureSelector
+        self.X_txt = FeatureSelector().fit_transform_odd_ratio(self.X_txt, self.y, l, l1_ratio)
+        print(self.X_txt.shape)
+        t_p = 0.0
+        f_p = 0.0
+        t_n = 0.0
+        f_n = 0.0
+        print(Counter(self.y))
+
+        for k in range(10):
+            # We use 'list' to copy, in order to 'pop' later on
+            X_train = list(X_folds)
+            X_test = X_train.pop(k)
+            X_train = np.concatenate(X_train)
+            y_train = list(y_folds)
+            y_test = y_train.pop(k)
+            y_train = np.concatenate(y_train)
+            hypo.fit(X_train, y_train)
+            y_predict = hypo.predict(X_test)
+            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+
+            t_p += temp_tp
+            t_n += temp_tn
+            f_p += temp_fp
+            f_n += temp_fn
+
+
+        print(t_p, t_n, f_p, f_n)
+        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+
+        return
+
+    def do_experiment_txt(self, sampling_index:int, feature_selection:int, hypo):
+        self.load_data()
+        print(self.X_txt.shape)
+        # print(self.X_txt.shape)
+        print(Counter(self.y))
+        X_folds = np.array_split(self.X_txt, 10)
+        y_folds = np.array_split(self.y, 10)
+        t_p = 0
+        f_p = 0
+        t_n = 0
+        f_n = 0
+        logfile = open(self.file+self.intent+'_'+str(sampling_index)+'_'+str(feature_selection)+'_log.txt','w')
+        print(self.intent+'_'+str(sampling_index)+'_'+str(feature_selection))
+        for k in range(10):
+            # We use 'list' to copy, in order to 'pop' later on
+            X_train = list(X_folds)
+            X_test = X_train.pop(k)
+            X_train = np.concatenate(X_train)
+            y_train = list(y_folds)
+            y_test = y_train.pop(k)
+            y_train = np.concatenate(y_train)
+
+            X_temp_train = X_train
+            y_temp_train = y_train
+            X_temp_test = X_test
+
+            if sampling_index == 0:
+                logfile.write("UnderSampling\n")
+                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+                X_temp_train, y_temp_train = self.under_sampling(X_train, y_train)
+                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+            elif sampling_index == 1:
+                logfile.write("Oversampling\n")
+                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+                X_temp_train, y_temp_train = self.over_sampling(X_train, y_train)
+                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+            elif sampling_index == 2:
+                logfile.write("SMOTE\n")
+                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+                X_temp_train, y_temp_train = self.smote(X_train, y_train)
+                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+
+            if feature_selection == 0:
+                # chi2
+                from sklearn.feature_selection import SelectFdr
+                from sklearn.feature_selection import chi2
+                logfile.write("CHI2\n")
+                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+                selector = SelectFdr(chi2).fit(X_temp_train, y_temp_train)
+                X_temp_train = selector.transform(X_temp_train)
+                X_temp_test = selector.transform(X_temp_test)
+                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+
+            elif feature_selection == 1:
+                # mutual_info calculation
+                from  src.aggregate.mutual_info import MutualInformationSelector
+                mi_selector = MutualInformationSelector()
+                mi_selector.fit(X_temp_train, y_temp_train)
+                threshlod = 0.2
+                logfile.write("MI Threshold: "+str(threshlod)+"\n")
+                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+                X_temp_train = mi_selector.transform(X_temp_train,threshlod)
+                X_test_temp = mi_selector.transform(X_temp_test,threshlod)
+                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+            elif feature_selection == 2:
+                selector = FeatureSelector()
+                l=1000
+                l1_ratio= 0.5
+                logfile.write("Custom Selector Threshold: "+str(l)+" "+str(l1_ratio)+"\n")
+                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+                X_temp_train = selector.fit_transform(X_temp_train, y_temp_train, l, l1_ratio)
+                X_temp_test = selector.transform(X_temp_test)
+                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+
+            hypo.fit(X_temp_train, y_temp_train)
+            y_predict = hypo.predict(X_temp_test)
+            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+            t_p += temp_tp
+            t_n += temp_tn
+            f_p += temp_fp
+            f_n += temp_fn
+
+        print(t_p, t_n, f_p, f_n)
+        logfile.write(str(t_p)+" "+str(t_n)+" "+str(f_p)+" "+str(f_n)+" "+"\n")
+        acc, pre, rec = self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n})
+        print(acc, pre, rec)
+        logfile.write(str(acc)+" "+str(pre)+" "+str(rec)+"\n")
+        logfile.close()
 
         return
