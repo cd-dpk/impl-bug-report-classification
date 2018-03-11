@@ -1155,11 +1155,11 @@ class NormalExperiment(Experiment):
                 from  src.aggregate.mutual_info import MutualInformationSelector
                 mi_selector = MutualInformationSelector()
                 mi_selector.fit(X_temp_train, y_temp_train)
-                threshlod = 0.2
+                threshlod = 0.0
                 logfile.write("MI Threshold: "+str(threshlod)+"\n")
                 logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
                 X_temp_train = mi_selector.transform(X_temp_train,threshlod)
-                X_test_temp = mi_selector.transform(X_temp_test,threshlod)
+                X_temp_test = mi_selector.transform(X_temp_test,threshlod)
                 logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
             elif feature_selection == 2:
                 selector = FeatureSelector()

@@ -36,7 +36,7 @@ import sys
 
 # '''
 sampling = [0, 1, 2]
-feature_selection =[0, 1, 2]
+feature_selection = [0, 1, 2]
 for x in range(len(sampling)):
     NormalExperiment(camel, Security).do_experiment_txt(sampling_index=x, feature_selection=-1,hypo=mnb)
     NormalExperiment(camel, Security).do_experiment_txt(sampling_index=-1, feature_selection=x,hypo=mnb)
