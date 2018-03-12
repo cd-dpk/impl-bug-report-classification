@@ -6,14 +6,13 @@ import sys, csv
 
 class JiraDataHandler:
 
-    textual_data = []
-    target_data = []
-
     def __init__(self, file, intent):
         self.file = file
         self.intent = intent
         self.text_features = []
         self.target_column = 'target'
+        self.textual_data = []
+        self.target_data = []
 
     def load_data_featured(self, l, l1_ratio):
         l1 = int(l1_ratio * l)

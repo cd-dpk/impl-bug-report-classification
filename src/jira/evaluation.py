@@ -27,15 +27,38 @@ knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 hypos = [mnb, knn, supvecmac, rf, ada]
 # NormalExperiment(apache,Security).do_experiment_txt_sampling_ensemble_voting(sampling_index=2, hypos=hypos)
 # NormalExperiment(apache,Security).do_experiment_txt_sampling_ensemble_stacking(sampling_index=2,Hypo=lr, hypos=[mnb,knn,supvecmac,rf,ada])
-# NormalExperiment(apache, Performance).do_experiment_txt_feature_selection(l=2000, selection_method=0, l1_ratio=0.5, hypo=mnb)
+# NormalExperiment(apache, Security).do_experiment_txt_feature_selection(l=200, selection_method=0, l1_ratio=0.5, hypos=[mnb])
 # NormalExperiment(apache, Performance).do_experiment_txt(hypo=mnb)
-# NormalExperiment(apache, Security).do_experiment_txt_sampling_classifier(2, mnb)
-# NormalExperiment(apache,Security).do_experiment_feature_terms()
-# NormalExperiment(apache,Performance).do_experiment_feature_terms()
+#NormalExperiment(apache, Performance).do_experiment_txt_feature_selection(mnb, alpha=0.5)
+#print("Performance Completed")
+'''
+alphas = [0.55, 0.45, 0.6]
+for x in range(len(alphas)):
+    NormalExperiment(apache, Security).do_experiment_txt_feature_selection(mnb, alpha=alphas[x])
+    print(alphas[x])
+    NormalExperiment(apache, Performance).do_experiment_txt_feature_selection(mnb, alpha=alphas[x])
+    print(alphas[x])
+'''
+alphas = [1.0]
+sampling = [0]
+NormalExperiment(apache, Security).do_experiment_combine_txt_feature_selection(sampling_index=0, hypo=mnb, alpha=1.0)
+NormalExperiment(apache, Performance).do_experiment_combine_txt_feature_selection(sampling_index=0, hypo=mnb, alpha=1.0)
+'''
+for x in range(len(alphas)):
+    for y in range(len(sampling)):
+        NormalExperiment(apache, Security).do_experiment_combine_txt_feature_selection(y, mnb, alpha=alphas[x])
+        print(y, alphas[x])
+        NormalExperiment(apache, Performance).do_experiment_combine_txt_feature_selection(y, mnb, alpha=alphas[x])
+        print(y, alphas[x])
+ '''
 
-# NormalExperiment(apache,Security).do_experiment_featured_terms(mnb)
+
+# NormalExperiment(apache, Security).do_experiment_txt_sampling_classifier(2, mnb)
+# NormalExperiment(apache, Security).do_experiment_feature_terms()
+# NormalExperiment(apache, Performance).do_experiment_feature_terms()
+# NormalExperiment(apache, Security).do_experiment_featured_terms(mnb)
 # NormalExperiment(apache, Security).do_experiment_lexicon()
-NormalExperiment(apache, Security).do_experiment_txt_sampling_ensemble_probability(0, hypos=[mnb])
+# NormalExperiment(apache, Security).do_experiment_txt_sampling_ensemble_probability(0, hypos=[mnb])
 # Preprocessor('ambari').pre_process
 
 # NormalExperiment(apache, Security).do_experiment_txt_after_feature_selected(1000,0.5,supvecmac)

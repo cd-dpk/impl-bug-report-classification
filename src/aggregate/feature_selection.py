@@ -44,8 +44,7 @@ class FeatureSelector:
         non_deter = B * (N - A)
         return math.log((deter / non_deter), math.e)
 
-    # @fit_odd_ratio
-    def fit_transform(self, data, target, l: int, l1_ratio:float):
+    def fit(self, data, target):
         # print(data)
         # print(target)
         self.pos_fs = []
@@ -85,7 +84,7 @@ class FeatureSelector:
         pos_term_scores = []
         neg_term_scores = []
         for x in term_scores:
-            pos_term_scores.append([x[0],  x[1]])
+            pos_term_scores.append([x[0], x[1]])
             neg_term_scores.append([x[0], -1 * x[1]])
 
         # print(pos_term_scores)
@@ -94,24 +93,39 @@ class FeatureSelector:
         pos_term_scores = sorted(pos_term_scores, key=lambda term: term[1], reverse=True)
         neg_term_scores = sorted(neg_term_scores, key=lambda term: term[1], reverse=True)
 
-        # print(pos_term_scores)
-        # print(neg_term_scores)
 
-        l1 = int(l * l1_ratio)
-        for x in range(l1):
+        # print(neg_term_scores)
+        for x in range(len(pos_term_scores)):
+            #if pos_term_scores[x][1] > 0.0:
             self.pos_fs.append(pos_term_scores[x][0])
 
-        l2 = int(l-l1)
-        for x in range(l2):
-            # if neg_term_scores[x][1] > 0.0:
+        for x in range(len(neg_term_scores)):
+            #if neg_term_scores[x][1] > 0.0:
             self.neg_fs.append(neg_term_scores[x][0])
 
         # print(self.pos_fs)
         # print(self.neg_fs)
+        return
 
-        return data[:,self.pos_fs+self.neg_fs]
+    # @fit_odd_ratio
+    def transform(self, data, l: int, l1_ratio:float):
+        # print(data)
+        # print(target)
+        pos =[]
+        neg =[]
+        l1 = int(l1_ratio*l)
+        for x in range(l1):
+            if self.pos_fs[x] > 0:
+                pos.append(self.pos_fs[x])
+        print("LEN OF POS", len(pos))
+        l2 = l-l1
+        for x in range(l2):
+            if self.neg_fs[x] > 0:
+                neg.append(self.neg_fs[x])
+        print("LEN of NEG", len(neg))
+        print(len(data))
+        print(data.shape)
+        print(pos+neg)
+        return data[:,pos+neg]
 
-    # @transformed_data
-    def transform(self, data):
-        return data[:,self.pos_fs+self.neg_fs]
 
