@@ -42,28 +42,40 @@ class GREP:
             return (0.0, 0.0, 0.0)
 
     def predict_security_label(self, summary, description):
-        return 0;
-    def predict_performance_label(self, summary, description):
-        perf_kewords = ["perf", "slow", "hang", "performance"]
+        strongSecurityExpression = "(?i)(denial.of.service|\\bXXE\\b|remote.code.execution|\\bopen.redirect|OSVDB|\\bvuln|\\bCVE\\b|\\bXSS\\b|\\bReDoS\\b|\\bN VD\\b|malicious|x−frame−options|attack|cross.site|exploit|directory.traversal|\\bRCE\\b|\\bdos\\b|\\bXSRF\\b|clickjack|session.fixation|hijack|advisory|insecure|security|\\bcross−origin\\b|unauthori[z|s]ed|infinite.loop)";
+        mediumSecurityExpression = "(?i)(authenticat(e|ion)|brute force|bypass|constant.time|crack|credential|\\bDoS\\b|expos(e|ing)|hack|harden|injection|lockout|overflow|password|\\bPoC\\b|proof.of.concept|poison|privelage|\\b(in)?secur(e|ity)|(de)?serializ|spoof|timing|traversal)";
+        # print(strongSecurityExpression, mediumSecurityExpression)
         text_to_search = summary
         if description:
             text_to_search += ' ' + description
-        # text_to_search = summary
-        for x in range(len(perf_kewords)):
-            pattern = perf_kewords[x]
-            # print(pattern)
-            if re.search(pattern, text_to_search):
-                # print(text_to_search, 1)
-                return 1
-        # print(text_to_search, 0)
-        return 0
+        text_to_search = summary
+        grep = strongSecurityExpression+'|'+mediumSecurityExpression
+        if re.search(strongSecurityExpression,text_to_search) or re.search(mediumSecurityExpression,text_to_search):
+            return (grep,1)
+        else:
+            return (grep,0)
+
+    def predict_performance_label(self, summary, description):
+        perfExpression = "(?i)(\\bCPU\\b|\\bmemory\\b|\\bdisk\\b|\\bperf\\b|\\bperformance\\b|\\bslow(ing)?\\b|response|(times?)|speed|utiliz(e|ing)|call|RAM)"
+        # print(perfExpression)
+        # perf_kewords = ["perf", "slow", "hang", "performance"]
+        text_to_search = summary
+        if description:
+            text_to_search += ' ' + description
+        text_to_search = summary
+        grep = perfExpression
+        if re.search(perfExpression, text_to_search):
+            return (grep,1)
+        else:
+            return (grep,0)
 
     def read_and_identify(self, file, intent):
+        logfile = open(file+'_'+intent+'_sum_grep.txt','w')
         y_test = []
         y_predict = []
         import xml.etree.ElementTree as ET
         import os
-        dir = 'C:/Users/Assistant/Dropbox/BugReports/Apache/'
+        dir = '/media/geet/Files/IITDU/MSSE-03/DocumentSimilarity-master/Apache/'
         print('id,key,summary,description,target_Security,target_Performance')
         files = os.listdir(dir)
         seen_ids = []
@@ -86,12 +98,12 @@ class GREP:
                     perf_flag = bug.find("perf").text
                     if intent == 'Security':
                         y_test.append(int(sec_flag))
-                        predict_label = self.predict_security_label(summary=summary, description=description)
+                        grep, predict_label = self.predict_security_label(summary=summary, description=description)
                         y_predict.append(predict_label)
                         print(id, sec_flag,  predict_label)
                     elif intent == 'Performance':
                         y_test.append(int(perf_flag))
-                        predict_label = self.predict_performance_label(summary=summary, description=description)
+                        grep, predict_label = self.predict_performance_label(summary=summary, description=description)
                         y_predict.append(predict_label)
                         print(id, perf_flag, predict_label)
 
@@ -100,9 +112,18 @@ class GREP:
                     seen_ids.append(id)
         print(Counter(y_test))
         print(Counter(y_predict))
+        logfile.write(grep+'\n')
         t_p, t_n, f_p, f_n = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
         print(t_p, t_n, f_p, f_n)
-        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+        logfile.write(str(t_p)+','+str(t_n)+','+str(f_p)+','+str(f_n)+'\n')
+        acc, pre, rec = self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n})
+        print(str(acc)+','+str(pre)+','+str(rec)+'\n')
+        logfile.write(str(acc)+','+str(pre)+','+str(rec)+'\n')
+        logfile.close()
         return
 
+# GREP().read_and_identify('apache','Security')
 GREP().read_and_identify('apache','Performance')
+# br = 'x−frame-options '
+# print(GREP().predict_security_label(br, ''))
+

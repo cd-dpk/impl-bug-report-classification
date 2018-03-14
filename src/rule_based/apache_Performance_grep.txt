@@ -1,0 +1,3 @@
+(?i)(\bCPU\b|\bmemory\b|\bdisk\b|\bperf\b|\bperformance\b|\bslow(ing)?\b|response|(times?)|speed|utiliz(e|ing)|call|RAM)
+1154.0,5356.0,3188.0,356.0
+0.6475034812015118,0.26577614002763705,0.7642384105960265
