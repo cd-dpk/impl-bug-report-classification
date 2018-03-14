@@ -44,6 +44,18 @@ class GREP:
     def predict_security_label(self, summary, description):
         return 0;
     def predict_performance_label(self, summary, description):
+        perf_kewords = ["perf", "slow", "hang", "performance"]
+        text_to_search = summary
+        if description:
+            text_to_search += ' ' + description
+        # text_to_search = summary
+        for x in range(len(perf_kewords)):
+            pattern = perf_kewords[x]
+            # print(pattern)
+            if re.search(pattern, text_to_search):
+                # print(text_to_search, 1)
+                return 1
+        # print(text_to_search, 0)
         return 0
 
     def read_and_identify(self, file, intent):
@@ -70,7 +82,6 @@ class GREP:
                     key = bug.find('key').text
                     summary = bug.find('summary').text
                     description = bug.find("description") in (None, '') and '' or bug.find("description").text
-
                     sec_flag = bug.find("sec").text
                     perf_flag = bug.find("perf").text
                     if intent == 'Security':
@@ -80,7 +91,7 @@ class GREP:
                         print(id, sec_flag,  predict_label)
                     elif intent == 'Performance':
                         y_test.append(int(perf_flag))
-                        predict_label = self.predict_security_label(summary=summary, description=description)
+                        predict_label = self.predict_performance_label(summary=summary, description=description)
                         y_predict.append(predict_label)
                         print(id, perf_flag, predict_label)
 
@@ -94,4 +105,4 @@ class GREP:
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
         return
 
-GREP().read_and_identify('apache','Security')
+GREP().read_and_identify('apache','Performance')
