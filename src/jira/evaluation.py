@@ -39,18 +39,16 @@ for x in range(len(alphas)):
     NormalExperiment(apache, Performance).do_experiment_txt_feature_selection(mnb, alpha=alphas[x])
     print(alphas[x])
 '''
-alphas = [1.0]
+alphas = [0.4, 0.5, 0.6]
 sampling = [0]
-NormalExperiment(apache, Security).do_experiment_combine_txt_feature_selection(sampling_index=0, hypo=mnb, alpha=1.0)
-NormalExperiment(apache, Performance).do_experiment_combine_txt_feature_selection(sampling_index=0, hypo=mnb, alpha=1.0)
-'''
+#'''
 for x in range(len(alphas)):
     for y in range(len(sampling)):
         NormalExperiment(apache, Security).do_experiment_combine_txt_feature_selection(y, mnb, alpha=alphas[x])
         print(y, alphas[x])
         NormalExperiment(apache, Performance).do_experiment_combine_txt_feature_selection(y, mnb, alpha=alphas[x])
         print(y, alphas[x])
- '''
+ #'''
 
 
 # NormalExperiment(apache, Security).do_experiment_txt_sampling_classifier(2, mnb)

@@ -160,7 +160,7 @@ class NormalExperiment(Experiment):
         f_n = np.zeros(len(feature_num), dtype=int)
         print(t_p)
         print(Counter(self.y))
-        logfile = open(self.intent + '_' + str(sampling_index) + '_com_txt_fs_' + str(alpha) + '_log.txt', 'w')
+        logfile = open(self.intent + '_' + str(alpha) + '_com_fs_txt_' + str(sampling_index)  + '_log.txt', 'w')
         for k in range(10):
             # We use 'list' to copy, in order to 'pop' later on
             X_train = list(X_folds)
@@ -172,13 +172,6 @@ class NormalExperiment(Experiment):
 
             print("Before FS", X_train.shape, X_test.shape)
             from src.aggregate.feature_selection import FeatureSelector
-            if sampling_index == 0:
-                X_train, y_train = self.under_sampling(X_train, y_train)
-            elif sampling_index == 1:
-                X_train, y_train = self.over_sampling(X_train, y_train)
-            else:
-                X_train, y_train = self.smote(X_train, y_train)
-
             feature_selector = FeatureSelector(selection_method=0)
             feature_selector.fit(X_train, y_train)
             column = 0
@@ -186,7 +179,15 @@ class NormalExperiment(Experiment):
                 X_temp_train = feature_selector.transform(X_train, f_num, alpha)
                 X_temp_test = feature_selector.transform(X_test, f_num, alpha)
                 print("After FS", X_temp_train.shape, X_temp_test.shape)
-                hypo.fit(X_temp_train, y_train)
+
+                if sampling_index == 0:
+                    X_temp_train, y_temp_train = self.under_sampling(X_temp_train, y_train)
+                elif sampling_index == 1:
+                    X_temp_train, y_temp_train = self.over_sampling(X_temp_train, y_train)
+                else:
+                    X_temp_train, y_temp_train = self.smote(X_temp_train, y_train)
+
+                hypo.fit(X_temp_train, y_temp_train)
                 y_predict = hypo.predict(X_temp_test)
                 temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
                 t_p[column] += temp_tp

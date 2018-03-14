@@ -83,10 +83,7 @@ class Preprocessor:
         return
 
     def pre_process(self):
-        sys.stdout = open(self.file+'_'+self.intent+'_proc.csv', 'w', encoding="UTF-8")
-        # self.proc_csv_file()
+        # sys.stdout = open(self.file+'.csv', 'w', encoding="UTF-8")
         self.proc_xml_file()
-        sys.stdout.close()
+        # sys.stdout.close()
         return
-
-
