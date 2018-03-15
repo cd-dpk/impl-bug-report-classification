@@ -50,7 +50,7 @@ class NormalExperiment(Experiment):
         self.X_txt = []
         y_folds = np.array_split(self.y, 10)
         self.y = []
-        feature_num = [100, 200, 300, 500, 800, 1000, 1500, 2000, 2500, 3000]
+        feature_num = [500, 800, 1000, 1500, 2000, 2500, 3000]
         t_p = np.zeros(len(feature_num), dtype=int)
         f_p = np.zeros(len(feature_num), dtype=int)
         t_n = np.zeros(len(feature_num), dtype=int)
@@ -112,6 +112,7 @@ class NormalExperiment(Experiment):
         t_n = 0.0
         f_n = 0.0
         print(Counter(self.y))
+        logfile = open(self.intent +'_log.txt', 'w')
         for k in range(10):
             # We use 'list' to copy, in order to 'pop' later on
             X_train = list(X_folds)
@@ -120,15 +121,6 @@ class NormalExperiment(Experiment):
             y_train = list(y_folds)
             y_test = y_train.pop(k)
             y_train = np.concatenate(y_train)
-
-            print("BEFORE FS", X_train.shape, X_test.shape)
-            from sklearn.feature_selection import SelectFdr
-            from sklearn.feature_selection import chi2
-            ch2 = chi2(X_train, y_train)
-            selector = SelectFdr(ch2, alpha=0.05).fit(X_train, y_train)
-            X_train = selector.transform(X_train)
-            X_test = selector.transform(X_test)
-            print("AFTER FS", X_train.shape, X_test.shape)
 
             hypo.fit(X_train, y_train)
             y_predict = hypo.predict(X_test)
@@ -141,8 +133,9 @@ class NormalExperiment(Experiment):
 
 
         print(t_p, t_n, f_p, f_n)
+        logfile.write(str(t_p) + "," + str(t_n) + "," + str(f_p) + "," + str(f_n) + "\n")
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
-
+        logfile.close()
         return
 
     def do_experiment_combine_feature_selection_sampling(self, sampling_index=0, hypo=MultinomialNB(), alpha=0.5):
@@ -265,6 +258,55 @@ class NormalExperiment(Experiment):
             logfile.write(str(t_p[x]) + "," + str(t_n[x]) + "," + str(f_p[x]) + "," + str(f_n[x]) + "\n")
             print(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]}))
             # logfile.write(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})+ "\n")
+        logfile.close()
+        return
+    def do_experiment_txt_sampling(self, sampling_index=0, hypo=MultinomialNB()):
+        self.load_data()
+        print(self.X_txt)
+        print(self.X_txt.shape)
+        X_folds = np.array_split(self.X_txt, 10)
+        self.X_txt = []
+        y_folds = np.array_split(self.y, 10)
+        self.y = []
+        t_p = 0.0
+        f_p = 0.0
+        t_n = 0.0
+        f_n = 0.0
+        print(t_p)
+        print(Counter(self.y))
+        logfile = open(self.intent + '_' + str(sampling_index) + '_log.txt', 'w')
+        for k in range(10):
+            # We use 'list' to copy, in order to 'pop' later on
+            X_train = list(X_folds)
+            X_test = X_train.pop(k)
+            X_train = np.concatenate(X_train)
+            y_train = list(y_folds)
+            y_test = y_train.pop(k)
+            y_train = np.concatenate(y_train)
+
+            print("Before FS", X_train.shape, X_test.shape)
+
+            if sampling_index == 0:
+                X_train, y_train = self.under_sampling(X_train, y_train)
+            elif sampling_index == 1:
+                X_train, y_train = self.over_sampling(X_train, y_train)
+            else:
+                X_train, y_train = self.smote(X_train, y_train)
+
+            print("After FS", X_train.shape, X_test.shape)
+            hypo.fit(X_train, y_train)
+            y_predict = hypo.predict(X_test)
+            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+            t_p += temp_tp
+            t_n += temp_tn
+            f_p += temp_fp
+            f_n += temp_fn
+            # break
+
+        print(t_p, t_n, f_p, f_n)
+        logfile.write(str(t_p) + "," + str(t_n) + "," + str(f_p) + "," + str(f_n) + "\n")
+        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+        # logfile.write(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})+ "\n")
         logfile.close()
         return
 
