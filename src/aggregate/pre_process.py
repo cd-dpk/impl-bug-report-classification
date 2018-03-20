@@ -5,7 +5,6 @@ from nltk.stem import PorterStemmer
 from nltk import FreqDist
 from src.aggregate.pre_processor import TextPreprocessor
 
-
 class Preprocessor:
 
     def __init__(self, file):
