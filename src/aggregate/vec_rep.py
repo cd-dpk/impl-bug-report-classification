@@ -74,7 +74,7 @@ class VectorRepresenter:
             neu = float(row['Security_neu_col'])
             neg = float(row['Security_neg_col'])
             pos = pos / (pos+neu+neg)
-            neu = neu / (pos + neu + neg)
+            neu = neu / (pos+neu+neg)
             neg = neg / (pos+neu+neg)
             output += str(pos) + ","
             output += str(neu) + ","

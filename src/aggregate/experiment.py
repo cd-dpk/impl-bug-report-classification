@@ -11,31 +11,20 @@ class Experiment:
     def load_data(self, word2vec:bool=False):
         chou_data = ChouDataHandler(self.file, self.intent)
         chou_data.load_data(word2vec)
+        self.str_features = chou_data.get_str_features()
         self.X_txt = chou_data.textual_data
         self.y = chou_data.target_data
         self.X_str = chou_data.get_numeric_str_data()
         component_data = chou_data.component_to_numeric_data()
         reporter_data = chou_data.reporter_to_numeric_data()
         self.categorical_data = np.empty([len(self.X_txt), 9+len(component_data[0])], dtype=object)
-        self.categorical_data_features = []
-        self.categorical_data_features.append('author')
-        self.categorical_data_features.append('pos')
-        self.categorical_data_features.append('neu')
-        self.categorical_data_features.append('neg')
-        for i in range(len(component_data[0])):
-            self.categorical_data_features.append('com'+str(i))
-        self.categorical_data_features.append('ST')
-        self.categorical_data_features.append('Patch')
-        self.categorical_data_features.append('CE')
-        self.categorical_data_features.append('TC')
-        self.categorical_data_features.append('EN')
         for i in range(len(self.X_txt)):
             k = 0
             self.categorical_data[i][k] = str(reporter_data[i])
             k += 1
 
             for j in range(len(chou_data.lexicon_data[0])):
-                self.categorical_data[i][k] = chou_data.lexicon_data[i][j]
+                self.categorical_data[i][k] = round(chou_data.lexicon_data[i][j],3)
                 k += 1
 
             for j in range(len(component_data[0])):

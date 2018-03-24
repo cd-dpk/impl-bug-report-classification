@@ -128,16 +128,30 @@ class ChouDataHandler:
         numeric_data = []
         reporter_data = np.array(self.reporter_to_numeric_data())
         component_data = np.array(self.component_to_numeric_data())
+
         for x in range(len(self.reporter_data)):
             temp_arr = []
             temp_arr.append(reporter_data[x])
             for y in range(len(component_data[x])):
                 temp_arr.append(component_data[x][y])
-
             for y in range(len(self.lexicon_data[x])):
                 temp_arr.append(self.lexicon_data[x][y])
-
             for y in range(len(self.description_data[x])):
                 temp_arr.append(self.description_data[x][y])
             numeric_data.append(temp_arr)
+
         return np.array(numeric_data)
+
+    def get_str_features(self):
+        str_features = []
+        component_data = np.array(self.component_to_numeric_data())
+        str_features.append("auth")
+        for y in range(len(self.lexicon_data[0])):
+            str_features.append("lex" + str(y))
+        for y in range(len(component_data[0])):
+            str_features.append("comp"+str(y))
+        for y in range(len(self.description_data[0])):
+            str_features.append("des" + str(y))
+
+        str_features = np.array(str_features,dtype=object)
+        return str_features

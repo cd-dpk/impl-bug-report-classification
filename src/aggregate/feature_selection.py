@@ -1,6 +1,7 @@
 import numpy as np
 import math
 
+
 class FeatureSelector:
 
     def __init__(self, sampling_zero=0.05, selection_method=0):
@@ -73,10 +74,10 @@ class FeatureSelector:
             N = len(data)
             # print(A, B, C, D, N)
             if self.selection_method == 0:
-                print("OR")
+                # print("OR")
                 term_scores[c] = [c, self.odd_ratio(A, B, C, D, N)]
             elif self.selection_method == 1:
-                print("SIG")
+                # print("SIG")
                 term_scores[c] = [c, self.signed_info_gain(A, B, C, D, N)]
 
         # print(term_scores)
@@ -125,7 +126,7 @@ class FeatureSelector:
         print("LEN of NEG", len(neg))
         print(len(data))
         print(data.shape)
-        print(pos+neg)
-        return data[:,pos+neg]
+        print(list(frozenset(pos+neg)))
+        return data[:,list(frozenset(pos+neg))]
 
 

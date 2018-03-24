@@ -7,29 +7,20 @@ class Chi2Selector:
         self.sampling_zero = 0.05
         self.pos_fs = []
         self.neg_fs = []
+        self.critical_value_at_5 = 3.841
+        self.critical_value_at_1 = 2.706
 
     def chi2(self, A:int, B:int, C:int, D:int, N:int):
         A = float(A) + self.sampling_zero
         B = float(B) + self.sampling_zero
         C = float(C) + self.sampling_zero
         D = float(D) + self.sampling_zero
-        N = float(N) + 2 * self.sampling_zero
-
-        ig = 0.0
-
-        temp = (A / N) * math.log((A * N) / ((A + B) * (A + C)), math.e)
-        ig += temp
-
-        temp = (C / N) * math.log((C * N) / ((C + D) * (A + C)), math.e)
-        ig += temp
-
-        temp = (B / N) * math.log((B * N) / ((A + B) * (B + D)), math.e)
-        ig += temp
-
-        temp = (D / N) * math.log((D * N) / ((C + D) * (B + D)), math.e)
-        ig += temp
-
-        return  ig
+        N = A + B + C + D
+        score = 0.0
+        score = (A+C)*(A+B)*(B+D)*(C+D)
+        score = N/score
+        score = score * (A*D-B*C)*(A*D-B*C)
+        return score
 
 
     # @fit
@@ -56,7 +47,7 @@ class Chi2Selector:
             C = float(t_Cp[c][2])
             D = float(t_Cp[c][3])
             N = len(data)
-            self.term_scores[c] = [c, self.mutual_info(A, B, C, D, N)]
+            self.term_scores[c] = [c, self.chi2(A, B, C, D, N)]
 
         return
 
@@ -69,3 +60,8 @@ class Chi2Selector:
 
         return data[:,featured_indices]
 
+    def scores(self):
+        scores = []
+        for term_score in self.term_scores:
+            scores.append(term_score[1])
+        return scores

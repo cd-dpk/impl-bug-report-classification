@@ -25,36 +25,43 @@ rf = RandomForestClassifier()
 dt = DecisionTreeClassifier()
 supvecmac = svm.SVC(probability=True)
 knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
-
-# Preprocessor(camel_shaon).pre_process()
-# VectorRepresenter(camel_shaon).vec_process()
-# NormalExperiment(camel_shaon, Security).do_experiment_txt(sampling_index=0,feature_selection=0);
-import sys
-# sys.stdout = open('log.txt', 'w')
-# NormalExperiment(camel,Security).do_experiment_txt(sampling_index=-1, feature_selection=0,hypo=mnb)
-# NormalExperiment(camel,Performance).do_experiment_txt(sampling_index=-1, feature_selection=0,hypo=mnb)
-
 # '''
-sampling = [0, 1, 2]
-feature_selection = [0, 1, 2]
-for x in range(len(sampling)):
-    NormalExperiment(camel, Security).do_experiment_txt(sampling_index=x, feature_selection=-1,hypo=mnb)
-    NormalExperiment(camel, Security).do_experiment_txt(sampling_index=-1, feature_selection=x,hypo=mnb)
-    NormalExperiment(camel, Performance).do_experiment_txt(sampling_index=x, feature_selection=-1,hypo=mnb)
-    NormalExperiment(camel, Performance).do_experiment_txt(sampling_index=-1, feature_selection=x,hypo=mnb)
-    for y in range(len(feature_selection)):
-        NormalExperiment(camel,Security).do_experiment_txt(sampling_index=x, feature_selection=y,hypo=mnb)
-        NormalExperiment(camel,Performance).do_experiment_txt(sampling_index=x, feature_selection=y,hypo=mnb)
-# '''# sys.stdout.close()
+alphas = [0.4, 0.5, 0.6]
+sampling = [0]
+subjects = [camel_shaon, derby, ambari, wicket]
+'''
+for x in range(len(alphas)):
+    for y in range(len(subjects)):
+        NormalExperiment(subjects[y], Security).do_experiment_combine_sampling_feature_selection(sampling_index=sampling[0], hypo=mnb, alpha=alphas[x])
+        print(subjects[y],"Security Completed!")
+        NormalExperiment(subjects[y], Performance).do_experiment_combine_sampling_feature_selection(sampling_index=sampling[0], hypo=mnb, alpha=alphas[x])
+        print(subjects[y],"Performance Completed!")
+for y in range(len(subjects)):
+    NormalExperiment(subjects[y], Security).do_experiment_txt_sampling_chi2(sampling_index=sampling[0], hypo=mnb, )
+    print('CHI2',subjects[y],"Security Completed!")
+    NormalExperiment(subjects[y], Performance).do_experiment_txt_sampling_chi2(sampling_index=sampling[0], hypo=mnb)
+    print('CHI2',subjects[y],"Performance Completed!")
+exit(404)
+'''
+'''
+for y in range(len(subjects)):
+    NormalExperiment(subjects[y], Security).do_experiment_txt_sampling_mi(sampling_index=sampling[0], hypo=mnb, )
+    print('MI', subjects[y], "Security Completed!")
+    NormalExperiment(subjects[y], Performance).do_experiment_txt_sampling_mi(sampling_index=sampling[0], hypo=mnb)
+    print('MI', subjects[y], "Performance Completed!")
+'''
+# NormalExperiment(derby, Security).do_experiment_feature_extraction_chi2()
+# NormalExperiment(derby, Performance).do_experiment_feature_extraction_chi2()
 
+# VectorRepresenter(derby).vec_process()
+# NormalExperiment(ambari, Security).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+# NormalExperiment(ambari, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
 
+# NormalExperiment(camel_shaon, Security).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+# NormalExperiment(camel_shaon, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
 
+NormalExperiment(derby, Security).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+NormalExperiment(derby, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
 
-# NormalExperiment(camel_shaon, Security).do_experiment_txt_sampling_classifier()
-
-# NormalExperiment(camel_shaon, Security).do_experiment_txt_feature_selection(1500, 0.5, mnb)
-# NormalExperiment(camel, Performance).do_experiment_txt_sampling_classifier(0, mnb)
-# NormalExperiment(derby, Performance).do_experiment_txt_sampling_classifier(0, mnb)
-# NormalExperiment(wicket, Performance).do_experiment_txt_sampling_classifier(0, mnb)
-# print(Security)
-# NormalExperiment(camel_shaon, Security).do_experiment_txt_sampling_ensemble_stacking(0,lr,[mnb,supvecmac,knn,rf,ada])
+# NormalExperiment(wicket, Security).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+# NormalExperiment(wicket, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)

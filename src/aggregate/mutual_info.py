@@ -11,7 +11,7 @@ class MutualInformationSelector:
         B = float(B) + self.sampling_zero
         C = float(C) + self.sampling_zero
         D = float(D) + self.sampling_zero
-        N = float(N) + 2 * self.sampling_zero
+        N = A + B + C + D
 
         mi = 0.0
 
@@ -59,11 +59,19 @@ class MutualInformationSelector:
         return
 
     # @transformed_data
-    def transform(self, data, threshold):
+    def transform(self, data, kBest):
         featured_indices = []
-        for term_score in self.term_scores:
-            if term_score[1] >= threshold:
-                featured_indices.append(term_score[0])
+        self.term_scores = sorted(self.term_scores, key=lambda term: term[1], reverse=True)
+        for x in range(kBest):
+            if self.term_scores[x][1] >= 0.0:
+                featured_indices.append(self.term_scores[x][0])
 
         return data[:,featured_indices]
 
+    def scores(self):
+        scores = []
+
+        for term_score in self.term_scores:
+            scores.append(term_score[1])
+
+        return scores

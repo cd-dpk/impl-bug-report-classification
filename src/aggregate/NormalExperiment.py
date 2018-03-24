@@ -414,351 +414,6 @@ class NormalExperiment(Experiment):
 
         return
 
-    # @text @feature_selection @str @sampling
-    def do_experiment_tex_fs_str_sampling_src(self, sampling_index, hypo):
-        self.load_data()
-        print(self.X_txt.shape)
-        print(self.X_str.shape)
-        print(self.X_txt)
-        print(self.y)
-        X_folds = np.array_split(self.X_txt, 10)
-        y_folds = np.array_split(self.y, 10)
-        t_p = 0.0
-        f_p = 0.0
-        t_n = 0.0
-        f_n = 0.0
-        print(Counter(self.y))
-
-        # load all bug reports
-        bug_reports = []
-        with open(self.file + "_proc.csv", newline='') as bug_csvfile:
-            bug_reader = csv.DictReader(bug_csvfile)
-            for bug_row in bug_reader:
-                summary = str(bug_row['summary'] in (None, '') and '' or bug_row['summary'])
-                description = str(bug_row['description'] in (None, '') and '' or bug_row['description'])
-                files = str(bug_row['files'] in (None, '') and '' or bug_row['files'])
-                target_Security = int(bug_row['target_Security'] in (None, '') and '' or bug_row['target_Security'])
-                target_Performance = int(bug_row['target_Performance'] in (None, '') and '' or bug_row['target_Performance'])
-                bug_report = {'summary': summary, 'description':description, 'files': files, 'target_Security':target_Security, 'target_Performance':target_Performance }
-                bug_reports.append(bug_report)
-
-        # for bug_report in bug_reports:
-        #     print(bug_report)
-
-        X_bug_reports_folds = np.array_split(bug_reports, 10)
-
-        src_files = []
-        with open('/media/geet/Files/IITDU/MSSE-03/implementation/src/bug_localization/'+self.file + "_proc.csv", newline='') as src_csvfile:
-            src_reader = csv.DictReader(src_csvfile)
-            for src_row in src_reader:
-                class_id = int(src_row['class_id'] in (None, '') and '' or src_row['class_id'])
-                class_name = str(src_row['class_name'] in (None, '') and '' or src_row['class_name'])
-                class_label = 0
-                # print(class_obj)
-                if re.search('^/media/geet/Files/IITDU/MSSE-03/SRC/', class_name) and re.search('.java$', class_name):
-                    class_name = re.sub('/media/geet/Files/IITDU/MSSE-03/SRC/', "", class_name)
-
-                class_obj = {'class_id':class_id, 'class_name': class_name, 'class_label':class_label}
-                src_files.append(class_obj)
-
-
-        for k in range(10):
-            # We use 'list' to copy, in order to 'pop' later on
-            X_train = list(X_folds)
-            X_test = X_train.pop(k)
-            X_train = np.concatenate(X_train)
-            y_train = list(y_folds)
-            y_test = y_train.pop(k)
-            y_train = np.concatenate(y_train)
-
-            X_bug_reports_train = list(X_bug_reports_folds)
-            X_bug_reports_test = X_bug_reports_train.pop(k)
-            X_bug_reports_train = np.concatenate(X_bug_reports_train)
-
-            for i in range(len(src_files)):
-                src_files[i][2] = 0
-
-            print(Counter(y_train))
-            for bug_report in X_bug_reports_train:
-                file_column = bug_report['files']
-                files = re.split(";", file_column)
-                if bug_report['target_Security'] == 1:
-                    for file in files:
-                        file = "camel/"+file
-                        if re.search(".java$", file):
-                            for i in range(len(src_files)):
-                                if file == src_files[i]['class_name']:
-                                    src_files[i]['class_label'] = 1
-
-            if sampling_index == 0:
-                X_s, y_s = self.under_sampling(X_train, y_train)
-                hypo.fit(X_s, y_s)
-            elif sampling_index == 1:
-                X_s, y_s = self.over_sampling(X_train, y_train)
-                hypo.fit(X_s, y_s)
-            else:
-                X_s, y_s = self.smote(X_train, y_train)
-                hypo.fit(X_s, y_s)
-
-            y_predict_classifier = hypo.predict(X_test)
-            y_predict_localization = np.zeros(len(X_test),dtype=int)
-
-            from src.bug_localization.BugLocatorlExperiment import BugLocatorExperiment
-            bug_locator = BugLocatorExperiment(self.file, self.intent)
-
-            for i in range(len(X_bug_reports_test)):
-                ranked_src_files = bug_locator.do_experiment_bug_locate(X_bug_reports_test[i])
-                if len(ranked_src_files) == 0: break
-                for src_file in src_files:
-                    if ranked_src_files[0]['class_name'] == src_file['class_name']:
-                        if src_file['class_label'] == 1:
-                            y_predict_localization[i] = 1
-                        else:
-                            y_predict_localization[i] = 0
-
-            y_predict = np.zeros(len(X_test), dtype=int)
-
-            for i in range(len(y_predict)):
-                if y_predict_localization[i] == 0 and y_predict_classifier[i] == 0:
-                    y_predict[i] = 0
-                else:
-                    y_predict[i] = 1
-
-            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-
-            t_p += temp_tp
-            t_n += temp_tn
-            f_p += temp_fp
-            f_n += temp_fn
-
-        print(t_p, t_n, f_p, f_n)
-        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
-
-        return
-
-    # @text @src
-    def do_experiment_tex_src(self, sampling_index, hypo):
-        self.load_data()
-        print(self.X_txt.shape)
-        print(self.X_txt)
-        print(self.y)
-        X_folds = np.array_split(self.X_txt, 10)
-        y_folds = np.array_split(self.y, 10)
-        t_p = 0.0
-        f_p = 0.0
-        t_n = 0.0
-        f_n = 0.0
-        print(Counter(self.y))
-
-        # load all bug reports
-        bug_reports = []
-        with open(self.file + "_proc.csv", newline='') as bug_csvfile:
-            bug_reader = csv.DictReader(bug_csvfile)
-            for bug_row in bug_reader:
-                summary = str(bug_row['summary'] in (None, '') and '' or bug_row['summary'])
-                description = str(bug_row['description'] in (None, '') and '' or bug_row['description'])
-                files = str(bug_row['files'] in (None, '') and '' or bug_row['files'])
-                target_Security = int(bug_row['target_Security'] in (None, '') and '' or bug_row['target_Security'])
-                target_Performance = int(bug_row['target_Performance'] in (None, '') and '' or bug_row['target_Performance'])
-                bug_report = {'summary': summary, 'description':description, 'files': files, 'target_Security':target_Security, 'target_Performance':target_Performance }
-                bug_reports.append(bug_report)
-
-        # for bug_report in bug_reports:
-        #     print(bug_report)
-
-        X_bug_reports_folds = np.array_split(bug_reports, 10)
-
-        src_files = []
-        with open('/media/geet/Files/IITDU/MSSE-03/implementation/src/bug_localization/'+self.file + "_proc.csv", newline='') as src_csvfile:
-            src_reader = csv.DictReader(src_csvfile)
-            for src_row in src_reader:
-                class_id = int(src_row['class_id'] in (None, '') and '' or src_row['class_id'])
-                class_name = str(src_row['class_name'] in (None, '') and '' or src_row['class_name'])
-                class_label = 0
-                # print(class_obj)
-                if re.search('^/media/geet/Files/IITDU/MSSE-03/SRC/', class_name) and re.search('.java$', class_name):
-                    class_name = re.sub('/media/geet/Files/IITDU/MSSE-03/SRC/', "", class_name)
-
-                class_obj = {'class_id':class_id, 'class_name': class_name, 'class_label':class_label}
-                src_files.append(class_obj)
-
-
-        for k in range(10):
-            # We use 'list' to copy, in order to 'pop' later on
-            X_train = list(X_folds)
-            X_test = X_train.pop(k)
-            X_train = np.concatenate(X_train)
-            y_train = list(y_folds)
-            y_test = y_train.pop(k)
-            y_train = np.concatenate(y_train)
-
-            X_bug_reports_train = list(X_bug_reports_folds)
-            X_bug_reports_test = X_bug_reports_train.pop(k)
-            X_bug_reports_train = np.concatenate(X_bug_reports_train)
-
-            for i in range(len(src_files)):
-                src_files[i][2] = 0
-
-            print(Counter(y_train))
-            for bug_report in X_bug_reports_train:
-                file_column = bug_report['files']
-                files = re.split(";", file_column)
-                if bug_report['target_Security'] == 1:
-                    for file in files:
-                        file = "camel/"+file
-                        if re.search(".java$", file):
-                            for i in range(len(src_files)):
-                                if file == src_files[i]['class_name']:
-                                    src_files[i]['class_label'] = 1
-
-            if sampling_index == 0:
-                X_s, y_s = self.under_sampling(X_train, y_train)
-                hypo.fit(X_s, y_s)
-            elif sampling_index == 1:
-                X_s, y_s = self.over_sampling(X_train, y_train)
-                hypo.fit(X_s, y_s)
-            else:
-                X_s, y_s = self.smote(X_train, y_train)
-                hypo.fit(X_s, y_s)
-
-            y_predict_classifier = hypo.predict(X_test)
-            y_predict_localization = np.zeros(len(X_test),dtype=int)
-
-            from src.bug_localization.BugLocatorlExperiment import BugLocatorExperiment
-            bug_locator = BugLocatorExperiment(self.file, self.intent)
-
-            for i in range(len(X_bug_reports_test)):
-                ranked_src_files = bug_locator.do_experiment_bug_locate(X_bug_reports_test[i])
-                if len(ranked_src_files) == 0: break
-                for src_file in src_files:
-                    if ranked_src_files[0]['class_name'] == src_file['class_name']:
-                        if src_file['class_label'] == 1:
-                            y_predict_localization[i] = 1
-                        else:
-                            y_predict_localization[i] = 0
-
-            y_predict = np.zeros(len(X_test), dtype=int)
-
-            for i in range(len(y_predict)):
-                if y_predict_localization[i] == 0 and y_predict_classifier[i] == 0:
-                    y_predict[i] = 0
-                else:
-                    y_predict[i] = 1
-
-            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-
-            t_p += temp_tp
-            t_n += temp_tn
-            f_p += temp_fp
-            f_n += temp_fn
-
-        print(t_p, t_n, f_p, f_n)
-        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
-
-        return
-
-    # @src
-    def do_experiment_src(self):
-        t_p = 0.0
-        f_p = 0.0
-        t_n = 0.0
-        f_n = 0.0
-
-        # load all bug reports
-        bug_reports = []
-        with open(self.file + "_proc.csv", newline='') as bug_csvfile:
-            bug_reader = csv.DictReader(bug_csvfile)
-            for bug_row in bug_reader:
-                summary = str(bug_row['summary'] in (None, '') and '' or bug_row['summary'])
-                description = str(bug_row['description'] in (None, '') and '' or bug_row['description'])
-                files = str(bug_row['files'] in (None, '') and '' or bug_row['files'])
-                target_Security = int(bug_row['target_Security'] in (None, '') and '' or bug_row['target_Security'])
-                target_Performance = int(bug_row['target_Performance'] in (None, '') and '' or bug_row['target_Performance'])
-                bug_report = {'summary': summary, 'description': description, 'files': files,
-                              'target_Security': target_Security, 'target_Performance': target_Performance}
-                bug_reports.append(bug_report)
-
-        # for bug_report in bug_reports:
-        #     print(bug_report)
-
-        X_bug_reports_folds = np.array_split(bug_reports, 10)
-
-        src_files = []
-        with open('../bug_localization/' + self.file + "_proc.csv",
-                  newline='') as src_csvfile:
-            src_reader = csv.DictReader(src_csvfile)
-            for src_row in src_reader:
-                class_id = int(src_row['class_id'] in (None, '') and '' or src_row['class_id'])
-                class_name = str(src_row['class_name'] in (None, '') and '' or src_row['class_name'])
-                class_label = 0
-                # print(class_obj)
-                if re.search('^/media/geet/Files/IITDU/MSSE-03/SRC/', class_name) and re.search('.java$', class_name):
-                    class_name = re.sub('/media/geet/Files/IITDU/MSSE-03/SRC/', "", class_name)
-
-                class_obj = {'class_id': class_id, 'class_name': class_name, 'class_label': class_label}
-                src_files.append(class_obj)
-
-        for k in range(10):
-            # We use 'list' to copy, in order to 'pop' later on
-            X_bug_reports_train = list(X_bug_reports_folds)
-            X_bug_reports_test = X_bug_reports_train.pop(k)
-            X_bug_reports_train = np.concatenate(X_bug_reports_train)
-
-            for i in range(len(src_files)):
-                src_files[i][2] = 0
-
-            for bug_report in X_bug_reports_train:
-                file_column = bug_report['files']
-                files = re.split(";", file_column)
-                if bug_report['target_Security'] == 1:
-                    for file in files:
-                        file = "camel/" + file
-                        if re.search(".java$", file):
-                            for i in range(len(src_files)):
-                                if file == src_files[i]['class_name']:
-                                    src_files[i]['class_label'] = 1
-
-
-            y_predict_localization = np.zeros(len(X_bug_reports_test), dtype=int)
-
-            from src.bug_localization.BugLocatorlExperiment import BugLocatorExperiment
-            bug_locator = BugLocatorExperiment(self.file, self.intent)
-
-            for i in range(len(X_bug_reports_test)):
-                ranked_src_files = bug_locator.do_experiment_bug_locate(X_bug_reports_test[i])
-                if len(ranked_src_files) == 0:
-                    break
-                for src_file in src_files:
-                    if ranked_src_files[0]['class_name'] == src_file['class_name']:
-                        if src_file['class_label'] == 1:
-                            y_predict_localization[i] = 1
-                        else:
-                            y_predict_localization[i] = 0
-                        break
-
-            y_predict = np.zeros(len(X_bug_reports_test), dtype=int)
-
-            for i in range(len(y_predict)):
-                if y_predict_localization[i] == 0:
-                    y_predict[i] = 0
-                else:
-                    y_predict[i] = 1
-
-            y_test = np.zeros(len(X_bug_reports_test), dtype=int)
-            for i in range(len(X_bug_reports_test)):
-                y_test[i] = X_bug_reports_test[i]['target_'+self.intent]
-
-
-            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-            t_p += temp_tp
-            t_n += temp_tn
-            f_p += temp_fp
-            f_n += temp_fn
-
-        print(t_p, t_n, f_p, f_n)
-        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
-        return
-
     # @text @str
     def do_experiment_first_txt_second_str(self, hypo1, hypo2):
         self.load_data()
@@ -850,11 +505,62 @@ class NormalExperiment(Experiment):
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
         return
 
-    # @text @str @weka
-    def do_experiment_first_txt_second_categorical_weka(self, hypo1):
+    def do_experiment_txt_sampling(self, sampling_index=0, hypo=MultinomialNB()):
         self.load_data()
+        print(self.X_txt)
+        print(self.X_txt.shape)
+        X_folds = np.array_split(self.X_txt, 10)
+        self.X_txt = []
+        y_folds = np.array_split(self.y, 10)
+        self.y = []
+        t_p = 0.0
+        f_p = 0.0
+        t_n = 0.0
+        f_n = 0.0
+        print(t_p)
+        print(Counter(self.y))
+        logfile = open(self.intent + '_' + str(sampling_index) + '_log.txt', 'w')
+        for k in range(10):
+            # We use 'list' to copy, in order to 'pop' later on
+            X_train = list(X_folds)
+            X_test = X_train.pop(k)
+            X_train = np.concatenate(X_train)
+            y_train = list(y_folds)
+            y_test = y_train.pop(k)
+            y_train = np.concatenate(y_train)
+
+            print("Before FS", X_train.shape, X_test.shape)
+
+            if sampling_index == 0:
+                X_train, y_train = self.under_sampling(X_train, y_train)
+            elif sampling_index == 1:
+                X_train, y_train = self.over_sampling(X_train, y_train)
+            else:
+                X_train, y_train = self.smote(X_train, y_train)
+
+            print("After FS", X_train.shape, X_test.shape)
+            hypo.fit(X_train, y_train)
+            y_predict = hypo.predict(X_test)
+            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+            t_p += temp_tp
+            t_n += temp_tn
+            f_p += temp_fp
+            f_n += temp_fn
+            # break
+
+        print(t_p, t_n, f_p, f_n)
+        logfile.write(str(t_p) + "," + str(t_n) + "," + str(f_p) + "," + str(f_n) + "\n")
+        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+        # logfile.write(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})+ "\n")
+        logfile.close()
+        return
+
+
+    # @text @str @weka
+    def do_experiment_first_txt_second_categorical_weka(self, sampling_index=0,hypo1=MultinomialNB()):
+        self.load_data()
+        print(self.X_txt.shape)
         print(self.categorical_data.shape)
-        print(self.categorical_data)
         X_folds = np.array_split(self.X_txt, 10)
         X_cat_folds = np.array_split(self.categorical_data, 10)
         y_folds = np.array_split(self.y, 10)
@@ -882,6 +588,7 @@ class NormalExperiment(Experiment):
             '''
 
             y_predicts_proba = np.zeros([len(X_train), 2], dtype=float)
+            y_predicts_proba_X_test = np.zeros([len(X_test), 2 * fold], dtype=float)
             # print(y_predicts_proba.shape)
             row = 0
             for k in range(fold):
@@ -892,22 +599,14 @@ class NormalExperiment(Experiment):
                 y_test_2 = y_train_2.pop(k)
                 y_train_2 = np.concatenate(y_train_2)
                 '''---------- Sampling Starts ---------------'''
-                X_train_2, y_train_2 = self.over_sampling(X_train_2, y_train_2)
-
+                X_train_2, y_train_2 = self.under_sampling(X_train_2, y_train_2)
                 '''---------- Sampling Ends  ---------------'''
-                '''------Feature Selection Starts-----'''
-                print("BEFORE FS", X_train_2.shape, X_test_2.shape)
-                from sklearn.feature_selection import SelectFdr
-                from sklearn.feature_selection import chi2
-                ch2 = chi2(X_train_2, y_train_2)
-                selector = SelectFdr(ch2, alpha=0.05).fit(X_train, y_train)
-                X_train_2 = selector.transform(X_train)
-                X_test_2 = selector.transform(X_test)
-                print("AFTER FS", X_train_2.shape, X_test_2.shape)
-                '''------ Feature Selection Ends -----'''
-
                 hypo1.fit(X_train_2, y_train_2)
                 y_predict_proba = hypo1.predict_proba(X_test_2)
+                y_predicts_proba_temp = hypo1.predict_proba(X_test)
+                for x in range(len(y_predicts_proba_temp)):
+                    y_predicts_proba_X_test[x][2 * k + 0] = y_predicts_proba_temp[x][0]
+                    y_predicts_proba_X_test[x][2 * k + 1] = y_predicts_proba_temp[x][1]
 
                 for x in range(len(y_predict_proba)):
                     y_predicts_proba[row + x][0] = round(y_predict_proba[x][0], 2)
@@ -918,37 +617,37 @@ class NormalExperiment(Experiment):
             '''
                      training with first train data probabilities
             '''
-
             # print(y_predicts_proba.shape)
-            y_predict_proba = hypo1.predict_proba(X_test)
             train_data = np.concatenate((X_cat_train, y_predicts_proba), axis=1)
+            y_predict_proba = np.zeros([len(X_test), 2])
+            for x in range(len(y_predicts_proba_X_test)):
+                    prob_zero = 0.0
+                    prob_one = 0.0
+                    for y in range(2*fold):
+                        if y%2 ==0:
+                            prob_zero += y_predicts_proba_X_test[x][y]
+                        elif y%2 ==1:
+                            prob_one += y_predicts_proba_X_test[x][y]
+
+                    prob_zero /= fold
+                    prob_one /= fold
+                    y_predict_proba[x][0] = round(prob_zero,3)
+                    y_predict_proba[x][1] = round(prob_one,3)
             test_data = np.concatenate((X_cat_test, y_predict_proba), axis=1)
-
             '''------------Sampling---------------'''
-            train_data, y_train = self.over_sampling(train_data, y_train)
+            train_data, y_train = self.under_sampling(train_data, y_train)
+            print("Data", len(train_data),':' ,len(test_data))
             '''-----------Sampling---------------------'''
-
-            '''------Feature Selection Starts-----'''
-            print("BEFORE FS", train_data.shape, test_data.shape)
-            from sklearn.feature_selection import SelectFdr
-            from sklearn.feature_selection import chi2
-            ch2 = chi2(train_data, test_data)
-            selector = SelectFdr(ch2, alpha=0.05).fit(train_data, test)
-            train_data = selector.transform(train_data)
-            test_data = selector.transform(test_data)
-            print("AFTER FS", train_data.shape, test_data.shape)
-            '''------ Feature Selection Ends -----'''
-            # print(len(train_data), len(test_data))
-
             weka_data = np.concatenate((train_data, test_data), axis=0)
+            weka_data = np.array(weka_data, dtype=float)
             target = np.concatenate((y_train, y_test), axis=0)
             # print(Counter(target))
             # print(data.shape)
             # print(target.shape)
-            wekascvfile = open('weka/'+str(l)+'_'+self.file+'_str.csv', 'w')
+            wekascvfile = open('weka/'+str(l)+'_'+self.file+'_'+self.intent+'_str.csv', 'w')
             cols = ''
-            for i in range(len(self.categorical_data_features)):
-                cols += str(self.categorical_data_features[i]) + ","
+            for i in range(len(self.str_features)):
+                cols += str(self.str_features[i]) + ","
             cols += 'prob0,prob1,target'
             print(cols)
             wekascvfile.write(cols+"\n")
@@ -1017,19 +716,24 @@ class NormalExperiment(Experiment):
 
         return
 
-
-    # @sampling_index @feature_selection
-    def do_experiment_txt_sampling_feature_selection(self, sampling_index, hypo):
+    def do_experiment_txt_sampling_feature_selection(self, sampling_index=0, hypo=MultinomialNB(), alpha=0.5):
         self.load_data()
+        print(self.X_txt)
+        print(self.X_txt.shape)
+        total_data, total_features = self.X_txt.shape
         X_folds = np.array_split(self.X_txt, 10)
+        self.X_txt = []
         y_folds = np.array_split(self.y, 10)
-
-        t_p = 0.0
-        f_p = 0.0
-        t_n = 0.0
-        f_n = 0.0
         print(Counter(self.y))
-
+        self.y = []
+        print("DIM",total_data, total_features)
+        feature_num = [int(0.15*total_features), int(0.25*total_features), int(0.40*total_features), int(0.5*total_features),int(0.65* total_features), int(0.75* total_features), int(0.85* total_features), total_features]
+        t_p = np.zeros(len(feature_num), dtype=int)
+        f_p = np.zeros(len(feature_num), dtype=int)
+        t_n = np.zeros(len(feature_num), dtype=int)
+        f_n = np.zeros(len(feature_num), dtype=int)
+        print(t_p)
+        logfile = open(self.file+'_'+self.intent + '_' + str(sampling_index) + '_com_txt_fs_' + str(alpha) + '_log.txt', 'w')
         for k in range(10):
             # We use 'list' to copy, in order to 'pop' later on
             X_train = list(X_folds)
@@ -1038,66 +742,44 @@ class NormalExperiment(Experiment):
             y_train = list(y_folds)
             y_test = y_train.pop(k)
             y_train = np.concatenate(y_train)
-
             if sampling_index == 0:
-                X_s, y_s = self.under_sampling(X_train, y_train)
+                X_train, y_train = self.under_sampling(X_train, y_train)
             elif sampling_index == 1:
-                X_s, y_s = self.over_sampling(X_train, y_train)
-            elif sampling_index == 2:
-                X_s, y_s = self.smote(X_train, y_train)
-            hypo.fit(X_train, X_test)
-            y_predict = hypo.predict(X_test)
-            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+                X_train, y_train = self.over_sampling(X_train, y_train)
+            else:
+                X_train, y_train = self.smote(X_train, y_train)
 
-            t_p += temp_tp
-            t_n += temp_tn
-            f_p += temp_fp
-            f_n += temp_fn
+            print("Before FS", X_train.shape, X_test.shape)
+            from src.aggregate.feature_selection import FeatureSelector
+            feature_selector = FeatureSelector(selection_method=0)
+            feature_selector.fit(X_train, y_train)
+            column = 0
+            for f_num in feature_num:
+                print("Features", f_num)
+                X_temp_train = feature_selector.transform(X_train, f_num, alpha)
+                X_temp_test = feature_selector.transform(X_test, f_num, alpha)
+                print("After FS", X_temp_train.shape, X_temp_test.shape)
+                hypo.fit(X_temp_train, y_train)
+                y_predict = hypo.predict(X_temp_test)
+                temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+                t_p[column] += temp_tp
+                t_n[column] += temp_tn
+                f_p[column] += temp_fp
+                f_n[column] += temp_fn
+                column += 1
+            # break
 
-        print(t_p, t_n, f_p, f_n)
-        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
-
+        for x in range(len(feature_num)):
+            print(feature_num[x])
+            logfile.write(str(feature_num[x]) + "\n")
+            print(t_p[x], t_n[x], f_p[x], f_n[x])
+            logfile.write(str(t_p[x]) + "," + str(t_n[x]) + "," + str(f_p[x]) + "," + str(f_n[x]) + "\n")
+            print(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]}))
+            # logfile.write(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})+ "\n")
+        logfile.close()
         return
 
-# @text @feature selection
-    def do_experiment_txt_feature_selection(self, l, l1_ratio, hypo):
-        self.load_data()
-        print(self.X_txt.shape)
-        X_folds = np.array_split(self.X_txt, 10)
-        y_folds = np.array_split(self.y, 10)
-        from src.aggregate.feature_selection import FeatureSelector
-        self.X_txt = FeatureSelector().fit_transform_odd_ratio(self.X_txt, self.y, l, l1_ratio)
-        print(self.X_txt.shape)
-        t_p = 0.0
-        f_p = 0.0
-        t_n = 0.0
-        f_n = 0.0
-        print(Counter(self.y))
-
-        for k in range(10):
-            # We use 'list' to copy, in order to 'pop' later on
-            X_train = list(X_folds)
-            X_test = X_train.pop(k)
-            X_train = np.concatenate(X_train)
-            y_train = list(y_folds)
-            y_test = y_train.pop(k)
-            y_train = np.concatenate(y_train)
-            hypo.fit(X_train, y_train)
-            y_predict = hypo.predict(X_test)
-            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-
-            t_p += temp_tp
-            t_n += temp_tn
-            f_p += temp_fp
-            f_n += temp_fn
-
-
-        print(t_p, t_n, f_p, f_n)
-        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
-
-        return
-
-    def do_experiment_txt(self, sampling_index:int, feature_selection:int, hypo):
+    def do_experiment_txt_sampling_chi2(self, sampling_index:int,  hypo):
         self.load_data()
         print(self.X_txt.shape)
         # print(self.X_txt.shape)
@@ -1108,8 +790,8 @@ class NormalExperiment(Experiment):
         f_p = 0
         t_n = 0
         f_n = 0
-        logfile = open(self.file+self.intent+'_'+str(sampling_index)+'_'+str(feature_selection)+'_log.txt','w')
-        print(self.intent+'_'+str(sampling_index)+'_'+str(feature_selection))
+        logfile = open(self.file+'_'+self.intent+'_'+str(sampling_index)+'_'+str('chi2')+'_log.txt','w')
+        print(self.intent+'_'+str(sampling_index)+'_'+str('chi2'))
         for k in range(10):
             # We use 'list' to copy, in order to 'pop' later on
             X_train = list(X_folds)
@@ -1139,37 +821,14 @@ class NormalExperiment(Experiment):
                 X_temp_train, y_temp_train = self.smote(X_train, y_train)
                 logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
 
-            if feature_selection == 0:
-                # chi2
-                from sklearn.feature_selection import SelectFdr
-                from sklearn.feature_selection import chi2
-                logfile.write("CHI2\n")
-                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
-                selector = SelectFdr(chi2).fit(X_temp_train, y_temp_train)
-                X_temp_train = selector.transform(X_temp_train)
-                X_temp_test = selector.transform(X_temp_test)
-                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
-
-            elif feature_selection == 1:
-                # mutual_info calculation
-                from  src.aggregate.mutual_info import MutualInformationSelector
-                mi_selector = MutualInformationSelector()
-                mi_selector.fit(X_temp_train, y_temp_train)
-                threshlod = 0.0
-                logfile.write("MI Threshold: "+str(threshlod)+"\n")
-                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
-                X_temp_train = mi_selector.transform(X_temp_train,threshlod)
-                X_temp_test = mi_selector.transform(X_temp_test,threshlod)
-                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
-            elif feature_selection == 2:
-                selector = FeatureSelector()
-                l=1000
-                l1_ratio= 0.5
-                logfile.write("Custom Selector Threshold: "+str(l)+" "+str(l1_ratio)+"\n")
-                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
-                X_temp_train = selector.fit_transform(X_temp_train, y_temp_train, l, l1_ratio)
-                X_temp_test = selector.transform(X_temp_test)
-                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+            from sklearn.feature_selection import SelectFdr
+            from sklearn.feature_selection import chi2
+            logfile.write("CHI2\n")
+            logfile.write(str(X_temp_train.shape) + " " + str(X_temp_test.shape) + "\n")
+            selector = SelectFdr(chi2).fit(X_temp_train, y_temp_train)
+            X_temp_train = selector.transform(X_temp_train)
+            X_temp_test = selector.transform(X_temp_test)
+            logfile.write(str(X_temp_train.shape) + " " + str(X_temp_test.shape) + "\n")
 
             hypo.fit(X_temp_train, y_temp_train)
             y_predict = hypo.predict(X_temp_test)
@@ -1180,10 +839,140 @@ class NormalExperiment(Experiment):
             f_n += temp_fn
 
         print(t_p, t_n, f_p, f_n)
-        logfile.write(str(t_p)+" "+str(t_n)+" "+str(f_p)+" "+str(f_n)+" "+"\n")
+        logfile.write(str(t_p) + "," + str(t_n) + "," + str(f_p) + "," + str(f_n) + " " + "\n")
         acc, pre, rec = self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n})
         print(acc, pre, rec)
-        logfile.write(str(acc)+" "+str(pre)+" "+str(rec)+"\n")
+        logfile.write(str(acc) + " " + str(pre) + " " + str(rec) + "\n")
         logfile.close()
+
+        return
+
+    def do_experiment_txt_sampling_mi(self, sampling_index:int, hypo):
+        self.load_data()
+        print(self.X_txt)
+        print(self.X_txt.shape)
+        total_data, total_features = self.X_txt.shape
+        X_folds = np.array_split(self.X_txt, 10)
+        self.X_txt = []
+        y_folds = np.array_split(self.y, 10)
+        print(Counter(self.y))
+        self.y = []
+        print("DIM", total_data, total_features)
+        feature_num = [int(0.15 * total_features), int(0.25 * total_features), int(0.40 * total_features),
+                       int(0.5 * total_features), int(0.65 * total_features), int(0.75 * total_features),
+                       int(0.85 * total_features), total_features]
+        features = np.zeros(len(feature_num), dtype=int)
+        t_p = np.zeros(len(feature_num), dtype=int)
+        f_p = np.zeros(len(feature_num), dtype=int)
+        t_n = np.zeros(len(feature_num), dtype=int)
+        f_n = np.zeros(len(feature_num), dtype=int)
+        print(t_p)
+        logfile = open(
+            self.file + '_' + self.intent + '_' + str(sampling_index) + '_mi_log.txt', 'w')
+        for k in range(10):
+            # We use 'list' to copy, in order to 'pop' later on
+            X_train = list(X_folds)
+            X_test = X_train.pop(k)
+            X_train = np.concatenate(X_train)
+            y_train = list(y_folds)
+            y_test = y_train.pop(k)
+            y_train = np.concatenate(y_train)
+            if sampling_index == 0:
+                X_train, y_train = self.under_sampling(X_train, y_train)
+            elif sampling_index == 1:
+                X_train, y_train = self.over_sampling(X_train, y_train)
+            else:
+                X_train, y_train = self.smote(X_train, y_train)
+
+            print("Before FS", X_train.shape, X_test.shape)
+            from src.aggregate.mutual_info import MutualInformationSelector
+            mutu_info = MutualInformationSelector()
+            mutu_info.fit(X_train, y_train)
+            column = 0
+            for f_num in feature_num:
+                print("Features", f_num)
+                X_temp_train = mutu_info.transform(X_train, f_num)
+                X_temp_test = mutu_info.transform(X_test, f_num)
+                a, features[column] = X_temp_train.shape
+                print("After FS", X_temp_train.shape, X_temp_test.shape)
+                hypo.fit(X_temp_train, y_train)
+                y_predict = hypo.predict(X_temp_test)
+                temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+                t_p[column] += temp_tp
+                t_n[column] += temp_tn
+                f_p[column] += temp_fp
+                f_n[column] += temp_fn
+                column += 1
+            # break
+
+        for x in range(len(feature_num)):
+            print(feature_num[x])
+            logfile.write(str(feature_num[x]) + "\n")
+            logfile.write(str(features[x]) + "\n")
+            print(t_p, t_n, f_p, f_n)
+            logfile.write(str(t_p) + "," + str(t_n) + "," + str(f_p) + "," + str(f_n) + " " + "\n")
+            acc, pre, rec = self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n})
+            print(acc, pre, rec)
+            logfile.write(str(acc) + " " + str(pre) + " " + str(rec) + "\n")
+        # logfile.write(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})+ "\n")
+        logfile.close()
+        return
+
+    def do_experiment_feature_extraction_chi2(self):
+        print("CHI2")
+        self.load_data()
+        print(self.str_features)
+        print(len(self.str_features))
+        data = self.X_str
+        target = self.y
+        print(Counter(target))
+        for row in range(len(data)):
+            print(data[row])
+        from src.aggregate.chi2 import Chi2Selector
+        from sklearn.feature_selection import chi2
+        chi_selector = Chi2Selector()
+        chi_selector.fit(data, target)
+        custom_scores = chi_selector.scores()
+        sklearn_scores, sklearn_pvalues = chi2(data,target)
+        for x in range(len(custom_scores)):
+            print(self.str_features[x],custom_scores[x], sklearn_scores[x])
+        print("Features")
+        features = []
+        for x in range(len(self.str_features)):
+            features.append([self.str_features[x], custom_scores[x]])
+
+        critical_value_at_5 = 3.841
+        critical_value_at_1 = 2.706
+
+        for feature in features:
+            if feature[1] >= critical_value_at_5:
+               print(feature[0], feature[1])
+        return
+
+    def do_experiment_feature_extraction_mi(self):
+        print("MI")
+        self.load_data()
+        print(self.str_features)
+        print(len(self.str_features))
+        data = self.X_str
+        target = self.y
+        print(Counter(target))
+        for row in range(len(data)):
+            print(data[row])
+        from src.aggregate.mutual_info import MutualInformationSelector
+        from sklearn.feature_selection.mutual_info_ import mutual_info_classif
+        mi_selector = MutualInformationSelector()
+        mi_selector.fit(data, target)
+        custom_scores = mi_selector.scores()
+        sklearn_scores = mutual_info_classif(data,target)
+        for x in range(len(custom_scores)):
+            print(self.str_features[x],custom_scores[x], sklearn_scores[x])
+        print("Features")
+        features =[]
+        for x in range(len(self.str_features)):
+            features.append([self.str_features[x],custom_scores[x]])
+        features = sorted(features, key= lambda score: score[1], reverse=True )
+        for feature in features:
+            print(feature[0],feature[1])
 
         return
