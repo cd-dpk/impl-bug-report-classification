@@ -60,8 +60,10 @@ for y in range(len(subjects)):
 # NormalExperiment(camel_shaon, Security).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
 # NormalExperiment(camel_shaon, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
 
-NormalExperiment(derby, Security).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
-NormalExperiment(derby, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+# NormalExperiment(derby, Security).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+# NormalExperiment(derby, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
 
 # NormalExperiment(wicket, Security).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
 # NormalExperiment(wicket, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+
+NormalExperiment(camel_shaon, Security).do_experiment_txt_sampling_classifier(sampling_index=0, hypo=mnb)

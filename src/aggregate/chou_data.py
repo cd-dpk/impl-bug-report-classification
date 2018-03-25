@@ -20,7 +20,7 @@ class ChouDataHandler:
         if word2vec == True:
             file_name += 'wv'
 
-        with open(file_name+'_vec.csv', newline='') as csvfile:
+        with open(file_name+'_vec.csv', newline='',encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
             text_features = []
             target_column= ''
