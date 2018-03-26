@@ -232,12 +232,9 @@ class NormalExperiment(Experiment):
         self.load_data()
         X_folds = np.array_split(self.X_txt, 10)
         y_folds = np.array_split(self.y, 10)
-        t_p = 0.0
-        f_p = 0.0
-        t_n = 0.0
-        f_n = 0.0
         len_hypos = len(hypos)
-
+        stacking_file = open(self.file+'_'+self.intent+'_'+ str(sampling_index)+ '.csv', 'w')
+        stacking_file.write('prob0,prob1,test\n')
         for l in range(10):
             # We use 'list' to copy, in order to 'pop' later on
             X_train = list(X_folds)
@@ -256,7 +253,7 @@ class NormalExperiment(Experiment):
                 and stores in the y_predicts_prob
 
             '''
-            y_predicts_proba = np.zeros([len(X_train), 2 * len_hypos], dtype=float)
+            y_predicts_proba_train = np.zeros([len(X_train), 2 * len_hypos], dtype=float)
             # print(y_predicts_proba.shape)
             row = 0
             for k in range(fold):
@@ -277,58 +274,30 @@ class NormalExperiment(Experiment):
                 for hypo in hypos:
                     hypo.fit(X_train_2, y_train_2)
                     y_predict_proba = hypo.predict_proba(X_test_2)
-
                     for x in range(len(y_predict_proba)):
-                        # print(row + x, 2*column+0)
-                        # print(row + x, 2*column+1)
-                        y_predicts_proba[row + x][2*column+0] = y_predict_proba[x][0]
-                        y_predicts_proba[row + x][2*column+1] = y_predict_proba[x][1]
-
+                        y_predicts_proba_train[row + x][2*column+0] = y_predict_proba[x][0]
+                        y_predicts_proba_train[row + x][2*column+1] = y_predict_proba[x][1]
                     column += 1
 
                 row += len(X_test_2)
 
-            '''
-                Stacking training with first train data probabilities
-            '''
-            # print(y_predicts_proba)
-            # print(y_predicts_proba.shape)
-            Hypo.fit(y_predicts_proba, y_train)
-
-            '''
-                Predicting first test data with stacking
-            '''
-
-            y_predicts_proba = np.empty([len(X_test), 2 * len_hypos], dtype=float)
-
+            y_predicts_proba_test = np.empty([len(X_test), 2 * len_hypos], dtype=float)
             column = 0
             for hypo in hypos:
+                hypo.fit(X_train, y_train)
                 y_predict_proba = hypo.predict_proba(X_test)
                 for x in range(len(y_predict_proba)):
-                    y_predicts_proba[x][2*column+0] = y_predict_proba[x][0]
-                    y_predicts_proba[x][2*column+1] = y_predict_proba[x][1]
+                    y_predicts_proba_test[x][2 * column + 0] = y_predict_proba[x][0]
+                    y_predicts_proba_test[x][2 * column + 1] = y_predict_proba[x][1]
                 column += 1
 
-            # y_predict = Hypo.predict(y_predicts_proba)
-            # print(y_predicts_proba)
-            y_predict_proba = Hypo.predict_proba(y_predicts_proba)
-            import sys
-            sys.stdout = open('stacking/' +self.intent+ str(l) + "_" + str(sampling_index) + '_' + self.file + '.csv', 'w')
-            print("prob0,prob1,test")
+            Hypo.fit(y_predicts_proba_train, y_train)
+            y_predict_proba = Hypo.predict_proba(y_predicts_proba_test)
             for row in range(len(y_predict_proba)):
                 output = str(y_predict_proba[row][0]) + ',' + str(y_predict_proba[row][1])+ "," + str(y_test[row])
                 print(output)
-            sys.stdout.close()
+                stacking_file.write(output+'\n')
 
-            # print(self.confusion_matrix(y_test, y_predict))
-            # temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-            # t_p += temp_tp
-        #     t_n += temp_tn
-        #     f_p += temp_fp
-        #     f_n += temp_fn
-        #
-        # print(t_p, t_n, f_p, f_n)
-        # print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
         return
 
     # @text @str
@@ -414,97 +383,6 @@ class NormalExperiment(Experiment):
 
         return
 
-    # @text @str
-    def do_experiment_first_txt_second_str(self, hypo1, hypo2):
-        self.load_data()
-        X_folds = np.array_split(self.X_txt, 10)
-        X_str_folds = np.array_split(self.X_str, 10)
-        y_folds = np.array_split(self.y, 10)
-
-        t_p = 0.0
-        f_p = 0.0
-        t_n = 0.0
-        f_n = 0.0
-
-        for l in range(10):
-            # We use 'list' to copy, in order to 'pop' later on
-            X_train = list(X_folds)
-            X_test = X_train.pop(l)
-            X_train = np.concatenate(X_train)
-            y_train = list(y_folds)
-            y_test = y_train.pop(l)
-            y_train = np.concatenate(y_train)
-
-            X_str_train = list(X_str_folds)
-            X_str_test = X_str_train.pop(l)
-            X_str_train = np.concatenate(X_str_train)
-
-            fold = 10
-            X_folds_2 = np.array_split(X_train, fold)
-            y_folds_2 = np.array_split(y_train, fold)
-
-            ## number of second train folds l
-            '''
-                Generating the test results
-                and stores in the y_predicts_prob
-
-            '''
-
-            y_predicts_proba = np.zeros([len(X_train), 2 * 1], dtype=float)
-            print(y_predicts_proba.shape)
-            row = 0
-            for k in range(fold):
-                X_train_2 = list(X_folds_2)
-                X_test_2 = X_train_2.pop(k)
-                X_train_2 = np.concatenate(X_train_2)
-                y_train_2 = list(y_folds_2)
-                y_test_2 = y_train_2.pop(k)
-                y_train_2 = np.concatenate(y_train_2)
-                X_train_2, y_train_2 = self.smote(X_train_2, y_train_2)
-
-                hypo1.fit(X_train_2, y_train_2)
-                y_predict_proba = hypo1.predict_proba(X_test_2)
-
-                for x in range(len(y_predict_proba)):
-                    y_predicts_proba[row + x][0] = y_predict_proba[x][0]
-                    y_predicts_proba[row + x][1] = y_predict_proba[x][1]
-
-
-                row += len(X_test_2)
-
-            '''
-                 training with first train data probabilities
-            '''
-            print(y_predicts_proba)
-            print(y_predicts_proba.shape)
-
-            print(X_str_train)
-            mod_data = np.concatenate((X_str_train, y_predicts_proba), axis=1)
-            print(mod_data)
-            print(mod_data.shape)
-            # mod_data, y_train = self.smote(mod_data,y_train)
-            hypo2.fit(mod_data, y_train)
-
-            '''
-                Predicting first test data with second learning
-            '''
-
-            y_predict_proba = hypo1.predict_proba(X_test)
-
-            mod_data = np.concatenate((X_str_test, y_predict_proba), axis=1)
-            y_predict = hypo2.predict(mod_data)
-
-            # print(self.confusion_matrix(y_test, y_predict))
-            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-            t_p += temp_tp
-            t_n += temp_tn
-            f_p += temp_fp
-            f_n += temp_fn
-
-        print(t_p, t_n, f_p, f_n)
-        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
-        return
-
     def do_experiment_txt_sampling(self, sampling_index=0, hypo=MultinomialNB()):
         self.load_data()
         print(self.X_txt)
@@ -555,7 +433,6 @@ class NormalExperiment(Experiment):
         logfile.close()
         return
 
-
     # @text @str @weka
     def do_experiment_first_txt_second_categorical_weka(self, sampling_index=0,hypo1=MultinomialNB()):
         self.load_data()
@@ -587,8 +464,8 @@ class NormalExperiment(Experiment):
                 and stores in the y_predicts_prob
             '''
 
-            y_predicts_proba = np.zeros([len(X_train), 2], dtype=float)
-            y_predicts_proba_X_test = np.zeros([len(X_test), 2 * fold], dtype=float)
+            y_predicts_proba_train = np.zeros([len(X_train), 2], dtype=float)
+            y_predicts_proba_test = np.zeros([len(X_test), 2], dtype=float)
             # print(y_predicts_proba.shape)
             row = 0
             for k in range(fold):
@@ -602,15 +479,16 @@ class NormalExperiment(Experiment):
                 X_train_2, y_train_2 = self.under_sampling(X_train_2, y_train_2)
                 '''---------- Sampling Ends  ---------------'''
                 hypo1.fit(X_train_2, y_train_2)
-                y_predict_proba = hypo1.predict_proba(X_test_2)
-                y_predicts_proba_temp = hypo1.predict_proba(X_test)
-                for x in range(len(y_predicts_proba_temp)):
-                    y_predicts_proba_X_test[x][2 * k + 0] = y_predicts_proba_temp[x][0]
-                    y_predicts_proba_X_test[x][2 * k + 1] = y_predicts_proba_temp[x][1]
 
+                y_predict_proba = hypo1.predict_proba(X_test_2)
                 for x in range(len(y_predict_proba)):
-                    y_predicts_proba[row + x][0] = round(y_predict_proba[x][0], 2)
-                    y_predicts_proba[row + x][1] = round(y_predict_proba[x][1], 2)
+                    y_predicts_proba_train[row + x][0] = round(y_predict_proba[x][0], 2)
+                    y_predicts_proba_train[row + x][1] = round(y_predict_proba[x][1], 2)
+
+                y_predict_proba = hypo1.predict_proba(X_test)
+                for x in range(len(y_predict_proba)):
+                    y_predicts_proba_test[x][0] += y_predict_proba[x][0]
+                    y_predicts_proba_test[x][1] += y_predict_proba[x][1]
 
                 row += len(X_test_2)
 
@@ -618,48 +496,59 @@ class NormalExperiment(Experiment):
                      training with first train data probabilities
             '''
             # print(y_predicts_proba.shape)
-            train_data = np.concatenate((X_cat_train, y_predicts_proba), axis=1)
-            y_predict_proba = np.zeros([len(X_test), 2])
-            for x in range(len(y_predicts_proba_X_test)):
-                    prob_zero = 0.0
-                    prob_one = 0.0
-                    for y in range(2*fold):
-                        if y%2 ==0:
-                            prob_zero += y_predicts_proba_X_test[x][y]
-                        elif y%2 ==1:
-                            prob_one += y_predicts_proba_X_test[x][y]
+            for x in range(len(y_predicts_proba_train)):
+                y_predicts_proba_train[x][0] = round(y_predicts_proba_train[x][0],3)/fold
+                y_predicts_proba_train[x][1] = round(y_predicts_proba_train[x][1],3)/fold
 
-                    prob_zero /= fold
-                    prob_one /= fold
-                    y_predict_proba[x][0] = round(prob_zero,3)
-                    y_predict_proba[x][1] = round(prob_one,3)
-            test_data = np.concatenate((X_cat_test, y_predict_proba), axis=1)
+            train_data = np.concatenate((X_cat_train, y_predicts_proba_train), axis=1)
+            test_data = np.concatenate((X_cat_test, y_predicts_proba_test), axis=1)
             '''------------Sampling---------------'''
             train_data, y_train = self.under_sampling(train_data, y_train)
             print("Data", len(train_data),':' ,len(test_data))
             '''-----------Sampling---------------------'''
-            weka_data = np.concatenate((train_data, test_data), axis=0)
-            weka_data = np.array(weka_data, dtype=float)
-            target = np.concatenate((y_train, y_test), axis=0)
-            # print(Counter(target))
-            # print(data.shape)
-            # print(target.shape)
-            wekascvfile = open('weka/'+str(l)+'_'+self.file+'_'+self.intent+'_str.csv', 'w')
+
+            weka_train_scvfile = open('weka/'+self.file+'/'+str(l)+'_'+self.intent+'_train_str.csv', 'w')
             cols = ''
+
             for i in range(len(self.str_features)):
                 cols += str(self.str_features[i]) + ","
             cols += 'prob0,prob1,target'
-            print(cols)
-            wekascvfile.write(cols+"\n")
-            for row in range(len(weka_data)):
-                output = ''
-                for col in range(len(weka_data[0])):
-                    output += str(weka_data[row][col])+","
 
-                output += str(target[row])
+            print(cols)
+            weka_train_scvfile.write(cols+"\n")
+
+            for row in range(len(train_data)):
+                output = ''
+                for col in range(len(train_data[0])):
+                    output += str(train_data[row][col])+","
+
+                output += str(y_train[row])
                 print(output)
-                wekascvfile.write(output+"\n")
-            wekascvfile.close()
+                weka_train_scvfile.write(output+"\n")
+
+            weka_train_scvfile.close()
+
+            weka_test_scvfile = open('weka/' + self.file + '/' + str(l) + '_' + self.intent + '_test_str.csv', 'w')
+            cols = ''
+
+            for i in range(len(self.str_features)):
+                cols += str(self.str_features[i]) + ","
+            cols += 'prob0,prob1,target'
+
+            print(cols)
+            weka_test_scvfile.write(cols + "\n")
+
+            for row in range(len(test_data)):
+                output = ''
+                for col in range(len(test_data[0])):
+                    output += str(test_data[row][col]) + ","
+
+                output += str(y_test[row])
+                print(output)
+                weka_test_scvfile.write(output + "\n")
+
+            weka_test_scvfile.close()
+
         return
 
     # @categorical @sampling
