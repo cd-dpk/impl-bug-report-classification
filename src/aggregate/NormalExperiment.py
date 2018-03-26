@@ -171,6 +171,9 @@ class NormalExperiment(Experiment):
         f_n = 0.0
         len_of_hypos = len(hypos)
         print(Counter(self.y))
+        voting_file = open('voting/'+self.file+'_'+self.intent+'_'+ str(sampling_index)+ '.csv', 'w')
+        voting_file.write('vote0,vote1,test\n')
+
         for k in range(10):
             # We use 'list' to copy, in order to 'pop' later on
             X_train = list(X_folds)
@@ -206,25 +209,10 @@ class NormalExperiment(Experiment):
                         zeros += 1
                     elif y_predicts[r][h] == 1:
                         ones += 1
-
-                if ones >= zeros:
-                    y_predict[r] = 1
-                else:
-                    y_predict[r] = 0
-
-            #   if y_predict[r] == 1 or y_test[r] == 1:
-            #   print(y_predicts[r], ones, zeros, y_predict[r], y_test[r])
-
-            # print(self.confusion_matrix(y_test,y_predict))
-            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-            t_p += temp_tp
-            t_n += temp_tn
-            f_p += temp_fp
-            f_n += temp_fn
-
-        print(t_p, t_n, f_p, f_n)
-        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
-
+                output = str(zeros) + ',' + str(ones)+ "," + str(y_test[r])
+                print(output)
+                voting_file.write(output+'\n')
+        voting_file.close()
         return
 
     # @imbalance @sampling @ensemble @stacking @text
@@ -233,7 +221,7 @@ class NormalExperiment(Experiment):
         X_folds = np.array_split(self.X_txt, 10)
         y_folds = np.array_split(self.y, 10)
         len_hypos = len(hypos)
-        stacking_file = open(self.file+'_'+self.intent+'_'+ str(sampling_index)+ '.csv', 'w')
+        stacking_file = open('stacking/'+self.file+'_'+self.intent+'_'+ str(sampling_index)+ '.csv', 'w')
         stacking_file.write('prob0,prob1,test\n')
         for l in range(10):
             # We use 'list' to copy, in order to 'pop' later on
@@ -863,5 +851,72 @@ class NormalExperiment(Experiment):
         features = sorted(features, key= lambda score: score[1], reverse=True )
         for feature in features:
             print(feature[0],feature[1])
+
+        return
+
+    def do_experiment_stacking_csv(self, sampling_index=0):
+        print(self.file,self.intent)
+        t_p = 0.0
+        f_p = 0.0
+        t_n = 0.0
+        f_n = 0.0
+        alphas = []
+        for x in range(10):
+            alphas.append(0.35+x*0.05)
+        print(alphas)
+        y_test=[]
+        y_predict=np.zeros([1000,len(alphas)],dtype=int)
+        csvfile = open('stacking/'+self.file+'_'+self.intent+'_'+str(sampling_index)+'.csv', newline='')
+        reader = csv.DictReader(csvfile)
+        row_count = 0
+        for row in reader:
+            prob0 = float(row['prob0'])
+            prob1 = float(row['prob1'])
+
+            test = int(row['test'])
+            print(prob0, prob1, test)
+            y_test.append(test)
+            for x in range(len(alphas)):
+                if prob1 >= alphas[x]:
+                    y_predict[row_count][x] = 1
+                else:
+                    y_predict[row_count][x] = 0
+            row_count +=1
+        csvfile.close()
+        print(y_predict)
+        for x in range(len(alphas)):
+            print(alphas[x])
+            t_p, t_n, f_p, f_n = self.calc_tuple(self.confusion_matrix(y_test, y_predict[:,x]))
+            print(t_p, t_n, f_p, f_n)
+            print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+
+        return
+    def do_experiment_voting_csv(self, sampling_index=0):
+        print(self.file,self.intent)
+        t_p = 0.0
+        f_p = 0.0
+        t_n = 0.0
+        f_n = 0.0
+        y_test=[]
+        y_predict=np.zeros(1000,dtype=int)
+        csvfile = open('voting/'+self.file+'_'+self.intent+'_'+str(sampling_index)+'.csv', newline='')
+        reader = csv.DictReader(csvfile)
+        row_count = 0
+        for row in reader:
+            vote0 = float(row['vote0'])
+            vote1 = float(row['vote1'])
+
+            test = int(row['test'])
+            print(vote0, vote1, test)
+            y_test.append(test)
+            if vote1 >= vote0:
+                y_predict[row_count] = 1
+            row_count +=1
+        csvfile.close()
+        print(y_predict)
+        print(Counter(y_test))
+        t_p, t_n, f_p, f_n = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+        print(t_p, t_n, f_p, f_n)
+        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
         return

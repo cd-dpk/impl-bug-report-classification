@@ -67,23 +67,4 @@ for y in range(len(subjects)):
 # NormalExperiment(wicket, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
 
 # NormalExperiment(camel_shaon, Security).do_experiment_txt_sampling_classifier(sampling_index=0, hypo=mnb)
-NormalExperiment(derby, Security).do_experiment_txt_sampling_ensemble_stacking\
-    (sampling_index=0,Hypo=lr, hypos= [mnb,supvecmac,knn,rf, ada])
-print("derby Security")
-NormalExperiment(wicket, Security).do_experiment_txt_sampling_ensemble_stacking\
-    (sampling_index=0,Hypo=lr, hypos= [mnb,supvecmac,knn,rf, ada])
-print("wicket Performance")
-NormalExperiment(ambari, Performance).do_experiment_txt_sampling_ensemble_stacking\
-    (sampling_index=0,Hypo=lr, hypos= [mnb,supvecmac,knn,rf, ada])
-print("ambari Performance")
-NormalExperiment(camel_shaon, Performance).do_experiment_txt_sampling_ensemble_stacking\
-    (sampling_index=0,Hypo=lr, hypos= [mnb,supvecmac,knn,rf, ada])
-print("camel Performance")
-NormalExperiment(derby, Performance).do_experiment_txt_sampling_ensemble_stacking\
-    (sampling_index=0,Hypo=lr, hypos= [mnb,supvecmac,knn,rf, ada])
-print("derby Performance")
-NormalExperiment(wicket, Performance).do_experiment_txt_sampling_ensemble_stacking\
-    (sampling_index=0,Hypo=lr, hypos= [mnb,supvecmac,knn,rf, ada])
-print("wicket Performance")
-# NormalExperiment(camel_shaon, Security).do_experiment_txt_sampling_ensemble_stacking\
-#     (sampling_index=0,Hypo=lr, hypos= [mnb,supvecmac,knn,rf, ada])
+NormalExperiment(derby, Performance).do_experiment_voting_csv(sampling_index=0)
