@@ -44,3 +44,9 @@ subjects = [camel_shaon, derby, ambari, wicket]
 # NormalExperiment(wicket, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
 
 # NormalExperiment(camel_shaon, Security).do_experiment_txt_sampling_classifier(sampling_index=0, hypo=mnb)
+for subject in subjects:
+    NormalExperiment(subject, Security).do_experiment_txt_sampling_chi2(sampling_index=0,hypo=mnb)
+    NormalExperiment(subject, Security).do_experiment_txt_sampling_feature_selection(sampling_index=0,hypo=mnb)
+    NormalExperiment(subject, Performance).do_experiment_txt_sampling_chi2(sampling_index=0, hypo=mnb)
+    NormalExperiment(subject, Performance).do_experiment_txt_sampling_feature_selection(sampling_index=0, hypo=mnb)
+
