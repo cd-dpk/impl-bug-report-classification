@@ -1,5 +1,3 @@
-import numpy as np
-a = np.array([1,2,3], dtype=int)
-b = np.array([3,4,5], dtype=int)
-agg = a+b
-print(list(frozenset(agg)))
+feature_num = [int(0.15 * total_features), int(0.25 * total_features), int(0.40 * total_features),
+               int(0.5 * total_features), int(0.65 * total_features), int(0.75 * total_features),
+               int(0.85 * total_features), total_features]

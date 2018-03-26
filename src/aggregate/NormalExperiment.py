@@ -1,13 +1,9 @@
 from builtins import list
-import re
-
-from setuptools.command.test import test
 from sklearn.naive_bayes import MultinomialNB
-
 from src.aggregate.experiment import Experiment
 from collections import Counter
 import numpy as np
-import os, csv
+import os, csv, re
 
 from src.aggregate.feature_selection import FeatureSelector
 
@@ -15,6 +11,7 @@ class NormalExperiment(Experiment):
 
     # @imbalance @sampling @text @single_classifier
     def do_experiment_txt_sampling_classifier(self, sampling_index:int=0, hypo=MultinomialNB()):
+        print(self.file, self.intent)
         self.load_data()
         X_folds = np.array_split(self.X_txt, 10)
         y_folds = np.array_split(self.y, 10)
@@ -482,31 +479,28 @@ class NormalExperiment(Experiment):
 
                 y_predict_proba = hypo1.predict_proba(X_test_2)
                 for x in range(len(y_predict_proba)):
-                    y_predicts_proba_train[row + x][0] = round(y_predict_proba[x][0], 2)
-                    y_predicts_proba_train[row + x][1] = round(y_predict_proba[x][1], 2)
+                    y_predicts_proba_train[row + x][0] = round(y_predict_proba[x][0], 3)
+                    y_predicts_proba_train[row + x][1] = round(y_predict_proba[x][1], 3)
 
                 y_predict_proba = hypo1.predict_proba(X_test)
                 for x in range(len(y_predict_proba)):
-                    y_predicts_proba_test[x][0] += y_predict_proba[x][0]
-                    y_predicts_proba_test[x][1] += y_predict_proba[x][1]
+                    y_predicts_proba_test[x][0] = round((y_predicts_proba_test[x][0]*k+y_predict_proba[x][0])/(k+1),3)
+                    y_predicts_proba_test[x][1] = round((y_predicts_proba_test[x][1]*k+y_predict_proba[x][1])/(k+1),3)
 
                 row += len(X_test_2)
 
             '''
                      training with first train data probabilities
             '''
-            # print(y_predicts_proba.shape)
-            for x in range(len(y_predicts_proba_train)):
-                y_predicts_proba_train[x][0] = round(y_predicts_proba_train[x][0],3)/fold
-                y_predicts_proba_train[x][1] = round(y_predicts_proba_train[x][1],3)/fold
-
             train_data = np.concatenate((X_cat_train, y_predicts_proba_train), axis=1)
             test_data = np.concatenate((X_cat_test, y_predicts_proba_test), axis=1)
             '''------------Sampling---------------'''
             train_data, y_train = self.under_sampling(train_data, y_train)
             print("Data", len(train_data),':' ,len(test_data))
             '''-----------Sampling---------------------'''
-
+            train_data = np.array(train_data, dtype=float)
+            test_data = np.array(test_data, dtype=float)
+            print("train_data")
             weka_train_scvfile = open('weka/'+self.file+'/'+str(l)+'_'+self.intent+'_train_str.csv', 'w')
             cols = ''
 
@@ -527,7 +521,7 @@ class NormalExperiment(Experiment):
                 weka_train_scvfile.write(output+"\n")
 
             weka_train_scvfile.close()
-
+            print("test_data")
             weka_test_scvfile = open('weka/' + self.file + '/' + str(l) + '_' + self.intent + '_test_str.csv', 'w')
             cols = ''
 
@@ -616,13 +610,15 @@ class NormalExperiment(Experiment):
         print(Counter(self.y))
         self.y = []
         print("DIM",total_data, total_features)
-        feature_num = [int(0.15*total_features), int(0.25*total_features), int(0.40*total_features), int(0.5*total_features),int(0.65* total_features), int(0.75* total_features), int(0.85* total_features), total_features]
+        feature_num = [0.15, 0.25, 0.40,
+                       0.5, 0.65, 0.75,
+                       0.85, 1.0]
         t_p = np.zeros(len(feature_num), dtype=int)
         f_p = np.zeros(len(feature_num), dtype=int)
         t_n = np.zeros(len(feature_num), dtype=int)
         f_n = np.zeros(len(feature_num), dtype=int)
         print(t_p)
-        logfile = open(self.file+'_'+self.intent + '_' + str(sampling_index) + '_com_txt_fs_' + str(alpha) + '_log.txt', 'w')
+        logfile = open('feature_selection/'+self.file+'_'+self.intent + '_' + str(sampling_index) + '_com_txt_fs_' + str(alpha) + '_log.txt', 'w')
         for k in range(10):
             # We use 'list' to copy, in order to 'pop' later on
             X_train = list(X_folds)
@@ -631,6 +627,12 @@ class NormalExperiment(Experiment):
             y_train = list(y_folds)
             y_test = y_train.pop(k)
             y_train = np.concatenate(y_train)
+
+            print("Before FS", X_train.shape, X_test.shape)
+            from src.aggregate.feature_selection import FeatureSelector
+            feature_selector = FeatureSelector(selection_method=0)
+            feature_selector.fit(X_train, y_train)
+
             if sampling_index == 0:
                 X_train, y_train = self.under_sampling(X_train, y_train)
             elif sampling_index == 1:
@@ -638,15 +640,11 @@ class NormalExperiment(Experiment):
             else:
                 X_train, y_train = self.smote(X_train, y_train)
 
-            print("Before FS", X_train.shape, X_test.shape)
-            from src.aggregate.feature_selection import FeatureSelector
-            feature_selector = FeatureSelector(selection_method=0)
-            feature_selector.fit(X_train, y_train)
             column = 0
             for f_num in feature_num:
                 print("Features", f_num)
-                X_temp_train = feature_selector.transform(X_train, f_num, alpha)
-                X_temp_test = feature_selector.transform(X_test, f_num, alpha)
+                X_temp_train = feature_selector.transform(X_train, int(f_num*total_features), alpha)
+                X_temp_test = feature_selector.transform(X_test, int(f_num*total_features), alpha)
                 print("After FS", X_temp_train.shape, X_temp_test.shape)
                 hypo.fit(X_temp_train, y_train)
                 y_predict = hypo.predict(X_temp_test)
@@ -660,7 +658,7 @@ class NormalExperiment(Experiment):
 
         for x in range(len(feature_num)):
             print(feature_num[x])
-            logfile.write(str(feature_num[x]) + "\n")
+            logfile.write(str(int(feature_num[x]*total_features)) + "\n")
             print(t_p[x], t_n[x], f_p[x], f_n[x])
             logfile.write(str(t_p[x]) + "," + str(t_n[x]) + "," + str(f_p[x]) + "," + str(f_n[x]) + "\n")
             print(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]}))
@@ -668,7 +666,7 @@ class NormalExperiment(Experiment):
         logfile.close()
         return
 
-    def do_experiment_txt_sampling_chi2(self, sampling_index:int,  hypo):
+    def do_experiment_txt_sampling_chi2(self, sampling_index:int, hypo):
         self.load_data()
         print(self.X_txt.shape)
         # print(self.X_txt.shape)
@@ -679,7 +677,7 @@ class NormalExperiment(Experiment):
         f_p = 0
         t_n = 0
         f_n = 0
-        logfile = open(self.file+'_'+self.intent+'_'+str(sampling_index)+'_'+str('chi2')+'_log.txt','w')
+        logfile = open('feature_selection/'+self.file+'_'+self.intent+'_'+str(sampling_index)+'_'+str('chi2')+'_log.txt','w')
         print(self.intent+'_'+str(sampling_index)+'_'+str('chi2'))
         for k in range(10):
             # We use 'list' to copy, in order to 'pop' later on
@@ -690,37 +688,38 @@ class NormalExperiment(Experiment):
             y_test = y_train.pop(k)
             y_train = np.concatenate(y_train)
 
-            X_temp_train = X_train
-            y_temp_train = y_train
-            X_temp_test = X_test
+
+            print("Before FS", X_train.shape, X_test.shape)
+            from src.aggregate.chi2 import Chi2Selector
+            chi_selector = Chi2Selector()
+            chi_selector.fit(X_train, y_train)
+            critical_value_at_5 = 3.841
+            critical_value_at_1 = 2.706
+            logfile.write("CHI2\n")
+            logfile.write(str(X_train.shape) + " " + str(X_test.shape) + "\n")
+            X_train = chi_selector.transform(X_train, critical_value_at_5)
+            X_test = chi_selector.transform(X_test, critical_value_at_5)
+            logfile.write(str(X_train.shape) + " " + str(X_test.shape) + "\n")
 
             if sampling_index == 0:
                 logfile.write("UnderSampling\n")
-                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
-                X_temp_train, y_temp_train = self.under_sampling(X_train, y_train)
-                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+                logfile.write(str(X_train.shape)+" "+str(X_test.shape)+"\n")
+                X_train, y_train = self.under_sampling(X_train, y_train)
+                logfile.write(str(X_train.shape)+" "+str(X_test.shape)+"\n")
             elif sampling_index == 1:
                 logfile.write("Oversampling\n")
-                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
-                X_temp_train, y_temp_train = self.over_sampling(X_train, y_train)
-                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+                logfile.write(str(X_train.shape)+" "+str(X_test.shape)+"\n")
+                X_train, y_train = self.under_sampling(X_train, y_train)
+                logfile.write(str(X_train.shape)+" "+str(X_test.shape)+"\n")
             elif sampling_index == 2:
                 logfile.write("SMOTE\n")
-                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
-                X_temp_train, y_temp_train = self.smote(X_train, y_train)
-                logfile.write(str(X_temp_train.shape)+" "+str(X_temp_test.shape)+"\n")
+                logfile.write(str(X_train.shape)+" "+str(X_test.shape)+"\n")
+                X_train, y_train = self.smote(X_train, y_train)
+                logfile.write(str(X_train.shape)+" "+str(X_test.shape)+"\n")
 
-            from sklearn.feature_selection import SelectFdr
-            from sklearn.feature_selection import chi2
-            logfile.write("CHI2\n")
-            logfile.write(str(X_temp_train.shape) + " " + str(X_temp_test.shape) + "\n")
-            selector = SelectFdr(chi2).fit(X_temp_train, y_temp_train)
-            X_temp_train = selector.transform(X_temp_train)
-            X_temp_test = selector.transform(X_temp_test)
-            logfile.write(str(X_temp_train.shape) + " " + str(X_temp_test.shape) + "\n")
 
-            hypo.fit(X_temp_train, y_temp_train)
-            y_predict = hypo.predict(X_temp_test)
+            hypo.fit(X_train, y_train)
+            y_predict = hypo.predict(X_test)
             temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
             t_p += temp_tp
             t_n += temp_tn
@@ -747,17 +746,16 @@ class NormalExperiment(Experiment):
         print(Counter(self.y))
         self.y = []
         print("DIM", total_data, total_features)
-        feature_num = [int(0.15 * total_features), int(0.25 * total_features), int(0.40 * total_features),
-                       int(0.5 * total_features), int(0.65 * total_features), int(0.75 * total_features),
-                       int(0.85 * total_features), total_features]
+        feature_num = [0.15, 0.25, 0.40,
+                       0.5, 0.65, 0.75,
+                       0.85, 1.0]
         features = np.zeros(len(feature_num), dtype=int)
         t_p = np.zeros(len(feature_num), dtype=int)
         f_p = np.zeros(len(feature_num), dtype=int)
         t_n = np.zeros(len(feature_num), dtype=int)
         f_n = np.zeros(len(feature_num), dtype=int)
         print(t_p)
-        logfile = open(
-            self.file + '_' + self.intent + '_' + str(sampling_index) + '_mi_log.txt', 'w')
+        logfile = open('feature_selection/'+self.file + '_' + self.intent + '_' + str(sampling_index) + '_mi_log.txt', 'w')
         for k in range(10):
             # We use 'list' to copy, in order to 'pop' later on
             X_train = list(X_folds)
@@ -766,6 +764,12 @@ class NormalExperiment(Experiment):
             y_train = list(y_folds)
             y_test = y_train.pop(k)
             y_train = np.concatenate(y_train)
+
+            print("Before FS", X_train.shape, X_test.shape)
+            from src.aggregate.mutual_info import MutualInformationSelector
+            mutu_info = MutualInformationSelector()
+            mutu_info.fit(X_train, y_train)
+
             if sampling_index == 0:
                 X_train, y_train = self.under_sampling(X_train, y_train)
             elif sampling_index == 1:
@@ -773,15 +777,11 @@ class NormalExperiment(Experiment):
             else:
                 X_train, y_train = self.smote(X_train, y_train)
 
-            print("Before FS", X_train.shape, X_test.shape)
-            from src.aggregate.mutual_info import MutualInformationSelector
-            mutu_info = MutualInformationSelector()
-            mutu_info.fit(X_train, y_train)
             column = 0
             for f_num in feature_num:
                 print("Features", f_num)
-                X_temp_train = mutu_info.transform(X_train, f_num)
-                X_temp_test = mutu_info.transform(X_test, f_num)
+                X_temp_train = mutu_info.transform(X_train, int(f_num* total_features))
+                X_temp_test = mutu_info.transform(X_test, int(f_num* total_features))
                 a, features[column] = X_temp_train.shape
                 print("After FS", X_temp_train.shape, X_temp_test.shape)
                 hypo.fit(X_temp_train, y_train)
@@ -797,7 +797,7 @@ class NormalExperiment(Experiment):
         for x in range(len(feature_num)):
             print(feature_num[x])
             logfile.write(str(feature_num[x]) + "\n")
-            logfile.write(str(features[x]) + "\n")
+            logfile.write(str(total_features *features[x]) + "\n")
             print(t_p, t_n, f_p, f_n)
             logfile.write(str(t_p) + "," + str(t_n) + "," + str(f_p) + "," + str(f_n) + " " + "\n")
             acc, pre, rec = self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n})
