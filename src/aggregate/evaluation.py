@@ -30,4 +30,17 @@ alphas = [0.4, 0.5, 0.6]
 sampling = [0]
 subjects = [camel_shaon, derby, ambari, wicket]
 
-NormalExperiment(ambari, Security).do_experiment_txt_sampling_feature_selection(sampling_index=0, hypo=mnb)
+# VectorRepresenter(derby).vec_process()
+# NormalExperiment(ambari, Security).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+# NormalExperiment(ambari, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+
+# NormalExperiment(camel_shaon, Security).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+# NormalExperiment(camel_shaon, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+
+# NormalExperiment(derby, Security).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+# NormalExperiment(derby, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+
+# NormalExperiment(wicket, Security).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+# NormalExperiment(wicket, Performance).do_experiment_first_txt_second_categorical_weka(hypo1=mnb)
+
+# NormalExperiment(camel_shaon, Security).do_experiment_txt_sampling_classifier(sampling_index=0, hypo=mnb)
