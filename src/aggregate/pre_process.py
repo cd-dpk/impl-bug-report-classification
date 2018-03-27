@@ -20,7 +20,7 @@ class Preprocessor:
         csvfile = open('../jira/apache_'+intent+'_pos_terms.txt', newline='')
         reader = csv.DictReader(csvfile)
         for row in reader:
-            if float(row['score']) > 0.0:
+            if float(row['score']) >= 0.0:
                 positive_lexicon.__setitem__(row['term'], row['score'])
         csvfile.close()
 
@@ -30,7 +30,7 @@ class Preprocessor:
         for row in reader:
             # if counter >= 1000:
             #     break
-            if float(row['score']) > 0.0:
+            if float(row['score']) >= 0.0:
                 negative_lexicon.__setitem__(row['term'], row['score'])
                 # counter += 1
         csvfile.close()
@@ -49,7 +49,6 @@ class Preprocessor:
     def proc_csv_file(self):
         sec_pos_lex, sec_neu_lex, sec_neg_lex = self.load_lexicon_data('Security')
         perf_pos_lex, perf_neu_lex, perf_neg_lex = self.load_lexicon_data('Performance')
-
         with open('../data/' + self.file + '.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
             print('issue_id,reporter_col,component_col,Security_pos_col,Security_neu_col,Security_neg_col,Performance_pos_col,Performance_neu_col,Performance_neg_col,summary_col,description_col,ST_col,Patch_col,CE_col,TC_col,EN_col,files_col,target_Security,target_Performance')

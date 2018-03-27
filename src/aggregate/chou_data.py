@@ -13,24 +13,25 @@ class ChouDataHandler:
         self.textual_data = []
         self.description_data = []
         self.target_data = []
+        self.text_features = []
 
 
     def load_data(self, word2vec: bool):
+        self.text_features = []
+        self.target_column = ''
         file_name = self.file
         if word2vec == True:
             file_name += 'wv'
 
-        with open(file_name+'_vec.csv', newline='',encoding="UTF-8") as csvfile:
+        with open(file_name+'_vec.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
-            text_features = []
-            target_column= ''
             counter = 0
             for f in reader.fieldnames:
-                if counter <= 12 or counter == len(reader.fieldnames)-2:
+                if counter <= 12 or counter >= len(reader.fieldnames)-2:
                     counter += 1
                     continue
                 else:
-                    text_features.append(f)
+                    self.text_features.append(f)
                     counter += 1
 
             if self.intent == 'Security':
@@ -61,7 +62,7 @@ class ChouDataHandler:
                 self.description_data.append(np.array([int(st), int(patch), int(ce), int(tc), int(en)]))
                 self.lexicon_data.append([pos, neu, neg])
                 text_data_arr_row = []
-                for x in text_features:
+                for x in self.text_features :
                     if row[x] not in (None, ''):
                         text_data_arr_row.append(float(row[x]))
                 # print(text_data_arr_row, row[self.target_column])

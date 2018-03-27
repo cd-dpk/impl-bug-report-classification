@@ -4,6 +4,7 @@ from nltk.tokenize import regexp_tokenize
 
 
 class VectorRepresenter:
+
     def __init__(self, file):
         self.file = file
 

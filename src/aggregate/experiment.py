@@ -12,6 +12,7 @@ class Experiment:
         chou_data = ChouDataHandler(self.file, self.intent)
         chou_data.load_data(word2vec)
         self.str_features = chou_data.get_str_features()
+        self.txt_features = chou_data.text_features
         self.X_txt = chou_data.textual_data
         self.y = chou_data.target_data
         self.X_str = chou_data.get_numeric_str_data()

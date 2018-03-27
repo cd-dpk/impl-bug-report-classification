@@ -5,10 +5,7 @@ from collections import Counter
 import numpy as np
 import os, csv, re
 
-from src.aggregate.feature_selection import FeatureSelector
-
 class NormalExperiment(Experiment):
-
     # @imbalance @sampling @text @single_classifier
     def do_experiment_txt_sampling_classifier(self, sampling_index:int=0, hypo=MultinomialNB()):
         print(self.file, self.intent)
@@ -52,7 +49,6 @@ class NormalExperiment(Experiment):
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
         return
-
     # @text @feature selection
     def do_experiment_txt_feature_selection(self, l, l1_ratio, hypo):
         self.load_data()
@@ -90,7 +86,6 @@ class NormalExperiment(Experiment):
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
         return
-
     # @imbalance @sampling @ensemble @probability @text
     def do_experiment_txt_sampling_ensemble_probability_voting(self, sampling_index: int, hypos:list):
         self.load_data()
@@ -155,7 +150,6 @@ class NormalExperiment(Experiment):
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
         return
-
     # @imbalance @sampling @ensemble @voting @text
     def do_experiment_txt_sampling_ensemble_voting(self, sampling_index: int, hypos:list):
         self.load_data()
@@ -211,7 +205,6 @@ class NormalExperiment(Experiment):
                 voting_file.write(output+'\n')
         voting_file.close()
         return
-
     # @imbalance @sampling @ensemble @stacking @text
     def do_experiment_txt_sampling_ensemble_stacking(self, sampling_index: int, Hypo, hypos:list):
         self.load_data()
@@ -284,7 +277,6 @@ class NormalExperiment(Experiment):
                 stacking_file.write(output+'\n')
 
         return
-
     # @text @str
     def do_experiment_txt_str(self, hypo):
         # classify bug report through text using feature selection
@@ -367,57 +359,6 @@ class NormalExperiment(Experiment):
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
         return
-
-    def do_experiment_txt_sampling(self, sampling_index=0, hypo=MultinomialNB()):
-        self.load_data()
-        print(self.X_txt)
-        print(self.X_txt.shape)
-        X_folds = np.array_split(self.X_txt, 10)
-        self.X_txt = []
-        y_folds = np.array_split(self.y, 10)
-        self.y = []
-        t_p = 0.0
-        f_p = 0.0
-        t_n = 0.0
-        f_n = 0.0
-        print(t_p)
-        print(Counter(self.y))
-        logfile = open(self.intent + '_' + str(sampling_index) + '_log.txt', 'w')
-        for k in range(10):
-            # We use 'list' to copy, in order to 'pop' later on
-            X_train = list(X_folds)
-            X_test = X_train.pop(k)
-            X_train = np.concatenate(X_train)
-            y_train = list(y_folds)
-            y_test = y_train.pop(k)
-            y_train = np.concatenate(y_train)
-
-            print("Before FS", X_train.shape, X_test.shape)
-
-            if sampling_index == 0:
-                X_train, y_train = self.under_sampling(X_train, y_train)
-            elif sampling_index == 1:
-                X_train, y_train = self.over_sampling(X_train, y_train)
-            else:
-                X_train, y_train = self.smote(X_train, y_train)
-
-            print("After FS", X_train.shape, X_test.shape)
-            hypo.fit(X_train, y_train)
-            y_predict = hypo.predict(X_test)
-            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
-            t_p += temp_tp
-            t_n += temp_tn
-            f_p += temp_fp
-            f_n += temp_fn
-            # break
-
-        print(t_p, t_n, f_p, f_n)
-        logfile.write(str(t_p) + "," + str(t_n) + "," + str(f_p) + "," + str(f_n) + "\n")
-        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
-        # logfile.write(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})+ "\n")
-        logfile.close()
-        return
-
     # @text @str @weka
     def do_experiment_first_txt_second_categorical_weka(self, sampling_index=0,hypo1=MultinomialNB()):
         self.load_data()
@@ -532,7 +473,6 @@ class NormalExperiment(Experiment):
             weka_test_scvfile.close()
 
         return
-
     # @categorical @sampling
     def do_experiment_categorical_data(self, sampling_index, hypo):
         self.load_data()
@@ -586,7 +526,7 @@ class NormalExperiment(Experiment):
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
         return
-
+    # @text @str
     def do_experiment_txt_sampling_feature_selection(self, sampling_index=0, hypo=MultinomialNB(), alpha=0.5):
         self.load_data()
         print(self.X_txt)
@@ -653,7 +593,7 @@ class NormalExperiment(Experiment):
             # logfile.write(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})+ "\n")
         logfile.close()
         return
-
+    # @text @chi2
     def do_experiment_txt_sampling_chi2(self, sampling_index:int, hypo):
         self.load_data()
         print(self.X_txt.shape)
@@ -722,7 +662,7 @@ class NormalExperiment(Experiment):
         logfile.close()
 
         return
-
+    # @text @mi
     def do_experiment_txt_sampling_mi(self, sampling_index:int, hypo):
         self.load_data()
         print(self.X_txt)
@@ -794,7 +734,7 @@ class NormalExperiment(Experiment):
         # logfile.write(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})+ "\n")
         logfile.close()
         return
-
+    # @text @chi2 @feature_extraction
     def do_experiment_feature_extraction_chi2(self):
         print("CHI2")
         self.load_data()
@@ -825,7 +765,7 @@ class NormalExperiment(Experiment):
             if feature[1] >= critical_value_at_5:
                print(feature[0], feature[1])
         return
-
+    # @text @mi @feature_extraction
     def do_experiment_feature_extraction_mi(self):
         print("MI")
         self.load_data()
@@ -853,7 +793,7 @@ class NormalExperiment(Experiment):
             print(feature[0],feature[1])
 
         return
-
+    # @text @stacking
     def do_experiment_stacking_csv(self, sampling_index=0):
         print(self.file,self.intent)
         t_p = 0.0
@@ -891,6 +831,7 @@ class NormalExperiment(Experiment):
             print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
         return
+    # @text @voting
     def do_experiment_voting_csv(self, sampling_index=0):
         print(self.file,self.intent)
         t_p = 0.0
@@ -919,4 +860,76 @@ class NormalExperiment(Experiment):
         print(t_p, t_n, f_p, f_n)
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
+        return
+    # @text @lor
+    def do_experiment_txt_sampling_lor(self, sampling_index=0, negation=False, hypo=MultinomialNB()):
+        self.load_data()
+        print(self.X_txt)
+        print(self.X_txt.shape)
+        total_data, total_features = self.X_txt.shape
+        X_folds = np.array_split(self.X_txt, 10)
+        self.X_txt = []
+        y_folds = np.array_split(self.y, 10)
+        print(Counter(self.y))
+        self.y = []
+        t_p = 0
+        f_p = 0
+        t_n = 0
+        f_n = 0
+        print(t_p)
+        logfile = open('feature_selection/' + self.file + '_' + self.intent + '_' + str(sampling_index) + '_lor_'+str(negation)+'_log.txt', 'w')
+        for k in range(10):
+            # We use 'list' to copy, in order to 'pop' later on
+            X_train = list(X_folds)
+            X_test = X_train.pop(k)
+            X_train = np.concatenate(X_train)
+            y_train = list(y_folds)
+            y_test = y_train.pop(k)
+            y_train = np.concatenate(y_train)
+
+            from src.aggregate.lor import LORSelector
+            lor_selector = LORSelector()
+            lor_selector.fit(X_train, y_train)
+
+            if sampling_index == 0:
+                X_train, y_train = self.under_sampling(X_train, y_train)
+            elif sampling_index == 1:
+                X_train, y_train = self.over_sampling(X_train, y_train)
+            else:
+                X_train, y_train = self.smote(X_train, y_train)
+
+            print("Before FS", X_train.shape, X_test.shape)
+            X_temp_train = lor_selector.transform(X_train,  negation=negation)
+            X_temp_test = lor_selector.transform(X_test,  negation=negation)
+            print("After FS", X_temp_train.shape, X_temp_test.shape)
+            hypo.fit(X_temp_train, y_train)
+            y_predict = hypo.predict(X_temp_test)
+            temp_tp, temp_tn, temp_fp, temp_fn = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
+            t_p += temp_tp
+            t_n += temp_tn
+            f_p += temp_fp
+            f_n += temp_fn
+            # break
+
+        print(t_p, t_n, f_p, f_n)
+        logfile.write(str(t_p) + "," + str(t_n) + "," + str(f_p) + "," + str(f_n) + "\n")
+        print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+        # logfile.write(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})+ "\n")
+        logfile.close()
+        return
+    # @text @features
+    def do_experiment_features_lor(self):
+        self.load_data()
+        print(self.X_txt)
+        print(self.X_txt.shape)
+        print(Counter(self.y))
+        logfile = open('feature_selection/' + self.file + '_' + self.intent + '_' + '_lor_feature_score_log.txt', 'w')
+        from src.aggregate.lor import LORSelector
+        lor_selector = LORSelector()
+        lor_selector.fit(self.X_txt, self.y)
+        features_scores = lor_selector.scored_features(self.txt_features)
+        for feature_score in features_scores:
+            print(feature_score)
+            logfile.write(str(feature_score[0])+','+str(feature_score[1])+'\n')
+        logfile.close()
         return
