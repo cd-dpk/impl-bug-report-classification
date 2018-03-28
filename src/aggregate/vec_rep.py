@@ -5,8 +5,9 @@ from nltk.tokenize import regexp_tokenize
 
 class VectorRepresenter:
 
-    def __init__(self, file):
+    def __init__(self, data_path, file):
         self.file = file
+        self.data_path = data_path
 
     # Return the frequency distribution of terms in a text
     def term_count(self, t):
@@ -18,7 +19,7 @@ class VectorRepresenter:
 
     # all the terms that will be used as feature
     def get_all_terms(self):
-        csvfile = open(self.file + '_txt_proc.csv', encoding='UTF-8', newline='')
+        csvfile = open(self.data_path + self.file + '_txt_proc.csv', encoding='UTF-8', newline='')
         reader = csv.DictReader(csvfile)
         word_list = []
         word_df = []
@@ -43,13 +44,13 @@ class VectorRepresenter:
     # represent each bug report as vector of terms
     # weight of each term is calculated using tf_idf
     def proc_bug_reports_str(self, output_file, ):
-        str_file = open(output_file,'w')
+        str_file = open(self.data_path + output_file,'w', encoding='UTF-8')
         header_str = 'issue_id,'
         header_str += 'reporter_col,team_col,'
         header_str += 'component_col,'
         header_str += 'grep_sec,grep_perf,Security_pos_col,Security_neu_col,Security_neg_col,Performance_pos_col,Performance_neu_col,Performance_neg_col,ST_col,Patch_col,CE_col,TC_col,EN_col,'
         str_file.write(header_str +'target_Security,target_Performance\n')
-        csvfile = open(self.file +'_str_proc.csv', encoding='UTF-8', newline='')
+        csvfile = open(self.data_path + self.file +'_str_proc.csv', encoding='UTF-8', newline='')
         reader = csv.DictReader(csvfile)
         for row in reader:
             output = row['issue_id'] + ","
@@ -92,7 +93,7 @@ class VectorRepresenter:
         return
 
     def proc_bug_reports_txt(self, word2vec: bool, dim:int=200, src:bool=False):
-        output_file = self.file + '_' + str(word2vec) + '_' + str(dim) + '_' + str(src) + '_vec.csv'
+        output_file = self.data_path + self.file + '_' + str(word2vec) + '_' + str(dim) + '_' + str(src) + '_vec.csv'
         txt_file = open(output_file, 'w', encoding='UTF-8')
         word_list, word_df, t_d = self.get_all_terms()
         '''
@@ -111,7 +112,7 @@ class VectorRepresenter:
             header_words += word_list[x] + ','
         txt_file.write(header_str + header_words + 'target_Security,target_Performance\n')
 
-        csvfile = open(self.file +'_txt_proc.csv', encoding='UTF-8', newline='')
+        csvfile = open(self.data_path + self.file +'_txt_proc.csv', encoding='UTF-8', newline='')
         reader = csv.DictReader(csvfile)
 
         for row in reader:
@@ -136,7 +137,7 @@ class VectorRepresenter:
                         from gensim.models import KeyedVectors
                         import numpy as np
                         wv_file = self.file
-                        words_vectors = KeyedVectors.load_word2vec_format(wv_file + '_' + str(dim) + '_' + str(src) +'_wv.txt', binary=False)
+                        words_vectors = KeyedVectors.load_word2vec_format(self.data_path + wv_file + '_' + str(dim) + '_' + str(src) +'_wv.txt', binary=False)
                         word_vecs = []
 
                         if word_list[x] in words_vectors:

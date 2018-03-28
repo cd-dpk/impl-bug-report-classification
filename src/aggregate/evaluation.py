@@ -26,9 +26,10 @@ rf = RandomForestClassifier()
 dt = DecisionTreeClassifier()
 supvecmac = svm.SVC(probability=True)
 knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
+data_path = "F:/DIPOK/simulated_data/"
 alphas = [0.4, 0.5, 0.6]
 sampling = [0]
 subjects = [derby, ambari, camel_shaon]
 dims =[150,200,100]
 for subject in subjects:
-    VectorRepresenter(subject).vec_process(word2vec=True, dim=200, src=False, txt=True)
+    VectorRepresenter(data_path=data_path, file=subject).vec_process(word2vec=True,dim=200,src=True,txt=True,str=False)

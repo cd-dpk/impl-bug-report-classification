@@ -8,11 +8,13 @@ from src.aggregate.pre_processor import TextPreprocessor
 
 class Preprocessor:
 
-    def __init__(self, file):
+    def __init__(self, data_path, file):
         self.file = file
+        self.data_path = data_path
+
     def get_team(self):
         team = []
-        with open(self.file + '_team.csv', newline='', encoding="UTF-8") as csvfile:
+        with open(self.data_path + self.file + '_team.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 team.append(row['team'])
@@ -55,7 +57,7 @@ class Preprocessor:
 
     # process csv file
     def proc_csv_file_txt(self):
-        txt_file = open(self.file+'_txt_proc.csv', 'w', encoding='UTF-8')
+        txt_file = open(self.data_path + self.file+'_txt_proc.csv', 'w', encoding='UTF-8')
         with open('../data/' + self.file + '.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
             txt_file.write('issue_id,summary_col,description_col,target_Security,target_Performance'+'\n')
@@ -83,7 +85,7 @@ class Preprocessor:
         sec_pos_lex, sec_neu_lex, sec_neg_lex = self.load_lexicon_data('Security')
         perf_pos_lex, perf_neu_lex, perf_neg_lex = self.load_lexicon_data('Performance')
         team = self.get_team()
-        str_file = open(self.file+'_str_proc.csv', 'w', encoding='UTF-8')
+        str_file = open(self.data_path + self.file+'_str_proc.csv', 'w', encoding='UTF-8')
 
         with open('../data/' + self.file + '.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)

@@ -3,9 +3,10 @@ from src.aggregate.pre_processor import TextPreprocessor
 
 class Word2VecRep:
 
-    def __init__(self):
+    def __init__(self, data_path):
         self.src_sentences = []
         self.bug_sentences = []
+        self.data_path = data_path
 
     def retrive_sentences_src(self, src_file:str):
         with open('../bug_localization/' + src_file + '_proc.csv', newline='', encoding='UTF-8') as csvfile:
@@ -29,7 +30,7 @@ class Word2VecRep:
         return
 
     def retrive_sentences_bug(self, bug_file: str):
-        with open('../aggregate/' + bug_file + '_txt_proc.csv', newline='', encoding="UTF-8") as csvfile:
+        with open(self.data_path + bug_file + '_txt_proc.csv', newline='', encoding="UTF-8") as csvfile:
             self.bug_sentences = []
             reader = csv.DictReader(csvfile)
             for row in reader:
@@ -57,18 +58,19 @@ class Word2VecRep:
         from gensim.models.word2vec import Word2Vec
         sentences = self.bug_sentences + self.src_sentences
         model = Word2Vec(sentences, size=dim, window=5, min_count=2, workers=4)
-        model.wv.save_word2vec_format(file+'_'+str(dim)+'_'+str(src)+'_wv.txt', binary=False)
+        model.wv.save_word2vec_format(self.data_path + file+'_'+str(dim)+'_'+str(src)+'_wv.txt', binary=False)
         print(file+' completed!')
         return True
 
 subjects = ['Camel_Shaon','ambari','derby','wicket']
-subjects = ['wicket']
+#subjects = ['wicket']
 dims = [200,100,150]
+data_path = "F:/DIPOK/simulated_data/"
 for subject in subjects:
     for dim in dims:
         import sys
-        sys.stdout = open(subject + '_wv_log.txt', 'w')
-        wv = Word2VecRep()
+        sys.stdout = open(data_path + subject + '_wv_log.txt', 'w')
+        wv = Word2VecRep(data_path=data_path)
         print(subject)
         wv.train_word2vec(subject, False, True, dim=dim)
         sys.stdout.close()
