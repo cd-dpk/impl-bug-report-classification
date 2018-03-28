@@ -1,3 +1,0 @@
-ambari
-Bug 1000
-Src 4554

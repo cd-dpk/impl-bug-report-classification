@@ -1,3 +1,0 @@
-camel
-Bug 1000
-Src 17921
