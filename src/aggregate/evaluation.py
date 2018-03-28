@@ -28,7 +28,7 @@ supvecmac = svm.SVC(probability=True)
 knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 alphas = [0.4, 0.5, 0.6]
 sampling = [0]
-subjects = [camel_shaon, ambari, wicket]
+subjects = [derby, ambari, camel_shaon]
+dims =[150,200,100]
 for subject in subjects:
-    Preprocessor(subject).pre_process(True,True)
-    VectorRepresenter(subject).vec_process(False, True, True)
+    VectorRepresenter(subject).vec_process(word2vec=True, dim=200, src=False, txt=True)

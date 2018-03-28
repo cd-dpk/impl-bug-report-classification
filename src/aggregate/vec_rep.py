@@ -24,8 +24,8 @@ class VectorRepresenter:
         word_df = []
         t_d = 0
         for row in reader:
-            # text = row['summary_col'] in (None,'') and '' or row['summary_col']+" "+row['description_col'] in (None,'') and '' or row['description_col']
-            text = row['summary_col'] in (None, '') and '' or row['summary_col']
+            text = row['summary_col'] in (None,'') and '' or row['summary_col']+" "+row['description_col'] in (None,'') and '' or row['description_col']
+            # text = row['summary_col'] in (None, '') and '' or row['summary_col']
             terms = self.term_count(text)
             for term in terms:
                 index = -1
@@ -91,8 +91,9 @@ class VectorRepresenter:
         str_file.close()
         return
 
-    def proc_bug_reports_txt(self, word2vec: bool, output_file):
-        txt_file = open(output_file,'w', encoding='UTF-8')
+    def proc_bug_reports_txt(self, word2vec: bool, dim:int=200, src:bool=False):
+        output_file = self.file + '_' + str(word2vec) + '_' + str(dim) + '_' + str(src) + '_vec.csv'
+        txt_file = open(output_file, 'w', encoding='UTF-8')
         word_list, word_df, t_d = self.get_all_terms()
         '''
         re_word_list = []
@@ -135,7 +136,7 @@ class VectorRepresenter:
                         from gensim.models import KeyedVectors
                         import numpy as np
                         wv_file = self.file
-                        words_vectors = KeyedVectors.load_word2vec_format(wv_file + '_wv.txt', binary=False)
+                        words_vectors = KeyedVectors.load_word2vec_format(wv_file + '_' + str(dim) + '_' + str(src) +'_wv.txt', binary=False)
                         word_vecs = []
 
                         if word_list[x] in words_vectors:
@@ -161,14 +162,10 @@ class VectorRepresenter:
         txt_file.close()
         return
 
-    def vec_process(self, word2vec: bool= False, txt: bool=False, str: bool=False):
+    def vec_process(self, word2vec: bool= False, dim:int=200, src:bool=False, txt: bool=False, str: bool=False):
         if str:
             self.proc_bug_reports_str(self.file + '_str_vec.csv')
         if txt:
-            if word2vec == True:
-                self.proc_bug_reports_txt(word2vec, self.file + '_wv_txt_vec.csv')
-            else:
-                self.proc_bug_reports_txt(word2vec, self.file + '_txt_vec.csv')
+            self.proc_bug_reports_txt(word2vec, dim, src)
 
-        sys.stdout.close()
         return
