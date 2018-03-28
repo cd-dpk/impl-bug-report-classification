@@ -10,33 +10,14 @@ class Experiment:
 
     def load_data(self, word2vec:bool=False):
         chou_data = ChouDataHandler(self.file, self.intent)
-        chou_data.load_data(word2vec)
-        self.str_features = chou_data.get_str_features()
+        chou_data.load_txt_data(word2vec)
+        chou_data.load_str_data()
+        self.str_features = chou_data.str_features
         self.txt_features = chou_data.text_features
         self.X_txt = chou_data.textual_data
-        self.y = chou_data.target_data
+        self.y_txt = chou_data.txt_target_data
         self.X_str = chou_data.get_numeric_str_data()
-        component_data = chou_data.component_to_numeric_data()
-        reporter_data = chou_data.reporter_to_numeric_data()
-        self.categorical_data = np.empty([len(self.X_txt), 9+len(component_data[0])], dtype=object)
-        for i in range(len(self.X_txt)):
-            k = 0
-            self.categorical_data[i][k] = str(reporter_data[i])
-            k += 1
-
-            for j in range(len(chou_data.lexicon_data[0])):
-                self.categorical_data[i][k] = round(chou_data.lexicon_data[i][j],3)
-                k += 1
-
-            for j in range(len(component_data[0])):
-                self.categorical_data[i][k] = component_data[i][j]
-                k += 1
-
-            for j in range(len(chou_data.description_data[i])):
-                self.categorical_data[i][k] = chou_data.description_data[i][j]
-                k += 1
-
-        return
+        self.y_str = chou_data.str_target_data
 
     def under_sampling(self,X,y):
         from imblearn.under_sampling import RandomUnderSampler
@@ -93,6 +74,21 @@ class Experiment:
         else:
             return (0.0, 0.0, 0.0)
 
+    def calc_fpr_tpr(self,result_dic:dict):
+        t_p = result_dic['t_p']
+        t_n = result_dic['t_n']
+        f_p = result_dic['f_p']
+        f_n = result_dic['f_n']
+
+        t_p += 0.001
+        t_n += 0.001
+        f_p += 0.001
+        f_n += 0.001
+
+        fpr = f_p / (f_p+t_n)
+        tpr = t_p / (t_p+f_n)
+
+        return (fpr,tpr)
 
     def calc_test(self,result_dic:dict):
         t_p = result_dic['t_p']
@@ -100,3 +96,4 @@ class Experiment:
         f_p = result_dic['f_p']
         f_n = result_dic['f_n']
         return (t_p, t_n)
+

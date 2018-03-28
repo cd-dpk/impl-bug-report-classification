@@ -3,12 +3,20 @@ from nltk.tokenize import regexp_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk import FreqDist
+from src.aggregate.grep import GREP
 from src.aggregate.pre_processor import TextPreprocessor
 
 class Preprocessor:
 
     def __init__(self, file):
         self.file = file
+    def get_team(self):
+        team = []
+        with open(self.file + '_team.csv', newline='', encoding="UTF-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                team.append(row['team'])
+        return team
 
     # load the lexicon data
     def load_lexicon_data(self, intent):
@@ -40,21 +48,54 @@ class Preprocessor:
 
         for row in reader:
             if float(row['score']) == 0.0:
-                neutral_lexicon.__setitem__(row['term'],row['score'])
+                neutral_lexicon.__setitem__(row['term'], row['score'])
 
         csvfile.close()
         return (positive_lexicon, neutral_lexicon, negative_lexicon)
 
     # process csv file
-    def proc_csv_file(self):
-        sec_pos_lex, sec_neu_lex, sec_neg_lex = self.load_lexicon_data('Security')
-        perf_pos_lex, perf_neu_lex, perf_neg_lex = self.load_lexicon_data('Performance')
+    def proc_csv_file_txt(self):
+        txt_file = open(self.file+'_txt_proc.csv', 'w', encoding='UTF-8')
         with open('../data/' + self.file + '.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
-            print('issue_id,reporter_col,component_col,Security_pos_col,Security_neu_col,Security_neg_col,Performance_pos_col,Performance_neu_col,Performance_neg_col,summary_col,description_col,ST_col,Patch_col,CE_col,TC_col,EN_col,files_col,target_Security,target_Performance')
+            txt_file.write('issue_id,summary_col,description_col,target_Security,target_Performance'+'\n')
+            for row in reader:
+                issue_id = str(row['issue_id'] in (None, '') and '' or row['issue_id'])
+                t_p = TextPreprocessor()
+                summary = (row['summary'] in (None, '') and '' or row['summary'])
+                temp_summary = ''
+                for word in t_p.getProcessedText(summary):
+                    temp_summary += ' '+word
+                summary = temp_summary
+                description = (row['description'] in (None, '') and '' or row['description'])
+                temp_description = ''
+                for word in t_p.getProcessedText(description):
+                    temp_description += ' ' + word
+                description = temp_description
+                security_label = (row['Security'] in (None, '') and '' or row['Security'])
+                perf_label = (row['Performance'] in (None, '') and '' or row['Performance'])
+                txt_file.write(issue_id + ',' +summary + ',' + description + ',' + security_label + "," + perf_label+'\n')
+        txt_file.close()
+        return
+
+    # process csv file
+    def proc_csv_file_str(self):
+        sec_pos_lex, sec_neu_lex, sec_neg_lex = self.load_lexicon_data('Security')
+        perf_pos_lex, perf_neu_lex, perf_neg_lex = self.load_lexicon_data('Performance')
+        team = self.get_team()
+        str_file = open(self.file+'_str_proc.csv', 'w', encoding='UTF-8')
+
+        with open('../data/' + self.file + '.csv', newline='', encoding="UTF-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            # str_file.write()
+            str_file.write('issue_id,reporter_col,team_col,component_col,grep_sec,grep_perf,Security_pos_col,Security_neu_col,Security_neg_col,Performance_pos_col,Performance_neu_col,Performance_neg_col,ST_col,Patch_col,CE_col,TC_col,EN_col,files_col,target_Security,target_Performance\n')
             for row in reader:
                 issue_id = str(row['issue_id'] in (None, '') and '' or row['issue_id'])
                 reporter = row['reporter'] in (None, '') and 'null' or row['reporter']
+                team_col = '0'
+                if reporter in team:
+                    team_col = '1'
+
                 component = row['component'] in (None, '') and 'null' or row['component']
                 t_p = TextPreprocessor()
                 summary = (row['summary'] in (None, '') and '' or row['summary'])
@@ -155,11 +196,13 @@ class Preprocessor:
                             # perf_neg += float(term[1]) * float(perf_neg_lex[lexicon])
                             flag_2 = True
                             break
+                sec_grep, sec_predict_label = GREP().predict_security_label(summary=summary, description=description)
+                perf_grep, perf_predict_label = GREP().predict_performance_label(summary=summary, description=description)
 
-                print(issue_id + ',' + reporter + ',' + component + ',' + str(sec_pos) + "," + str(sec_neu) + ',' + str(sec_neg) + "," +
-                      str(perf_pos) + "," + str(perf_neu) + ',' + str(perf_neg)+","+summary + ',' + description + ',' + st + ',' + patch + ',' + ce + ','
-                          + tc + ',' + en + ',' + files + ',' + security_label + "," + perf_label)
-
+                str_file.write(issue_id + ',' + reporter + ','+team_col + ',' + component + ',' + str(sec_predict_label) + "," + str(perf_predict_label) + ',' + str(sec_pos) + "," + str(sec_neu) + ',' + str(sec_neg) + "," +
+                      str(perf_pos) + "," + str(perf_neu) + ',' + str(perf_neg)+ ',' + st + ',' + patch + ',' + ce + ','
+                          + tc + ',' + en + ',' + files + ',' + security_label + "," + perf_label+'\n')
+        str_file.close()
         return
 
     #  process all the xml files of apache jira
@@ -224,11 +267,12 @@ class Preprocessor:
         sys.stdout.close()
         return
 
-    def pre_process(self):
-        sys.stdout = open(self.file+'_proc.csv', 'w', encoding="UTF-8")
-        self.proc_csv_file()
-        # self.proc_xml_file()
-        sys.stdout.close()
+    def pre_process(self, str:bool, txt:bool):
+        if str:
+            self.proc_csv_file_str()
+        if txt:
+            self.proc_csv_file_txt()
         return
+
 
 

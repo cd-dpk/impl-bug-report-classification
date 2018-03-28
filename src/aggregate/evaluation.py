@@ -29,6 +29,6 @@ knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
 alphas = [0.4, 0.5, 0.6]
 sampling = [0]
 subjects = [camel_shaon, derby, ambari, wicket]
-# for subject in subjects:
-#     NormalExperiment(subject, Security).do(sampling_index=0, hypo=mnb)
-#     NormalExperiment(subject, Performance).do_experiment_txt_sampling_lor(sampling_index=0, hypo=mnb)
+for subject in subjects:
+    Preprocessor(subject).pre_process(True,True)
+    VectorRepresenter(subject).vec_process(False, True, True)

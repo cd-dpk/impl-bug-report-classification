@@ -1,0 +1,1001 @@
+issue_id,reporter_col,team_col,component_col,grep_sec,grep_perf,Security_pos_col,Security_neu_col,Security_neg_col,Performance_pos_col,Performance_neu_col,Performance_neg_col,ST_col,Patch_col,CE_col,TC_col,EN_col,files_col,target_Security,target_Performance
+12,Eric Yang,1,null,0,0,0.0,0.0,11.0,0.0,0.0,11.0,0,0,0,0,0,,0,0
+46,Eric Yang,1,ambari-agent,0,1,1.0,0.0,18.0,0.0,0.0,19.0,0,0,0,0,0,,0,0
+92,Eric Yang,1,ambari-agent,0,0,1.0,0.0,6.0,0.0,0.0,7.0,0,0,0,0,0,,0,0
+103,Eric Yang,1,ambari-server; ambari-web,0,0,4.0,0.0,17.0,0.0,0.0,21.0,0,0,0,0,0,,0,0
+192,Ramya Sunil,1,null,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,1,0,0,0,CHANGES.txt;hmc/puppet/modules/hdp-hadoop/manifests/hdfs/service_check.pp;,0,0
+198,Jitendra Nath Pandey,1,ambari-server,0,0,2.0,0.0,5.0,0.0,0.0,7.0,0,1,0,0,0,CHANGES.txt;hmc/php/puppet/genmanifest/PuppetClassDependencies.php;,0,0
+199,Jitendra Nath Pandey,1,ambari-server,0,0,1.0,0.0,6.0,0.0,0.0,7.0,0,0,0,0,0,CHANGES.txt;hmc/php/puppet/genmanifest/generateManifest.php;,0,0
+202,Ramya Sunil,1,null,0,0,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,0,CHANGES.txt;hmc/puppet/modules/hdp/manifests/java/package.pp;,0,0
+207,Jitendra Nath Pandey,1,ambari-server,0,0,1.0,0.0,9.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+208,Hitesh Shah,1,null,0,0,0.0,0.0,10.0,1.0,0.0,9.0,0,1,0,0,0,,0,0
+217,vitthal (Suhas) Gogate,1,null,0,0,1.0,1.0,19.0,1.0,0.0,20.0,0,1,0,0,0,,0,0
+222,vitthal (Suhas) Gogate,1,null,0,0,1.0,0.0,6.0,1.0,0.0,6.0,0,1,0,0,0,,0,0
+226,Suresh Srinivas,1,null,0,0,1.0,0.0,18.0,0.0,0.0,19.0,0,1,0,0,1,,0,0
+232,Vikram Dixit K,1,null,0,0,0.0,0.0,17.0,0.0,0.0,17.0,0,1,0,0,0,,0,0
+236,Jitendra Nath Pandey,1,ambari-server,0,1,2.0,0.0,15.0,0.0,0.0,17.0,0,1,0,0,0,,0,0
+237,Jitendra Nath Pandey,1,ambari-server,0,0,1.0,0.0,7.0,1.0,0.0,7.0,0,1,0,0,0,,0,1
+245,Jitendra Nath Pandey,1,ambari-server,0,0,0.0,0.0,9.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+247,Varun Kapoor,1,null,0,0,1.0,0.0,15.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+249,Vikram Dixit K,1,null,0,0,0.0,0.0,3.0,0.0,0.0,3.0,0,1,0,0,0,,0,0
+252,Varun Kapoor,1,null,0,0,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+253,Ramya Sunil,1,null,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+255,Varun Kapoor,1,null,0,0,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+256,Ramya Sunil,1,null,0,0,4.0,0.0,36.0,0.0,0.0,40.0,0,1,1,0,0,,0,0
+257,Arpit Gupta,0,site,0,1,0.0,0.0,17.0,1.0,0.0,16.0,0,1,0,0,0,,0,0
+262,Arpit Gupta,0,site,1,0,2.0,0.0,17.0,2.0,0.0,17.0,0,1,0,0,0,,0,0
+264,Arpit Gupta,0,site,0,0,2.0,0.0,6.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+274,Ramya Sunil,1,null,0,0,4.0,0.0,19.0,0.0,0.0,23.0,0,1,1,0,0,,0,0
+276,Suresh Srinivas,1,site,0,1,2.0,0.0,38.0,1.0,0.0,39.0,0,1,0,0,1,,0,0
+280,Vikram Dixit K,1,null,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+283,Vikram Dixit K,1,null,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+287,Vikram Dixit K,1,ambari-server; ambari-web,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+290,Jitendra Nath Pandey,1,ambari-server,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+292,Jitendra Nath Pandey,1,ambari-web,0,0,0.0,1.0,3.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+300,Yusaku Sako,1,null,0,0,0.0,0.0,13.0,0.0,1.0,12.0,0,1,0,0,0,,0,0
+302,Ramya Sunil,1,null,0,0,1.0,0.0,9.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+304,Vinod Kumar Vavilapalli,1,null,0,0,0.0,0.0,1.0,0.0,0.0,1.0,0,1,0,0,0,,0,0
+310,Yusaku Sako,1,null,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+312,Hitesh Shah,1,null,0,0,1.0,0.0,4.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+316,Vinod Kumar Vavilapalli,1,null,0,0,0.0,1.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+319,Jitendra Nath Pandey,1,ambari-server,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,0,0,0,0,,0,0
+323,Vikram Dixit K,1,ambari-server,0,0,1.0,0.0,9.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+326,Jitendra Nath Pandey,1,ambari-server,0,0,0.0,0.0,12.0,1.0,0.0,11.0,0,1,0,0,0,,0,0
+330,Vinod Kumar Vavilapalli,1,null,0,0,0.0,0.0,23.0,0.0,0.0,23.0,0,1,0,0,0,,0,0
+335,Ramya Sunil,1,null,0,1,2.0,0.0,18.0,1.0,0.0,19.0,0,1,0,0,0,,0,0
+338,Vikram Dixit K,1,ambari-server,0,0,1.0,0.0,16.0,0.0,0.0,17.0,0,1,0,0,0,,0,0
+339,Vikram Dixit K,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+349,Vikram Dixit K,1,ambari-server; ambari-web,0,0,0.0,0.0,12.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+352,Yusaku Sako,1,null,0,0,2.0,0.0,24.0,1.0,0.0,25.0,0,1,0,0,0,,0,0
+357,Yusaku Sako,1,null,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+362,Vikram Dixit K,1,ambari-server,0,0,0.0,0.0,9.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+366,Varun Kapoor,1,null,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+369,Yusaku Sako,1,null,0,0,0.0,0.0,7.0,1.0,0.0,6.0,0,1,0,0,0,,0,0
+371,Jitendra Nath Pandey,1,ambari-server,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+377,Jitendra Nath Pandey,1,ambari-server,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+386,Hitesh Shah,1,null,0,0,0.0,0.0,14.0,3.0,1.0,10.0,0,1,0,0,0,,0,0
+393,Mahadev konar,1,null,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+394,Vikram Dixit K,1,ambari-server,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+399,Yusaku Sako,1,null,0,0,0.0,0.0,6.0,1.0,0.0,5.0,0,1,0,0,0,,0,0
+401,Jitendra Nath Pandey,1,ambari-server,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+402,Vikram Dixit K,1,ambari-server,0,0,0.0,0.0,11.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+404,Yusaku Sako,1,null,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+414,Mahadev konar,1,null,0,0,1.0,0.0,3.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+415,Hitesh Shah,1,null,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+420,Yusaku Sako,1,null,0,0,0.0,0.0,5.0,1.0,0.0,4.0,0,1,0,0,0,,0,0
+426,Ramya Sunil,1,null,0,0,4.0,2.0,40.0,1.0,1.0,44.0,0,1,0,0,0,,0,0
+429,Mahadev konar,1,null,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+433,Vikram Dixit K,1,ambari-server,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+435,Vikram Dixit K,1,ambari-server,0,0,0.0,0.0,10.0,1.0,0.0,9.0,0,1,0,0,0,,0,0
+442,Ramya Sunil,1,null,0,0,4.0,1.0,16.0,0.0,1.0,20.0,0,1,0,0,0,,0,0
+449,Yusaku Sako,1,null,0,0,0.0,0.0,21.0,0.0,0.0,21.0,0,1,0,0,0,,0,0
+450,Yusaku Sako,1,null,0,0,1.0,0.0,4.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+455,vitthal (Suhas) Gogate,1,null,0,0,1.0,0.0,6.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+466,Vikram Dixit K,1,ambari-server; ambari-web,0,0,0.0,0.0,18.0,0.0,0.0,18.0,0,1,0,0,0,,0,0
+467,Mahadev konar,1,null,0,0,1.0,0.0,3.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+468,Yusaku Sako,1,null,0,0,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+475,Yusaku Sako,1,null,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+482,Yusaku Sako,1,null,0,0,0.0,0.0,9.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+486,Yusaku Sako,1,null,0,1,2.0,0.0,12.0,1.0,0.0,13.0,0,1,0,0,0,,0,0
+488,Yusaku Sako,1,null,0,0,0.0,0.0,28.0,1.0,0.0,27.0,0,1,0,0,0,,0,0
+491,Yusaku Sako,1,null,0,0,1.0,0.0,21.0,0.0,0.0,22.0,0,1,0,0,0,,0,0
+492,Hitesh Shah,1,null,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+493,Hitesh Shah,1,null,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+494,Mahadev konar,1,null,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,1,0
+501,Yusaku Sako,1,null,0,1,0.0,0.0,5.0,1.0,0.0,4.0,0,1,0,0,0,,0,0
+508,Varun Kapoor,1,null,0,0,0.0,0.0,9.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+510,Yusaku Sako,1,null,0,0,0.0,0.0,8.0,1.0,0.0,7.0,0,1,0,0,0,,0,0
+512,Mahadev konar,1,null,0,0,1.0,0.0,6.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+519,Vikram Dixit K,1,ambari-server,0,0,0.0,0.0,8.0,1.0,0.0,7.0,0,1,0,0,0,,0,0
+528,Ramya Sunil,1,null,0,0,2.0,0.0,9.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+529,Hitesh Shah,1,null,0,0,0.0,0.0,12.0,2.0,0.0,10.0,0,1,0,0,0,,0,0
+539,Hitesh Shah,1,null,0,0,0.0,0.0,12.0,1.0,0.0,11.0,0,1,0,0,0,,0,0
+543,Vikram Dixit K,1,infra,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+544,Ramya Sunil,1,null,0,0,2.0,0.0,19.0,0.0,0.0,21.0,0,1,1,0,0,,0,0
+546,Hitesh Shah,1,null,0,0,4.0,1.0,32.0,0.0,1.0,36.0,0,1,0,0,0,,0,0
+547,Hitesh Shah,1,null,0,0,2.0,0.0,14.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+548,Hitesh Shah,1,null,0,0,2.0,0.0,14.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+550,Yusaku Sako,1,null,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+552,Vinod Kumar Vavilapalli,1,null,0,0,1.0,0.0,8.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+565,Yusaku Sako,1,null,0,0,1.0,0.0,18.0,0.0,0.0,19.0,0,1,0,0,0,,0,0
+566,Yusaku Sako,1,null,0,0,0.0,0.0,15.0,0.0,0.0,15.0,0,1,0,0,0,,0,0
+569,Hitesh Shah,1,null,0,0,3.0,0.0,10.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+570,Yusaku Sako,1,null,0,0,0.0,0.0,9.0,1.0,0.0,8.0,0,1,0,0,0,,0,1
+573,Hitesh Shah,1,null,0,0,2.0,1.0,13.0,0.0,1.0,15.0,0,1,0,0,0,,0,0
+576,Jaimin D Jetly,1,null,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+578,Yusaku Sako,1,null,1,0,1.0,0.0,19.0,0.0,1.0,19.0,0,1,0,0,0,,1,0
+581,Jaimin D Jetly,1,null,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+587,Vikram Dixit K,1,ambari-agent; ambari-server; ambari-web; documentation; infra; site; test,0,0,1.0,0.0,9.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+588,Yusaku Sako,1,null,0,0,3.0,1.0,37.0,1.0,1.0,39.0,0,1,0,0,0,,0,0
+591,Yusaku Sako,1,null,0,1,0.0,1.0,18.0,0.0,0.0,19.0,0,1,0,0,0,,0,0
+592,Vinod Kumar Vavilapalli,1,null,0,0,0.0,0.0,12.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+597,Mahadev konar,1,null,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+600,Hitesh Shah,1,null,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+607,Hitesh Shah,1,null,0,1,1.0,0.0,7.0,1.0,0.0,7.0,0,1,0,0,0,,0,1
+614,Yusaku Sako,1,null,0,0,1.0,0.0,8.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+615,Yusaku Sako,1,null,1,0,1.0,0.0,28.0,3.0,0.0,26.0,0,1,0,0,0,,0,0
+628,Ashish Singh,1,null,0,0,4.0,1.0,13.0,0.0,0.0,18.0,0,1,0,0,0,,1,0
+633,Yusaku Sako,1,null,0,0,0.0,2.0,4.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+635,Yusaku Sako,1,null,0,0,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+636,Yusaku Sako,1,null,0,0,1.0,0.0,4.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+638,Yusaku Sako,1,null,0,0,3.0,0.0,31.0,0.0,1.0,33.0,0,1,0,0,1,,0,0
+668,Hitesh Shah,1,null,0,1,1.0,0.0,26.0,0.0,0.0,27.0,0,1,0,0,0,,0,0
+675,Hitesh Shah,1,null,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+689,Mahadev konar,1,null,0,0,2.0,0.0,4.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+701,Hitesh Shah,1,null,0,0,4.0,1.0,13.0,1.0,0.0,17.0,0,1,0,0,0,,0,0
+1072,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1081,Srimanth Gunturi,1,ambari-web,0,1,1.0,1.0,8.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+1085,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1092,Srimanth Gunturi,1,ambari-web,0,0,0.0,1.0,7.0,0.0,1.0,7.0,0,1,0,0,0,,0,0
+1096,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,11.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+1098,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,16.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+1102,ARUN KUMAR KANDREGULA,1,ambari-web,0,1,1.0,1.0,56.0,0.0,2.0,56.0,0,1,0,0,0,,0,0
+1103,ARUN KUMAR KANDREGULA,1,ambari-web,0,0,2.0,0.0,16.0,0.0,1.0,17.0,0,1,0,0,0,,0,0
+1106,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+1113,ARUN KUMAR KANDREGULA,1,ambari-web,0,0,3.0,0.0,15.0,0.0,0.0,18.0,0,1,0,0,0,,0,0
+1115,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1123,Srimanth Gunturi,1,ambari-web,0,1,1.0,0.0,13.0,0.0,0.0,14.0,0,1,0,0,0,,0,0
+1125,Srimanth Gunturi,1,ambari-web,0,1,1.0,0.0,25.0,3.0,1.0,22.0,0,1,0,0,0,,0,0
+1142,ARUN KUMAR KANDREGULA,1,ambari-web,0,0,2.0,2.0,20.0,0.0,0.0,24.0,0,1,0,0,1,,0,0
+1143,ARUN KUMAR KANDREGULA,1,ambari-web,0,0,1.0,1.0,19.0,0.0,0.0,21.0,0,1,0,0,0,,0,0
+1150,Yusaku Sako,1,ambari-web,0,0,2.0,0.0,5.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+1151,Yusaku Sako,1,ambari-web,0,1,1.0,0.0,8.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+1153,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+1154,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,9.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+1159,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,9.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+1164,Mahadev konar,1,null,0,1,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1181,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1182,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1184,Yusaku Sako,1,ambari-web,0,0,0.0,1.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+1190,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+1196,Yusaku Sako,1,ambari-web,0,0,2.0,0.0,25.0,0.0,0.0,27.0,0,1,0,0,0,,0,0
+1207,Mahadev konar,1,null,0,0,2.0,0.0,6.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1210,Mahadev konar,1,null,0,0,1.0,0.0,8.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+1214,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,13.0,1.0,0.0,12.0,0,1,0,0,0,,0,0
+1216,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,3.0,0.0,0.0,3.0,0,1,0,0,0,,0,0
+1218,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+1223,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,10.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+1224,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+1229,Yusaku Sako,1,ambari-web,0,1,0.0,1.0,9.0,0.0,1.0,9.0,0,1,0,0,0,,0,0
+1231,Mahadev konar,1,null,0,0,2.0,0.0,8.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+1233,Mahadev konar,1,null,0,0,2.0,0.0,6.0,0.0,0.0,8.0,0,1,0,0,0,,1,0
+1235,Yusaku Sako,1,ambari-web,0,0,2.0,0.0,4.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+1244,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1253,Yusaku Sako,1,ambari-web,0,0,1.0,1.0,16.0,0.0,0.0,18.0,0,1,0,0,0,,0,0
+1259,Mahadev konar,1,null,0,0,1.0,0.0,9.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+1260,Siddharth Wagle,1,ambari-server,0,0,2.0,0.0,21.0,0.0,0.0,23.0,0,1,1,0,0,,0,0
+1264,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,11.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+1265,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,20.0,1.0,0.0,19.0,0,1,1,0,0,,0,0
+1266,Mahadev konar,1,null,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1267,Mahadev konar,1,null,0,0,2.0,0.0,7.0,1.0,0.0,8.0,0,1,0,0,0,,0,0
+1271,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,9.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+1273,Srimanth Gunturi,1,ambari-web,1,0,1.0,0.0,8.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+1274,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,3.0,0.0,0.0,3.0,0,1,0,0,0,,0,0
+1275,Srimanth Gunturi,1,ambari-web,0,0,3.0,0.0,28.0,0.0,1.0,30.0,0,1,0,0,1,,0,0
+1277,Mahadev konar,1,null,0,0,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+1279,Srimanth Gunturi,1,ambari-web,0,0,1.0,0.0,38.0,1.0,1.0,37.0,0,1,0,0,0,,0,0
+1299,Yusaku Sako,1,ambari-agent,0,1,2.0,0.0,15.0,0.0,0.0,17.0,0,1,0,0,0,,0,0
+1300,Srimanth Gunturi,1,ambari-web,0,1,0.0,0.0,25.0,2.0,0.0,23.0,0,1,0,0,0,,0,0
+1305,ARUN KUMAR KANDREGULA,1,ambari-web,0,0,1.0,0.0,39.0,1.0,1.0,38.0,0,1,0,0,0,,0,0
+1308,ARUN KUMAR KANDREGULA,1,ambari-web,0,0,0.0,0.0,9.0,0.0,1.0,8.0,0,1,0,0,0,,0,0
+1309,ARUN KUMAR KANDREGULA,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1311,ARUN KUMAR KANDREGULA,1,ambari-web,0,0,2.0,0.0,5.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+1321,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,12.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+1330,Mahadev konar,1,null,0,0,0.0,0.0,11.0,1.0,0.0,10.0,0,1,0,0,0,,0,0
+1333,Yusaku Sako,1,ambari-web,0,0,2.0,0.0,4.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+1335,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+1337,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+1340,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,29.0,2.0,0.0,27.0,0,1,0,0,0,,0,0
+1343,Siddharth Wagle,1,ambari-agent,0,1,6.0,0.0,32.0,0.0,0.0,38.0,1,1,0,0,0,,0,0
+1348,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+1351,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+1354,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+1359,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,6.0,1.0,1.0,4.0,0,1,0,0,0,,0,0
+1360,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,18.0,0.0,0.0,18.0,0,1,0,0,0,,0,0
+1373,Jaimin D Jetly,1,ambari-web,0,0,2.0,0.0,7.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+1376,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,14.0,0.0,0.0,14.0,0,1,0,0,0,,0,0
+1432,Mahadev konar,1,null,0,0,4.0,0.0,7.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+1441,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,1,0
+1449,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,8.0,0.0,0.0,9.0,0,1,0,0,0,CHANGES.txt;ambari-web/app/controllers/main/service/info/configs.js;ambari-web/app/messages.js;,0,0
+1450,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+1456,Yusaku Sako,1,ambari-web,0,1,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+1460,Yusaku Sako,1,ambari-web,0,1,2.0,0.0,27.0,3.0,0.0,26.0,0,1,0,0,0,,0,1
+1461,Yusaku Sako,1,ambari-web,0,1,1.0,0.0,24.0,3.0,0.0,22.0,0,0,0,0,0,,0,1
+1465,Siddharth Wagle,1,ambari-server,0,1,2.0,0.0,26.0,2.0,0.0,26.0,0,0,0,0,0,,0,1
+1466,Mahadev konar,1,null,0,1,0.0,0.0,11.0,2.0,0.0,9.0,0,0,0,0,0,,0,1
+1473,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,8.0,2.0,0.0,7.0,0,1,0,0,0,,0,0
+1486,Mahadev konar,1,null,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+1487,Mahadev konar,1,null,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+1488,Mahadev konar,1,null,0,0,1.0,1.0,4.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+1489,Mahadev konar,1,null,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,0,0,0,0,,0,0
+1496,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,3.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+1497,Mahadev konar,1,null,0,0,1.0,0.0,6.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+1499,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,12.0,2.0,0.0,11.0,0,0,0,0,0,,0,1
+1505,Xi Wang,1,ambari-web,0,0,0.0,0.0,9.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+1519,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,25.0,0.0,0.0,26.0,0,0,0,0,0,,0,1
+1520,Srimanth Gunturi,1,ambari-web,0,0,0.0,1.0,6.0,0.0,0.0,7.0,0,0,0,0,0,,0,1
+1536,Xi Wang,1,ambari-web,0,1,2.0,0.0,32.0,0.0,0.0,34.0,0,1,0,0,1,CHANGES.txt;ambari-web/app/styles/application.less;,0,0
+1537,Xi Wang,1,ambari-web,0,0,3.0,0.0,25.0,1.0,0.0,27.0,0,1,0,0,0,,0,0
+1559,Steve Ratay,0,ambari-server,0,0,0.0,0.0,20.0,0.0,0.0,20.0,0,1,0,0,0,,0,0
+1580,Yusaku Sako,1,ambari-web,0,0,2.0,0.0,6.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1581,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,20.0,1.0,0.0,20.0,0,1,0,0,0,,0,0
+1582,Siddharth Wagle,1,ambari-server,0,0,2.0,0.0,10.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+1597,Siddharth Wagle,1,ambari-agent,0,0,10.0,0.0,32.0,0.0,0.0,42.0,1,1,0,0,0,,0,0
+1621,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+1631,Yusaku Sako,1,ambari-web,0,0,2.0,0.0,4.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+1641,Steve Ratay,0,ambari-server,1,1,7.0,0.0,116.0,6.0,2.0,115.0,0,1,1,0,0,CHANGES.txt;ambari-server/src/main/resources/jmx_properties.json;ambari-server/src/test/java/org/apache/ambari/server/controller/jmx/JMXPropertyProviderTest.java;ambari-server/src/test/resources/mapreduce_tasktracker_jmx.json;,0,0
+1645,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+1666,Siddharth Wagle,1,ambari-agent,0,0,6.0,0.0,10.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+1667,Siddharth Wagle,1,ambari-agent,0,0,4.0,0.0,20.0,1.0,0.0,23.0,0,1,0,0,0,,0,0
+1702,Siddharth Wagle,1,ambari-server,0,0,1.0,0.0,29.0,0.0,0.0,30.0,0,1,0,0,0,,0,0
+1724,Sumit Mohanty,1,null,0,0,2.0,0.0,8.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+1726,Sumit Mohanty,1,null,0,0,2.0,0.0,22.0,0.0,0.0,24.0,0,1,1,0,0,,0,0
+1739,Siddharth Wagle,1,ambari-agent,0,0,2.0,0.0,13.0,0.0,1.0,14.0,0,1,0,0,0,,0,0
+1752,Siddharth Wagle,1,ambari-server,0,0,3.0,0.0,9.0,2.0,0.0,10.0,0,1,0,0,0,,0,0
+1757,Sumit Mohanty,1,null,0,0,1.0,0.0,3.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+1764,Tom Beerbower,1,null,0,0,1.0,0.0,16.0,1.0,0.0,16.0,0,1,1,0,0,CHANGES.txt;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/RequestResourceProvider.java;ambari-server/src/test/java/org/apache/ambari/server/controller/internal/RequestResourceProviderTest.java;,0,0
+1770,Siddharth Wagle,1,ambari-agent,0,0,0.0,0.0,14.0,0.0,0.0,14.0,0,1,0,0,1,,0,0
+1775,Jaimin D Jetly,1,ambari-web,0,0,3.0,0.0,7.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+1789,Sumit Mohanty,1,null,0,0,2.0,0.0,16.0,0.0,0.0,18.0,0,1,0,0,0,,0,0
+1791,Siddharth Wagle,1,ambari-agent,0,0,2.0,0.0,17.0,0.0,0.0,19.0,0,1,0,0,0,,0,0
+1816,Jaimin D Jetly,1,ambari-web,0,0,4.0,0.0,9.0,0.0,0.0,13.0,0,1,0,0,0,,1,0
+1818,Siddharth Wagle,1,ambari-agent,0,0,2.0,0.0,14.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+1837,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,9.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+1838,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+1840,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,18.0,0.0,0.0,18.0,0,1,0,0,0,,0,0
+1847,Srimanth Gunturi,1,ambari-web,0,1,2.0,0.0,27.0,3.0,0.0,26.0,0,1,0,0,0,,0,0
+1849,Yusaku Sako,1,ambari-web,0,0,0.0,1.0,3.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+1855,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,15.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+1859,Sumit Mohanty,1,null,0,1,2.0,0.0,29.0,1.0,0.0,30.0,0,1,0,1,0,,1,0
+1860,Sumit Mohanty,1,null,1,0,2.0,1.0,22.0,0.0,1.0,24.0,0,1,0,0,0,,0,0
+1870,Matthew Farrellee,1,ambari-agent,0,0,2.0,1.0,43.0,1.0,0.0,45.0,0,1,0,1,0,,0,0
+1872,Jaimin D Jetly,1,ambari-web,0,0,2.0,0.0,7.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+1873,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+1876,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1877,Yusaku Sako,1,ambari-web,0,0,2.0,0.0,9.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+1880,Srimanth Gunturi,1,ambari-web,0,1,2.0,0.0,14.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+1881,Mahadev konar,1,null,0,0,0.0,0.0,15.0,0.0,0.0,15.0,0,0,0,0,0,,0,1
+1891,Srimanth Gunturi,1,ambari-web,0,1,0.0,0.0,27.0,0.0,0.0,27.0,0,1,0,0,0,,0,0
+1896,Srimanth Gunturi,1,ambari-web,0,0,1.0,0.0,11.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+1904,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+1912,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+1915,Siddharth Wagle,1,ambari-server,1,1,9.0,2.0,88.0,3.0,2.0,94.0,0,1,1,0,0,,0,0
+1917,Jaimin D Jetly,1,null,0,0,1.0,0.0,10.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+1919,Sumit Mohanty,1,null,0,0,0.0,0.0,18.0,0.0,1.0,17.0,0,1,0,0,0,,0,0
+1923,Sumit Mohanty,1,null,0,0,1.0,0.0,6.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+1924,Sumit Mohanty,1,null,0,0,1.0,0.0,15.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+1933,Sumit Mohanty,1,null,0,0,1.0,0.0,22.0,0.0,0.0,23.0,1,1,0,0,0,,0,0
+1934,Sumit Mohanty,1,null,1,1,7.0,0.0,56.0,2.0,0.0,61.0,0,1,0,1,1,,1,0
+1944,Siddharth Wagle,1,ambari-server,1,0,14.0,2.0,46.0,1.0,2.0,59.0,1,1,0,0,0,,0,0
+1947,Siddharth Wagle,1,ambari-agent,0,0,2.0,0.0,7.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+1948,Siddharth Wagle,1,ambari-agent,0,0,1.0,0.0,18.0,1.0,0.0,18.0,0,1,0,0,0,,0,0
+1952,Ashish Singh,1,infra,0,0,1.0,0.0,18.0,0.0,0.0,19.0,0,1,0,0,0,,0,0
+1956,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,15.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+1957,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,20.0,0.0,0.0,20.0,0,1,0,0,0,,0,0
+1966,Yusaku Sako,1,ambari-web,0,1,1.0,0.0,14.0,0.0,0.0,15.0,0,1,0,0,0,,0,0
+1978,Siddharth Wagle,1,ambari-agent,0,0,2.0,0.0,34.0,0.0,0.0,36.0,0,1,0,0,0,,0,0
+1980,Nate Cole,1,null,0,0,1.0,0.0,22.0,0.0,0.0,23.0,0,1,0,0,0,,0,0
+1988,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1997,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,17.0,0.0,0.0,17.0,0,1,0,0,1,,0,0
+1998,Yusaku Sako,1,ambari-web,0,0,0.0,1.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+1999,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+2001,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+2003,Yusaku Sako,1,ambari-web,0,0,0.0,1.0,9.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+2008,Sumit Mohanty,1,null,0,0,4.0,1.0,31.0,1.0,0.0,35.0,0,1,0,0,0,,0,0
+2013,Nate Cole,1,null,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+2019,Siddharth Wagle,1,ambari-server,0,0,5.0,1.0,25.0,1.0,1.0,29.0,0,0,0,0,0,,0,1
+2024,Siddharth Wagle,1,ambari-server,0,1,6.0,2.0,96.0,1.0,3.0,100.0,0,0,0,0,0,,0,1
+2027,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+2029,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,5.0,0.0,1.0,4.0,0,1,0,0,0,,0,0
+2030,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,18.0,0.0,0.0,19.0,0,1,0,0,1,,0,0
+2031,Giridharan Kesavan,1,infra,0,0,0.0,0.0,12.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+2034,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,9.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+2035,Yusaku Sako,1,ambari-web,0,0,3.0,0.0,12.0,0.0,0.0,15.0,0,1,0,0,1,,0,0
+2038,Yusaku Sako,1,ambari-web,0,0,1.0,1.0,19.0,0.0,0.0,21.0,0,1,0,0,0,,0,0
+2045,Siddharth Wagle,1,ambari-server,0,0,0.0,0.0,12.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+2054,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+2058,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+2061,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+2065,Sumit Mohanty,1,null,0,0,0.0,0.0,15.0,0.0,0.0,15.0,0,1,0,0,0,,0,0
+2068,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+2070,Yusaku Sako,1,ambari-web,0,0,3.0,0.0,20.0,0.0,0.0,23.0,0,1,0,0,0,,0,0
+2075,Yusaku Sako,1,ambari-web,0,0,3.0,0.0,2.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+2081,Siddharth Wagle,1,ambari-agent,0,1,4.0,0.0,25.0,0.0,1.0,28.0,0,1,0,0,0,,0,0
+2087,Sumit Mohanty,1,null,0,1,0.0,0.0,15.0,0.0,0.0,15.0,0,1,0,0,1,,0,0
+2089,Xi Wang,1,null,0,0,4.0,0.0,4.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+2095,Jaimin D Jetly,1,ambari-web,0,0,3.0,0.0,27.0,0.0,0.0,30.0,0,1,0,0,1,,0,0
+2101,Siddharth Wagle,1,ambari-agent,0,1,10.0,3.0,119.0,1.0,2.0,129.0,1,1,0,0,0,,1,0
+2103,Jeff Sposetti,1,ambari-web,0,0,4.0,2.0,16.0,0.0,0.0,22.0,0,1,0,0,1,,0,0
+2111,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,4.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+2118,Chad Roberts,1,ambari-server,0,0,1.0,1.0,25.0,1.0,0.0,26.0,0,1,0,0,0,,0,0
+2130,Trevor McKay,1,ambari-server,0,0,1.0,0.0,15.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+2134,Jaimin D Jetly,1,ambari-server,0,0,2.0,0.0,7.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+2136,Mahadev konar,1,null,0,0,3.0,1.0,31.0,0.0,0.0,35.0,0,1,1,0,0,,0,0
+2143,Sumit Mohanty,1,null,0,0,3.0,1.0,67.0,0.0,0.0,71.0,1,1,0,0,0,,0,0
+2144,Siddharth Wagle,1,ambari-agent,0,0,5.0,1.0,44.0,2.0,0.0,48.0,1,1,0,0,0,,0,0
+2146,Sumit Mohanty,1,null,1,0,14.0,2.0,74.0,0.0,2.0,88.0,1,1,0,0,0,,0,0
+2147,Nate Cole,1,null,0,0,2.0,1.0,12.0,0.0,1.0,14.0,0,1,0,0,0,,0,0
+2149,Mahadev konar,1,null,0,0,1.0,0.0,9.0,1.0,0.0,9.0,0,1,0,0,0,,0,0
+2152,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+2159,Mahadev konar,1,null,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+2161,Jaimin D Jetly,1,ambari-agent,0,0,1.0,0.0,4.0,0.0,0.0,5.0,0,1,0,0,0,,1,0
+2171,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+2172,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,6.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+2173,Sumit Mohanty,1,null,0,0,0.0,0.0,6.0,1.0,0.0,5.0,0,1,0,0,0,,0,0
+2180,Mahadev konar,1,null,0,0,0.0,0.0,7.0,1.0,0.0,6.0,0,1,0,0,0,,0,0
+2187,Srimanth Gunturi,1,ambari-web,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+2188,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+2192,Nate Cole,1,ambari-agent,0,1,1.0,1.0,19.0,1.0,0.0,20.0,0,1,0,0,0,,0,0
+2195,Vikram Dixit K,1,null,0,0,3.0,0.0,40.0,0.0,0.0,43.0,0,0,0,0,0,,0,1
+2200,Chad Roberts,1,ambari-server,0,0,2.0,0.0,22.0,0.0,0.0,24.0,0,1,0,0,0,,0,0
+2203,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+2207,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+2208,Yusaku Sako,1,ambari-web,0,0,2.0,0.0,5.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+2212,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+2217,Sumit Mohanty,1,null,0,0,5.0,1.0,35.0,0.0,0.0,41.0,0,1,0,0,1,,0,0
+2223,Siddharth Wagle,1,ambari-agent,0,0,5.0,0.0,86.0,2.0,0.0,89.0,0,0,0,0,0,,0,1
+2228,Sumit Mohanty,1,null,0,0,0.0,0.0,17.0,1.0,0.0,16.0,0,1,0,0,0,,0,0
+2233,Sumit Mohanty,1,null,0,0,3.0,0.0,47.0,1.0,0.0,49.0,0,1,0,0,1,,0,0
+2240,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,ambari-web/app/data/HDP2/config_mapping.js;ambari-web/app/data/HDP2/config_properties.js;ambari-web/app/data/config_mapping.js;ambari-web/app/data/config_properties.js;,0,0
+2259,Oleg Nechiporenko,1,null,0,0,0.0,1.0,8.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+2260,Tom Beerbower,1,null,0,0,1.0,0.0,14.0,1.0,0.0,14.0,0,1,1,0,0,ambari-server/docs/api/v1/clusters-cluster.md;ambari-server/docs/api/v1/index.md;ambari-server/docs/api/v1/index.md;,0,0
+2262,Andrii Tkach,1,ambari-web,0,0,3.0,0.0,27.0,1.0,0.0,29.0,0,1,0,1,0,,1,0
+2270,Dmytro Sen,1,ambari-agent; ambari-server,1,1,6.0,0.0,34.0,1.0,0.0,39.0,0,1,0,1,0,,1,0
+2279,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,8.0,2.0,0.0,7.0,0,1,0,0,0,ambari-web/app/controllers/main/service/info/configs.js;ambari-web/app/controllers/wizard/step8_controller.js;,0,0
+2290,Dmytro Sen,1,ambari-server,0,0,1.0,0.0,27.0,0.0,0.0,28.0,0,1,0,0,0,,0,0
+2300,Dmitry Lysnichenko,1,ambari-server,0,1,3.0,1.0,75.0,2.0,1.0,76.0,1,1,1,0,0,,0,0
+2313,Oleg Nechiporenko,1,null,0,0,2.0,0.0,38.0,0.0,0.0,40.0,0,1,0,0,1,,0,0
+2337,Jaimin D Jetly,1,ambari-web,0,0,2.0,1.0,6.0,0.0,0.0,9.0,0,1,0,0,0,,1,0
+2346,Yusaku Sako,1,ambari-web,0,1,1.0,0.0,21.0,0.0,0.0,22.0,0,1,0,1,1,ambari-agent/src/main/puppet/modules/hdp-ganglia/files/rrd.py;,0,0
+2349,Oleksandr Diachenko,1,ambari-server,0,0,1.0,1.0,15.0,0.0,0.0,17.0,0,1,0,0,1,,0,0
+2362,Andrii Tkach,1,ambari-web,0,0,2.0,0.0,4.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+2363,Dmitry Lysnichenko,1,ambari-server,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+2371,Jaimin D Jetly,1,ambari-web,0,0,9.0,0.0,11.0,0.0,0.0,20.0,0,1,0,0,0,ambari-web/app/controllers/main/admin/security/add/step3.js;ambari-web/app/controllers/main/admin/security/disable.js;,1,0
+2372,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+2375,Andrii Tkach,1,ambari-web,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+2377,Oleg Nechiporenko,1,ambari-web,0,0,6.0,1.0,45.0,2.0,0.0,50.0,0,1,0,0,0,,0,0
+2383,Siddharth Wagle,1,ambari-server,0,0,1.0,0.0,8.0,0.0,0.0,9.0,0,1,0,0,0,ambari-web/app/utils/host_progress_popup.js;,0,0
+2391,Oleksandr Diachenko,1,ambari-server,0,0,5.0,0.0,20.0,0.0,0.0,25.0,0,1,0,0,1,,0,0
+2394,Siddharth Wagle,1,ambari-server,0,0,1.0,0.0,23.0,0.0,0.0,24.0,1,1,0,0,0,,0,0
+2402,Xi Wang,1,ambari-web,0,0,0.0,1.0,2.0,0.0,0.0,3.0,0,1,0,0,0,,0,0
+2403,Dmitry Lysnichenko,1,ambari-server,1,1,4.0,0.0,22.0,2.0,0.0,24.0,0,1,0,0,0,,1,0
+2408,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,6.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+2413,Andrii Tkach,1,ambari-web,0,0,2.0,0.0,8.0,1.0,0.0,9.0,0,1,0,0,0,,0,0
+2414,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,12.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+2426,Xi Wang,1,ambari-web,0,0,0.0,1.0,4.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+2433,Dmitry Lysnichenko,1,ambari-server,0,1,4.0,0.0,28.0,0.0,1.0,31.0,1,1,0,0,0,,0,0
+2441,Dmitry Lysnichenko,1,ambari-server,0,0,7.0,1.0,46.0,3.0,1.0,50.0,0,1,0,0,1,,0,0
+2443,Jaimin D Jetly,1,ambari-agent; ambari-web,0,0,3.0,0.0,6.0,0.0,0.0,9.0,0,1,0,0,0,,1,0
+2447,Dmitry Lysnichenko,1,ambari-server,0,0,0.0,0.0,14.0,0.0,0.0,14.0,0,1,0,0,0,,0,0
+2461,Dmitry Lysnichenko,1,ambari-server,0,0,1.0,0.0,11.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+2465,Srimanth Gunturi,1,ambari-web,0,0,2.0,0.0,15.0,0.0,0.0,17.0,0,1,0,0,0,,0,0
+2466,Yusaku Sako,1,ambari-web,0,0,5.0,0.0,44.0,0.0,1.0,48.0,0,1,0,0,1,,0,0
+2471,Mahadev konar,1,null,0,0,1.0,0.0,6.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+2475,Ximo Guanter,1,null,0,0,1.0,0.0,19.0,0.0,1.0,19.0,0,1,1,0,0,,0,0
+2480,Xi Wang,1,ambari-web,0,0,0.0,2.0,13.0,0.0,1.0,14.0,0,1,0,0,1,,0,0
+2486,Dmitry Lysnichenko,1,ambari-agent,0,1,5.0,0.0,30.0,0.0,0.0,35.0,0,1,0,0,0,,0,0
+2490,Siddharth Wagle,1,ambari-server,0,1,8.0,1.0,35.0,0.0,0.0,44.0,1,1,0,0,0,,0,0
+2491,Andrii Tkach,1,ambari-web,0,0,13.0,1.0,61.0,1.0,0.0,74.0,0,1,0,0,0,,0,0
+2497,Vitaly Brodetskyi,1,ambari-agent,0,0,6.0,0.0,47.0,1.0,0.0,52.0,0,1,1,0,0,,0,0
+2498,Oleksandr Diachenko,1,ambari-server,1,0,5.0,0.0,34.0,0.0,0.0,39.0,0,1,1,0,0,,0,0
+2515,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,1,0
+2517,Siddharth Wagle,1,ambari-agent,0,0,2.0,0.0,7.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+2519,Srimanth Gunturi,1,ambari-web,0,0,5.0,0.0,16.0,0.0,0.0,21.0,0,1,0,0,0,,0,0
+2522,Siddharth Wagle,1,ambari-agent,0,0,3.0,0.0,3.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+2525,Dmitry Lysnichenko,1,ambari-server,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+2532,Siddharth Wagle,1,ambari-agent,0,0,2.0,0.0,7.0,0.0,0.0,9.0,0,1,0,0,0,,1,0
+2534,Sumit Mohanty,1,ambari-server,0,0,1.0,0.0,18.0,1.0,0.0,18.0,0,1,0,0,0,,0,0
+2542,Nate Cole,1,ambari-server,0,1,1.0,0.0,22.0,0.0,1.0,22.0,0,1,0,0,0,,0,0
+2545,Dmitry Lysnichenko,1,ambari-agent,0,0,3.0,0.0,16.0,0.0,0.0,19.0,0,1,0,0,0,,0,0
+2546,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,17.0,1.0,1.0,15.0,0,1,0,0,0,,0,0
+2555,Andrii Tkach,1,ambari-web,0,0,5.0,0.0,4.0,0.0,0.0,9.0,0,1,0,0,0,ambari-web/app/controllers/main/admin/security/add/step4.js;ambari-web/app/messages.js;ambari-web/app/routes/add_security.js;ambari-web/app/routes/main.js;ambari-web/app/templates/main/admin/security/add/step1.hbs;ambari-web/app/templates/main/admin/security/add/step2.hbs;ambari-web/app/templates/main/admin/security/add/step3.hbs;,0,0
+2556,Dmitry Lysnichenko,1,ambari-server,0,0,1.0,0.0,20.0,1.0,1.0,19.0,0,1,0,0,0,,0,0
+2568,Dmitry Lysnichenko,1,ambari-agent,1,1,7.0,2.0,42.0,2.0,0.0,49.0,0,1,0,0,1,,1,0
+2578,Dmitry Lysnichenko,1,ambari-server,0,0,3.0,0.0,22.0,0.0,0.0,25.0,0,1,0,0,0,,0,0
+2585,Aleksandr Kovalenko,1,ambari-web,0,0,0.0,0.0,10.0,1.0,0.0,9.0,0,1,0,0,0,,0,0
+2590,Xi Wang,1,null,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+2594,Siddharth Wagle,1,ambari-agent,0,0,5.0,1.0,15.0,1.0,1.0,19.0,0,1,0,0,0,,0,0
+2595,Andrii Tkach,1,ambari-web,0,0,4.0,0.0,34.0,0.0,0.0,38.0,0,1,0,0,1,ambari-web/app/views/common/configs/services_config.js;,0,0
+2600,Antonenko Alexander,1,ambari-web,0,0,2.0,0.0,9.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+2605,Siddharth Wagle,1,ambari-agent,0,0,2.0,0.0,6.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+2608,Sumit Mohanty,1,ambari-server,0,0,8.0,0.0,23.0,2.0,1.0,28.0,0,1,0,0,0,,0,0
+2612,Dmytro Shkvyra,1,ambari-agent; ambari-server,0,0,2.0,0.0,6.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+2613,Aleksandr Kovalenko,1,ambari-web,0,0,2.0,0.0,26.0,1.0,1.0,26.0,0,1,0,0,0,,0,0
+2614,Andrii Tkach,1,ambari-web,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+2619,Antonenko Alexander,1,ambari-web,0,0,0.0,0.0,29.0,0.0,1.0,28.0,0,1,0,0,1,,0,0
+2631,Oleksandr Diachenko,1,ambari-server,0,0,1.0,0.0,6.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+2632,Xi Wang,1,null,0,0,0.0,1.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+2633,Sumit Mohanty,1,null,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+2635,Srimanth Gunturi,1,ambari-web,0,1,1.0,0.0,30.0,4.0,1.0,26.0,0,0,0,0,0,,0,1
+2636,Xi Wang,1,null,0,0,0.0,1.0,17.0,0.0,1.0,17.0,0,1,0,0,1,,0,0
+2637,Jaimin D Jetly,1,ambari-web,0,0,6.0,1.0,27.0,1.0,0.0,33.0,0,1,0,0,1,ambari-web/app/controllers/main/admin/security/add/step3.js;ambari-web/app/utils/string_utils.js;,0,0
+2640,Aleksandr Kovalenko,1,ambari-web,0,0,2.0,0.0,24.0,0.0,0.0,26.0,0,1,0,0,1,,0,0
+2642,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,1.0,0.0,0.0,1.0,0,1,0,0,0,,0,0
+2643,Nate Cole,1,null,0,1,1.0,0.0,16.0,0.0,0.0,17.0,0,0,0,0,0,,0,1
+2644,Siddharth Wagle,1,ambari-server,1,0,21.0,3.0,212.0,11.0,2.0,223.0,1,1,0,0,0,,0,0
+2646,Jeff Sposetti,1,ambari-web,0,0,0.0,0.0,6.0,1.0,0.0,5.0,0,1,0,0,0,,0,0
+2653,Dmytro Shkvyra,1,ambari-agent; ambari-server,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+2657,Andrii Tkach,1,ambari-web,1,0,2.0,0.0,9.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+2660,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+2661,Jaimin D Jetly,1,ambari-web,0,0,11.0,0.0,18.0,0.0,0.0,29.0,0,1,0,0,1,ambari-web/app/routes/main.js;,0,0
+2670,Antonenko Alexander,1,ambari-web,0,0,1.0,2.0,38.0,1.0,0.0,40.0,0,0,0,0,0,,0,1
+2681,Sumit Mohanty,1,ambari-server,0,0,1.0,0.0,8.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+2688,Artem Baranchuk,1,ambari-server,1,0,4.0,0.0,23.0,0.0,1.0,26.0,0,1,1,0,1,,0,0
+2689,Jaimin D Jetly,1,ambari-web,0,0,3.0,0.0,7.0,0.0,0.0,10.0,0,1,0,0,0,ambari-web/app/controllers/main/admin/security/add/step4.js;ambari-web/app/controllers/main/admin/security/disable.js;ambari-web/app/messages.js;ambari-web/app/models/cluster_states.js;,0,0
+2690,Xi Wang,1,ambari-web,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+2692,Aleksandr Kovalenko,1,ambari-web,0,1,2.0,0.0,24.0,1.0,0.0,25.0,0,1,1,0,0,,0,0
+2697,Jaimin D Jetly,1,ambari-web,0,0,2.0,0.0,5.0,0.0,0.0,7.0,0,1,0,0,0,ambari-web/app/controllers/main/admin/security/disable.js;,1,0
+2698,Aleksandr Kovalenko,1,ambari-web,0,0,0.0,0.0,13.0,0.0,1.0,12.0,0,1,0,0,0,,0,0
+2701,Dmytro Sen,1,null,0,1,2.0,0.0,17.0,0.0,1.0,18.0,0,1,0,0,0,,0,0
+2707,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+2708,Antonenko Alexander,1,ambari-web,0,0,3.0,0.0,8.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+2716,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,5.0,1.0,0.0,5.0,0,1,0,0,0,ambari-web/app/models/form.js;ambari-web/app/templates/common/configs/addPropertyWindow.hbs;ambari-web/app/templates/common/configs/capacity_scheduler.hbs;ambari-web/app/templates/common/configs/overrideWindow.hbs;ambari-web/app/templates/common/configs/service_config.hbs;ambari-web/app/templates/main/admin/user/create.hbs;ambari-web/app/templates/main/admin/user/edit.hbs;ambari-web/app/templates/main/dashboard/edit_widget_popup.hbs;ambari-web/app/templates/main/mirroring/dataset.hbs;ambari-web/app/templates/main/mirroring/testConnection.hbs;ambari-web/app/templates/main/mirroring/testConnectionResults.hbs;ambari-web/app/templates/wizard/step1.hbs;ambari-web/app/templates/wizard/step1_addLocalRepository.hbs;ambari-web/app/templates/wizard/step5.hbs;ambari-web/app/views/common/configs/services_config.js;ambari-web/app/views/wizard/step0_view.js;,0,0
+2723,Artem Baranchuk,1,ambari-agent,0,0,1.0,0.0,10.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+2727,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,20.0,2.0,0.0,18.0,0,1,0,0,0,,0,0
+2729,Andrii Babiichuk,1,ambari-web,0,0,1.0,0.0,23.0,0.0,0.0,24.0,0,1,0,0,0,,0,0
+2733,Oleg Nechiporenko,1,ambari-web,0,0,2.0,2.0,33.0,1.0,2.0,34.0,0,1,0,0,1,,0,0
+2748,Sumit Mohanty,1,ambari-server,0,1,0.0,0.0,17.0,0.0,0.0,17.0,0,1,0,0,1,,0,0
+2753,Antonenko Alexander,1,ambari-web,0,1,3.0,0.0,40.0,1.0,0.0,42.0,0,1,0,0,0,,0,0
+2758,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,17.0,2.0,1.0,14.0,0,1,0,0,0,,0,0
+2760,Srimanth Gunturi,1,ambari-web,0,0,1.0,0.0,8.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+2761,Antonenko Alexander,1,ambari-web,0,0,3.0,1.0,34.0,0.0,0.0,38.0,0,1,0,0,1,,0,0
+2763,Siddharth Wagle,1,ambari-server,0,0,2.0,0.0,12.0,0.0,0.0,14.0,0,0,0,0,0,,0,1
+2768,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,22.0,0.0,0.0,22.0,0,1,1,0,0,,0,0
+2769,Andrii Babiichuk,1,ambari-web,0,0,3.0,0.0,19.0,0.0,0.0,22.0,0,1,0,0,0,,1,0
+2777,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+2782,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,17.0,1.0,0.0,17.0,0,1,0,0,0,,0,0
+2786,Andrew Onischuk,1,ambari-server,0,1,2.0,1.0,17.0,0.0,0.0,20.0,0,1,0,0,0,,0,0
+2799,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,14.0,0.0,1.0,14.0,0,1,0,0,1,,0,0
+2808,Dmytro Shkvyra,1,ambari-web,0,0,1.0,0.0,23.0,0.0,0.0,24.0,0,1,0,1,0,,0,0
+2816,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,23.0,2.0,0.0,22.0,0,1,0,0,0,,0,0
+2829,Oleg Nechiporenko,1,ambari-web,0,0,0.0,1.0,3.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+2834,Jaimin D Jetly,1,ambari-server,0,0,2.0,0.0,17.0,0.0,0.0,19.0,0,1,0,0,0,,0,0
+2836,Andrew Onischuk,1,ambari-web,0,0,0.0,0.0,27.0,1.0,0.0,26.0,0,1,0,0,0,,0,0
+2838,Sumit Mohanty,1,ambari-server,0,1,0.0,0.0,32.0,1.0,0.0,31.0,0,1,0,0,0,,0,0
+2840,Andrii Tkach,1,ambari-web,0,0,3.0,0.0,20.0,1.0,0.0,22.0,0,1,0,0,0,ambari-web/app/controllers/wizard.js;ambari-web/app/controllers/wizard/step7_controller.js;ambari-web/app/controllers/wizard/step8_controller.js;,0,0
+2847,Siddharth Wagle,1,ambari-agent,0,0,1.0,0.0,24.0,0.0,0.0,25.0,0,1,0,0,1,,0,0
+2858,Dmytro Sen,1,ambari-server,0,1,1.0,0.0,10.0,1.0,0.0,10.0,0,1,0,0,0,,0,0
+2864,Siddharth Wagle,1,ambari-agent,0,1,5.0,1.0,93.0,1.0,2.0,96.0,1,1,0,0,0,,0,0
+2865,Sumit Mohanty,1,ambari-agent,0,0,1.0,1.0,61.0,1.0,0.0,62.0,1,1,0,0,0,,0,0
+2866,Oleksandr Diachenko,1,ambari-server,0,1,1.0,0.0,30.0,1.0,0.0,30.0,0,1,0,0,0,,0,0
+2871,Oleksandr Diachenko,1,ambari-agent,0,1,9.0,4.0,116.0,2.0,3.0,124.0,1,1,0,0,1,,0,0
+2876,Sumit Mohanty,1,ambari-server,0,0,3.0,0.0,14.0,0.0,0.0,17.0,0,1,0,0,0,,0,0
+2879,Siddharth Wagle,1,ambari-agent,1,0,14.0,2.0,66.0,1.0,1.0,80.0,1,1,0,0,0,,0,0
+2884,Andrii Tkach,1,ambari-web,0,0,5.0,0.0,42.0,0.0,0.0,47.0,0,1,0,0,0,ambari-web/app/controllers/wizard/step8_controller.js;,0,0
+2886,Siddharth Wagle,1,ambari-agent,0,0,1.0,0.0,24.0,1.0,0.0,24.0,0,0,0,0,0,,0,1
+2891,Sumit Mohanty,1,ambari-server,0,0,1.0,0.0,12.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+2903,Mahadev konar,1,null,0,0,0.0,0.0,9.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+2905,Siddharth Wagle,1,ambari-server,0,0,5.0,0.0,24.0,0.0,0.0,29.0,0,1,1,0,0,,0,0
+2920,Yusaku Sako,1,ambari-web,0,0,5.0,0.0,42.0,1.0,1.0,45.0,0,1,0,0,1,,0,0
+2927,Srimanth Gunturi,1,ambari-web,0,1,3.0,0.0,30.0,2.0,0.0,31.0,0,1,0,0,0,,0,0
+2931,Andrii Tkach,1,ambari-web,0,0,2.0,0.0,16.0,1.0,0.0,17.0,0,1,0,0,1,,0,0
+2938,Sumit Mohanty,1,ambari-server,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+2939,Sumit Mohanty,1,ambari-server,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+2943,Mahadev konar,1,null,0,0,3.0,0.0,4.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+2947,Mahadev konar,1,null,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+2948,Siddharth Wagle,1,ambari-agent,0,0,0.0,0.0,14.0,0.0,0.0,14.0,0,1,0,0,0,,0,0
+2972,Andrii Tkach,1,ambari-web,0,0,3.0,1.0,16.0,0.0,0.0,20.0,0,1,0,0,0,ambari-web/app/controllers/main/admin/security.js;ambari-web/app/controllers/main/admin/security/add/step2.js;ambari-web/app/templates/common/configs/services_config.hbs;ambari-web/app/templates/main/admin/security.hbs;ambari-web/app/views/common/configs/services_config.js;ambari-web/app/views/main/admin/security.js;,0,0
+2973,Vladimir Tkhir,1,ambari-agent; ambari-server,0,0,5.0,0.0,53.0,3.0,1.0,54.0,1,1,0,0,0,,0,0
+2986,Mahadev konar,1,null,0,0,0.0,0.0,4.0,2.0,0.0,2.0,0,1,0,0,0,,0,0
+3009,Andrii Babiichuk,1,ambari-web,1,0,3.0,0.0,36.0,2.0,1.0,36.0,0,1,0,0,1,,0,0
+3019,Siddharth Wagle,1,ambari-server,0,0,1.0,0.0,4.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+3021,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,0,ambari-server/src/main/resources/stacks/HDP/2.0.5/services/YARN/configuration/yarn-site.xml;ambari-server/src/main/resources/stacks/HDPLocal/2.0.5/services/YARN/configuration/yarn-site.xml;,0,0
+3024,Mahadev konar,1,null,0,0,2.0,0.0,26.0,0.0,0.0,28.0,0,1,0,0,0,,0,0
+3026,Siddharth Wagle,1,ambari-server,0,1,1.0,0.0,38.0,3.0,0.0,36.0,1,1,0,0,0,,0,0
+3047,Sumit Mohanty,1,ambari-server,0,0,0.0,0.0,14.0,0.0,0.0,14.0,0,1,0,0,1,,0,0
+3056,Andrii Tkach,1,ambari-web,0,0,1.0,0.0,12.0,1.0,0.0,12.0,0,1,0,0,0,ambari-web/app/controllers/main/service/info/configs.js;ambari-web/app/data/HDP2/global_properties.js;ambari-web/app/utils/config.js;,0,0
+3061,Dmytro Sen,1,ambari-agent,0,0,2.0,0.0,23.0,0.0,0.0,25.0,0,1,1,0,0,,0,0
+3068,Artem Baranchuk,1,ambari-agent,0,0,1.0,0.0,21.0,0.0,0.0,22.0,0,1,0,0,0,,0,0
+3069,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,3.0,0.0,0.0,3.0,0,1,0,0,0,,0,0
+3073,subin,1,ambari-web,0,0,3.0,0.0,24.0,0.0,0.0,27.0,0,1,0,1,0,,0,0
+3074,Siddharth Wagle,1,ambari-agent,0,1,8.0,3.0,85.0,1.0,3.0,92.0,1,1,0,0,0,,0,0
+3076,Billie Rinaldi,1,null,0,0,0.0,0.0,19.0,0.0,0.0,19.0,0,1,0,0,0,,0,0
+3077,Billie Rinaldi,1,null,0,0,0.0,0.0,12.0,1.0,1.0,10.0,0,1,0,0,0,,0,0
+3093,Andrii Tkach,1,ambari-web,0,0,0.0,1.0,16.0,3.0,0.0,14.0,0,1,0,0,0,ambari-web/app/views/main/dashboard/widgets/hbase_master_heap.js;ambari-web/app/views/main/dashboard/widgets/namenode_heap.js;,0,0
+3095,Andrii Tkach,1,ambari-web,0,1,3.0,0.0,26.0,1.0,0.0,28.0,0,1,0,0,1,ambari-web/app/controllers/main/charts/heatmap_metrics/heatmap_metric.js;,0,0
+3099,Siddharth Wagle,1,ambari-server,0,1,1.0,0.0,27.0,0.0,0.0,28.0,0,1,0,0,0,,0,0
+3105,Xi Wang,1,ambari-web,0,0,1.0,1.0,16.0,0.0,1.0,17.0,0,1,0,0,0,,0,0
+3112,Jaimin D Jetly,1,ambari-agent,0,0,8.0,1.0,47.0,0.0,1.0,55.0,1,1,0,0,1,ambari-agent/src/main/puppet/modules/hdp-hadoop/manifests/service.pp;,1,0
+3115,Srimanth Gunturi,1,ambari-web,0,1,1.0,0.0,28.0,2.0,1.0,26.0,0,1,0,0,0,,0,0
+3119,Siddharth Wagle,1,ambari-server,0,1,4.0,0.0,50.0,1.0,1.0,52.0,1,1,1,0,0,,0,0
+3124,Oleg Nechiporenko,1,ambari-web,1,0,3.0,0.0,24.0,0.0,0.0,27.0,0,1,0,0,1,,0,0
+3135,Myroslav Papirkovskyy,1,ambari-server,0,0,2.0,0.0,31.0,0.0,0.0,33.0,0,0,0,0,0,,0,1
+3136,Myroslav Papirkovskyy,1,ambari-server,0,0,3.0,0.0,31.0,2.0,0.0,32.0,0,1,0,0,0,,0,0
+3145,Vitaly Brodetskyi,1,ambari-agent,0,0,3.0,0.0,39.0,1.0,1.0,40.0,0,1,1,0,0,,0,0
+3147,Sumit Mohanty,1,ambari-server,0,1,3.0,0.0,47.0,3.0,2.0,45.0,0,1,1,0,0,,0,0
+3148,Vitaly Brodetskyi,1,ambari-agent,0,0,5.0,0.0,36.0,1.0,0.0,40.0,0,1,0,0,1,,0,0
+3151,Sumit Mohanty,1,ambari-server,0,0,1.0,0.0,9.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+3153,Jaimin D Jetly,1,ambari-agent,0,1,8.0,1.0,19.0,0.0,0.0,28.0,0,1,0,0,0,ambari-agent/src/main/puppet/modules/hdp-yarn/files/validateYarnComponentStatus.py;,0,0
+3154,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+3160,Vitaly Brodetskyi,1,ambari-agent,0,0,5.0,0.0,14.0,0.0,1.0,18.0,0,1,0,0,1,,0,0
+3191,Sumit Mohanty,1,ambari-server,0,1,2.0,2.0,27.0,0.0,2.0,29.0,0,1,1,0,0,,0,0
+3198,Dmytro Sen,1,ambari-server,0,0,1.0,0.0,20.0,2.0,0.0,19.0,0,1,1,0,0,,0,0
+3221,Xi Wang,1,ambari-web,0,1,0.0,0.0,12.0,1.0,0.0,11.0,0,1,0,0,0,,0,0
+3229,Mahadev konar,1,null,0,0,5.0,0.0,30.0,0.0,0.0,35.0,0,1,1,0,0,,0,0
+3240,Sumit Mohanty,1,ambari-server,0,1,3.0,0.0,37.0,3.0,1.0,36.0,1,1,0,0,0,,0,0
+3251,Dmitry Lysnichenko,1,ambari-server,0,0,4.0,0.0,15.0,0.0,0.0,19.0,0,1,0,0,0,,0,0
+3252,Siddharth Wagle,1,ambari-server,1,0,10.0,1.0,19.0,0.0,0.0,30.0,0,1,0,0,1,,1,0
+3255,Oleg Nechiporenko,1,ambari-web,0,0,5.0,0.0,20.0,1.0,1.0,23.0,0,1,0,0,1,,1,0
+3258,Srimanth Gunturi,1,ambari-web,0,0,1.0,2.0,18.0,0.0,0.0,21.0,0,1,0,0,0,,0,0
+3260,Siddharth Wagle,1,ambari-server,0,0,3.0,0.0,14.0,0.0,0.0,17.0,0,1,1,0,0,,0,0
+3261,Jeff Sposetti,1,null,0,0,1.0,0.0,17.0,2.0,1.0,15.0,1,1,0,0,0,,0,0
+3276,Xi Wang,1,ambari-web,0,0,0.0,1.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+3279,Xi Wang,1,ambari-web,0,1,0.0,1.0,14.0,1.0,0.0,14.0,0,1,0,0,0,,0,0
+3285,Andrii Babiichuk,1,ambari-web,0,0,1.0,0.0,10.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+3292,Jaimin D Jetly,1,ambari-web,0,0,8.0,0.0,27.0,1.0,0.0,34.0,0,1,0,0,0,ambari-web/app/controllers/main/admin/security/add/step2.js;ambari-web/app/data/HDP2/secure_mapping.js;ambari-web/app/data/HDP2/secure_properties.js;,0,0
+3296,Vitaly Brodetskyi,1,ambari-agent,0,0,3.0,1.0,12.0,0.0,1.0,15.0,0,0,0,0,0,,0,0
+3301,Mahadev konar,1,null,0,0,0.0,0.0,3.0,0.0,0.0,3.0,0,1,0,0,0,,0,0
+3302,Sumit Mohanty,1,null,0,0,0.0,1.0,15.0,0.0,1.0,15.0,0,1,0,0,0,,0,0
+3304,Dmytro Shkvyra,1,ambari-agent,0,0,2.0,0.0,10.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+3307,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,6.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+3310,Oleg Nechiporenko,1,ambari-web,0,0,2.0,0.0,10.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+3315,Jaimin D Jetly,1,ambari-web,0,0,5.0,0.0,5.0,0.0,0.0,10.0,0,1,0,0,0,ambari-web/app/controllers/main/admin/security.js;ambari-web/app/controllers/main/admin/security/add/step2.js;ambari-web/app/controllers/main/admin/security/add/step3.js;ambari-web/app/controllers/main/admin/security/add/step4.js;ambari-web/app/controllers/main/admin/security/disable.js;ambari-web/app/routes/main.js;ambari-web/app/utils/ajax.js;ambari-web/app/utils/db.js;,1,0
+3318,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,3.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+3324,Andrii Tkach,1,ambari-web,0,0,1.0,0.0,9.0,1.0,0.0,9.0,0,1,0,0,0,ambari-web/app/mappers/service_mapper.js;,0,0
+3328,Dmitry Lysnichenko,1,ambari-agent,0,0,1.0,0.0,11.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+3332,Oleg Nechiporenko,1,ambari-web,0,0,2.0,1.0,20.0,0.0,0.0,23.0,0,1,0,0,0,,0,0
+3333,Andrii Tkach,1,ambari-web,0,1,1.0,2.0,45.0,1.0,2.0,45.0,1,1,0,0,0,ambari-web/app/app.js;ambari-web/app/views/main/host/summary.js;ambari-web/app/views/main/service/info/summary.js;ambari-web/app/views/wizard/step1_view.js;,0,0
+3336,Andrii Babiichuk,1,ambari-web,0,0,2.0,1.0,13.0,0.0,0.0,16.0,0,1,0,0,1,ambari-web/app/mappers/status_mapper.js;,0,0
+3337,Artem Baranchuk,1,ambari-server; test,0,0,1.0,1.0,26.0,0.0,0.0,28.0,0,1,0,0,0,,0,0
+3350,Erin A Boyd,1,null,0,0,2.0,1.0,41.0,0.0,0.0,44.0,0,1,0,0,0,,0,0
+3356,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,13.0,0.0,0.0,14.0,0,1,0,0,0,ambari-server/src/main/python/UpgradeHelper_HDP2.py;ambari-web/app/data/HDP2/config_mapping.js;,0,0
+3362,Sumit Mohanty,1,ambari-server,0,0,0.0,0.0,12.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+3363,Jaimin D Jetly,1,ambari-agent,0,0,0.0,0.0,12.0,0.0,0.0,12.0,0,1,0,0,0,ambari-agent/src/main/puppet/modules/hdp-hadoop/manifests/params.pp;,0,0
+3397,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+3398,Andrii Babiichuk,1,ambari-web,0,0,1.0,0.0,20.0,0.0,0.0,21.0,0,1,0,0,1,ambari-web/app/styles/application.less;ambari-web/app/templates/main/service.hbs;,0,0
+3402,Myroslav Papirkovskyy,1,ambari-server,1,0,4.0,0.0,42.0,2.0,1.0,43.0,1,1,0,0,0,,0,0
+3433,Mahadev konar,1,null,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+3434,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+3435,Jaimin D Jetly,1,ambari-web,0,0,2.0,0.0,6.0,0.0,0.0,8.0,0,1,0,0,0,ambari-server/src/main/resources/stacks/HDP/2.0.5/services/YARN/configuration/yarn-site.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/services/YARN/configuration/yarn-site.xml;ambari-server/src/main/resources/stacks/HDPLocal/2.0.5/services/YARN/configuration/yarn-site.xml;ambari-server/src/main/resources/stacks/HDPLocal/2.0.6/services/YARN/configuration/yarn-site.xml;ambari-web/app/data/HDP2/config_mapping.js;ambari-web/app/data/HDP2/global_properties.js;ambari-web/app/data/HDP2/site_properties.js;ambari-web/app/models/service_config.js;,1,0
+3437,Siddharth Wagle,1,ambari-agent,0,0,2.0,1.0,17.0,1.0,0.0,19.0,1,1,0,0,0,,0,0
+3443,Oleg Nechiporenko,1,null,0,0,2.0,0.0,8.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+3446,Andrii Babiichuk,1,ambari-web,0,0,3.0,0.0,14.0,0.0,0.0,17.0,0,1,0,0,0,ambari-web/app/assets/test/tests.js;ambari-web/app/models/quick_links.js;ambari-web/app/views/common/quick_view_link_view.js;ambari-web/test/views/common/quick_link_view_test.js;,0,0
+3456,Andrii Babiichuk,1,ambari-web,0,0,1.0,0.0,25.0,0.0,0.0,26.0,0,1,0,0,1,ambari-web/app/controllers/wizard/step9_controller.js;,0,0
+3457,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,14.0,0.0,1.0,13.0,0,1,0,0,0,,0,0
+3477,Andrii Tkach,1,ambari-web,0,1,1.0,0.0,22.0,1.0,0.0,22.0,0,1,0,0,1,ambari-web/app/app.js;,0,0
+3488,Andrii Tkach,1,ambari-web,0,1,0.0,0.0,19.0,2.0,0.0,17.0,0,1,0,0,0,ambari-web/app/mappers/status_mapper.js;,0,0
+3490,Dmitry Lysnichenko,1,ambari-agent,0,0,3.0,1.0,24.0,2.0,0.0,26.0,0,1,0,0,0,,0,0
+3491,Jaimin D Jetly,1,ambari-web,0,1,2.0,0.0,13.0,0.0,0.0,15.0,0,1,0,0,0,ambari-web/app/controllers/wizard/step8_controller.js;ambari-web/app/data/HDP2/config_mapping.js;ambari-web/app/utils/config.js;,0,0
+3498,Jaimin D Jetly,1,ambari-web,0,0,3.0,0.0,8.0,0.0,0.0,11.0,0,1,0,0,0,ambari-web/app/data/HDP2/config_mapping.js;,0,0
+3507,Oleg Nechiporenko,1,ambari-web,0,0,2.0,0.0,8.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+3512,Sumit Mohanty,1,null,0,0,1.0,0.0,14.0,0.0,0.0,15.0,0,1,0,0,0,,0,0
+3521,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,17.0,0.0,0.0,17.0,0,1,0,0,0,ambari-web/app/controllers/wizard/step9_controller.js;ambari-web/app/messages.js;,0,0
+3528,Oleg Nechiporenko,1,ambari-web,0,0,3.0,0.0,31.0,2.0,0.0,32.0,0,1,1,0,0,,0,0
+3534,Artem Baranchuk,1,ambari-server; test,0,0,3.0,0.0,7.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+3535,Oleg Nechiporenko,1,ambari-web,0,0,2.0,0.0,16.0,0.0,0.0,18.0,0,1,0,0,0,,0,0
+3537,Dmytro Sen,1,ambari-agent,0,0,4.0,0.0,9.0,0.0,0.0,13.0,0,0,0,0,0,ambari-agent/src/main/python/resource_management/libraries/providers/__init__.py;ambari-agent/src/main/python/resource_management/libraries/providers/properties_file.py;ambari-agent/src/main/python/resource_management/libraries/resources/__init__.py;ambari-agent/src/main/python/resource_management/libraries/resources/properties_file.py;ambari-server/src/main/resources/stacks/HDP/1.3.3/hooks/before-START/scripts/params.py;ambari-server/src/main/resources/stacks/HDP/1.3.3/hooks/before-START/scripts/shared_initialization.py;ambari-server/src/main/resources/stacks/HDP/1.3.3/hooks/before-START/templates/log4j.properties.j2;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/HBASE/configuration/hbase-log4j.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/HBASE/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/HBASE/package/scripts/hbase.py;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/HBASE/package/scripts/params.py;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/HDFS/configuration/hdfs-log4j.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/HDFS/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/HIVE/configuration/hive-exec-log4j.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/HIVE/configuration/hive-log4j.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/HIVE/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/HIVE/package/scripts/hive.py;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/HIVE/package/scripts/params.py;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/MAPREDUCE/configuration/mapreduce-log4j.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/MAPREDUCE/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/OOZIE/configuration/oozie-log4j.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/OOZIE/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/OOZIE/package/scripts/oozie.py;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/OOZIE/package/scripts/params.py;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/OOZIE/package/templates/oozie-log4j.properties.j2;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/PIG/configuration/pig-log4j.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/PIG/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/PIG/package/scripts/params.py;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/PIG/package/scripts/pig.py;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/PIG/package/templates/log4j.properties.j2;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/ZOOKEEPER/configuration/zookeeper-log4j.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/ZOOKEEPER/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/ZOOKEEPER/package/scripts/params.py;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/ZOOKEEPER/package/scripts/zookeeper.py;ambari-server/src/main/resources/stacks/HDP/1.3.3/services/ZOOKEEPER/package/templates/log4j.properties.j2;ambari-server/src/main/resources/stacks/HDP/2.1.1/hooks/before-START/scripts/params.py;ambari-server/src/main/resources/stacks/HDP/2.1.1/hooks/before-START/scripts/shared_initialization.py;ambari-server/src/main/resources/stacks/HDP/2.1.1/hooks/before-START/templates/log4j.properties.j2;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/HBASE/configuration/hbase-log4j.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/HBASE/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/HBASE/package/scripts/hbase.py;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/HBASE/package/scripts/params.py;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/HDFS/configuration/hdfs-log4j.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/HDFS/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/HIVE/configuration/hive-exec-log4j.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/HIVE/configuration/hive-log4j.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/HIVE/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/HIVE/package/scripts/hive.py;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/HIVE/package/scripts/params.py;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/OOZIE/configuration/oozie-log4j.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/OOZIE/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/OOZIE/package/scripts/oozie.py;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/OOZIE/package/scripts/params.py;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/PIG/configuration/pig-log4j.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/PIG/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/PIG/package/scripts/params.py;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/PIG/package/scripts/pig.py;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/PIG/package/templates/log4j.properties.j2;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/YARN/configuration/yarn-log4j.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/YARN/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/ZOOKEEPER/configuration/zookeeper-log4j.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/ZOOKEEPER/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/ZOOKEEPER/package/scripts/params.py;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/ZOOKEEPER/package/scripts/zookeeper.py;ambari-server/src/main/resources/stacks/HDP/2.1.1/services/ZOOKEEPER/package/templates/log4j.properties.j2;,0,0
+3553,Jaimin D Jetly,1,ambari-web,0,0,7.0,1.0,27.0,0.0,0.0,35.0,0,1,0,0,1,,0,0
+3569,Oleg Nechiporenko,1,ambari-web,0,0,3.0,0.0,13.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+3582,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,21.0,0.0,0.0,21.0,0,1,0,0,0,,0,0
+3584,Jaimin D Jetly,1,ambari-web,0,0,1.0,1.0,10.0,0.0,0.0,12.0,0,1,0,0,0,ambari-web/app/config.js;ambari-web/app/controllers/main/service/reassign/step4_controller.js;ambari-web/app/controllers/main/service/reassign/step6_controller.js;ambari-web/app/messages.js;ambari-web/app/templates/main/admin/highAvailability/progress.hbs;ambari-web/app/templates/main/service/reassign/step1.hbs;ambari-web/app/views/main/service/reassign/step1_view.js;ambari-web/app/views/main/service/reassign/step4_view.js;ambari-web/app/views/main/service/reassign/step6_view.js;,0,0
+3589,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,15.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+3594,Jaimin D Jetly,1,ambari-web,0,1,2.0,0.0,14.0,0.0,0.0,16.0,0,1,0,0,0,ambari-web/app/controllers/main/service/info/configs.js;ambari-web/app/controllers/main/service/reassign_controller.js;ambari-web/app/utils/config.js;ambari-web/app/views/wizard/controls_view.js;,0,0
+3609,Trevor McKay,1,ambari-agent,0,0,2.0,1.0,18.0,1.0,0.0,20.0,0,1,0,0,0,,0,0
+3611,Xi Wang,1,ambari-web,0,0,0.0,0.0,16.0,1.0,0.0,15.0,0,1,0,0,0,,0,0
+3613,Antonenko Alexander,1,ambari-web,0,0,5.0,1.0,17.0,1.0,0.0,22.0,0,1,0,0,1,,0,0
+3615,Dmytro Sen,1,ambari-agent,0,0,2.0,0.0,10.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+3618,Xi Wang,1,ambari-web,0,0,2.0,0.0,18.0,0.0,0.0,20.0,0,1,0,0,1,,0,0
+3621,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,ambari-web/app/messages.js;ambari-web/app/templates/main/host/details/raiseDeleteComponentErrorPopup.hbs;,0,0
+3623,Artem Baranchuk,1,ambari-agent; test,0,0,7.0,0.0,41.0,1.0,0.0,47.0,0,1,0,0,1,,0,0
+3631,Dmytro Shkvyra,1,ambari-agent,0,1,4.0,0.0,56.0,0.0,0.0,60.0,1,1,0,0,0,,0,0
+3645,Xi Wang,1,ambari-web,0,0,4.0,1.0,19.0,0.0,0.0,24.0,0,1,0,0,0,,0,0
+3648,Vitaly Brodetskyi,1,ambari-agent,0,0,2.0,1.0,14.0,0.0,0.0,17.0,0,1,0,0,0,,0,0
+3650,Andrii Tkach,1,ambari-web,0,0,0.0,0.0,19.0,1.0,0.0,18.0,0,1,0,0,0,ambari-web/app/assets/data/services/host_component_stale_configs.json;ambari-web/app/controllers/global/cluster_controller.js;ambari-web/app/controllers/global/update_controller.js;ambari-web/app/controllers/main/service/info/configs.js;ambari-web/app/initialize.js;ambari-web/app/mappers/component_config_mapper.js;ambari-web/app/models/service.js;ambari-web/app/views/main/host/summary.js;,0,0
+3674,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,14.0,0.0,0.0,14.0,0,1,0,0,0,,0,0
+3675,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,24.0,0.0,0.0,25.0,0,1,0,0,0,ambari-web/app/controllers/wizard/step7_controller.js;ambari-web/app/utils/config.js;ambari-web/app/utils/defaults_providers/yarn_defaults_provider.js;ambari-web/app/utils/helper.js;ambari-web/app/utils/string_utils.js;,0,0
+3679,Dmytro Shkvyra,1,ambari-agent,0,0,4.0,0.0,47.0,0.0,0.0,51.0,0,1,0,0,0,,0,0
+3686,Antonenko Alexander,1,ambari-web,0,0,4.0,0.0,21.0,0.0,0.0,25.0,0,1,0,0,0,,0,0
+3690,Yusaku Sako,1,ambari-web,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+3695,Dmytro Shkvyra,1,ambari-agent,0,0,3.0,0.0,18.0,0.0,0.0,21.0,1,1,0,0,0,,0,0
+3698,Jaimin D Jetly,1,ambari-web,0,0,2.0,0.0,28.0,2.0,0.0,28.0,0,1,1,0,0,ambari-web/app/messages.js;ambari-web/app/styles/application.less;,0,0
+3701,Dmytro Shkvyra,1,ambari-server,0,0,2.0,0.0,22.0,1.0,0.0,23.0,0,1,1,0,0,,0,0
+3708,Srimanth Gunturi,1,ambari-web,0,0,2.0,0.0,23.0,0.0,0.0,25.0,0,1,0,0,1,,0,0
+3713,Oleg Nechiporenko,1,ambari-web,0,0,0.0,1.0,15.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+3715,Antonenko Alexander,1,ambari-web,0,0,4.0,0.0,21.0,0.0,0.0,25.0,0,1,0,0,1,,0,0
+3720,Xi Wang,1,ambari-web,0,0,1.0,0.0,26.0,1.0,0.0,26.0,0,1,0,0,0,ambari-web/app/utils/ajax.js;,0,0
+3724,Andrii Tkach,1,ambari-web,0,0,1.0,0.0,6.0,0.0,0.0,7.0,0,1,0,0,0,ambari-web/app/models/host.js;,0,0
+3726,Antonenko Alexander,1,ambari-web,0,1,1.0,0.0,13.0,0.0,0.0,14.0,0,1,0,0,0,,0,0
+3729,Artem Baranchuk,1,null,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+3738,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,9.0,0.0,0.0,9.0,0,1,0,0,0,ambari-web/app/styles/application.less;ambari-web/app/templates/common/modal_popup.hbs;ambari-web/app/views/common/modal_popup.js;,0,0
+3739,Siddharth Wagle,1,ambari-server,0,0,2.0,0.0,26.0,0.0,0.0,28.0,1,1,0,0,0,,0,0
+3742,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,24.0,2.0,0.0,22.0,0,1,0,0,0,ambari-web/app/messages.js;ambari-web/app/templates/main/dashboard/widgets/hbase_links.hbs;ambari-web/app/views/main/dashboard/service/hbase.js;ambari-web/app/views/main/dashboard/widgets/hbase_links.js;,0,0
+3752,Srimanth Gunturi,1,ambari-web,0,1,0.0,0.0,19.0,1.0,0.0,18.0,0,0,0,0,0,,0,1
+3759,Antonenko Alexander,1,ambari-web,0,0,1.0,0.0,8.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+3760,Antonenko Alexander,1,ambari-web,0,1,1.0,0.0,14.0,0.0,0.0,15.0,0,1,0,0,0,,0,0
+3761,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,15.0,1.0,0.0,14.0,0,1,0,0,0,ambari-web/app/views/common/quick_view_link_view.js;,0,0
+3770,Dmytro Shkvyra,1,null,0,0,1.0,0.0,8.0,0.0,0.0,9.0,0,1,0,1,0,,0,0
+3771,Andrii Babiichuk,1,ambari-web,0,0,1.0,0.0,8.0,1.0,0.0,8.0,0,1,0,0,0,ambari-web/app/data/HDP2/global_properties.js;ambari-web/app/data/global_properties.js;ambari-web/app/data/service_configs.js;ambari-web/app/models/service.js;,0,0
+3779,Tom Beerbower,1,null,0,1,3.0,0.0,43.0,0.0,0.0,46.0,0,1,1,0,0,ambari-server/src/main/java/org/apache/ambari/server/api/handlers/QueryCreateHandler.java;ambari-server/src/main/java/org/apache/ambari/server/api/query/QueryImpl.java;ambari-server/src/main/java/org/apache/ambari/server/api/resources/ResourceInstance.java;ambari-server/src/main/java/org/apache/ambari/server/api/services/persistence/PersistenceManagerImpl.java;ambari-server/src/main/java/org/apache/ambari/server/controller/AmbariManagementControllerImpl.java;ambari-server/src/main/java/org/apache/ambari/server/controller/OperatingSystemResponse.java;ambari-server/src/main/java/org/apache/ambari/server/controller/RepositoryResponse.java;ambari-server/src/main/java/org/apache/ambari/server/controller/RootServiceComponentResponse.java;ambari-server/src/main/java/org/apache/ambari/server/controller/RootServiceHostComponentResponse.java;ambari-server/src/main/java/org/apache/ambari/server/controller/StackConfigurationResponse.java;ambari-server/src/main/java/org/apache/ambari/server/controller/StackServiceComponentResponse.java;ambari-server/src/main/java/org/apache/ambari/server/controller/StackServiceResponse.java;ambari-server/src/main/java/org/apache/ambari/server/controller/StackVersionResponse.java;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/ClusterResourceProvider.java;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/OperatingSystemResourceProvider.java;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/RepositoryResourceProvider.java;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/RootServiceComponentResourceProvider.java;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/RootServiceHostComponentResourceProvider.java;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/RootServiceResourceProvider.java;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/StackConfigurationResourceProvider.java;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/StackResourceProvider.java;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/StackServiceComponentResourceProvider.java;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/StackServiceResourceProvider.java;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/StackVersionResourceProvider.java;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/TaskResourceProvider.java;ambari-server/src/test/java/org/apache/ambari/server/api/handlers/QueryCreateHandlerTest.java;ambari-server/src/test/java/org/apache/ambari/server/api/services/PersistenceManagerImplTest.java;ambari-server/src/test/java/org/apache/ambari/server/controller/internal/RepositoryResourceProviderTest.java;ambari-server/src/test/java/org/apache/ambari/server/controller/internal/StackResourceProviderTest.java;,0,0
+3791,Antonenko Alexander,1,ambari-web,0,0,0.0,0.0,18.0,1.0,0.0,17.0,0,1,0,0,0,,0,0
+3793,Vitaly Brodetskyi,1,ambari-agent,0,1,0.0,1.0,32.0,1.0,0.0,32.0,0,1,0,0,0,,0,0
+3805,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,19.0,0.0,0.0,19.0,0,1,0,0,0,,0,0
+3815,Antonenko Alexander,1,ambari-web,0,0,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+3824,Andrii Tkach,1,ambari-web,0,0,1.0,0.0,11.0,0.0,0.0,12.0,0,1,0,0,0,ambari-web/app/controllers/main/host/configs_service.js;ambari-web/app/messages.js;ambari-web/app/templates/common/configs/service_config.hbs;ambari-web/app/utils/config.js;ambari-web/app/views/common/configs/services_config.js;,0,0
+3836,Antonenko Alexander,1,ambari-web,0,0,0.0,0.0,36.0,0.0,0.0,36.0,1,1,1,0,0,,0,0
+3838,Mikhail Bayuk,1,ambari-web,0,0,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+3842,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,23.0,0.0,1.0,22.0,0,1,0,0,0,ambari-web/app/mappers/service_mapper.js;ambari-web/app/models/service.js;ambari-web/app/utils/misc.js;ambari-web/app/views/main/host/configs_service_menu.js;ambari-web/app/views/main/service/menu.js;,0,0
+3844,Aleksandr Kovalenko,1,ambari-web,0,0,0.0,0.0,17.0,0.0,0.0,17.0,0,1,0,0,0,,0,0
+3857,Oleg Nechiporenko,1,ambari-web,0,1,3.0,0.0,17.0,0.0,0.0,20.0,0,1,0,0,0,,0,0
+3864,Xi Wang,1,ambari-web,0,0,2.0,0.0,16.0,0.0,0.0,18.0,0,1,0,0,1,,0,0
+3868,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,9.0,0.0,0.0,10.0,0,1,0,0,0,ambari-web/app/models/service_config.js;,0,0
+3873,Eugene Chekanskiy,1,ambari-server,0,1,0.0,1.0,28.0,0.0,2.0,27.0,0,1,0,0,0,,0,0
+3877,Andrii Babiichuk,1,ambari-web,0,1,0.0,0.0,26.0,0.0,0.0,26.0,0,1,0,0,0,ambari-web/app/controllers/main/service/manage_config_groups_controller.js;ambari-web/app/utils/ajax.js;,0,0
+3878,Xi Wang,1,ambari-web,0,0,1.0,0.0,22.0,1.0,1.0,21.0,0,1,0,0,0,,0,0
+3881,Jaimin D Jetly,1,ambari-web,1,0,2.0,0.0,40.0,1.0,0.0,41.0,0,1,0,0,0,,0,0
+3882,Xi Wang,1,ambari-web,0,0,0.0,0.0,9.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+3888,Denys Buzhor,1,ambari-web,0,0,0.0,0.0,15.0,1.0,0.0,14.0,0,1,0,0,0,,0,0
+3890,Denys Buzhor,1,ambari-web,0,0,0.0,0.0,7.0,1.0,0.0,6.0,0,1,0,0,0,,0,0
+3897,Srimanth Gunturi,1,ambari-web,0,0,2.0,0.0,11.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+3899,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,7.0,0.0,1.0,6.0,0,1,0,0,0,ambari-web/app/data/HDP2/global_properties.js;,0,0
+3900,Jeff Sposetti,1,ambari-web,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+3911,Srimanth Gunturi,1,ambari-web,0,0,2.0,0.0,7.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+3914,Andrii Tkach,1,ambari-web,0,1,3.0,1.0,34.0,0.0,0.0,38.0,1,1,0,0,1,ambari-web/app/controllers/main/host/add_controller.js;ambari-web/app/mappers/server_data_mapper.js;ambari-web/app/mappers/status_mapper.js;,0,0
+3921,Andrii Tkach,1,ambari-web,0,0,1.0,1.0,23.0,0.0,0.0,25.0,0,1,0,0,0,ambari-web/app/controllers/wizard/step3_controller.js;ambari-web/app/utils/helper.js;ambari-web/app/views/common/configs/services_config.js;ambari-web/app/views/main/dashboard/service.js;ambari-web/app/views/main/dashboard/service/yarn.js;ambari-web/app/views/main/dashboard/widget.js;ambari-web/app/views/main/host.js;ambari-web/app/views/main/host/details.js;ambari-web/app/views/main/host/summary.js;ambari-web/app/views/main/service.js;ambari-web/app/views/main/service/info/summary.js;ambari-web/app/views/main/service/manage_config_groups_view.js;ambari-web/app/views/main/service/menu.js;ambari-web/app/views/wizard/step6_view.js;,0,0
+3925,Antonenko Alexander,1,ambari-web,0,1,1.0,1.0,51.0,1.0,1.0,51.0,1,1,0,0,1,,0,0
+3930,Andrii Tkach,1,ambari-web,0,0,0.0,0.0,16.0,0.0,0.0,16.0,0,1,0,0,0,ambari-web/app/controllers/wizard/step9_controller.js;,0,0
+3938,Yusaku Sako,1,ambari-web,0,0,2.0,0.0,7.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+3953,Dmytro Sen,1,ambari-agent,0,1,2.0,1.0,27.0,2.0,0.0,28.0,0,1,0,0,1,ambari-agent/src/main/puppet/modules/hdp-nagios/templates/hadoop-services.cfg.erb;,0,0
+3954,Oleg Nechiporenko,1,ambari-web,0,0,9.0,0.0,44.0,0.0,1.0,52.0,0,1,1,0,0,,0,0
+3981,Artem Baranchuk,1,ambari-server,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+3982,Xi Wang,1,ambari-web,0,1,4.0,0.0,20.0,0.0,0.0,24.0,0,1,0,0,1,,0,0
+3984,Xi Wang,1,ambari-web,0,0,0.0,0.0,26.0,0.0,0.0,26.0,0,1,0,0,1,,0,0
+3986,Denys Buzhor,1,ambari-web,0,0,1.0,0.0,6.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+3987,Tom Beerbower,1,null,0,0,1.0,0.0,25.0,0.0,0.0,26.0,0,1,1,0,0,ambari-server/src/main/java/org/apache/ambari/server/controller/internal/AbstractProviderModule.java;ambari-server/src/test/java/org/apache/ambari/server/controller/internal/AbstractProviderModuleTest.java;,0,0
+3991,Andrii Babiichuk,1,ambari-web,0,1,1.0,0.0,20.0,0.0,0.0,21.0,0,1,0,0,0,ambari-web/app/messages.js;ambari-web/app/styles/application.less;ambari-web/app/templates/common/configs/saveConfigGroup.hbs;ambari-web/app/utils/config.js;,0,0
+3992,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,20.0,1.0,1.0,19.0,0,1,0,0,1,,0,0
+3997,Siddharth Wagle,1,ambari-server,0,1,0.0,0.0,15.0,0.0,1.0,14.0,0,1,0,0,0,,0,0
+3999,Xi Wang,1,ambari-web,0,1,1.0,0.0,23.0,1.0,0.0,23.0,0,1,0,0,1,,0,0
+4003,Denys Buzhor,1,ambari-web,0,0,2.0,0.0,7.0,0.0,0.0,9.0,0,1,0,0,0,ambari-web/app/controllers/installer.js;ambari-web/app/controllers/main/service/add_controller.js;ambari-web/app/controllers/wizard.js;ambari-web/app/routes/add_service_routes.js;,0,0
+4004,Andrii Tkach,1,ambari-web,0,1,3.0,0.0,19.0,0.0,0.0,22.0,0,1,0,0,0,ambari-web/app/controllers/wizard/step7_controller.js;,0,0
+4012,Xi Wang,1,ambari-web,0,0,1.0,0.0,27.0,1.0,0.0,27.0,0,1,0,0,0,,0,0
+4024,Mahadev konar,1,null,0,0,1.0,0.0,4.0,1.0,0.0,4.0,0,1,0,0,0,,0,0
+4028,Andrii Tkach,1,ambari-web,0,1,1.0,1.0,19.0,2.0,0.0,19.0,0,1,1,0,0,ambari-web/app/views/common/quick_view_link_view.js;,0,0
+4040,Aleksandr Kovalenko,1,ambari-web,0,0,1.0,0.0,29.0,1.0,1.0,28.0,0,1,0,0,1,,0,0
+4044,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,3.0,0.0,0.0,3.0,0,1,0,0,0,,0,0
+4048,Mikhail Bayuk,1,ambari-web,0,0,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,1,,0,0
+4052,Denys Buzhor,1,ambari-web,0,0,0.0,0.0,12.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+4054,Oleg Nechiporenko,1,ambari-web,0,0,2.0,0.0,17.0,1.0,0.0,18.0,0,1,0,0,0,,0,0
+4058,Sumit Mohanty,1,ambari-server,0,0,2.0,1.0,7.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+4069,Xi Wang,1,ambari-web,0,0,1.0,0.0,14.0,0.0,0.0,15.0,0,1,0,0,0,,0,0
+4076,Mikhail Bayuk,1,ambari-web,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+4089,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,10.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+4092,Andrii Babiichuk,1,ambari-web,0,1,2.0,0.0,22.0,0.0,0.0,24.0,0,1,0,0,0,ambari-web/app/controllers/installer.js;ambari-web/app/templates/wizard/step1.hbs;ambari-web/app/views/wizard/step1_view.js;ambari-web/app/controllers/installer.js;,0,0
+4104,Dmytro Sen,1,ambari-agent,0,1,4.0,0.0,29.0,2.0,0.0,31.0,1,1,0,0,0,ambari-agent/src/test/python/ambari_agent/TestHardware.py;,0,0
+4106,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,15.0,0.0,0.0,15.0,0,1,0,0,1,ambari-web/app/controllers/main/service/manage_config_groups_controller.js;,0,0
+4118,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+4129,Jaimin D Jetly,1,ambari-web,0,0,2.0,0.0,2.0,0.0,0.0,4.0,0,1,0,0,0,ambari-web/app/controllers/main/admin/highAvailability_controller.js;ambari-web/app/controllers/main/host/details.js;ambari-web/app/controllers/main/service.js;ambari-web/app/controllers/main/service/item.js;ambari-web/app/routes/main.js;ambari-web/app/utils/db.js;,0,0
+4132,Siddharth Wagle,1,ambari-server,0,0,5.0,0.0,19.0,0.0,1.0,23.0,0,1,0,0,1,,0,0
+4135,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,8.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+4145,Dmytro Sen,1,ambari-agent; ambari-server,0,1,0.0,0.0,18.0,0.0,0.0,18.0,0,1,0,0,0,ambari-agent/src/main/python/ambari_agent/CustomServiceOrchestrator.py;ambari-agent/src/main/python/resource_management/libraries/script/script.py;ambari-server/src/main/java/org/apache/ambari/server/RoleCommand.java;ambari-server/src/main/java/org/apache/ambari/server/agent/ExecutionCommand.java;ambari-server/src/main/java/org/apache/ambari/server/agent/HeartBeatHandler.java;ambari-server/src/main/java/org/apache/ambari/server/controller/AmbariCustomCommandExecutionHelperImpl.java;ambari-server/src/main/java/org/apache/ambari/server/metadata/ActionMetadata.java;ambari-server/src/main/java/org/apache/ambari/server/state/ComponentInfo.java;ambari-server/src/main/resources/stacks/HDP/2.0._/services/HBASE/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0._/services/HBASE/package/scripts/hbase_regionserver.py;ambari-server/src/test/java/org/apache/ambari/server/agent/TestHeartbeatHandler.java;ambari-server/src/test/java/org/apache/ambari/server/api/util/StackExtensionHelperTest.java;,0,0
+4152,Oleg Nechiporenko,1,contrib,0,0,1.0,0.0,10.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+4171,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+4177,Dmytro Shkvyra,1,ambari-agent,0,0,1.0,0.0,20.0,0.0,0.0,21.0,0,1,0,0,0,,0,0
+4184,Mahadev konar,1,null,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+4186,Oleg Nechiporenko,1,ambari-web,0,0,3.0,0.0,11.0,0.0,0.0,14.0,0,1,0,0,0,,0,0
+4195,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,ambari-web/app/styles/application.less;ambari-web/app/templates/common/configs/service_config.hbs;,0,0
+4200,Jeff Sposetti,1,ambari-web,0,0,0.0,0.0,21.0,0.0,0.0,21.0,0,1,0,0,1,ambari-web/app/messages.js;ambari-web/app/styles/application.less;ambari-web/app/templates/main/service/manage_configuration_groups_popup.hbs;,0,0
+4206,Sumit Mohanty,1,ambari-server,0,0,3.0,0.0,25.0,1.0,0.0,27.0,0,1,0,0,1,,0,0
+4207,Andrii Babiichuk,1,ambari-web,0,0,1.0,0.0,18.0,0.0,0.0,19.0,0,1,0,0,0,ambari-web/app/controllers/main/admin/security/add/step2.js;ambari-web/app/controllers/main/service/info/configs.js;ambari-web/app/data/global_properties.js;ambari-web/app/data/service_components.js;ambari-web/app/data/service_configs.js;ambari-web/app/mappers/server_data_mapper.js;ambari-web/app/mappers/service_metrics_mapper.js;ambari-web/app/models/service/mapreduce.js;ambari-web/app/models/service_config.js;,0,0
+4211,Andrii Tkach,1,ambari-web,0,1,2.0,0.0,14.0,0.0,0.0,16.0,0,1,1,0,0,ambari-web/app/controllers/wizard/step8_controller.js;,0,0
+4217,Aleksandr Kovalenko,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+4220,Jeff Sposetti,1,ambari-web,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+4224,Sumit Mohanty,1,ambari-server,0,1,3.0,1.0,38.0,1.0,0.0,41.0,0,1,1,0,0,,0,0
+4225,Yusaku Sako,1,ambari-web,0,1,2.0,0.0,38.0,5.0,0.0,35.0,0,0,0,0,0,,0,1
+4231,Denys Buzhor,1,ambari-web,0,0,1.0,1.0,14.0,0.0,0.0,16.0,0,1,0,0,0,ambari-web/app/assets/data/services/HDP2/services.json;ambari-web/app/models/service.js;,0,0
+4247,Andrii Tkach,1,ambari-web,0,0,2.0,0.0,9.0,1.0,0.0,10.0,0,1,0,0,0,ambari-web/app/controllers/global/update_controller.js;ambari-web/app/models/host.js;ambari-web/app/views/main/host.js;,0,0
+4265,Jeff Sposetti,1,null,0,0,1.0,0.0,14.0,0.0,0.0,15.0,0,0,1,0,1,,0,0
+4279,Dmitry Lysnichenko,1,ambari-agent; test,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+4284,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,11.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+4299,Myroslav Papirkovskyy,1,ambari-server,0,0,1.0,0.0,17.0,1.0,0.0,17.0,0,1,0,0,0,,0,0
+4300,Andrii Tkach,1,ambari-web,0,1,0.0,0.0,16.0,1.0,0.0,15.0,0,1,0,0,0,ambari-web/app/assets/data/alerts/HDP2/alerts.json;ambari-web/app/assets/data/alerts/HDP2/host_alerts.json;ambari-web/app/assets/data/alerts/HDP2/service_alerts.json;ambari-web/app/assets/data/hosts/HDP2/hosts.json;ambari-web/app/assets/data/services/HDP2/services.json;ambari-web/app/controllers/main/alerts_controller.js;ambari-web/app/utils/ajax.js;,0,0
+4306,Siddharth Wagle,1,ambari-server,0,1,3.0,1.0,38.0,1.0,0.0,41.0,0,1,1,0,0,,0,0
+4312,Denys Buzhor,1,ambari-web,0,0,3.0,0.0,11.0,0.0,0.0,14.0,0,1,0,0,0,ambari-web/app/assets/data/configurations/cluster_level_configs.json;ambari-web/app/controllers/wizard/step5_controller.js;ambari-web/app/data/HDP2/global_properties.js;ambari-web/app/data/service_components.js;ambari-web/app/data/service_configs.js;ambari-web/app/mappers/server_data_mapper.js;ambari-web/app/models/host_component.js;ambari-web/app/models/quick_links.js;ambari-web/app/models/service_config.js;,0,0
+4316,Denys Buzhor,1,ambari-web,0,0,2.0,0.0,13.0,0.0,0.0,15.0,0,1,0,0,0,ambari-web/app/data/HDP2/site_properties.js;ambari-web/app/utils/helper.js;,0,0
+4318,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,21.0,0.0,0.0,22.0,0,1,0,0,1,,0,0
+4319,Dmitry Lysnichenko,1,ambari-agent; ambari-server; test,0,1,2.0,1.0,22.0,0.0,0.0,25.0,0,0,0,0,0,,0,0
+4333,Antonenko Alexander,1,ambari-web,0,0,2.0,0.0,27.0,0.0,0.0,29.0,0,1,0,0,1,,0,0
+4336,Mahadev konar,1,null,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+4341,Mahadev konar,1,null,0,0,0.0,0.0,3.0,0.0,0.0,3.0,0,1,0,0,0,,0,0
+4349,Oleg Nechiporenko,1,ambari-web,0,1,1.0,0.0,16.0,0.0,0.0,17.0,0,1,0,0,1,,0,0
+4354,Dmytro Shkvyra,1,ambari-agent,0,0,4.0,3.0,33.0,2.0,0.0,38.0,0,0,1,0,1,,0,0
+4355,Siddharth Wagle,1,ambari-server,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+4361,Srimanth Gunturi,1,ambari-web,0,1,0.0,0.0,15.0,0.0,0.0,15.0,0,0,0,0,0,,0,0
+4365,Sumit Mohanty,1,ambari-server,0,0,1.0,0.0,37.0,1.0,0.0,37.0,0,0,0,0,0,,0,0
+4367,Andrii Tkach,1,ambari-web,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,ambari-web/app/controllers/main/alerts_controller.js;,0,0
+4380,Oleg Nechiporenko,1,ambari-web,0,1,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,1,,0,0
+4383,Eugene Chekanskiy,1,ambari-server,0,0,0.0,0.0,11.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+4395,Dmytro Shkvyra,1,ambari-server,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,0,0,0,0,,0,0
+4396,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,3.0,0.0,0.0,3.0,0,1,0,0,0,,0,0
+4402,Siddharth Wagle,1,ambari-server,0,1,4.0,1.0,58.0,5.0,1.0,57.0,1,1,0,0,0,,0,0
+4404,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,0,0,0,0,,0,1
+4405,Sumit Mohanty,1,ambari-server,0,0,0.0,0.0,14.0,0.0,0.0,14.0,0,1,0,0,0,,0,0
+4408,Srimanth Gunturi,1,ambari-web,0,0,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+4416,Dmytro Shkvyra,1,ambari-server,0,0,4.0,0.0,41.0,1.0,0.0,44.0,1,1,0,0,1,,0,0
+4420,Siddharth Wagle,1,ambari-server,0,1,3.0,0.0,73.0,4.0,0.0,72.0,0,1,0,0,0,,0,0
+4425,Vitaly Brodetskyi,1,ambari-agent,0,0,1.0,0.0,12.0,1.0,0.0,12.0,0,1,0,0,0,,0,0
+4433,Jeff Sposetti,1,ambari-web,0,0,1.0,1.0,13.0,0.0,0.0,15.0,0,1,0,0,0,ambari-web/app/controllers/application.js;ambari-web/app/controllers/global/cluster_controller.js;ambari-web/app/messages.js;ambari-web/app/styles/application.less;ambari-web/app/templates/application.hbs;ambari-web/app/templates/common/about.hbs;,0,0
+4501,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,12.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+4521,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,14.0,1.0,0.0,14.0,0,1,0,0,0,,0,0
+4523,Perry Tian,0,ambari-agent,0,0,3.0,0.0,64.0,3.0,0.0,64.0,0,1,0,0,0,,0,0
+4526,Eugene Chekanskiy,1,ambari-server,0,0,2.0,0.0,4.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+4534,Andrii Babiichuk,1,ambari-web,0,0,3.0,0.0,21.0,1.0,0.0,23.0,0,1,0,0,0,ambari-web/app/app.js;,0,0
+4551,Andrii Babiichuk,1,ambari-web,0,0,1.0,0.0,18.0,1.0,0.0,18.0,0,1,0,0,0,ambari-web/app/styles/application.less;ambari-web/app/templates/main/service/menu_item.hbs;,0,0
+4552,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,ambari-web/app/messages.js;ambari-web/app/styles/application.less;ambari-web/app/templates/main/host/details/host_component.hbs;ambari-web/app/views/main/host/details/host_component_view.js;,0,0
+4556,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,5.0,0.0,1.0,4.0,0,1,0,0,0,,0,0
+4560,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,9.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+4561,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+4566,Srimanth Gunturi,1,ambari-web,0,0,2.0,0.0,10.0,3.0,0.0,9.0,0,1,0,0,0,,0,0
+4567,Xi Wang,1,ambari-web,0,1,1.0,0.0,20.0,1.0,0.0,20.0,0,1,0,0,0,,0,0
+4570,Sumit Mohanty,1,ambari-server,0,0,2.0,0.0,27.0,1.0,0.0,28.0,0,1,0,0,1,,0,0
+4574,Andrii Babiichuk,1,ambari-web,0,0,3.0,1.0,21.0,0.0,0.0,25.0,0,1,0,0,0,ambari-web/app/router.js;ambari-web/app/routes/installer.js;,0,0
+4575,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,9.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+4600,Dmytro Shkvyra,1,ambari-server,0,0,1.0,0.0,24.0,0.0,0.0,25.0,0,0,1,0,0,,0,0
+4601,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,ambari-web/app/controllers/wizard/step5_controller.js;,0,0
+4603,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,ambari-web/app/models/host.js;ambari-web/app/styles/application.less;ambari-web/app/templates/main/host.hbs;ambari-web/app/templates/main/service/info/summary/master_components.hbs;,0,0
+4605,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,11.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+4608,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,1,0,0,0,ambari-web/app/styles/application.less;,0,0
+4612,Siddharth Wagle,1,ambari-server,0,0,3.0,0.0,35.0,2.0,0.0,36.0,1,1,0,0,0,,0,0
+4635,Antonenko Alexander,1,ambari-web,0,0,4.0,0.0,28.0,0.0,0.0,32.0,0,1,0,0,1,,0,0
+4637,Andrii Tkach,1,ambari-web,0,0,5.0,0.0,27.0,1.0,0.0,31.0,0,1,0,0,1,ambari-web/app/models/cluster_states.js;ambari-web/app/router.js;ambari-web/app/routes/add_host_routes.js;ambari-web/app/routes/add_security.js;ambari-web/app/routes/add_service_routes.js;ambari-web/app/routes/high_availability_routes.js;ambari-web/app/routes/main.js;ambari-web/app/routes/reassign_master_routes.js;ambari-web/app/routes/rollbackHA_routes.js;ambari-web/app/routes/stack_upgrade.js;,0,0
+4643,Siddharth Wagle,1,ambari-server,0,1,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,1,,0,0
+4658,Andrii Tkach,1,ambari-web,0,0,3.0,0.0,16.0,2.0,1.0,16.0,0,0,0,0,0,ambari-web/app/routes/add_host_routes.js;ambari-web/app/routes/add_service_routes.js;ambari-web/app/routes/main.js;ambari-web/app/routes/reassign_master_routes.js;,0,0
+4662,Denys Buzhor,1,ambari-web,0,0,3.0,0.0,12.0,0.0,0.0,15.0,0,1,0,0,1,,0,0
+4673,Oleg Nechiporenko,1,ambari-web,0,0,2.0,0.0,11.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+4682,Denys Buzhor,1,ambari-web,0,0,5.0,0.0,19.0,0.0,0.0,24.0,0,1,0,0,1,,0,0
+4687,Eugene Chekanskiy,1,ambari-server,0,0,1.0,0.0,4.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+4693,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,22.0,0.0,0.0,22.0,0,1,0,0,0,,0,0
+4700,Ivan Kozlov,1,ambari-server,0,0,1.0,0.0,2.0,0.0,0.0,3.0,0,0,0,0,0,,0,0
+4708,Dmytro Sen,1,ambari-agent; ambari-server,0,1,4.0,0.0,49.0,1.0,0.0,52.0,0,1,1,0,0,,0,0
+4710,Eugene Chekanskiy,1,ambari-server,0,0,1.0,0.0,3.0,0.0,0.0,4.0,0,1,0,0,0,,1,0
+4737,Eugene Chekanskiy,1,ambari-server,0,0,1.0,0.0,2.0,0.0,0.0,3.0,0,1,0,0,0,,0,0
+4741,Vitaly Brodetskyi,1,ambari-agent,0,0,0.0,1.0,12.0,0.0,1.0,12.0,0,1,0,0,0,,0,0
+4745,Denys Buzhor,1,ambari-web,0,0,2.0,0.0,8.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+4750,Srimanth Gunturi,1,ambari-web,0,1,0.0,1.0,23.0,3.0,2.0,19.0,0,1,0,0,0,,0,0
+4764,Dmytro Shkvyra,1,ambari-server,0,0,3.0,0.0,21.0,0.0,0.0,24.0,1,0,0,0,0,,0,0
+4772,Jaimin D Jetly,1,ambari-web,0,0,5.0,0.0,23.0,1.0,0.0,27.0,0,1,0,0,0,,0,0
+4777,Andrii Tkach,1,ambari-web,0,0,2.0,0.0,29.0,1.0,0.0,30.0,0,1,0,0,1,ambari-web/app/controllers/main/service/info/configs.js;ambari-web/app/controllers/wizard/step8_controller.js;ambari-web/app/data/HDP2/config_mapping.js;ambari-web/app/utils/config.js;,0,0
+4779,Oleg Nechiporenko,1,ambari-web,0,0,2.0,0.0,11.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+4787,Vitaly Brodetskyi,1,ambari-agent,0,0,8.0,1.0,71.0,3.0,1.0,76.0,1,1,0,0,0,,0,0
+4788,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+4790,Mahadev konar,1,null,0,0,0.0,0.0,3.0,0.0,0.0,3.0,0,1,0,0,0,,0,0
+4794,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,5.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+4796,Sumit Mohanty,1,ambari-server,0,0,2.0,1.0,14.0,0.0,0.0,17.0,0,0,0,0,0,,0,0
+4800,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,29.0,0.0,0.0,30.0,0,1,0,0,1,,0,0
+4809,Eugene Chekanskiy,1,ambari-server,0,0,3.0,0.0,4.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+4818,Denys Buzhor,1,ambari-web,0,0,2.0,0.0,15.0,1.0,0.0,16.0,0,1,0,0,1,,0,0
+4821,Andrii Tkach,1,ambari-web,0,1,1.0,0.0,24.0,2.0,1.0,22.0,0,0,0,0,0,ambari-web/app/views/main/host.js;,0,1
+4841,Andrii Tkach,1,ambari-web,0,0,5.0,1.0,28.0,0.0,0.0,34.0,0,1,0,0,1,ambari-web/app/controllers/main/admin/highAvailability/step2_controller.js;ambari-web/app/controllers/wizard/step5_controller.js;ambari-web/app/messages.js;ambari-web/app/templates/main/admin/highAvailability/step2.hbs;ambari-web/app/views/wizard/step5_view.js;,0,0
+4842,Eugene Chekanskiy,1,ambari-server,0,0,1.0,0.0,19.0,0.0,0.0,20.0,0,1,0,0,1,,0,0
+4843,Vitaly Brodetskyi,1,ambari-agent,0,0,3.0,0.0,40.0,6.0,1.0,36.0,0,1,1,0,1,,0,0
+4872,Vitaly Brodetskyi,1,ambari-agent,1,0,7.0,0.0,19.0,0.0,0.0,26.0,0,1,0,0,1,,0,0
+4893,Siddharth Wagle,1,ambari-server,0,0,3.0,0.0,37.0,2.0,0.0,38.0,1,1,0,0,0,,0,0
+4895,Dmytro Sen,1,null,0,0,3.0,1.0,40.0,0.0,0.0,44.0,0,0,0,0,1,ambari-server/src/main/resources/stacks/HDP/1.3.2/services/OOZIE/configuration/oozie-log4j.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/services/OOZIE/configuration/oozie-log4j.xml;,0,0
+4902,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,3.0,0.0,0.0,3.0,0,1,0,0,0,,0,0
+4909,Oleg Nechiporenko,1,ambari-web,0,0,3.0,0.0,22.0,0.0,0.0,25.0,0,1,0,0,0,,0,0
+4939,Dmytro Shkvyra,1,ambari-agent; ambari-server,0,0,3.0,0.0,20.0,1.0,0.0,22.0,0,0,0,0,1,,0,0
+4947,Vitaly Brodetskyi,1,ambari-agent,0,0,2.0,1.0,13.0,1.0,0.0,15.0,0,1,0,0,1,,0,0
+4954,Vitaly Brodetskyi,1,ambari-agent,0,0,3.0,0.0,43.0,0.0,0.0,46.0,0,1,1,0,1,,0,0
+4970,Mikhail Bayuk,1,ambari-web,0,0,1.0,2.0,31.0,2.0,1.0,31.0,0,1,0,0,1,,0,0
+4983,Siddharth Wagle,1,ambari-server,0,0,1.0,0.0,16.0,0.0,0.0,17.0,0,0,0,0,0,,0,0
+4986,Andrii Tkach,1,ambari-web,0,1,3.0,0.0,12.0,1.0,0.0,14.0,0,0,0,0,0,ambari-web/app/controllers/wizard/step3_controller.js;ambari-web/app/templates/wizard/step3_host_warnings_popup.hbs;ambari-web/app/utils/helper.js;,0,1
+5020,Dmitry Lysnichenko,1,ambari-server,0,0,1.0,0.0,19.0,1.0,0.0,19.0,0,0,0,0,0,,0,0
+5028,Mahadev konar,1,null,0,0,2.0,0.0,4.0,0.0,0.0,6.0,0,1,0,0,0,,0,0
+5036,Dmitry Lysnichenko,1,ambari-server; test,0,1,7.0,3.0,62.0,1.0,3.0,68.0,0,0,0,0,0,,0,1
+5040,Dmytro Sen,1,ambari-server,0,1,10.0,0.0,40.0,0.0,0.0,50.0,1,0,0,0,0,ambari-server/conf/unix/ca.config;ambari-server/pom.xml;ambari-server/src/main/java/org/apache/ambari/server/configuration/Configuration.java;ambari-server/src/main/java/org/apache/ambari/server/security/CertificateManager.java;ambari-server/src/main/resources/ca.config;ambari-server/src/test/java/org/apache/ambari/server/security/CertGenerationTest.java;,0,0
+5043,Yusaku Sako,1,ambari-server,0,0,1.0,0.0,26.0,1.0,0.0,26.0,0,1,0,0,0,,0,0
+5051,Oleg Nechiporenko,1,ambari-web,0,1,4.0,1.0,54.0,0.0,1.0,58.0,0,0,1,0,0,,0,0
+5060,Jaimin D Jetly,1,ambari-web,0,0,13.0,0.0,29.0,1.0,0.0,41.0,0,1,1,0,1,,0,0
+5097,Jaimin D Jetly,1,ambari-web,0,1,1.0,0.0,18.0,0.0,0.0,19.0,0,1,0,0,1,,0,0
+5103,Oleg Nechiporenko,1,ambari-web,0,0,2.0,1.0,32.0,1.0,1.0,33.0,0,1,0,0,0,,0,0
+5112,Dmytro Sen,1,ambari-agent,0,0,2.0,0.0,20.0,0.0,0.0,22.0,0,0,0,0,0,ambari-server/src/main/resources/stacks/HDP/1.3.2/services/MAPREDUCE/configuration/mapreduce-log4j.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/services/YARN/configuration/yarn-log4j.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/services/YARN/package/scripts/resourcemanager.py;ambari-server/src/main/resources/stacks/HDP/2.0.6/services/YARN/package/scripts/yarn.py;ambari-server/src/test/python/stacks/2.0.6/YARN/test_historyserver.py;ambari-server/src/test/python/stacks/2.0.6/YARN/test_mapreduce2_client.py;ambari-server/src/test/python/stacks/2.0.6/YARN/test_nodemanager.py;ambari-server/src/test/python/stacks/2.0.6/YARN/test_resourcemanager.py;ambari-server/src/test/python/stacks/2.0.6/YARN/test_yarn_client.py;ambari-server/src/test/python/stacks/2.1/YARN/test_apptimelineserver.py;,0,0
+5123,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,24.0,0.0,0.0,25.0,0,1,0,0,1,,0,0
+5128,Andrii Babiichuk,1,ambari-web,0,0,3.0,0.0,20.0,0.0,0.0,23.0,0,1,0,0,0,ambari-web/app/views/common/rolling_restart_view.js;,0,0
+5146,Vitaly Brodetskyi,1,ambari-agent,0,0,2.0,0.0,20.0,0.0,0.0,22.0,0,1,0,0,0,,0,0
+5156,Siddharth Wagle,1,ambari-agent,0,1,11.0,1.0,107.0,2.0,0.0,117.0,0,0,0,0,0,,0,1
+5173,Dmytro Sen,1,ambari-server,0,0,3.0,1.0,14.0,0.0,1.0,17.0,0,0,0,0,0,ambari-server/src/main/resources/stacks/HDP/2.1/services/YARN/metainfo.xml;,0,0
+5223,Vitaly Brodetskyi,1,ambari-agent,0,0,2.0,0.0,32.0,0.0,0.0,34.0,0,1,1,0,0,,0,0
+5235,Jaimin D Jetly,1,ambari-web,0,1,3.0,0.0,25.0,1.0,0.0,27.0,0,1,1,0,0,,0,0
+5244,Oleg Nechiporenko,1,ambari-web,0,0,3.0,0.0,30.0,0.0,0.0,33.0,0,1,0,0,0,,0,0
+5246,Andrii Babiichuk,1,ambari-web,0,0,1.0,0.0,10.0,0.0,0.0,11.0,0,1,0,0,0,ambari-web/app/controllers/main/host/details.js;,0,0
+5258,Oleg Nechiporenko,1,ambari-web,0,0,2.0,0.0,20.0,0.0,0.0,22.0,0,1,0,0,1,,0,0
+5264,Vitaly Brodetskyi,1,ambari-agent,0,0,4.0,0.0,52.0,1.0,0.0,55.0,1,1,0,0,1,,0,0
+5274,Aleksandr Kovalenko,1,ambari-web,0,1,5.0,2.0,57.0,2.0,2.0,60.0,1,1,1,0,0,ambari-server/src/main/resources/stacks/HDP/2.1/services/STORM/configuration/storm-site.xml;ambari-web/app/controllers/wizard/step7_controller.js;,0,0
+5282,Dmitry Lysnichenko,1,ambari-server; test,0,0,5.0,1.0,20.0,1.0,0.0,25.0,0,0,0,0,0,,0,0
+5301,Andrii Tkach,1,ambari-web,0,1,2.0,0.0,22.0,1.0,0.0,23.0,1,1,0,0,1,ambari-web/app/views/wizard/step3_view.js;ambari-web/app/views/wizard/step9_view.js;,0,0
+5310,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,19.0,2.0,0.0,18.0,0,1,0,0,0,,0,0
+5311,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,18.0,0.0,0.0,19.0,0,1,0,0,0,,0,0
+5313,Oleg Nechiporenko,1,ambari-web,0,0,2.0,0.0,6.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+5332,Mahadev konar,1,null,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+5340,Antonenko Alexander,1,ambari-web,0,0,1.0,0.0,22.0,3.0,0.0,20.0,0,1,0,0,0,,0,0
+5342,Dmytro Sen,1,ambari-server,0,0,5.0,1.0,28.0,0.0,1.0,33.0,0,0,0,0,1,ambari-server/src/main/java/org/apache/ambari/server/controller/internal/AbstractProviderModule.java;ambari-server/src/test/java/org/apache/ambari/server/controller/internal/JMXHostProviderTest.java;,0,0
+5344,Myroslav Papirkovskyy,1,ambari-server,0,0,2.0,0.0,62.0,4.0,0.0,60.0,1,0,0,0,0,,0,0
+5359,Dmitry Lysnichenko,1,test,0,0,2.0,0.0,11.0,0.0,0.0,13.0,0,0,0,0,0,,0,0
+5362,Siddharth Wagle,1,ambari-agent,0,1,6.0,1.0,54.0,0.0,0.0,61.0,0,1,1,0,0,,0,0
+5371,Oleg Nechiporenko,1,ambari-web,0,0,2.0,1.0,13.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+5381,Xi Wang,1,ambari-web,0,0,2.0,0.0,25.0,1.0,0.0,26.0,0,1,0,0,0,,0,0
+5382,Myroslav Papirkovskyy,1,ambari-server,0,0,1.0,0.0,25.0,0.0,0.0,26.0,1,0,0,0,0,,0,0
+5386,Yusaku Sako,1,ambari-web,0,0,1.0,0.0,38.0,1.0,0.0,38.0,0,1,0,0,0,,0,0
+5402,Andrii Babiichuk,1,ambari-web,0,0,1.0,1.0,6.0,0.0,0.0,8.0,0,1,0,0,0,ambari-web/app/templates/main/dashboard.hbs;ambari-web/app/templates/main/dashboard/service/flume.hbs;ambari-web/app/templates/main/dashboard/service/hbase.hbs;ambari-web/app/templates/main/dashboard/service/hdfs.hbs;ambari-web/app/templates/main/dashboard/service/hive.hbs;ambari-web/app/templates/main/dashboard/service/mapreduce.hbs;ambari-web/app/templates/main/dashboard/service/mapreduce2.hbs;ambari-web/app/templates/main/dashboard/service/oozie.hbs;ambari-web/app/templates/main/dashboard/service/storm.hbs;ambari-web/app/templates/main/dashboard/service/yarn.hbs;ambari-web/app/templates/main/dashboard/service/zookeeper.hbs;ambari-web/app/templates/main/service/info/summary.hbs;ambari-web/app/templates/main/service/services/flume.hbs;ambari-web/app/templates/main/service/services/hbase.hbs;ambari-web/app/templates/main/service/services/hdfs.hbs;ambari-web/app/templates/main/service/services/hive.hbs;ambari-web/app/templates/main/service/services/mapreduce.hbs;ambari-web/app/templates/main/service/services/mapreduce2.hbs;ambari-web/app/templates/main/service/services/oozie.hbs;ambari-web/app/templates/main/service/services/storm.hbs;ambari-web/app/templates/main/service/services/yarn.hbs;ambari-web/app/templates/main/service/services/zookeeper.hbs;ambari-web/app/views.js;ambari-web/app/views/main/dashboard.js;ambari-web/app/views/main/dashboard/service.js;ambari-web/app/views/main/dashboard/service/flume.js;ambari-web/app/views/main/dashboard/service/hbase.js;ambari-web/app/views/main/dashboard/service/hdfs.js;ambari-web/app/views/main/dashboard/service/hive.js;ambari-web/app/views/main/dashboard/service/mapreduce.js;ambari-web/app/views/main/dashboard/service/mapreduce2.js;ambari-web/app/views/main/dashboard/service/oozie.js;ambari-web/app/views/main/dashboard/service/storm.js;ambari-web/app/views/main/dashboard/service/yarn.js;ambari-web/app/views/main/dashboard/service/zookeeper.js;ambari-web/app/views/main/service/service.js;ambari-web/app/views/main/service/services/flume.js;ambari-web/app/views/main/service/services/hbase.js;ambari-web/app/views/main/service/services/hdfs.js;ambari-web/app/views/main/service/services/hive.js;ambari-web/app/views/main/service/services/mapreduce.js;ambari-web/app/views/main/service/services/mapreduce2.js;ambari-web/app/views/main/service/services/oozie.js;ambari-web/app/views/main/service/services/storm.js;ambari-web/app/views/main/service/services/yarn.js;ambari-web/app/views/main/service/services/zookeeper.js;,0,0
+5406,Erin A Boyd,1,ambari-agent,0,0,1.0,0.0,9.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+5412,Vitaly Brodetskyi,1,ambari-agent,0,0,3.0,0.0,16.0,0.0,1.0,18.0,0,1,0,0,1,,0,0
+5413,Siddharth Wagle,1,ambari-agent,0,0,6.0,0.0,35.0,0.0,0.0,41.0,0,1,0,0,0,,0,0
+5433,Sumit Mohanty,1,null,0,0,3.0,0.0,35.0,1.0,0.0,37.0,0,0,1,0,0,,0,0
+5445,Dmytro Sen,1,ambari-server,0,0,2.0,0.0,10.0,0.0,0.0,12.0,0,0,0,0,0,ambari-server/src/main/java/org/apache/ambari/server/agent/HeartBeatHandler.java;ambari-server/src/main/java/org/apache/ambari/server/api/services/AmbariMetaInfo.java;ambari-server/src/main/java/org/apache/ambari/server/controller/AmbariManagementControllerImpl.java;ambari-server/src/main/java/org/apache/ambari/server/orm/entities/HostComponentDesiredStateEntity.java;ambari-server/src/main/java/org/apache/ambari/server/state/ConfigHelper.java;ambari-server/src/main/java/org/apache/ambari/server/state/ServiceComponentHost.java;ambari-server/src/main/java/org/apache/ambari/server/state/ServiceInfo.java;ambari-server/src/main/java/org/apache/ambari/server/state/svccomphost/ServiceComponentHostImpl.java;ambari-server/src/main/java/org/apache/ambari/server/upgrade/UpgradeCatalog160.java;ambari-server/src/main/resources/Ambari-DDL-MySQL-CREATE.sql;ambari-server/src/main/resources/Ambari-DDL-Oracle-CREATE.sql;ambari-server/src/main/resources/Ambari-DDL-Postgres-CREATE.sql;ambari-server/src/main/resources/stacks/HDP/1.3.2/services/GANGLIA/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3.2/services/NAGIOS/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/services/GANGLIA/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/services/NAGIOS/metainfo.xml;ambari-server/src/test/java/org/apache/ambari/server/agent/TestHeartbeatHandler.java;ambari-server/src/test/java/org/apache/ambari/server/controller/AmbariManagementControllerTest.java;ambari-server/src/test/java/org/apache/ambari/server/upgrade/UpgradeCatalog160Test.java;ambari-server/src/test/resources/stacks/HDP/2.0.5/services/NAGIOS/metainfo.xml;,0,0
+5455,Srimanth Gunturi,1,ambari-web,0,1,3.0,0.0,34.0,5.0,0.0,32.0,0,1,0,0,1,,0,0
+5457,Andrii Babiichuk,1,ambari-web,0,1,3.0,0.0,39.0,1.0,0.0,41.0,0,1,1,0,0,ambari-web/app/controllers/wizard/step3_controller.js;ambari-web/app/messages.js;ambari-web/app/templates/wizard/step3_host_warnings_popup.hbs;,0,0
+5459,Dmytro Sen,1,null,0,0,2.0,1.0,23.0,1.0,0.0,25.0,0,0,0,0,1,ambari-server/src/main/resources/stacks/HDP/1.3.2/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/services/GANGLIA/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/services/NAGIOS/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/2.1/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3.2/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/2.1/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3.2/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/1.3.3/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/services/GANGLIA/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/services/NAGIOS/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0/repos/repoinfo.xml;ambari-server/src/main/resources/stacks/HDP/2.1/repos/repoinfo.xml;,0,0
+5472,Dmytro Sen,1,ambari-server,0,0,2.0,1.0,19.0,1.0,1.0,20.0,0,0,0,0,0,ambari-server/src/main/resources/stacks/HDP/2.0.6/services/HIVE/package/scripts/hive.py;ambari-server/src/test/python/stacks/2.1/HIVE/test_hive_metastore.py;,0,0
+5511,Antonenko Alexander,1,ambari-web,0,0,6.0,0.0,43.0,0.0,1.0,48.0,0,1,0,0,1,,0,0
+5512,Antonenko Alexander,1,ambari-web,0,0,3.0,0.0,10.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+5524,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,12.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+5531,Srimanth Gunturi,1,ambari-web,0,0,6.0,0.0,24.0,1.0,0.0,29.0,0,1,0,0,0,,0,0
+5543,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,4.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+5546,Dmytro Sen,1,null,0,1,0.0,0.0,23.0,0.0,0.0,23.0,0,0,0,0,0,ambari-server/src/main/java/org/apache/ambari/server/actionmanager/ActionDBAccessor.java;ambari-server/src/main/java/org/apache/ambari/server/actionmanager/ActionDBAccessorImpl.java;ambari-server/src/main/java/org/apache/ambari/server/actionmanager/ActionManager.java;ambari-server/src/main/java/org/apache/ambari/server/api/query/QueryImpl.java;ambari-server/src/main/java/org/apache/ambari/server/api/services/BaseRequest.java;ambari-server/src/main/java/org/apache/ambari/server/controller/internal/RequestResourceProvider.java;ambari-server/src/main/java/org/apache/ambari/server/controller/utilities/PropertyHelper.java;ambari-server/src/main/java/org/apache/ambari/server/orm/dao/HostRoleCommandDAO.java;ambari-server/src/test/java/org/apache/ambari/server/actionmanager/TestActionDBAccessorImpl.java;ambari-server/src/test/java/org/apache/ambari/server/actionmanager/TestActionManager.java;ambari-server/src/test/java/org/apache/ambari/server/controller/internal/RequestResourceProviderTest.java;,0,0
+5551,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,6.0,0.0,0.0,6.0,0,0,0,0,0,,0,0
+5555,Oleg Nechiporenko,1,ambari-web,0,0,2.0,0.0,7.0,0.0,0.0,9.0,0,1,0,0,0,,0,0
+5558,Andrii Babiichuk,1,ambari-web,0,0,2.0,1.0,16.0,0.0,0.0,19.0,0,1,0,0,1,ambari-web/app/routes/main.js;ambari-web/app/views/main/dashboard.js;,0,0
+5569,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,4.0,0.0,0.0,4.0,0,1,0,0,0,,0,0
+5571,Aleksandr Kovalenko,1,ambari-web,0,0,3.0,0.0,15.0,0.0,0.0,18.0,0,1,0,0,1,,0,0
+5577,Dmitry Lysnichenko,1,ambari-server,0,0,4.0,0.0,8.0,0.0,0.0,12.0,0,0,0,0,1,,0,0
+5603,Xi Wang,1,ambari-web,0,0,2.0,0.0,10.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+5605,Xi Wang,1,ambari-web,0,0,2.0,0.0,22.0,1.0,1.0,22.0,0,1,0,0,0,,0,0
+5607,Michael Harp,0,null,0,1,2.0,1.0,38.0,4.0,1.0,36.0,0,0,0,0,0,ambari-server/src/main/resources/stacks/HDP/1.3.2/services/GANGLIA/package/files/rrd.py;ambari-server/src/main/resources/stacks/HDP/2.0.6/services/GANGLIA/package/files/rrd.py;,0,1
+5612,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,11.0,0.0,0.0,12.0,0,1,0,0,1,,0,0
+5622,Myroslav Papirkovskyy,1,ambari-server,0,1,3.0,0.0,107.0,9.0,1.0,100.0,1,0,0,0,0,,0,0
+5628,Srimanth Gunturi,1,ambari-web,0,0,3.0,1.0,68.0,4.0,1.0,67.0,0,1,0,0,0,,0,0
+5633,Dmitry Lysnichenko,1,ambari-agent,0,1,3.0,0.0,25.0,0.0,0.0,28.0,0,0,0,0,0,,0,0
+5643,Jaimin D Jetly,1,ambari-web,0,0,4.0,0.0,14.0,0.0,0.0,18.0,0,1,0,0,1,,0,0
+5646,Srimanth Gunturi,1,ambari-web,0,0,0.0,1.0,20.0,0.0,1.0,20.0,0,1,0,0,0,,0,0
+5656,Xi Wang,1,ambari-web,0,0,0.0,0.0,15.0,0.0,0.0,15.0,0,1,0,0,0,,0,0
+5668,Aleksandr Kovalenko,1,ambari-web,0,1,3.0,0.0,26.0,2.0,0.0,27.0,0,1,0,0,0,,0,0
+5669,Xi Wang,1,ambari-web,0,0,1.0,0.0,12.0,1.0,0.0,12.0,0,1,0,0,0,,0,0
+5688,Dmytro Sen,1,null,0,0,2.0,0.0,17.0,0.0,0.0,19.0,0,0,0,0,1,ambari-server/src/main/java/org/apache/ambari/server/api/services/AmbariMetaInfo.java;ambari-server/src/main/java/org/apache/ambari/server/api/util/StackExtensionHelper.java;ambari-server/src/main/java/org/apache/ambari/server/controller/AmbariManagementControllerImpl.java;ambari-server/src/main/java/org/apache/ambari/server/state/ServiceInfo.java;ambari-server/src/main/resources/stacks/HDP/1.3.2/services/ZOOKEEPER/metainfo.xml;ambari-server/src/main/resources/stacks/HDP/2.0.6/services/ZOOKEEPER/metainfo.xml;ambari-server/src/test/java/org/apache/ambari/server/api/services/AmbariMetaInfoTest.java;ambari-server/src/test/java/org/apache/ambari/server/api/util/StackExtensionHelperTest.java;ambari-server/src/test/java/org/apache/ambari/server/controller/AmbariManagementControllerTest.java;ambari-server/src/test/resources/stacks/HDP/2.0.7/services/ZOOKEEPER/metainfo.xml;,0,0
+5692,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+5714,Xi Wang,1,ambari-web,0,1,1.0,0.0,15.0,1.0,0.0,15.0,0,1,0,0,0,,0,0
+5716,Jaimin D Jetly,1,ambari-web,0,1,2.0,0.0,19.0,1.0,0.0,20.0,0,1,0,0,0,,1,0
+5720,Jonathan Hurley,1,null,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,0,0,0,0,,0,0
+5722,Jonathan Hurley,1,null,0,0,6.0,1.0,68.0,2.0,1.0,72.0,1,0,0,0,1,,0,0
+5726,Jaimin D Jetly,1,ambari-web,0,0,4.0,1.0,24.0,0.0,0.0,29.0,0,1,0,0,1,,0,0
+5730,Vitaly Brodetskyi,1,ambari-agent,0,0,2.0,0.0,23.0,0.0,0.0,25.0,0,1,1,0,0,,0,0
+5735,Dmitry Lysnichenko,1,ambari-server,0,0,3.0,1.0,29.0,0.0,1.0,32.0,0,1,1,0,0,,0,0
+5739,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,20.0,0.0,1.0,20.0,0,1,0,1,1,,0,0
+5751,Myroslav Papirkovskyy,1,ambari-server,0,1,5.0,0.0,72.0,4.0,0.0,73.0,1,0,0,0,0,,0,0
+5753,Jaimin D Jetly,1,ambari-web,0,0,8.0,0.0,11.0,0.0,0.0,19.0,0,1,0,0,0,,0,0
+5761,Myroslav Papirkovskyy,1,ambari-server,0,0,0.0,0.0,15.0,0.0,0.0,15.0,0,0,0,0,0,,0,1
+5778,Myroslav Papirkovskyy,1,ambari-server,0,1,2.0,0.0,38.0,3.0,0.0,37.0,0,1,1,0,0,,0,0
+5779,Myroslav Papirkovskyy,1,ambari-server,0,0,10.0,3.0,78.0,6.0,0.0,85.0,1,1,0,0,0,,0,0
+5782,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,5.0,1.0,0.0,4.0,0,1,0,0,0,,0,0
+5783,Siddharth Wagle,1,null,0,1,4.0,1.0,66.0,1.0,2.0,68.0,1,1,0,0,0,,0,0
+5855,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,7.0,0.0,0.0,7.0,0,1,0,0,0,ambari-web/app/controllers/main/service/info/configs.js;,0,0
+5866,Oleg Nechiporenko,1,ambari-web,0,1,2.0,1.0,23.0,0.0,1.0,25.0,0,1,0,0,1,,0,0
+5886,Srimanth Gunturi,1,ambari-server,0,0,1.0,0.0,12.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+5894,Oleg Nechiporenko,1,ambari-web,1,1,33.0,3.0,261.0,24.0,3.0,270.0,0,1,1,0,0,,0,0
+5895,Dmitry Lysnichenko,1,null,0,0,3.0,0.0,51.0,3.0,0.0,51.0,0,0,0,0,0,,0,0
+5915,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,20.0,2.0,1.0,17.0,0,1,0,0,1,,0,0
+5922,Siddharth Wagle,1,ambari-server,0,0,0.0,0.0,15.0,1.0,0.0,14.0,0,0,0,0,0,,0,0
+5930,Jonathan Hurley,1,null,0,0,1.0,0.0,16.0,1.0,0.0,16.0,0,0,0,0,1,,0,0
+5932,Antonenko Alexander,1,ambari-web,0,1,0.0,0.0,22.0,0.0,1.0,21.0,0,1,0,0,0,,0,0
+5935,Myroslav Papirkovskyy,1,ambari-server,0,1,1.0,0.0,15.0,2.0,0.0,14.0,0,0,0,0,1,,0,0
+5941,Shivani Gupta,0,null,0,0,1.0,0.0,11.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+5956,Vitaly Brodetskyi,1,ambari-agent,0,0,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+5957,Dmitry Lysnichenko,1,ambari-server,0,1,3.0,0.0,39.0,0.0,0.0,42.0,0,0,0,0,0,,0,0
+5960,Jeff Sposetti,1,null,1,0,2.0,0.0,10.0,0.0,0.0,12.0,0,0,0,0,0,,0,0
+5994,Andrii Babiichuk,1,ambari-web,0,0,3.0,0.0,8.0,1.0,0.0,10.0,0,1,0,0,0,ambari-web/app/models/quick_links.js;ambari-web/app/views/common/quick_view_link_view.js;,0,0
+6003,Aleksandr Kovalenko,1,ambari-web,0,0,10.0,1.0,26.0,0.0,0.0,37.0,0,1,0,1,0,,0,0
+6014,Jonathan Hurley,1,null,0,1,3.0,0.0,17.0,0.0,0.0,20.0,0,0,0,0,0,,0,1
+6034,Antonenko Alexander,1,ambari-web,0,1,2.0,0.0,24.0,0.0,0.0,26.0,0,1,0,0,0,,0,0
+6044,Vitaly Brodetskyi,1,ambari-agent,0,0,1.0,0.0,18.0,0.0,0.0,19.0,0,1,0,0,0,,0,0
+6045,Andrii Tkach,1,ambari-web,0,0,0.0,0.0,6.0,0.0,1.0,5.0,0,1,0,0,0,ambari-web/app/mappers/service_metrics_mapper.js;,0,0
+6048,Dmitry Lysnichenko,1,ambari-agent,0,0,2.0,0.0,33.0,3.0,0.0,32.0,0,0,0,0,0,,0,1
+6053,Andrii Tkach,1,ambari-web,0,0,3.0,0.0,4.0,0.0,0.0,7.0,0,1,0,0,0,ambari-web/app/controllers/main/host/add_controller.js;ambari-web/app/controllers/wizard/step2_controller.js;ambari-web/app/controllers/wizard/step3_controller.js;ambari-web/app/views/main/host/add_view.js;,0,0
+6056,Jonathan Hurley,1,null,0,1,2.0,0.0,36.0,1.0,0.0,37.0,0,0,1,0,0,,0,0
+6059,Jeff Sposetti,1,null,0,1,3.0,1.0,26.0,0.0,0.0,30.0,0,0,1,0,0,,0,0
+6063,Dmytro Sen,1,ambari-server,0,0,1.0,0.0,22.0,0.0,0.0,23.0,0,0,0,0,1,ambari-server/src/main/python/ambari-server.py;ambari-server/src/main/python/ambari_server/utils.py;ambari-server/src/test/python/TestAmbariServer.py;ambari-server/src/test/python/TestUtils.py;,0,0
+6080,Aleksandr Kovalenko,1,ambari-web,0,0,0.0,0.0,11.0,0.0,1.0,10.0,0,1,0,0,0,,0,0
+6087,Oleg Nechiporenko,1,ambari-web,0,0,4.0,1.0,22.0,2.0,2.0,23.0,0,1,0,0,1,,0,0
+6106,Siddharth Wagle,1,ambari-server,0,0,0.0,0.0,16.0,4.0,0.0,12.0,0,0,0,0,0,,0,0
+6112,Andrii Tkach,1,ambari-web,0,0,2.0,0.0,12.0,0.0,0.0,14.0,0,1,0,0,1,ambari-web/app/controllers/global/update_controller.js;ambari-web/app/controllers/main/host.js;ambari-web/app/data/host/categories.js;,0,0
+6113,Vitaly Brodetskyi,1,ambari-agent,0,0,1.0,0.0,19.0,0.0,0.0,20.0,0,1,1,0,0,,0,0
+6123,Xi Wang,1,ambari-web,0,0,0.0,0.0,27.0,0.0,0.0,27.0,0,1,0,0,1,,0,0
+6125,Janos Matyas,1,ambari-client,0,1,1.0,1.0,16.0,1.0,0.0,17.0,0,1,0,0,0,,0,0
+6137,Andrii Babiichuk,1,ambari-web,0,0,1.0,0.0,14.0,0.0,0.0,15.0,0,1,0,0,0,ambari-web/app/controllers/wizard/step8_controller.js;ambari-web/app/messages.js;ambari-web/app/styles/application.less;ambari-web/app/templates/main/host/bulk_operation_confirm_popup.hbs;ambari-web/app/views/main/host.js;ambari-web/test/controllers/wizard/step8_test.js;,0,0
+6140,Antonenko Alexander,1,ambari-web,0,0,1.0,0.0,12.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+6146,Xi Wang,1,ambari-web,0,0,2.0,0.0,8.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+6147,Xi Wang,1,ambari-web,0,0,2.0,1.0,16.0,0.0,0.0,19.0,0,1,0,0,1,,0,0
+6155,Oleg Nechiporenko,1,ambari-web,0,0,2.0,0.0,18.0,0.0,0.0,20.0,0,1,0,0,0,,0,0
+6162,Oleg Nechiporenko,1,ambari-web,0,1,1.0,1.0,16.0,0.0,0.0,18.0,0,1,0,0,0,,0,0
+6169,Jaimin D Jetly,1,ambari-web,0,1,5.0,0.0,33.0,0.0,0.0,38.0,1,1,0,0,1,,0,0
+6184,Dmitry Lysnichenko,1,ambari-agent,0,1,10.0,0.0,69.0,1.0,0.0,78.0,0,0,0,1,1,,0,0
+6194,Xi Wang,1,ambari-web,0,0,2.0,1.0,14.0,0.0,0.0,17.0,0,1,0,0,1,,0,0
+6197,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,34.0,2.0,0.0,33.0,0,1,0,0,0,,0,0
+6199,Jaimin D Jetly,1,ambari-web,0,0,4.0,0.0,22.0,0.0,0.0,26.0,0,1,0,0,0,,0,0
+6201,John Speidel,1,null,0,1,1.0,0.0,27.0,1.0,0.0,27.0,0,0,0,0,0,,0,0
+6203,Andrii Tkach,1,ambari-web,0,0,4.0,0.0,13.0,0.0,0.0,17.0,0,1,0,0,1,ambari-web/app/styles/application.less;ambari-web/app/templates/main/admin/highAvailability/step2.hbs;,0,0
+6206,Aleksandr Kovalenko,1,ambari-web,0,0,0.0,0.0,8.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+6207,Antonenko Alexander,1,ambari-web,0,0,2.0,0.0,20.0,0.0,0.0,22.0,0,1,1,0,0,,0,0
+6208,Antonenko Alexander,1,ambari-web,0,0,2.0,0.0,24.0,0.0,0.0,26.0,0,1,0,0,0,,0,0
+6215,Antonenko Alexander,1,ambari-web,0,0,1.0,0.0,14.0,1.0,0.0,14.0,0,1,0,0,0,,0,0
+6221,Myroslav Papirkovskyy,1,ambari-server,1,0,4.0,0.0,40.0,3.0,0.0,41.0,0,0,0,0,1,,0,0
+6228,Xi Wang,1,ambari-web,0,1,2.0,0.0,22.0,0.0,0.0,24.0,0,1,0,0,0,,0,0
+6234,Dmitry Lysnichenko,1,ambari-server,1,0,6.0,0.0,37.0,2.0,2.0,39.0,1,0,0,0,0,,1,0
+6236,Oleg Nechiporenko,1,ambari-web,0,1,2.0,1.0,41.0,1.0,0.0,43.0,0,1,0,0,0,,0,0
+6244,Xi Wang,1,ambari-web,0,0,2.0,0.0,18.0,0.0,0.0,20.0,0,1,0,0,1,,0,0
+6247,Antonenko Alexander,1,ambari-web,0,0,1.0,0.0,12.0,0.0,0.0,13.0,0,1,0,0,1,,0,0
+6265,Xi Wang,1,ambari-web,0,0,1.0,1.0,15.0,0.0,0.0,17.0,0,1,0,0,1,,0,0
+6266,Artem Baranchuk,1,contrib,0,0,0.0,0.0,5.0,1.0,0.0,4.0,0,0,0,0,0,contrib/ambari-scom/ambari-scom-server/src/main/java/org/apache/ambari/scom/SQLPropertyProvider.java;contrib/ambari-scom/ambari-scom-server/src/test/java/org/apache/ambari/scom/SQLPropertyProviderTest.java;,0,0
+6267,Andrii Tkach,1,ambari-web,0,0,5.0,0.0,30.0,0.0,1.0,34.0,0,1,0,0,0,ambari-web/app/controllers/wizard/step8_controller.js;ambari-web/app/utils/ajax/ajax.js;,0,0
+6268,Antonenko Alexander,1,ambari-web,0,1,1.0,0.0,2.0,2.0,0.0,1.0,0,0,0,0,0,,0,1
+6270,Andrew Onischuk,1,ambari-server; stacks,0,0,0.0,0.0,12.0,0.0,0.0,12.0,0,0,0,0,0,,0,0
+6273,Antonenko Alexander,1,ambari-web,0,0,0.0,0.0,17.0,0.0,0.0,17.0,0,1,0,0,0,,0,0
+6276,Andrii Babiichuk,1,ambari-web,0,0,2.0,0.0,18.0,1.0,1.0,18.0,0,1,0,0,0,ambari-web/app/controllers/main/service/item.js;ambari-web/app/templates/common/confirmation_feedback.hbs;ambari-web/app/templates/common/rolling_restart_view.hbs;ambari-web/app/utils/ajax/ajax.js;ambari-web/app/utils/batch_scheduled_requests.js;ambari-web/app/views/common/modal_popup.js;ambari-web/app/views/common/rolling_restart_view.js;,0,0
+6292,Greg Hill,0,ambari-web,0,0,1.0,1.0,20.0,2.0,1.0,19.0,0,1,0,0,0,,0,0
+6295,Srimanth Gunturi,1,ambari-web,0,1,0.0,0.0,16.0,0.0,0.0,16.0,0,0,0,0,0,,0,1
+6298,Siddharth Wagle,1,ambari-server,0,1,1.0,0.0,22.0,1.0,0.0,22.0,0,0,0,0,0,,0,0
+6299,Siddharth Wagle,1,ambari-server,0,1,1.0,1.0,24.0,3.0,0.0,23.0,0,0,0,0,0,,0,1
+6311,Antonenko Alexander,1,ambari-web,0,0,2.0,0.0,35.0,2.0,0.0,35.0,0,1,0,0,1,,0,0
+6322,Srimanth Gunturi,1,ambari-web,0,0,1.0,0.0,21.0,1.0,0.0,21.0,0,0,0,0,1,,0,0
+6327,Srimanth Gunturi,1,ambari-web,0,0,2.0,0.0,21.0,0.0,0.0,23.0,0,1,0,0,1,,0,0
+6332,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,14.0,0.0,0.0,14.0,0,1,0,0,0,ambari-web/app/templates/wizard/step9/step9HostTasksLogPopup.hbs;ambari-web/app/styles/application.less;ambari-web/app/templates/common/host_progress_popup.hbs;,0,0
+6335,Andrii Tkach,1,ambari-web,0,0,1.0,0.0,11.0,0.0,0.0,12.0,0,1,0,0,0,ambari-web/app/controllers/global/cluster_controller.js;ambari-web/app/controllers/wizard/step7_controller.js;ambari-web/app/controllers/wizard/step8_controller.js;ambari-web/app/utils/config.js;,0,0
+6337,Aleksandr Kovalenko,1,ambari-web,0,0,2.0,0.0,14.0,0.0,0.0,16.0,0,1,0,0,1,,0,0
+6340,Aleksandr Kovalenko,1,ambari-web,0,0,0.0,0.0,14.0,1.0,0.0,13.0,0,1,0,0,1,,0,0
+6349,Srimanth Gunturi,1,ambari-web,0,0,3.0,0.0,24.0,0.0,0.0,27.0,0,1,0,0,1,,0,0
+6350,Andrii Tkach,1,ambari-web,0,1,4.0,1.0,115.0,7.0,2.0,111.0,1,1,0,0,0,ambari-web/app/utils/batch_scheduled_requests.js;ambari-web/test/controllers/main/host_test.js;,0,0
+6359,Antonenko Alexander,1,ambari-web,0,0,0.0,0.0,15.0,0.0,0.0,15.0,0,0,0,0,0,,0,1
+6369,Xi Wang,1,ambari-web,0,0,2.0,0.0,5.0,0.0,0.0,7.0,0,1,0,0,0,,0,0
+6376,Aleksandr Kovalenko,1,ambari-web,0,1,0.0,0.0,13.0,0.0,0.0,13.0,0,1,0,0,0,,0,0
+6379,Andrii Tkach,1,ambari-web,0,1,6.0,0.0,37.0,2.0,0.0,41.0,0,1,1,0,0,,0,0
+6402,Oleg Nechiporenko,1,ambari-web,0,1,15.0,1.0,50.0,2.0,1.0,63.0,0,1,0,0,0,,0,0
+6405,Aleksandr Kovalenko,1,ambari-web,0,1,4.0,1.0,42.0,0.0,0.0,47.0,0,0,0,0,0,,0,1
+6406,Andrii Tkach,1,ambari-web,0,1,3.0,0.0,23.0,0.0,0.0,26.0,0,1,0,0,0,ambari-web/app/controllers/main/service/reassign/step2_controller.js;ambari-web/app/controllers/wizard/step5_controller.js;,0,0
+6409,Alejandro Fernandez,1,infra,0,0,4.0,0.0,64.0,3.0,0.0,65.0,0,0,0,0,1,,0,0
+6418,Andrii Tkach,1,ambari-web,0,1,3.0,0.0,17.0,3.0,0.0,17.0,0,0,0,0,0,ambari-web/app/controllers/main/service/info/configs.js;ambari-web/app/data/global_properties.js;ambari-web/app/utils/ajax/ajax.js;ambari-web/app/utils/configs/defaults_providers/defaultsProvider.js;ambari-web/app/utils/configs/defaults_providers/yarn_defaults_provider.js;,0,1
+6426,Alejandro Fernandez,1,site,0,0,3.0,1.0,23.0,0.0,0.0,27.0,0,0,0,1,0,,0,0
+6439,Andrii Babiichuk,1,ambari-web,0,0,0.0,0.0,23.0,0.0,1.0,22.0,0,1,0,0,0,ambari-web/app/utils/host_progress_popup.js;,0,0
+6440,Aleksandr Kovalenko,1,ambari-web,0,0,3.0,0.0,23.0,1.0,0.0,25.0,0,1,0,0,1,,0,0
+6442,Antonenko Alexander,1,ambari-web,0,0,1.0,0.0,22.0,0.0,0.0,23.0,0,0,0,0,0,,0,1
+6471,Srimanth Gunturi,1,ambari-web,0,1,6.0,0.0,53.0,2.0,0.0,57.0,0,0,0,0,1,,0,0
+6477,Andrii Babiichuk,1,ambari-web,0,0,4.0,0.0,20.0,0.0,0.0,24.0,0,1,0,0,1,ambari-web/app/controllers/wizard/step2_controller.js;,0,0
+6483,Oleg Nechiporenko,1,ambari-web,0,0,0.0,1.0,29.0,2.0,1.0,27.0,1,1,0,0,0,,0,0
+6491,Antonenko Alexander,1,ambari-web,0,0,0.0,0.0,10.0,0.0,0.0,10.0,0,1,0,0,0,,0,0
+6499,Oleg Nechiporenko,1,ambari-web,0,0,7.0,0.0,29.0,0.0,0.0,36.0,0,1,0,1,1,,0,0
+6504,Aleksandr Kovalenko,1,ambari-web,0,0,5.0,0.0,11.0,0.0,0.0,16.0,0,1,0,0,0,,0,0
+6521,Xi Wang,1,ambari-web,0,0,4.0,1.0,15.0,1.0,0.0,19.0,0,1,0,0,0,,0,0
+6525,Andrii Babiichuk,1,ambari-web,0,0,4.0,0.0,32.0,1.0,0.0,35.0,1,1,0,0,1,ambari-web/app/controllers/wizard/step7_controller.js;ambari-web/app/mappers/stack_service_mapper.js;,0,0
+6527,subin,1,null,0,0,5.0,2.0,32.0,1.0,1.0,37.0,0,1,0,0,1,,0,0
+6539,Oleg Nechiporenko,1,ambari-web,0,0,0.0,0.0,5.0,0.0,0.0,5.0,0,1,0,0,0,,0,0
+6544,Xi Wang,1,ambari-web,0,0,0.0,0.0,9.0,0.0,1.0,8.0,0,1,0,0,0,,0,0
+6558,Xi Wang,1,ambari-web,0,0,6.0,1.0,29.0,1.0,0.0,35.0,0,1,1,0,0,,0,0
+6568,Jaimin D Jetly,1,ambari-web,0,0,0.0,1.0,10.0,0.0,0.0,11.0,0,1,0,0,0,,0,0
+6570,Oleg Nechiporenko,1,ambari-web,0,0,5.0,0.0,21.0,1.0,0.0,25.0,0,1,0,0,1,,0,0
+6571,Oleg Nechiporenko,1,ambari-web,0,0,1.0,0.0,7.0,0.0,0.0,8.0,0,1,0,0,0,,0,0
+6575,Antonenko Alexander,1,ambari-web,0,1,2.0,0.0,40.0,0.0,0.0,42.0,0,1,0,0,0,,0,0
+6585,Alejandro Fernandez,1,site,0,1,9.0,2.0,101.0,4.0,2.0,106.0,0,0,1,0,1,,0,0
+6587,Siddharth Wagle,1,ambari-server,0,0,4.0,0.0,48.0,1.0,0.0,51.0,1,1,1,0,1,,0,0
+6589,Jaimin D Jetly,1,ambari-web,0,0,0.0,0.0,11.0,1.0,0.0,10.0,0,1,0,0,0,,0,0
+6603,Srimanth Gunturi,1,ambari-web,0,0,2.0,0.0,19.0,0.0,0.0,21.0,0,1,0,0,0,,0,0
+6609,Dmytro Sen,1,ambari-server,0,0,1.0,0.0,5.0,2.0,0.0,4.0,0,0,0,0,0,ambari-server/src/main/resources/Ambari-DDL-Postgres-CREATE.sql;,0,0
+6622,Srimanth Gunturi,1,ambari-server,0,1,1.0,1.0,33.0,0.0,0.0,35.0,1,1,0,0,0,,0,0
+6623,Alejandro Fernandez,1,test,0,0,1.0,0.0,12.0,0.0,0.0,13.0,0,0,0,0,0,,0,0
+6626,Jaimin D Jetly,1,ambari-web; site,0,0,5.0,0.0,19.0,0.0,0.0,24.0,0,1,0,0,0,,0,0
+6628,Srimanth Gunturi,1,ambari-server,0,0,2.0,0.0,42.0,0.0,0.0,44.0,1,1,0,0,0,,0,0
+6630,Jaimin D Jetly,1,ambari-web,0,0,1.0,0.0,14.0,0.0,0.0,15.0,0,0,0,0,0,,0,1
+6638,Andrii Tkach,1,ambari-web,0,0,3.0,0.0,23.0,0.0,0.0,26.0,0,1,0,1,0,ambari-web/app/controllers/main/admin/security/add/step2.js;ambari-web/app/views/common/configs/services_config.js;,0,0
+6640,Andrii Babiichuk,1,ambari-web,0,1,2.0,1.0,14.0,1.0,0.0,16.0,0,1,0,0,0,ambari-web/app/templates/common/configs/service_config.hbs;ambari-web/app/templates/common/configs/service_config_category.hbs;ambari-web/app/templates/common/configs/service_config_wizard.hbs;ambari-web/app/templates/common/configs/services_config.hbs;ambari-web/app/views/common/configs/services_config.js;ambari-web/test/views/common/configs/services_config_test.js;,0,0
+6664,Vitaly Brodetskyi,1,ambari-agent,0,1,6.0,0.0,75.0,3.0,0.0,78.0,1,0,0,0,1,,0,0
+6667,Jonathan Hurley,1,null,0,0,1.0,0.0,59.0,1.0,1.0,58.0,1,0,0,0,0,,0,0
+6672,Vitaly Brodetskyi,1,ambari-agent,0,0,1.0,0.0,2.0,0.0,0.0,3.0,0,1,0,0,0,,0,0
+6716,Antonenko Alexander,1,ambari-web,0,0,2.0,0.0,19.0,0.0,0.0,21.0,0,1,0,0,1,,0,0
+6721,Yusaku Sako,1,ambari-web,0,0,3.0,0.0,13.0,0.0,0.0,16.0,0,1,0,0,1,,0,0
+6729,Aleksandr Kovalenko,1,ambari-web,0,0,3.0,1.0,8.0,0.0,0.0,12.0,0,1,0,0,0,,0,0
+6735,Aleksandr Kovalenko,1,ambari-web,0,0,2.0,1.0,10.0,0.0,1.0,12.0,0,1,0,0,1,,0,0
+6741,Andrii Babiichuk,1,ambari-web,0,0,1.0,0.0,29.0,1.0,0.0,29.0,0,1,0,0,0,ambari-web/app/controllers/main/service/info/configs.js;ambari-web/test/controllers/main/service/info/config_test.js;,0,0
+6744,Aleksandr Kovalenko,1,ambari-web,0,0,5.0,0.0,23.0,0.0,0.0,28.0,0,0,0,0,0,,0,1
+6749,Jonathan Hurley,1,null,0,0,1.0,0.0,12.0,0.0,0.0,13.0,0,0,0,0,0,ambari-server/src/main/resources/stacks/HDP/2.0.6/services/FLUME/package/scripts/flume_handler.py;ambari-server/src/test/python/stacks/2.0.6/FLUME/test_flume.py;,0,0
+6751,Xi Wang,1,ambari-web,0,0,2.0,0.0,11.0,0.0,0.0,13.0,0,1,0,0,1,,0,0
+6754,Aleksandr Kovalenko,1,ambari-web,0,0,4.0,0.0,21.0,1.0,1.0,23.0,0,1,0,0,1,,0,0
+6769,Andrii Babiichuk,1,ambari-web,0,0,2.0,0.0,3.0,0.0,0.0,5.0,0,1,0,0,0,ambari-web/app/controllers/global/cluster_controller.js;ambari-web/app/controllers/main/admin/highAvailability_controller.js;ambari-web/app/controllers/main/admin/security/add/step4.js;ambari-web/app/controllers/main/host/details.js;ambari-web/app/controllers/main/service/item.js;ambari-web/app/controllers/wizard/step7_controller.js;ambari-web/app/controllers/wizard/step8_controller.js;ambari-web/app/mixins.js;ambari-web/app/mixins/wizard/addSecurityConfigs.js;ambari-web/app/views/main/admin/highAvailability_view.js;ambari-web/test/controllers/main/admin/security/add/step4_test.js;ambari-web/test/controllers/wizard/step8_test.js;ambari-web/test/mixins/wizard/addSeccurityConfigs_test.js;ambari-web/app/templates/main/admin/highAvailability.hbs;,0,0
+6782,Jaimin D Jetly,1,ambari-web,0,0,3.0,0.0,26.0,0.0,0.0,29.0,0,1,0,0,1,,0,0
+6787,Xi Wang,1,ambari-web,0,0,1.0,0.0,14.0,0.0,0.0,15.0,0,1,0,0,1,,0,0
+6788,Aleksandr Kovalenko,1,ambari-web,0,0,5.0,2.0,21.0,1.0,0.0,27.0,0,1,0,0,0,,0,0
+6793,Aleksandr Kovalenko,1,ambari-web,0,0,1.0,0.0,9.0,1.0,0.0,9.0,0,1,0,0,0,,0,0

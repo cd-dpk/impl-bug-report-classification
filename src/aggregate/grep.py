@@ -25,6 +25,22 @@ class GREP:
         return {'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}
     def calc_tuple(self,result_dic:dict):
         return (result_dic['t_p'], result_dic['t_n'], result_dic['f_p'], result_dic['f_n'])
+    def calc_fpr_tpr(self,result_dic:dict):
+        t_p = result_dic['t_p']
+        t_n = result_dic['t_n']
+        f_p = result_dic['f_p']
+        f_n = result_dic['f_n']
+
+        t_p += 0.001
+        t_n += 0.001
+        f_p += 0.001
+        f_n += 0.001
+
+        fpr = f_p / (f_p+t_n)
+        tpr = t_p / (t_p+f_n)
+
+        return (fpr,tpr)
+
     def calc_acc_pre_rec(self,result_dic:dict):
         t_p = result_dic['t_p']
         t_n = result_dic['t_n']
@@ -52,7 +68,7 @@ class GREP:
         else:
             return (grep,0)
     def predict_performance_label(self, summary, description):
-        perfExpression = "(?i)(\\bCPU\\b|\\bmemory\\b|\\bdisk\\b|\\bperf\\b|\\bperformance\\b|\\bslow(ing)?\\b|response|(times?)|speed|utiliz(e|ing)|call|RAM)"
+        perfExpression = "(?i)(seconds|minutes|long|flood|\\bCPU\\b|\\bmemory\\b|\\bdisk\\b|\\bperf\\b|\\bperformance\\b|\\bslow(ing)?\\b|respons|\\b(times?)\\b|speed|utiliz(e|ing)|call|\\bRAM\\b|\\optimize\\b)"
         # print(perfExpression)
         # perf_kewords = ["perf", "slow", "hang", "performance"]
         text_to_search = summary
@@ -98,5 +114,8 @@ class GREP:
         acc, pre, rec = self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n})
         print(str(acc) + ',' + str(pre) + ',' + str(rec) + '\n')
         logfile.write(str(acc) + ',' + str(pre) + ',' + str(rec) + '\n')
+        fpr, tpr = self.calc_fpr_tpr({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n})
+        print(str(fpr) + ',' + str(tpr) + '\n')
+        logfile.write(str(fpr) + ',' + str(tpr) + '\n')
         logfile.close()
         return

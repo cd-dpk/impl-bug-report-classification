@@ -8,26 +8,31 @@ class ChouDataHandler:
         self.file = file
         self.intent = intent
         self.reporter_data = []
+        self.team_data = []
         self.component_data = []
+        self.grep_data = []
         self.lexicon_data = []
         self.textual_data = []
         self.description_data = []
-        self.target_data = []
+        self.txt_target_data = []
+        self.str_target_data = []
         self.text_features = []
+        self.str_features = []
 
-
-    def load_data(self, word2vec: bool):
+    def load_txt_data(self, word2vec: bool):
         self.text_features = []
         self.target_column = ''
         file_name = self.file
         if word2vec == True:
-            file_name += 'wv'
+            file_name += '_wv_txt'
+        else:
+            file_name += '_txt'
 
         with open(file_name+'_vec.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
             counter = 0
             for f in reader.fieldnames:
-                if counter <= 12 or counter >= len(reader.fieldnames)-2:
+                if counter <= 0 or counter >= len(reader.fieldnames)-2:
                     counter += 1
                     continue
                 else:
@@ -41,14 +46,57 @@ class ChouDataHandler:
             # print(text_features)
             counter = 0
             for row in reader:
+                text_data_arr_row = []
+                for x in self.text_features:
+                    if row[x] not in (None, ''):
+                        text_data_arr_row.append(float(row[x]))
+                # print(text_data_arr_row, row[self.target_column])
+                target = int(row[self.target_column])
+                self.textual_data.append(text_data_arr_row)
+                self.txt_target_data.append(target)
+                counter += 1
+
+        self.textual_data = np.array(self.textual_data)
+        self.txt_target_data = np.array(self.target_data)
+        return
+
+    def load_str_data(self):
+        component_data = np.array(self.component_to_numeric_data())
+        self.str_features.append("auth")
+        self.str_features.append("team")
+        for y in range(len(self.grep_data[0])):
+            self.str_features.append("grep"+str(y))
+
+        for y in range(len(self.lexicon_data[0])):
+            self.str_features.append("lex" + str(y))
+
+        for y in range(len(component_data[0])):
+            self.str_features.append("comp"+str(y))
+
+        for y in range(len(self.description_data[0])):
+            self.str_features.append("des" + str(y))
+        self.str_features = np.array(self.str_features,dtype=object)
+
+        self.target_column = ''
+        file_name = self.file+'_str'
+
+        with open(file_name+'_vec.csv', newline='', encoding="UTF-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            if self.intent == 'Security':
+                self.target_column = reader.fieldnames[len(reader.fieldnames)- 2]
+            elif self.intent == 'Performance':
+                self.target_column = reader.fieldnames[len(reader.fieldnames) - 1]
+            # print(text_features)
+            counter = 0
+            for row in reader:
                 reporter = row['reporter_col'] in (None, '') and '' or row['reporter_col']
+                team = row['team_col'] in (None, '') and '' or row['team_col']
                 component = row['component_col'] in (None, '') and 'null' or row['component_col']
                 pos = float(row[self.intent+'_pos_col'] in (None, '') and '0' or row[self.intent+'_pos_col'])
                 neu = float(row[self.intent+'_neu_col'] in (None, '') and '0' or row[self.intent+'_neu_col'])
                 neg = float(row[self.intent+'_neg_col'] in (None, '') and '0' or row[self.intent+'_neg_col'])
-                # keyword_sec = row['keyword_sec_col'] in (None, '') and '0' or row['keyword_sec_col']
-                # keyword_perf = row['keyword_perf_col'] in (None, '') and '0' or row['keyword_perf_col']
-                # # print(keyword_sec, keyword_perf)
+                grep_sec = row['grep_sec'] in (None, '') and '0' or row['grep_sec']
+                grep_perf = row['grep_perf'] in (None, '') and '0' or row['grep_perf']
                 st = ((row['ST_col'] in (None, '') and '0' or row['ST_col']))
                 patch = ((row['Patch_col'] in (None, '') and '0' or row['Patch_col']))
                 ce = ((row['CE_col'] in (None, '') and '0' or row['CE_col']))
@@ -56,28 +104,21 @@ class ChouDataHandler:
                 en = ((row['EN_col'] in (None, '') and '0' or row['EN_col']))
                 # print(counter,reporter,component,keyword,st,patch,ce,tc,en)
                 self.reporter_data.append(reporter)
+                self.team_data.append(team)
                 self.component_data.append(component)
-                # self.keyword_sec_data.append(int(keyword_sec))
-                # self.keyword_perf_data.append(int(keyword_perf))
+                self.grep_data.append([grep_sec, grep_perf])
                 self.description_data.append(np.array([int(st), int(patch), int(ce), int(tc), int(en)]))
                 self.lexicon_data.append([pos, neu, neg])
-                text_data_arr_row = []
-                for x in self.text_features :
-                    if row[x] not in (None, ''):
-                        text_data_arr_row.append(float(row[x]))
-                # print(text_data_arr_row, row[self.target_column])
                 target = int(row[self.target_column])
-                self.textual_data.append(text_data_arr_row)
-                self.target_data.append(target)
+                self.str_target_data.append(target)
                 counter += 1
 
         self.reporter_data = np.array(self.reporter_data)
+        self.team_data = np.array(self.team_data)
         self.component_data = np.array(self.component_data)
-        # self.keyword_sec_data = np.array(self.keyword_sec_data)
-        # self.keyword_perf_data = np.array(self.keyword_perf_data)
-        self.textual_data = np.array(self.textual_data)
+        self.grep_data = np.array(self.grep_data, dtype=int)
         self.description_data = np.array(self.description_data)
-        self.target_data = np.array(self.target_data)
+        self.str_target_data = np.array(self.target_data)
         self.lexicon_data = np.array(self.lexicon_data)
         return
 
@@ -112,29 +153,19 @@ class ChouDataHandler:
         return np.array(one_hot_components).astype(int)
 
 
-    def get_numeric_data(self):
-        numeric_data = []
-        reporter_data = np.array(self.reporter_to_numeric_data())
-        component_data = np.array(self.component_to_numeric_data())
-
-        for x in range(len(self.reporter_data)):
-            # print((reporter_data[0], component_data[0], self.keywords_data[0], self.textual_data[0]))
-            row = np.concatenate((reporter_data[x], component_data[x],self.keywords_data[x],self.textual_data[x]),axis=0)
-            numeric_data.append(row)
-
-        return np.array(numeric_data).astype(int)
-
-
     def get_numeric_str_data(self):
         numeric_data = []
         reporter_data = np.array(self.reporter_to_numeric_data())
         component_data = np.array(self.component_to_numeric_data())
 
         for x in range(len(self.reporter_data)):
-            temp_arr = []
+            temp_arr =[]
             temp_arr.append(reporter_data[x])
+            temp_arr.append(self.team_data[x])
             for y in range(len(component_data[x])):
                 temp_arr.append(component_data[x][y])
+            for y in range(len(self.grep_data[x])):
+                temp_arr.append(self.grep_data[x][y])
             for y in range(len(self.lexicon_data[x])):
                 temp_arr.append(self.lexicon_data[x][y])
             for y in range(len(self.description_data[x])):
@@ -143,16 +174,3 @@ class ChouDataHandler:
 
         return np.array(numeric_data)
 
-    def get_str_features(self):
-        str_features = []
-        component_data = np.array(self.component_to_numeric_data())
-        str_features.append("auth")
-        for y in range(len(self.lexicon_data[0])):
-            str_features.append("lex" + str(y))
-        for y in range(len(component_data[0])):
-            str_features.append("comp"+str(y))
-        for y in range(len(self.description_data[0])):
-            str_features.append("des" + str(y))
-
-        str_features = np.array(str_features,dtype=object)
-        return str_features

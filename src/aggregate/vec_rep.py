@@ -9,7 +9,7 @@ class VectorRepresenter:
         self.file = file
 
     # Return the frequency distribution of terms in a text
-    def term_count(self,t):
+    def term_count(self, t):
         summary = regexp_tokenize(t, pattern='[a-zA-Z]+')
         proc_t = FreqDist()
         for w in summary:
@@ -18,7 +18,7 @@ class VectorRepresenter:
 
     # all the terms that will be used as feature
     def get_all_terms(self):
-        csvfile = open(self.file + '_proc.csv', newline='')
+        csvfile = open(self.file + '_proc.csv', encoding='UTF-8', newline='')
         reader = csv.DictReader(csvfile)
         word_list = []
         word_df = []
@@ -42,35 +42,22 @@ class VectorRepresenter:
 
     # represent each bug report as vector of terms
     # weight of each term is calculated using tf_idf
-    def proc_bug_reports(self, word2vec: bool):
-        word_list, word_df, t_d = self.get_all_terms()
-        '''
-        re_word_list = []
-        re_word_df = []
-        for x in range(len(word_df)):
-            if word_df[x] >= 2:
-                re_word_list.append(word_list[x])
-                re_word_df.append(word_df[x])
-        word_list = re_word_list
-        word_df = re_word_df
-        '''
-        header_str = ''
-        header_str += 'reporter_col,'
+    def proc_bug_reports_str(self, output_file, ):
+        str_file = open(output_file,'w')
+        header_str = 'issue_id,'
+        header_str += 'reporter_col,team_col,'
         header_str += 'component_col,'
-        header_str += 'Security_pos_col,Security_neu_col,Security_neg_col,Performance_pos_col,Performance_neu_col,Performance_neg_col,ST_col,Patch_col,CE_col,TC_col,EN_col,'
-        header_words = ''
-        for x in range(len(word_list)):
-            header_words += word_list[x] + ','
-
-        print(header_str + header_words + 'target_Security,target_Performance')
-
-        csvfile = open(self.file +'_proc.csv', newline='')
+        header_str += 'grep_sec,grep_perf,Security_pos_col,Security_neu_col,Security_neg_col,Performance_pos_col,Performance_neu_col,Performance_neg_col,ST_col,Patch_col,CE_col,TC_col,EN_col,'
+        str_file.write(header_str +'target_Security,target_Performance\n')
+        csvfile = open(self.file +'_str_proc.csv', encoding='UTF-8', newline='')
         reader = csv.DictReader(csvfile)
-
         for row in reader:
-            output = ''
+            output = row['issue_id'] + ","
             output += row['reporter_col'] + ","
+            output += row['team_col'] + ","
             output += row['component_col'] + ","
+            output += row['grep_sec'] + ","
+            output += row['grep_perf'] + ","
             pos = float(row['Security_pos_col'])
             neu = float(row['Security_neu_col'])
             neg = float(row['Security_neg_col'])
@@ -95,8 +82,41 @@ class VectorRepresenter:
             tc = str((row['TC_col'] in (None, '') and '0' or row['TC_col']))
             en = str((row['EN_col'] in (None, '') and '0' or row['EN_col']))
             output += st + ',' + patch + ',' + ce + ',' + tc + ',' + en + ','
-            text = row['summary_col']+" "+row['description_col']
-            # text = row['summary']
+            security = str((row['target_Security'] in (None, '') and '0' or row['target_Security']))
+            output += security+","
+            performance = str((row['target_Performance'] in (None, '') and '0' or row['target_Performance']))
+            output += performance
+            str_file.write(output+'\n')
+        csvfile.close()
+        str_file.close()
+        return
+
+    def proc_bug_reports_txt(self, word2vec: bool, output_file):
+        txt_file = open(output_file,'w')
+        word_list, word_df, t_d = self.get_all_terms()
+        '''
+        re_word_list = []
+        re_word_df = []
+        for x in range(len(word_df)):
+            if word_df[x] >= 2:
+                re_word_list.append(word_list[x])
+                re_word_df.append(word_df[x])
+        word_list = re_word_list
+        word_df = re_word_df
+        '''
+        header_str = 'issue_id,'
+        header_words = ''
+        for x in range(len(word_list)):
+            header_words += word_list[x] + ','
+        txt_file.write(header_str + header_words + 'target_Security,target_Performance\n')
+
+        csvfile = open(self.file +'_txt_proc.csv', encoding='UTF-8', newline='')
+        reader = csv.DictReader(csvfile)
+
+        for row in reader:
+            output = row['issue_id'] + ","
+            # text = row['summary_col']+" "+row['description_col']
+            text = row['summary_col']
             terms = self.term_count(text)
             rw = ''
             for x in range(len(word_list)):
@@ -138,15 +158,19 @@ class VectorRepresenter:
             output += security+","
             performance = str((row['target_Performance'] in (None, '') and '0' or row['target_Performance']))
             output += performance
-            print(output)
+            txt_file.write(output+'\n')
         csvfile.close()
+        txt_file.close()
         return
 
-    def vec_process(self, word2vec: bool= False):
-        if word2vec == True:
-           sys.stdout = open(self.file + 'wv_vec.csv', 'w')
-        else:
-            sys.stdout = open(self.file + '_vec.csv', 'w')
-        self.proc_bug_reports(word2vec)
+    def vec_process(self, word2vec: bool= False, txt: bool=False, str: bool=False):
+        if str:
+            self.proc_bug_reports_str(self.file + '_str_vec.csv')
+        if txt:
+            if word2vec == True:
+                self.proc_bug_reports_txt(word2vec, self.file + '_wv_txt_vec.csv')
+            else:
+                self.proc_bug_reports_txt(word2vec, self.file + '_txt_vec.csv')
+
         sys.stdout.close()
         return
