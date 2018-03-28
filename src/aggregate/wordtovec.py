@@ -61,13 +61,14 @@ class Word2VecRep:
         return
 
     def retrive_sentences_bug(self, bug_file: str):
-        with open('../aggregate/' + bug_file + '_proc.csv', newline='', encoding="UTF-8") as csvfile:
+        with open('../aggregate/' + bug_file + '_txt_proc.csv', newline='', encoding="UTF-8") as csvfile:
             self.bug_sentences = []
             reader = csv.DictReader(csvfile)
             for row in reader:
                 line_sentence = []
                 textProcessor = TextPreprocessor()
-                text = (row['summary_col'] in (None, '') and '' or row['summary_col']) + ' ' + (row['description_col'] in (None, '') and '' or row['description_col'])
+                #text = (row['summary_col'] in (None, '') and '' or row['summary_col']) + ' ' + (row['description_col'] in (None, '') and '' or row['description_col'])
+                text = (row['summary_col'] in (None, '') and '' or row['summary_col'])
                 line_sentence = textProcessor.getProcessedText(text)
                 self.bug_sentences.append(line_sentence)
         return
@@ -87,14 +88,15 @@ class Word2VecRep:
 
         from gensim.models.word2vec import Word2Vec
         sentences = self.bug_sentences + self.src_sentences
-        model = Word2Vec(sentences, size=100, window=5, min_count=2, workers=4)
+        model = Word2Vec(sentences, size=200, window=5, min_count=2, workers=4)
         model.wv.save_word2vec_format(file+'_wv.txt', binary=False)
         return True
 
-subject ='derby'
-# import sys
-# sys.stdout = open(subject+'log.txt', 'w')
+subjects = ['Camel_Shaon','ambari','derby','wicket']
+import sys
+sys.stdout = open(subjects[2] + '_wv_log.txt', 'w')
 wv = Word2VecRep()
-print(subject)
-wv.train_word2vec(subject, True, True)
-# sys.stdout.close()
+print(subjects[2])
+wv.train_word2vec(subjects[2], False, True)
+sys.stdout.close()
+

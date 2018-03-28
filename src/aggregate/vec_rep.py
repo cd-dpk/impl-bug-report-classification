@@ -92,7 +92,7 @@ class VectorRepresenter:
         return
 
     def proc_bug_reports_txt(self, word2vec: bool, output_file):
-        txt_file = open(output_file,'w')
+        txt_file = open(output_file,'w', encoding='UTF-8')
         word_list, word_df, t_d = self.get_all_terms()
         '''
         re_word_list = []
@@ -135,8 +135,6 @@ class VectorRepresenter:
                         from gensim.models import KeyedVectors
                         import numpy as np
                         wv_file = self.file
-                        if self.file == 'Camel_Shaon':
-                            wv_file = 'camel'
                         words_vectors = KeyedVectors.load_word2vec_format(wv_file + '_wv.txt', binary=False)
                         word_vecs = []
 
