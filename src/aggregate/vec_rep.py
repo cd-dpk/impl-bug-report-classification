@@ -18,14 +18,14 @@ class VectorRepresenter:
 
     # all the terms that will be used as feature
     def get_all_terms(self):
-        csvfile = open(self.file + '_proc.csv', encoding='UTF-8', newline='')
+        csvfile = open(self.file + '_txt_proc.csv', encoding='UTF-8', newline='')
         reader = csv.DictReader(csvfile)
         word_list = []
         word_df = []
         t_d = 0
         for row in reader:
-            text = row['summary_col'] in (None,'') and '' or row['summary_col']+" "+row['description_col'] in (None,'') and '' or row['description_col']
-            # text = row['summary_col'] in (None, '') and '' or row['summary_col']
+            # text = row['summary_col'] in (None,'') and '' or row['summary_col']+" "+row['description_col'] in (None,'') and '' or row['description_col']
+            text = row['summary_col'] in (None, '') and '' or row['summary_col']
             terms = self.term_count(text)
             for term in terms:
                 index = -1
