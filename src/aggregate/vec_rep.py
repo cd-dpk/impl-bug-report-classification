@@ -18,15 +18,16 @@ class VectorRepresenter:
         return proc_t.most_common()
 
     # all the terms that will be used as feature
-    def get_all_terms(self):
+    def get_all_terms(self, des:bool=False):
         csvfile = open(self.data_path + self.file + '_txt_proc.csv', encoding='UTF-8', newline='')
         reader = csv.DictReader(csvfile)
         word_list = []
         word_df = []
         t_d = 0
         for row in reader:
-            text = row['summary_col'] in (None,'') and '' or row['summary_col']+" "+row['description_col'] in (None,'') and '' or row['description_col']
-            # text = row['summary_col'] in (None, '') and '' or row['summary_col']
+            text = row['summary_col'] in (None,'') and '' or row['summary_col']
+            if des:
+                text += " " + row['description_col'] in (None, '') and '' or row['description_col']
             terms = self.term_count(text)
             for term in terms:
                 index = -1
@@ -44,7 +45,7 @@ class VectorRepresenter:
     # represent each bug report as vector of terms
     # weight of each term is calculated using tf_idf
     def proc_bug_reports_str(self, output_file, ):
-        str_file = open(self.data_path + output_file,'w', encoding='UTF-8')
+        str_file = open(self.data_path + output_file, 'w', encoding='UTF-8')
         header_str = 'issue_id,'
         header_str += 'reporter_col,team_col,'
         header_str += 'component_col,'
@@ -92,8 +93,8 @@ class VectorRepresenter:
         str_file.close()
         return
 
-    def proc_bug_reports_txt(self, word2vec: bool, dim:int=200, src:bool=False):
-        output_file = self.data_path + self.file + '_' + str(word2vec) + '_' + str(dim) + '_' + str(src) + '_vec.csv'
+    def proc_bug_reports_txt(self, word2vec: bool, dim: int=0, src:bool=False, des:bool=False):
+        output_file = self.data_path + self.file + '_' + str(word2vec) + '_' + str(dim) + '_' + str(src) + '_' + str(des) + '_vec.csv'
         txt_file = open(output_file, 'w', encoding='UTF-8')
         word_list, word_df, t_d = self.get_all_terms()
         '''
@@ -117,8 +118,10 @@ class VectorRepresenter:
 
         for row in reader:
             output = row['issue_id'] + ","
-            # text = row['summary_col']+" "+row['description_col']
             text = row['summary_col']
+            if des:
+                text += " "+row['description_col']
+
             terms = self.term_count(text)
             rw = ''
             for x in range(len(word_list)):
@@ -163,10 +166,10 @@ class VectorRepresenter:
         txt_file.close()
         return
 
-    def vec_process(self, word2vec: bool= False, dim:int=200, src:bool=False, txt: bool=False, str: bool=False):
+    def vec_process(self, word2vec: bool= False, dim:int=0, src:bool=False, des:bool= False, txt: bool=False, str: bool=False):
         if str:
             self.proc_bug_reports_str(self.file + '_str_vec.csv')
         if txt:
-            self.proc_bug_reports_txt(word2vec, dim, src)
+            self.proc_bug_reports_txt(word2vec, dim, src, des)
 
         return

@@ -26,10 +26,13 @@ rf = RandomForestClassifier()
 dt = DecisionTreeClassifier()
 supvecmac = svm.SVC(probability=True)
 knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
-data_path = "/media/geet/Random/PYTHON/simulated_data/"
+data_path = "C:/Users/Assistant/PycharmProjects/simulated_data/"
 alphas = [0.4, 0.5, 0.6]
 sampling = [0]
-subjects = [derby, ambari, camel_shaon]
+subjects = [ambari, camel_shaon, derby, wicket]
 dims =[150, 200, 100]
-
-NormalExperiment(data_path, derby, Security).do_experiment_txt_sampling_classifier(word2vec=True, dim=200)
+for subject in subjects:
+    NormalExperiment(data_path, subject, Performance).do_experiment_txt_sampling_feature_selection(des=False, alpha=0.6)
+    NormalExperiment(data_path, subject, Performance).do_experiment_txt_sampling_feature_selection(des=True, alpha=0.6)
+    NormalExperiment(data_path, subject, Security).do_experiment_txt_sampling_feature_selection(des=False, alpha=0.6)
+    NormalExperiment(data_path, subject, Security).do_experiment_txt_sampling_feature_selection(des=True, alpha=0.6)

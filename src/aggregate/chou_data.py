@@ -21,10 +21,11 @@ class ChouDataHandler:
         self.text_features = []
         self.str_features = []
 
-    def load_txt_data(self, word2vec: bool= False, dim: int = 200, src: bool= False):
+    def load_txt_data(self, word2vec: bool= False, dim: int = 200, src: bool= False, des:bool=False):
         self.text_features = []
         self.target_column = ''
-        file_name = self.file + '_' + str(word2vec)+ '_' + str(dim) + '_' + str(src)
+        file_name = self.file + '_' + str(word2vec)+ '_' + str(dim) + '_' + str(src) + '_' + str(des)
+        print('File Name'+file_name)
 
         with open(self.data_path + file_name+'_vec.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)

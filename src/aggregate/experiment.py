@@ -9,9 +9,9 @@ class Experiment:
         self.intent = intent
         self.sampling_indices = [0, 1, 2]
 
-    def load_data(self, word2vec: bool= False, dim: int = 0, src: bool= False):
+    def load_data(self, word2vec: bool= False, dim: int = 0, src: bool= False, des: bool =False):
         chou_data = ChouDataHandler(self.data_path, self.file, self.intent)
-        chou_data.load_txt_data(word2vec, dim, src)
+        chou_data.load_txt_data(word2vec, dim, src, des=des)
         chou_data.load_str_data()
         self.str_features = chou_data.str_features
         self.txt_features = chou_data.text_features

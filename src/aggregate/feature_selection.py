@@ -118,12 +118,12 @@ class FeatureSelector:
         for x in range(l1):
             if self.pos_fs[x] > 0:
                 pos.append(self.pos_fs[x])
-        print("LEN OF POS", len(pos))
+        # print("LEN OF POS", len(pos))
         l2 = l-l1
         for x in range(l2):
             if self.neg_fs[x] > 0:
                 neg.append(self.neg_fs[x])
-        print("LEN of NEG", len(neg))
+        # print("LEN of NEG", len(neg))
         print(len(data))
         print(data.shape)
         print(list(frozenset(pos+neg)))

@@ -69,7 +69,7 @@ class NormalExperiment(Experiment):
             y_train = np.concatenate(y_train)
 
             print("Before FS", X_train.shape, X_test.shape)
-            from src.aggregate.feature_selection import FeatureSelector
+            from src.aggregate.feature_select import FeatureSelector
 
             feature_selector = FeatureSelector(selection_method=0)
             feature_selector.fit(X_train, y_train)
@@ -164,7 +164,7 @@ class NormalExperiment(Experiment):
             y_train = np.concatenate(y_train)
 
             print("Before FS", X_train.shape, X_test.shape)
-            from src.aggregate.feature_selection import FeatureSelector
+            from src.aggregate.feature_select import FeatureSelector
             feature_selector = FeatureSelector(selection_method=0)
             feature_selector.fit(X_train, y_train)
             column = 0
@@ -226,7 +226,7 @@ class NormalExperiment(Experiment):
             y_train = np.concatenate(y_train)
 
             print("Before FS", X_train.shape, X_test.shape)
-            from src.aggregate.feature_selection import FeatureSelector
+            from src.aggregate.feature_select import FeatureSelector
             if sampling_index == 0:
                 X_train, y_train = self.under_sampling(X_train, y_train)
             elif sampling_index == 1:

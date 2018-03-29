@@ -1,0 +1,18 @@
+import numpy as np
+import math
+points =[]
+points.append([0.0,0.0])
+points.append([0.40061812437049565,0.44827942900489615])
+points.append([0.3553041085394263,0.48275980966829873])
+points.append([0.35221451655094427,0.48275980966829873])
+points.append([0.35633397253558696,0.48275980966829873])
+points.append([0.3553041085394263,0.44827942900489615])
+points.append([0.35942356452406893,0.44827942900489615])
+points.append([0.34912492456246225,0.44827942900489615])
+points.append([0.33367696462005225,0.44827942900489615])
+points.append([1.0,1.0])
+
+aoc = 0.0
+for x in range(len(points)-1):
+    aoc += (points[x+1][1]+points[x][1])*abs(points[x+1][0]-points[x][0])*0.5
+print(aoc)
