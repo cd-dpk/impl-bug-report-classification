@@ -6,17 +6,30 @@ import numpy as np
 import os, csv, re
 
 class NormalExperiment(Experiment):
-    # @imbalance @sampling @text @single_classifier
-    def do_experiment_txt_sampling_classifier(self, sampling_index:int=0, hypo=MultinomialNB()):
+
+    def do_experiment_text(self):
         print(self.file, self.intent)
         self.load_data()
+        print(self.X_txt)
+        print(self.txt_features)
+        print(len(self.txt_features))
+        print(self.X_str)
+        print(self.str_features)
+        print(len(self.str_features))
+        return
+
+    # @imbalance @sampling @text @single_classifier
+    def do_experiment_txt_sampling_classifier(self, word2vec: bool= False, dim: int = 0, src: bool= False, sampling_index:int=0, hypo=MultinomialNB()):
+        print(self.file, self.intent)
+        self.load_data(word2vec,dim, src)
+        print(self.X_txt)
         X_folds = np.array_split(self.X_txt, 10)
-        y_folds = np.array_split(self.y, 10)
+        y_folds = np.array_split(self.y_txt, 10)
         t_p = 0.0
         f_p = 0.0
         t_n = 0.0
         f_n = 0.0
-        print(Counter(self.y))
+        print(Counter(self.y_txt))
 
         for k in range(10):
             # We use 'list' to copy, in order to 'pop' later on
@@ -47,9 +60,11 @@ class NormalExperiment(Experiment):
 
         print(t_p, t_n, f_p, f_n)
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
+        print(self.calc_fpr_tpr({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
         return
     # @text @feature selection
+
     def do_experiment_txt_feature_selection(self, l, l1_ratio, hypo):
         self.load_data()
         print(self.X_txt.shape)

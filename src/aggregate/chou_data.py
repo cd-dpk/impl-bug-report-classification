@@ -4,7 +4,9 @@ import sys, csv
 
 
 class ChouDataHandler:
-    def __init__(self, file, intent):
+
+    def __init__(self, data_path, file, intent):
+        self.data_path = data_path
         self.file = file
         self.intent = intent
         self.reporter_data = []
@@ -19,16 +21,12 @@ class ChouDataHandler:
         self.text_features = []
         self.str_features = []
 
-    def load_txt_data(self, word2vec: bool):
+    def load_txt_data(self, word2vec: bool= False, dim: int = 200, src: bool= False):
         self.text_features = []
         self.target_column = ''
-        file_name = self.file
-        if word2vec == True:
-            file_name += '_wv_txt'
-        else:
-            file_name += '_txt'
+        file_name = self.file + '_' + str(word2vec)+ '_' + str(dim) + '_' + str(src)
 
-        with open(file_name+'_vec.csv', newline='', encoding="UTF-8") as csvfile:
+        with open(self.data_path + file_name+'_vec.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
             counter = 0
             for f in reader.fieldnames:
@@ -57,30 +55,14 @@ class ChouDataHandler:
                 counter += 1
 
         self.textual_data = np.array(self.textual_data)
-        self.txt_target_data = np.array(self.target_data)
+        self.txt_target_data = np.array(self.txt_target_data)
         return
 
     def load_str_data(self):
-        component_data = np.array(self.component_to_numeric_data())
-        self.str_features.append("auth")
-        self.str_features.append("team")
-        for y in range(len(self.grep_data[0])):
-            self.str_features.append("grep"+str(y))
-
-        for y in range(len(self.lexicon_data[0])):
-            self.str_features.append("lex" + str(y))
-
-        for y in range(len(component_data[0])):
-            self.str_features.append("comp"+str(y))
-
-        for y in range(len(self.description_data[0])):
-            self.str_features.append("des" + str(y))
-        self.str_features = np.array(self.str_features,dtype=object)
-
         self.target_column = ''
         file_name = self.file+'_str'
 
-        with open(file_name+'_vec.csv', newline='', encoding="UTF-8") as csvfile:
+        with open(self.data_path + file_name+'_vec.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
             if self.intent == 'Security':
                 self.target_column = reader.fieldnames[len(reader.fieldnames)- 2]
@@ -118,8 +100,25 @@ class ChouDataHandler:
         self.component_data = np.array(self.component_data)
         self.grep_data = np.array(self.grep_data, dtype=int)
         self.description_data = np.array(self.description_data)
-        self.str_target_data = np.array(self.target_data)
+        self.str_target_data = np.array(self.str_target_data)
         self.lexicon_data = np.array(self.lexicon_data)
+
+        component_data = np.array(self.component_to_numeric_data())
+        self.str_features.append("auth")
+        self.str_features.append("team")
+        for y in range(len(self.grep_data[0])):
+            self.str_features.append("grep"+str(y))
+
+        for y in range(len(self.lexicon_data[0])):
+            self.str_features.append("lex" + str(y))
+
+        for y in range(len(component_data[0])):
+            self.str_features.append("comp"+str(y))
+
+        for y in range(len(self.description_data[0])):
+            self.str_features.append("des" + str(y))
+        self.str_features = np.array(self.str_features,dtype=object)
+
         return
 
     def reporter_to_numeric_data(self):
@@ -172,5 +171,5 @@ class ChouDataHandler:
                 temp_arr.append(self.description_data[x][y])
             numeric_data.append(temp_arr)
 
-        return np.array(numeric_data)
+        return np.array(numeric_data, dtype=float)
 
