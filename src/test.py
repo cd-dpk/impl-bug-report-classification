@@ -1,7 +1,4 @@
-class Test:
-    def __init__(self):
-        2
-    def add(self, a:int=10, b:int=20):
-        return a + b
-
-print(Test().add())
+import numpy as np
+a = [[1,2,3],[2,3,4]]
+b = [[0,0],[0,0]]
+print(np.concatenate((a,b),axis=1))

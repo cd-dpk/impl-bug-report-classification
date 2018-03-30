@@ -19,6 +19,7 @@ class Experiment:
         self.y_txt = chou_data.txt_target_data
         self.X_str = chou_data.get_numeric_str_data()
         self.y_str = chou_data.str_target_data
+        self.target_feature = chou_data.target_column
 
     def under_sampling(self,X,y):
         from imblearn.under_sampling import RandomUnderSampler

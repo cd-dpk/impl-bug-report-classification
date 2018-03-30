@@ -65,10 +65,13 @@ class ChouDataHandler:
 
         with open(self.data_path + file_name+'_vec.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
+            grep_key = ''
             if self.intent == 'Security':
-                self.target_column = reader.fieldnames[len(reader.fieldnames)- 2]
+                self.target_column = reader.fieldnames[len(reader.fieldnames) - 2]
+                grep_key = 'grep_sec'
             elif self.intent == 'Performance':
                 self.target_column = reader.fieldnames[len(reader.fieldnames) - 1]
+                grep_key = 'grep_perf'
             # print(text_features)
             counter = 0
             for row in reader:
@@ -78,8 +81,7 @@ class ChouDataHandler:
                 pos = float(row[self.intent+'_pos_col'] in (None, '') and '0' or row[self.intent+'_pos_col'])
                 neu = float(row[self.intent+'_neu_col'] in (None, '') and '0' or row[self.intent+'_neu_col'])
                 neg = float(row[self.intent+'_neg_col'] in (None, '') and '0' or row[self.intent+'_neg_col'])
-                grep_sec = row['grep_sec'] in (None, '') and '0' or row['grep_sec']
-                grep_perf = row['grep_perf'] in (None, '') and '0' or row['grep_perf']
+                grep = row[grep_key] in (None, '') and '0' or row[grep_key]
                 st = ((row['ST_col'] in (None, '') and '0' or row['ST_col']))
                 patch = ((row['Patch_col'] in (None, '') and '0' or row['Patch_col']))
                 ce = ((row['CE_col'] in (None, '') and '0' or row['CE_col']))
@@ -89,7 +91,7 @@ class ChouDataHandler:
                 self.reporter_data.append(reporter)
                 self.team_data.append(team)
                 self.component_data.append(component)
-                self.grep_data.append([grep_sec, grep_perf])
+                self.grep_data.append(grep)
                 self.description_data.append(np.array([int(st), int(patch), int(ce), int(tc), int(en)]))
                 self.lexicon_data.append([pos, neu, neg])
                 target = int(row[self.target_column])
@@ -107,8 +109,7 @@ class ChouDataHandler:
         component_data = np.array(self.component_to_numeric_data())
         self.str_features.append("auth")
         self.str_features.append("team")
-        for y in range(len(self.grep_data[0])):
-            self.str_features.append("grep"+str(y))
+        self.str_features.append(grep_key)
 
         for y in range(len(self.lexicon_data[0])):
             self.str_features.append("lex" + str(y))
@@ -162,14 +163,18 @@ class ChouDataHandler:
             temp_arr =[]
             temp_arr.append(reporter_data[x])
             temp_arr.append(self.team_data[x])
+
             for y in range(len(component_data[x])):
                 temp_arr.append(component_data[x][y])
-            for y in range(len(self.grep_data[x])):
-                temp_arr.append(self.grep_data[x][y])
+
+            temp_arr.append(self.grep_data[x])
+
             for y in range(len(self.lexicon_data[x])):
                 temp_arr.append(self.lexicon_data[x][y])
+
             for y in range(len(self.description_data[x])):
                 temp_arr.append(self.description_data[x][y])
+
             numeric_data.append(temp_arr)
 
         return np.array(numeric_data, dtype=float)

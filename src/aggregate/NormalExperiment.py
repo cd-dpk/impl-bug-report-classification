@@ -213,15 +213,12 @@ class NormalExperiment(Experiment):
         return
 
 
-
-
-
     # @imbalance @sampling @ensemble @probability @text
     def do_experiment_txt_sampling_ensemble_probability_voting(self, sampling_index: int, hypos:list):
         self.load_data()
         print(self.X_txt.shape)
         X_folds = np.array_split(self.X_txt, 10)
-        y_folds = np.array_split(self.y, 10)
+        y_folds = np.array_split(self.y_txt, 10)
         t_p = 0.0
         f_p = 0.0
         t_n = 0.0
@@ -407,17 +404,17 @@ class NormalExperiment(Experiment):
                 stacking_file.write(output+'\n')
 
         return
+
+
     # @text @str
     def do_experiment_txt_str(self, hypo):
         # classify bug report through text using feature selection
         # classify the structures
         self.load_data()
-        print(self.X_txt)
         print(self.X_str)
 
-        X_txt_folds = np.array_split(self.X_txt, 10)
         X_str_folds = np.array_split(self.X_str, 10)
-        y_folds = np.array_split(self.y, 10)
+        y_folds = np.array_split(self.y_str, 10)
         from src.aggregate.feature_selection import FeatureSelector
         self.X_txt = FeatureSelector().fit_transform_odd_ratio(self.X_txt, self.y, 400, 0.5)
 
@@ -490,13 +487,13 @@ class NormalExperiment(Experiment):
 
         return
     # @text @str @weka
-    def do_experiment_first_txt_second_categorical_weka(self, sampling_index=0,hypo1=MultinomialNB()):
-        self.load_data()
+    def do_experiment_first_txt_second_categorical_weka(self, sampling_index=0, hypo1=MultinomialNB(), des:bool=False):
+        self.load_data(des=des)
         print(self.X_txt.shape)
-        print(self.categorical_data.shape)
+        print(self.X_str.shape)
         X_folds = np.array_split(self.X_txt, 10)
-        X_cat_folds = np.array_split(self.categorical_data, 10)
-        y_folds = np.array_split(self.y, 10)
+        X_str_folds = np.array_split(self.X_str, 10)
+        y_folds = np.array_split(self.y_txt, 10)
         for l in range(10):
             # We use 'list' to copy, in order to 'pop' later on
             X_train = list(X_folds)
@@ -506,9 +503,9 @@ class NormalExperiment(Experiment):
             y_test = y_train.pop(l)
             y_train = np.concatenate(y_train)
 
-            X_cat_train = list(X_cat_folds)
-            X_cat_test = X_cat_train.pop(l)
-            X_cat_train = np.concatenate(X_cat_train)
+            X_str_train = list(X_str_folds)
+            X_str_test = X_str_train.pop(l)
+            X_str_train = np.concatenate(X_str_train)
 
             fold = 10
             X_folds_2 = np.array_split(X_train, fold)
@@ -551,18 +548,18 @@ class NormalExperiment(Experiment):
             '''
                      training with first train data probabilities
             '''
-            train_data = np.concatenate((X_cat_train, y_predicts_proba_train), axis=1)
-            test_data = np.concatenate((X_cat_test, y_predicts_proba_test), axis=1)
+            print(X_str_train.shape, y_predicts_proba_train.shape)
+            train_data = np.concatenate((X_str_train, y_predicts_proba_train), axis=1)
+            test_data = np.concatenate((X_str_test, y_predicts_proba_test), axis=1)
             '''------------Sampling---------------'''
             train_data, y_train = self.under_sampling(train_data, y_train)
-            print("Data", len(train_data),':' ,len(test_data))
+            print("Data", len(train_data), ':', len(test_data))
             '''-----------Sampling---------------------'''
             train_data = np.array(train_data, dtype=float)
             test_data = np.array(test_data, dtype=float)
             print("train_data")
-            weka_train_scvfile = open('weka/'+self.file+'/'+str(l)+'_'+self.intent+'_train_str.csv', 'w')
+            weka_train_scvfile = open(self.data_path+'weka/'+self.file+'/'+str(l)+'_'+self.intent+'_'+str(des)+'_train_str.csv', 'w')
             cols = ''
-
             for i in range(len(self.str_features)):
                 cols += str(self.str_features[i]) + ","
             cols += 'prob0,prob1,target'
@@ -573,7 +570,7 @@ class NormalExperiment(Experiment):
             for row in range(len(train_data)):
                 output = ''
                 for col in range(len(train_data[0])):
-                    output += str(train_data[row][col])+","
+                    output += str(round(float(train_data[row][col]),3))+","
 
                 output += str(y_train[row])
                 print(output)
@@ -581,7 +578,7 @@ class NormalExperiment(Experiment):
 
             weka_train_scvfile.close()
             print("test_data")
-            weka_test_scvfile = open('weka/' + self.file + '/' + str(l) + '_' + self.intent + '_test_str.csv', 'w')
+            weka_test_scvfile = open(self.data_path+'weka/'+self.file+'/'+str(l)+'_'+self.intent+'_'+str(des)+'_test_str.csv', 'w')
             cols = ''
 
             for i in range(len(self.str_features)):
@@ -594,7 +591,7 @@ class NormalExperiment(Experiment):
             for row in range(len(test_data)):
                 output = ''
                 for col in range(len(test_data[0])):
-                    output += str(test_data[row][col]) + ","
+                    output += str(round(float(test_data[row][col]), 3))+","
 
                 output += str(y_test[row])
                 print(output)
@@ -797,17 +794,20 @@ class NormalExperiment(Experiment):
         # logfile.write(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})+ "\n")
         logfile.close()
         return
+
+
     # @text @chi2 @feature_extraction
     def do_experiment_feature_extraction_chi2(self):
         print("CHI2")
         self.load_data()
-        print(self.str_features)
+        # print(self.str_features)
         print(len(self.str_features))
+        print(self.target_feature)
         data = self.X_str
-        target = self.y
+        target = self.y_str
         print(Counter(target))
-        for row in range(len(data)):
-            print(data[row])
+        # for row in range(len(data)):
+        #     print(data[row])
         from src.aggregate.chi2 import Chi2Selector
         from sklearn.feature_selection import chi2
         chi_selector = Chi2Selector()
@@ -815,7 +815,7 @@ class NormalExperiment(Experiment):
         custom_scores = chi_selector.scores()
         sklearn_scores, sklearn_pvalues = chi2(data,target)
         for x in range(len(custom_scores)):
-            print(self.str_features[x],custom_scores[x], sklearn_scores[x])
+            print(self.str_features[x], custom_scores[x], sklearn_scores[x])
         print("Features")
         features = []
         for x in range(len(self.str_features)):
@@ -828,6 +828,7 @@ class NormalExperiment(Experiment):
             if feature[1] >= critical_value_at_5:
                print(feature[0], feature[1])
         return
+
     # @text @mi @feature_extraction
     def do_experiment_feature_extraction_mi(self):
         print("MI")
@@ -835,7 +836,7 @@ class NormalExperiment(Experiment):
         print(self.str_features)
         print(len(self.str_features))
         data = self.X_str
-        target = self.y
+        target = self.y_str
         print(Counter(target))
         for row in range(len(data)):
             print(data[row])
@@ -856,6 +857,8 @@ class NormalExperiment(Experiment):
             print(feature[0],feature[1])
 
         return
+
+
     # @text @stacking
     def do_experiment_stacking_csv(self, sampling_index=0):
         print(self.file,self.intent)
