@@ -109,18 +109,42 @@ class ChouDataHandler:
         component_data = np.array(self.component_to_numeric_data())
         self.str_features.append("auth")
         self.str_features.append("team")
-        self.str_features.append(grep_key)
-
-        for y in range(len(self.lexicon_data[0])):
-            self.str_features.append("lex" + str(y))
-
         for y in range(len(component_data[0])):
             self.str_features.append("comp"+str(y))
 
+        self.str_features.append("grep")
+        for y in range(len(self.lexicon_data[0])):
+            self.str_features.append("lex" + str(y))
         for y in range(len(self.description_data[0])):
             self.str_features.append("des" + str(y))
         self.str_features = np.array(self.str_features,dtype=object)
 
+        return
+
+    def load_raw_data(self):
+        file_name = self.file
+        self.raw_features = []
+        self.raw_data = []
+        self.raw_target = []
+        with open('../data/' + file_name+'.csv', newline='', encoding="UTF-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                issue_id = str(row['issue_id'] in (None, '') and '' or row['issue_id'])
+                summary = (row['summary'] in (None, '') and '' or row['summary'])
+                description = (row['description'] in (None, '') and '' or row['description'])
+                security_label = (row['Security'] in (None, '') and '0' or row['Security'])
+                perf_label = (row['Performance'] in (None, '') and '0' or row['Performance'])
+                self.raw_data.append([issue_id, summary, description])
+                if self.intent == 'Security':
+                    self.raw_target.append(security_label)
+                elif self.intent == 'Performance':
+                    self.raw_target.append(perf_label)
+
+        self.raw_data = np.array(self.raw_data)
+        self.raw_target = np.array(self.raw_target, dtype=int)
+        self.raw_features.append('issue_id')
+        self.raw_features.append('summary')
+        self.raw_features.append('description')
         return
 
     def reporter_to_numeric_data(self):
@@ -163,15 +187,12 @@ class ChouDataHandler:
             temp_arr =[]
             temp_arr.append(reporter_data[x])
             temp_arr.append(self.team_data[x])
-
             for y in range(len(component_data[x])):
                 temp_arr.append(component_data[x][y])
-
             temp_arr.append(self.grep_data[x])
 
             for y in range(len(self.lexicon_data[x])):
                 temp_arr.append(self.lexicon_data[x][y])
-
             for y in range(len(self.description_data[x])):
                 temp_arr.append(self.description_data[x][y])
 

@@ -13,6 +13,7 @@ class Experiment:
         chou_data = ChouDataHandler(self.data_path, self.file, self.intent)
         chou_data.load_txt_data(word2vec, dim, src, des=des)
         chou_data.load_str_data()
+        chou_data.load_raw_data()
         self.str_features = chou_data.str_features
         self.txt_features = chou_data.text_features
         self.X_txt = chou_data.textual_data
@@ -20,6 +21,9 @@ class Experiment:
         self.X_str = chou_data.get_numeric_str_data()
         self.y_str = chou_data.str_target_data
         self.target_feature = chou_data.target_column
+        self.X_raw = chou_data.raw_data
+        self.raw_features = chou_data.raw_features
+        self.y_raw = chou_data.raw_target
 
     def under_sampling(self,X,y):
         from imblearn.under_sampling import RandomUnderSampler
@@ -62,19 +66,29 @@ class Experiment:
         return (result_dic['t_p'], result_dic['t_n'], result_dic['f_p'], result_dic['f_n'])
 
 
-    def calc_acc_pre_rec(self,result_dic:dict):
+    def calc_pre_rec_acc_fpr_tpr(self,result_dic:dict):
         t_p = result_dic['t_p']
         t_n = result_dic['t_n']
         f_p = result_dic['f_p']
         f_n = result_dic['f_n']
 
-        if (t_p + f_p) != 0 and (t_p + f_n) != 0:
-            pre = t_p / (t_p + f_p)
-            rec = t_p / (t_p + f_n)
-            acc = (t_p + t_n) / (t_p + f_p + t_n + f_n)
-            return (acc, pre, rec)
-        else:
-            return (0.0, 0.0, 0.0)
+        t_p += 0.00001
+        t_n += 0.00001
+        f_p += 0.00001
+        f_n += 0.00001
+
+        p = t_p + f_n
+        n = f_p + t_n
+        Y = t_p + f_p
+        N = f_n + t_n
+
+        pre = t_p / Y
+        rec = t_p / p
+        acc = (t_p + t_n) / (p+n)
+        fpr = f_p / n
+        tpr = t_p / p
+
+        return (pre, rec, acc, fpr, tpr)
 
     def calc_fpr_tpr(self,result_dic:dict):
         t_p = result_dic['t_p']

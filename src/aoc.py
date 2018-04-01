@@ -1,13 +1,8 @@
 import numpy as np
 import math, re
 points =[]
-points.append([0.0,0.0])
-res_file = open('/media/geet/Random/PYTHON/simulated_data/wicket_Security_True_0_log.txt','r')
-for line in res_file:
-    tokens = re.split("[,\n]",line)
-    if len(tokens) == 3:
-        print(line)
-        points.append([float(tokens[0]), float(tokens[1])])
+points.append([0.0, 0.0])
+points.append([0.19290928690491582,0.6585365080309717])
 points.append([1.0, 1.0])
 
 aoc = 0.0

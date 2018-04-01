@@ -25,6 +25,31 @@ class GREP:
         return {'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}
     def calc_tuple(self,result_dic:dict):
         return (result_dic['t_p'], result_dic['t_n'], result_dic['f_p'], result_dic['f_n'])
+
+    def calc_pre_rec_acc_fpr_tpr(self, result_dic:dict):
+        t_p = result_dic['t_p']
+        t_n = result_dic['t_n']
+        f_p = result_dic['f_p']
+        f_n = result_dic['f_n']
+
+        t_p += 0.00001
+        t_n += 0.00001
+        f_p += 0.00001
+        f_n += 0.00001
+
+        p = t_p + f_n
+        n = f_p + t_n
+        Y = t_p + f_p
+        N = f_n + t_n
+
+        pre = t_p / Y
+        rec = t_p / p
+        acc = (t_p + t_n) / (p+n)
+        fpr = f_p / n
+        tpr = t_p / p
+
+        return (pre, rec, acc, fpr, tpr)
+
     def calc_fpr_tpr(self,result_dic:dict):
         t_p = result_dic['t_p']
         t_n = result_dic['t_n']
@@ -77,12 +102,12 @@ class GREP:
         # text_to_search = summary
         grep = perfExpression
         if re.search(perfExpression, text_to_search):
-            return (grep,1)
+            return (grep, 1)
         else:
-            return (grep,0)
+            return (grep, 0)
 
-    def read_and_predict(self, file, intent):
-        logfile = open('grep/'+file+'_'+intent+'_grep.txt',encoding='UTF-8',mode='w')
+    def read_and_predict(self, data_path, file, intent):
+        logfile = open(data_path + 'grep/' + file + '_' + intent + '_grep.txt', encoding='UTF-8', mode='w')
         y_test = []
         y_predict = []
         import csv
@@ -111,10 +136,9 @@ class GREP:
         t_p, t_n, f_p, f_n = self.calc_tuple(self.confusion_matrix(y_test, y_predict))
         print(t_p, t_n, f_p, f_n)
         logfile.write(str(t_p) + ',' + str(t_n) + ',' + str(f_p) + ',' + str(f_n) + '\n')
-        acc, pre, rec = self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n})
+        pre, rec, acc, fpr, tpr = self.calc_pre_rec_acc_fpr_tpr(self.confusion_matrix(y_test, y_predict))
         print(str(acc) + ',' + str(pre) + ',' + str(rec) + '\n')
         logfile.write(str(acc) + ',' + str(pre) + ',' + str(rec) + '\n')
-        fpr, tpr = self.calc_fpr_tpr({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n})
         print(str(fpr) + ',' + str(tpr) + '\n')
         logfile.write(str(fpr) + ',' + str(tpr) + '\n')
         logfile.close()
