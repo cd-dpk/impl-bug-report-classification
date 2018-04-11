@@ -13,7 +13,6 @@ class ChouDataHandler:
         self.team_data = []
         self.component_data = []
         self.grep_data = []
-        self.lexicon_data = []
         self.textual_data = []
         self.description_data = []
         self.txt_target_data = []
@@ -78,9 +77,6 @@ class ChouDataHandler:
                 reporter = row['reporter_col'] in (None, '') and '' or row['reporter_col']
                 team = row['team_col'] in (None, '') and '' or row['team_col']
                 component = row['component_col'] in (None, '') and 'null' or row['component_col']
-                pos = float(row[self.intent+'_pos_col'] in (None, '') and '0' or row[self.intent+'_pos_col'])
-                neu = float(row[self.intent+'_neu_col'] in (None, '') and '0' or row[self.intent+'_neu_col'])
-                neg = float(row[self.intent+'_neg_col'] in (None, '') and '0' or row[self.intent+'_neg_col'])
                 grep = row[grep_key] in (None, '') and '0' or row[grep_key]
                 st = ((row['ST_col'] in (None, '') and '0' or row['ST_col']))
                 patch = ((row['Patch_col'] in (None, '') and '0' or row['Patch_col']))
@@ -93,7 +89,6 @@ class ChouDataHandler:
                 self.component_data.append(component)
                 self.grep_data.append(grep)
                 self.description_data.append(np.array([int(st), int(patch), int(ce), int(tc), int(en)]))
-                self.lexicon_data.append([pos, neu, neg])
                 target = int(row[self.target_column])
                 self.str_target_data.append(target)
                 counter += 1
@@ -104,7 +99,6 @@ class ChouDataHandler:
         self.grep_data = np.array(self.grep_data, dtype=int)
         self.description_data = np.array(self.description_data)
         self.str_target_data = np.array(self.str_target_data)
-        self.lexicon_data = np.array(self.lexicon_data)
 
         component_data = np.array(self.component_to_numeric_data())
         self.str_features.append("auth")
@@ -113,8 +107,6 @@ class ChouDataHandler:
             self.str_features.append("comp"+str(y))
 
         self.str_features.append("grep")
-        for y in range(len(self.lexicon_data[0])):
-            self.str_features.append("lex" + str(y))
         for y in range(len(self.description_data[0])):
             self.str_features.append("des" + str(y))
         self.str_features = np.array(self.str_features,dtype=object)
@@ -191,8 +183,6 @@ class ChouDataHandler:
                 temp_arr.append(component_data[x][y])
             temp_arr.append(self.grep_data[x])
 
-            for y in range(len(self.lexicon_data[x])):
-                temp_arr.append(self.lexicon_data[x][y])
             for y in range(len(self.description_data[x])):
                 temp_arr.append(self.description_data[x][y])
 

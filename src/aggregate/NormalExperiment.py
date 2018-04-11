@@ -7,7 +7,6 @@ import os, csv, re
 
 class NormalExperiment(Experiment):
 
-
     def do_experiment_grep(self):
         from src.aggregate.grep import GREP
         self.load_data()
@@ -190,7 +189,7 @@ class NormalExperiment(Experiment):
         t_n = np.zeros(len(feature_num), dtype=int)
         f_n = np.zeros(len(feature_num), dtype=int)
         print(t_p)
-        logfile = open(self.data_path + self.file + '_' + self.intent + '_' + str(des) + '_' + str(sampling_index) + '_com_txt_fs_' + str(
+        logfile = open(self.data_path + "combined/"+self.file + '_' + self.intent + '_' + str(des) + '_' + str(sampling_index) + '_com_txt_fs_' + str(
                 alpha) + '_log.txt', 'w')
 
         for k in range(fold):
@@ -231,15 +230,14 @@ class NormalExperiment(Experiment):
             # break
 
         for x in range(len(feature_num)):
-            print(feature_num[x])
+            print(feature_num[x], int(feature_num[x] * total_features))
             logfile.write(str(feature_num[x])+','+str(int(feature_num[x] * total_features)) + "\n")
             print(t_p[x], t_n[x], f_p[x], f_n[x])
             logfile.write(str(t_p[x]) + "," + str(t_n[x]) + "," + str(f_p[x]) + "," + str(f_n[x]) + "\n")
-            acc, pre , rec = self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})
-            print(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]}))
-            logfile.write(str(acc) + "," + str(pre) + "," + str(rec)  + "\n")
-            fpr, tpr = self.calc_fpr_tpr({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})
-            print(self.calc_fpr_tpr({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]}))
+            pre, rec, acc, fpr, tpr = self.calc_pre_rec_acc_fpr_tpr({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})
+            print(acc, pre, rec)
+            logfile.write(str(acc) + "," + str(pre) + "," + str(rec)+ "\n")
+            print(fpr, tpr)
             logfile.write(str(fpr) + "," + str(tpr) + "\n")
 
         logfile.close()
@@ -367,9 +365,9 @@ class NormalExperiment(Experiment):
 
     # @imbalance @sampling @ensemble @stacking @text
     def do_experiment_txt_sampling_ensemble_stacking(self, sampling_index: int, Hypo, hypos:list):
-        self.load_data()
+        self.load_data(des=False)
         X_folds = np.array_split(self.X_txt, 10)
-        y_folds = np.array_split(self.y, 10)
+        y_folds = np.array_split(self.y_txt, 10)
         len_hypos = len(hypos)
         stacking_file = open(self.data_path+'stacking/' + self.file + '_' + self.intent + '_' + str(sampling_index) + '.csv', 'w')
         stacking_file.write('prob0,prob1,test\n')
@@ -401,12 +399,7 @@ class NormalExperiment(Experiment):
                 y_train_2 = list(y_folds_2)
                 y_test_2 = y_train_2.pop(k)
                 y_train_2 = np.concatenate(y_train_2)
-                if sampling_index== 0:
-                    X_train_2, y_train_2 = self.under_sampling(X_train_2, y_train_2)
-                elif sampling_index == 1:
-                    X_train_2, y_train_2 = self.over_sampling(X_train_2, y_train_2)
-                else:
-                    X_train_2, y_train_2 = self.smote(X_train_2, y_train_2)
+                X_train_2, y_train_2 = self.under_sampling(X_train_2, y_train_2)
 
                 column = 0
                 for hypo in hypos:
@@ -436,8 +429,8 @@ class NormalExperiment(Experiment):
                 print(output)
                 stacking_file.write(output+'\n')
 
+        stacking_file.close()
         return
-
 
     # @text @str
     def do_experiment_txt_str(self, hypo):
@@ -632,6 +625,7 @@ class NormalExperiment(Experiment):
 
         return
     # @categorical @sampling
+
     def do_experiment_categorical_data(self, sampling_index, hypo):
         self.load_data()
         print(self.categorical_data.shape)
@@ -684,6 +678,7 @@ class NormalExperiment(Experiment):
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
         return
+
     # @text @chi2
     def do_experiment_txt_sampling_chi2(self, sampling_index:int, hypo):
         self.load_data()
@@ -845,8 +840,8 @@ class NormalExperiment(Experiment):
         chi_selector.fit(data, target)
         custom_scores = chi_selector.scores()
         sklearn_scores, sklearn_pvalues = chi2(data,target)
-        for x in range(len(custom_scores)):
-            print(self.str_features[x], custom_scores[x], sklearn_scores[x])
+        # for x in range(len(custom_scores)):
+        #     print(self.str_features[x], custom_scores[x], sklearn_scores[x])
         print("Features")
         features = []
         for x in range(len(self.str_features)):
@@ -958,6 +953,7 @@ class NormalExperiment(Experiment):
         print(self.calc_acc_pre_rec({'t_p': t_p, 'f_p': f_p, 't_n': t_n, 'f_n': f_n}))
 
         return
+
     # @text @lor
     def do_experiment_txt_sampling_lor(self, sampling_index=0, negation=False, hypo=MultinomialNB()):
         self.load_data()
@@ -1014,19 +1010,49 @@ class NormalExperiment(Experiment):
         # logfile.write(self.calc_acc_pre_rec({'t_p': t_p[x], 'f_p': f_p[x], 't_n': t_n[x], 'f_n': f_n[x]})+ "\n")
         logfile.close()
         return
+
     # @text @features
     def do_experiment_features_lor(self):
         self.load_data()
-        print(self.X_txt)
-        print(self.X_txt.shape)
-        print(Counter(self.y))
-        logfile = open('feature_select/' + self.file + '_' + self.intent + '_' + '_lor_feature_score_log.txt', 'w')
+        print(self.X_str)
+        print(self.X_str.shape)
+        print(Counter(self.y_str))
+        logfile = open(self.data_path+'feature_select/' + self.file + '_' + self.intent + '_' + '_lor_feature_score_log.txt', 'w')
         from src.aggregate.lor import LORSelector
         lor_selector = LORSelector()
-        lor_selector.fit(self.X_txt, self.y)
-        features_scores = lor_selector.scored_features(self.txt_features)
+        lor_selector.fit(self.X_str, self.y_str)
+        features_scores = lor_selector.scored_features(self.str_features)
         for feature_score in features_scores:
             print(feature_score)
             logfile.write(str(feature_score[0])+','+str(feature_score[1])+'\n')
         logfile.close()
+        return
+
+    def do_experiment_weka_data(self):
+        self.load_data(des=False)
+        data = self.X_str
+        target = self.y_str
+        print(self.file + "_data")
+        weka_train_scvfile = open(
+            self.data_path + 'weka/' + self.file + '/' + self.intent + '_str.csv',
+            'w')
+        cols = ''
+        for i in range(len(self.str_features)):
+            cols += str(self.str_features[i]) + ","
+        cols += 'target'
+
+        print(cols)
+        weka_train_scvfile.write(cols + "\n")
+
+        for row in range(len(data)):
+            output = ''
+            for col in range(len(data[0])):
+                output += str(round(float(data[row][col]), 3)) + ","
+
+            output += str(target[row])
+            print(output)
+            weka_train_scvfile.write(output + "\n")
+
+        weka_train_scvfile.close()
+
         return

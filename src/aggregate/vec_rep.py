@@ -49,7 +49,7 @@ class VectorRepresenter:
         header_str = 'issue_id,'
         header_str += 'reporter_col,team_col,'
         header_str += 'component_col,'
-        header_str += 'grep_sec,grep_perf,Security_pos_col,Security_neu_col,Security_neg_col,Performance_pos_col,Performance_neu_col,Performance_neg_col,ST_col,Patch_col,CE_col,TC_col,EN_col,'
+        header_str += 'grep_sec,grep_perf,ST_col,Patch_col,CE_col,TC_col,EN_col,'
         str_file.write(header_str +'target_Security,target_Performance\n')
         csvfile = open(self.data_path + self.file +'_str_proc.csv', encoding='UTF-8', newline='')
         reader = csv.DictReader(csvfile)
@@ -60,24 +60,6 @@ class VectorRepresenter:
             output += row['component_col'] + ","
             output += row['grep_sec'] + ","
             output += row['grep_perf'] + ","
-            pos = float(row['Security_pos_col'])
-            neu = float(row['Security_neu_col'])
-            neg = float(row['Security_neg_col'])
-            pos = pos / (pos+neu+neg)
-            neu = neu / (pos+neu+neg)
-            neg = neg / (pos+neu+neg)
-            output += str(pos) + ","
-            output += str(neu) + ","
-            output += str(neg) + ","
-            pos = float(row['Performance_pos_col'])
-            neu = float(row['Performance_neu_col'])
-            neg = float(row['Performance_neg_col'])
-            pos = pos / (pos + neu + neg)
-            neu = neu / (pos + neu + neg)
-            neg = neg / (pos + neu + neg)
-            output += str(pos) + ","
-            output += str(neu) + ","
-            output += str(neg) + ","
             st = str((row['ST_col'] in (None, '') and '0' or row['ST_col']))
             patch = str((row['Patch_col'] in (None, '') and '0' or row['Patch_col']))
             ce = str((row['CE_col'] in (None, '') and '0' or row['CE_col']))

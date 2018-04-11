@@ -82,15 +82,15 @@ class Preprocessor:
 
     # process csv file
     def proc_csv_file_str(self):
-        sec_pos_lex, sec_neu_lex, sec_neg_lex = self.load_lexicon_data('Security')
-        perf_pos_lex, perf_neu_lex, perf_neg_lex = self.load_lexicon_data('Performance')
+        # sec_pos_lex, sec_neu_lex, sec_neg_lex = self.load_lexicon_data('Security')
+        # perf_pos_lex, perf_neu_lex, perf_neg_lex = self.load_lexicon_data('Performance')
         team = self.get_team()
         str_file = open(self.data_path + self.file+'_str_proc.csv', 'w', encoding='UTF-8')
 
         with open('../data/' + self.file + '.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
             # str_file.write()
-            str_file.write('issue_id,reporter_col,team_col,component_col,grep_sec,grep_perf,Security_pos_col,Security_neu_col,Security_neg_col,Performance_pos_col,Performance_neu_col,Performance_neg_col,ST_col,Patch_col,CE_col,TC_col,EN_col,files_col,target_Security,target_Performance\n')
+            str_file.write('issue_id,reporter_col,team_col,component_col,grep_sec,grep_perf,ST_col,Patch_col,CE_col,TC_col,EN_col,files_col,target_Security,target_Performance\n')
             for row in reader:
                 issue_id = str(row['issue_id'] in (None, '') and '' or row['issue_id'])
                 reporter = row['reporter'] in (None, '') and 'null' or row['reporter']
@@ -118,8 +118,8 @@ class Preprocessor:
                 tc = str((row['TC'] in (None, '') and '0' or row['TC']))
                 en = str((row['EN'] in (None, '') and '0' or row['EN']))
                 files = row['files'] in (None, '') and '' or row['files']
-
                 terms = TextPreprocessor().term_count(summary+" "+description)
+                '''
                 sec_pos,sec_neu,sec_neg = (0.0, 0.0, 0.0)
                 perf_pos, perf_neu, perf_neg = (0.0, 0.0, 0.0)
                 for term in terms:
@@ -198,11 +198,11 @@ class Preprocessor:
                             # perf_neg += float(term[1]) * float(perf_neg_lex[lexicon])
                             flag_2 = True
                             break
+                '''
                 sec_grep, sec_predict_label = GREP().predict_security_label(summary=summary, description=description)
                 perf_grep, perf_predict_label = GREP().predict_performance_label(summary=summary, description=description)
 
-                str_file.write(issue_id + ',' + reporter + ','+team_col + ',' + component + ',' + str(sec_predict_label) + "," + str(perf_predict_label) + ',' + str(sec_pos) + "," + str(sec_neu) + ',' + str(sec_neg) + "," +
-                      str(perf_pos) + "," + str(perf_neu) + ',' + str(perf_neg)+ ',' + st + ',' + patch + ',' + ce + ','
+                str_file.write(issue_id + ',' + reporter + ','+team_col + ',' + component + ',' + str(sec_predict_label) + "," + str(perf_predict_label) + ',' + st + ',' + patch + ',' + ce + ','
                           + tc + ',' + en + ',' + files + ',' + security_label + "," + perf_label+'\n')
         str_file.close()
         return

@@ -18,9 +18,9 @@ class Converter:
             data += row['auth']+','+row['team']+','
             data += row['comp0']+','+row['comp1']+','+row['comp2']+',' +\
                     row['comp3']+','+row['comp4']+','+row['comp5']+','
-            '''
+            # '''
             data += row['comp6']+','+row['comp7']+','+row['comp8']+','
-            '''
+            # '''
             '''
             data += row['comp9'] + ',' + row['comp10'] + ',' + row['comp11'] + ',' + row['comp12'] + ',' + \
                     row['comp13'] + ','
@@ -45,11 +45,11 @@ class Converter:
         arff_file.write('@attribute comp3 {0.0,1.0}\n')
         arff_file.write('@attribute comp4 {0.0,1.0}\n')
         arff_file.write('@attribute comp5 {0.0,1.0}\n')
-        '''
+        # '''
         arff_file.write('@attribute comp6 {0.0,1.0}\n')
         arff_file.write('@attribute comp7 {0.0,1.0}\n')
         arff_file.write('@attribute comp8 {0.0,1.0}\n')
-        '''
+        # '''
         '''
         arff_file.write('@attribute comp9 {0.0,1.0}\n')
         arff_file.write('@attribute comp10 {0.0,1.0}\n')
@@ -76,12 +76,10 @@ camel = 'weka/Camel_Shaon/'
 derby = 'weka/derby/'
 Security = 'Security'
 Performance = 'Performance'
-intent= Security
+intent = Security
 subject = camel
 des = [False, True]
 for x in range(10):
     for y in range(len(des)):
-        Converter().convert_csv_to_arff(subject+str(x)+'_'+Security+'_'+str(des[y])+'_train_str', subject+str(x)+'_'+Security+'_'+str(des[y])+'_train_str')
-        Converter().convert_csv_to_arff(subject+str(x)+'_'+Security+'_'+str(des[y])+'_test_str', subject+str(x)+'_'+Security+'_'+str(des[y])+'_test_str')
-        Converter().convert_csv_to_arff(subject+str(x)+'_'+Performance+'_'+str(des[y])+'_train_str', subject+str(x)+'_'+Performance+'_'+str(des[y])+'_train_str')
-        Converter().convert_csv_to_arff(subject+str(x)+'_'+Performance+'_'+str(des[y])+'_test_str', subject+str(x)+'_'+Performance+'_'+str(des[y])+'_test_str')
+        Converter().convert_csv_to_arff(subject+str(x)+'_'+intent+'_'+str(des[y])+'_train_str', subject+str(x)+'_'+intent+'_'+str(des[y])+'_train_str')
+        Converter().convert_csv_to_arff(subject+str(x)+'_'+intent+'_'+str(des[y])+'_test_str', subject+str(x)+'_'+intent+'_'+str(des[y])+'_test_str')
