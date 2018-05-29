@@ -66,6 +66,29 @@ class Experiment:
         return (result_dic['t_p'], result_dic['t_n'], result_dic['f_p'], result_dic['f_n'])
 
 
+    def calc_auc(self,result_dic:dict):
+        t_p = result_dic['t_p']
+        t_n = result_dic['t_n']
+        f_p = result_dic['f_p']
+        f_n = result_dic['f_n']
+
+        t_p += 0.00001
+        t_n += 0.00001
+        f_p += 0.00001
+        f_n += 0.00001
+
+        p = t_p + f_n
+        n = f_p + t_n
+        Y = t_p + f_p
+        N = f_n + t_n
+
+        fpr = f_p / n
+        tpr = t_p / p
+        auc = 0.5 * fpr * tpr
+        auc += 0.5 * (1-fpr) * (1+tpr)
+
+        return auc
+
     def calc_pre_rec_acc_fpr_tpr(self,result_dic:dict):
         t_p = result_dic['t_p']
         t_n = result_dic['t_n']

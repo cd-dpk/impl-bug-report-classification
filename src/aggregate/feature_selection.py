@@ -116,12 +116,12 @@ class FeatureSelector:
         neg =[]
         l1 = int(l1_ratio*l)
         for x in range(l1):
-            if self.pos_fs[x] > 0:
+            if(x < len(self.pos_fs)):
                 pos.append(self.pos_fs[x])
         # print("LEN OF POS", len(pos))
         l2 = l-l1
         for x in range(l2):
-            if self.neg_fs[x] > 0:
+            if(x < len(self.neg_fs)):
                 neg.append(self.neg_fs[x])
         # print("LEN of NEG", len(neg))
         print(len(data))

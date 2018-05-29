@@ -268,7 +268,23 @@ class Preprocessor:
 
         sys.stdout.close()
         return
+    def proc_count_words(self):
+        import re
+        txt_file = open(self.data_path + self.file+'_word.csv', 'w', encoding='UTF-8')
+        with open('../data/' + self.file + '.csv', newline='', encoding="UTF-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            txt_file.write('issue_id,summary_col,summary_words, description_col,description_words,target_Security,target_Performance'+'\n')
+            for row in reader:
+                issue_id = str(row['issue_id'] in (None, '') and '' or row['issue_id'])
+                t_p = TextPreprocessor()
+                summary = (row['summary'] in (None, '') and '' or row['summary'])
+                description = (row['description'] in (None, '') and '' or row['description'])
 
+                security_label = (row['Security'] in (None, '') and '' or row['Security'])
+                perf_label = (row['Performance'] in (None, '') and '' or row['Performance'])
+                txt_file.write(issue_id + ',' +summary + ',' + str(len(re.split(" ",summary)))+","+description + ","+str(len(re.split(" ",description)))+","+ security_label + "," + perf_label+'\n')
+        txt_file.close()
+        return
     def pre_process(self, str:bool, txt:bool):
         if str:
             self.proc_csv_file_str()
@@ -278,3 +294,4 @@ class Preprocessor:
 
 
 
+Preprocessor('/media/geet/Random/PYTHON/simulated_data/','derby').proc_count_words()
