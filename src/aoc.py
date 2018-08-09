@@ -1,6 +1,6 @@
 import numpy as np
 import math, re
-points =[]
+points = []
 points.append([0.0, 0.0])
 points.append([0.19290928690491582,0.6585365080309717])
 points.append([1.0, 1.0])
